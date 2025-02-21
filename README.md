@@ -1,10 +1,10 @@
 ## 폴더 구조
 
-> ⛔️ 표시가 있는 파일 및 폴더는 수정하면 안 되거나 수정 시 협의가 필요한 폴더입니다.
+> "주의" 표시가 있는 파일 및 폴더는 수정 시 협의가 필요한 폴더 및 파일입니다. ⛔️
 
 ```
- ┣ apps # 서비스 개발은 apps 폴더에서 진행
- ┃ ┣ ⛔️onasys # 원앤올에서 제공하는 기능 관련 모듈은 onasys 폴더로 제공
+ ┣ apps # 개발은 apps 폴더에서 진행
+ ┃ ┣ ⛔️common # 원앤올에서 제공하는 기능 관련 모듈은 common 폴더로 제공
  ┃ ┃ ┣ board
  ┃ ┃ ┣ survey
  ┃ ┃ ┣ ...
@@ -17,7 +17,7 @@
  ┃   ┗ package.json
  ┃
  ┣ packages # 공통 모듈이 위치할 폴더
- ┃ ┣ ⛔️onasys # 원앤올에서 제공하는 공통 모듈은 onasys 폴더로 제공
+ ┃ ┣ ⛔️common # 원앤올에서 제공하는 공통 모듈은 common 폴더로 제공
  ┃ ┃ ┣ components
  ┃ ┃ ┣ utils
  ┃ ┃ ┗ ...
@@ -28,12 +28,14 @@
  ┃
  ┣ ⛔️package.json
  ┣ ⛔️pnpm-lock.yaml
- ┗ ⛔️pnpm-workspace.yaml
+ ┣ ⛔️pnpm-workspace.yaml
+ ┣ ⛔️tsconfig.base.json
+ ┗ ⛔️turbo.json
 ```
 
 ## 기술 스택
 
-- React(^19)
+- React(^18)
 - TypeScript(^5)
 - Next.js(^15)
 - Tailwind CSS(^3)
