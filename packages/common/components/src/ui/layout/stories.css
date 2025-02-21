@@ -1,0 +1,4 @@
+#storybook-root > div {
+  padding: 0;
+  border-radius: 0;
+}

@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+  .date-picker-trigger {
+    @apply h-[3rem] w-[12rem] justify-between border-input !bg-background px-4 py-2 text-left text-[1.3rem] font-normal leading-none text-muted-foreground hover:!bg-accent;
+  }
+}

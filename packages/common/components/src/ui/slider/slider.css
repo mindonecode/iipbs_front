@@ -1,0 +1,25 @@
+@tailwind components;
+
+@layer components {
+  .slider-root {
+    @apply relative flex w-full min-w-96 touch-none select-none items-center;
+  }
+  .slider-track {
+    @apply relative h-3 w-full grow overflow-hidden rounded-full bg-muted;
+  }
+  .slider-range {
+    @apply absolute h-full bg-primary data-[disabled]:bg-muted;
+  }
+  .slider-thumb {
+    @apply relative block size-6 cursor-grab rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:cursor-grabbing data-[disabled]:cursor-not-allowed data-[disabled]:bg-muted;
+  }
+  .slider-thumb-label {
+    @apply absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-[100%] rounded-sm bg-primary px-2 text-[1.3rem] text-white;
+  }
+  .slider-bottom {
+    @apply flex w-full justify-between pt-1;
+  }
+  .slider-bottom-label {
+    @apply text-label text-[1.2rem];
+  }
+}

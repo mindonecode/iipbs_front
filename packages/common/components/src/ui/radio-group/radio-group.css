@@ -1,0 +1,13 @@
+@tailwind components;
+
+@layer components {
+  div[role="radiogroup"] {
+    @apply flex flex-row gap-4 data-[orientation="vertical"]:flex-col data-[orientation="vertical"]:gap-2;
+  }
+  button[role="radio"] {
+    @apply aspect-square size-[18px] rounded-full bg-[url(../../../public/assets/images/checkbox_off.png)] bg-contain text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-[url(../../../public/assets/images/checkbox_on.png)];
+  }
+  button[role="radio"] + label {
+    @apply text-[1.3rem] font-medium text-label;
+  }
+}

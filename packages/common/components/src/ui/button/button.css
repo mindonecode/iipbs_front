@@ -1,0 +1,37 @@
+@tailwind components;
+
+@layer components {
+  button[role="button"] {
+    @apply text-[1.3rem];
+  }
+  button[role="button"].primary {
+    @apply bg-[rgba(32,148,250,1)] hover:bg-[rgba(32,148,250,0.9)];
+  }
+  button[role="button"].green {
+    @apply bg-[rgba(31,208,120,1)] hover:bg-[rgba(31,208,120,0.9)];
+  }
+  button[role="button"].sky {
+    @apply bg-[rgba(50,154,203,1)] hover:bg-[rgba(50,154,203,0.9)];
+  }
+  button[role="button"].yellow {
+    @apply bg-[rgba(243,201,0,1)] hover:bg-[rgba(243,201,0,0.9)];
+  }
+  button[role="button"].orange {
+    @apply bg-[rgba(255,149,0,1)] hover:bg-[rgba(255,149,0,0.9)];
+  }
+  button[role="button"].emerald {
+    @apply bg-[rgba(90,200,250,1)] hover:bg-[rgba(90,200,250,0.9)];
+  }
+  button[role="button"].white {
+    @apply border border-border bg-[rgba(255,255,255,1)] text-[#666] hover:bg-[rgba(255,255,255,0.9)];
+  }
+  button[role="button"].red {
+    @apply bg-[rgba(232,93,85,1)] hover:bg-[rgba(232,93,85,0.9)];
+  }
+  button[role="button"].gray {
+    @apply bg-[rgba(153,153,153,1)] hover:bg-[rgba(153,153,153,0.9)];
+  }
+  button[role="button"].lightGray {
+    @apply bg-[rgba(235,235,235,1)] text-[#929292] hover:bg-[rgba(235,235,235,0.9)];
+  }
+}

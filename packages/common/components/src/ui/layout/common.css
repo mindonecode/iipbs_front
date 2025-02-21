@@ -1,0 +1,164 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  src: url("../fonts/NotoSansKR-Light.otf") format("opentype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  src: url("../fonts/NotoSansKR-Regular.otf") format("opentype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  src: url("../fonts/NotoSansKR-Medium.otf") format("opentype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  src: url("../fonts/NotoSansKR-Bold.otf") format("opentype");
+  font-weight: 600;
+}
+
+#lnb {
+  position: relative;
+  width: 100%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+#lnb .mline {
+  position: relative;
+  margin: 0 auto;
+  font-size: 12px;
+  padding: 6px 0 6px 14px;
+  font-weight: 500;
+  color: #b1b1b1;
+  display: block;
+}
+#lnb h1 {
+  height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.8;
+  letter-spacing: -2px;
+  background: #d71a21;
+}
+#lnb > ul {
+  position: relative;
+}
+#lnb > ul > li {
+  position: relative;
+  padding: 0px 0;
+  width: 93%;
+  margin: 0 3.5%;
+}
+#lnb > ul > li.on.noDepth a {
+  color: #ffffff;
+  background: #40a5ff;
+  border-radius: 5px;
+}
+#lnb > ul > li.on > a {
+  background: #ffffff;
+  color: #3a8bdd;
+}
+#lnb > ul > li > a {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 500;
+  background: #ffffff;
+  border-radius: 5px;
+  text-indent: 7px;
+  color: #777777;
+  transition: all 0.1s ease-in-out;
+  white-space: nowrap;
+  line-height: 16px;
+  vertical-align: middle;
+}
+#lnb > ul > li > a i.arrow {
+  position: absolute;
+  top: 16px;
+  left: auto;
+  right: 8px;
+  font-size: 14px;
+  text-indent: 0;
+  color: #c5c5c5;
+}
+#lnb > ul > li a:hover {
+  color: #277cc7;
+  background: #edf4fb;
+}
+#lnb > ul > li.on a i.arrow {
+  transform: rotate(-180deg);
+  margin-top: 0px;
+}
+#lnb > ul > li .mnicon_1 {
+  position: relative;
+  top: 1px;
+  transition: all 0.1s ease-in-out;
+  font-size: 15px;
+  padding: 0 8px 0 0;
+  opacity: 0.7;
+}
+
+#lnb > ul > li > ul {
+  display: none;
+  background: #eaf5ff;
+  border-radius: 5px;
+}
+#lnb > ul > li > ul > li {
+  position: relative;
+  cursor: pointer;
+}
+#lnb > ul > li > ul > li > a {
+  display: block;
+  padding: 10px 0;
+  font-size: 13px;
+  text-indent: 30px;
+  font-weight: 400;
+  color: #6387ad;
+  background-color: #eaf5ff;
+  border-radius: 5px;
+  letter-spacing: -0.02em;
+}
+#lnb > ul > li > ul > li > a i {
+  font-size: 16px;
+  padding: 0 10px 0 0;
+  position: relative;
+  top: 3px;
+}
+#lnb > ul > li > ul > li > a i.right {
+  font-size: 11px;
+  padding: 0 0 0 2px;
+  position: relative;
+  top: 1px;
+}
+#lnb > ul > li > ul > li .mnicon_1 {
+  position: absolute;
+  top: 11px;
+  left: 37px;
+  width: 23px;
+  height: 23px;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+#lnb > ul > li > ul > li.on a {
+  color: #ffffff;
+  background: #2c94ff;
+}
+#lnb > ul > li > ul > li a:hover {
+  color: #227fd2;
+  background: #deeefd;
+}
+#lnb > ul > li > ul > li.on a:hover {
+  color: #ffffff;
+  background: #40a5ff;
+}

@@ -1,0 +1,10 @@
+@tailwind components;
+
+@layer components {
+  button[role="switch"] {
+    @apply inline-flex h-[2.2rem] w-[5.3rem] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-muted-foreground bg-[url(../../../public/assets/images/togbtn_off.png)] bg-[length:2.9rem] bg-[center_right_.1rem] bg-no-repeat transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:bg-[url(../../../public/assets/images/togbtn_on.png)] data-[state=checked]:bg-[center_left_.2rem];
+  }
+  button[role="switch"] > span {
+    @apply pointer-events-none block size-[1.8rem] rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-[3.1rem] data-[state=unchecked]:translate-x-0;
+  }
+}

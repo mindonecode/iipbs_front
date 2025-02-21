@@ -1,0 +1,40 @@
+@tailwind components;
+
+@layer components {
+  div[role="radiogroup"][data-variant="button"] {
+    @apply gap-0 overflow-hidden rounded-sm;
+  }
+  div[role="radiogroup"][data-variant="button"] button {
+    @apply aspect-auto h-auto w-auto rounded-none bg-none px-6 py-2 text-[1.3rem] font-medium transition-[background-color,color] duration-150;
+  }
+
+  /* 버튼 색상 */
+  div[role="radiogroup"][data-variant="button"][data-color="primary"] {
+    @apply border border-primary dark:border-[#404040];
+  }
+  div[role="radiogroup"][data-variant="button"][data-color="primary"] button {
+    @apply text-[#6f98bd] hover:bg-[#ecf3f9] hover:text-[#498bc7] data-[state=checked]:bg-primary data-[state=checked]:text-white dark:bg-[#505050] dark:text-[#aeb7bf] dark:hover:bg-[#525e69] dark:data-[state=checked]:bg-primary dark:data-[state=checked]:text-white;
+  }
+  div[role="radiogroup"][data-variant="button"][data-color="secondary"] {
+    @apply border border-[#ababab] dark:border-[#808080];
+  }
+  div[role="radiogroup"][data-variant="button"][data-color="secondary"] button {
+    @apply bg-[#f3f3f3] text-[#8a8a8a] hover:bg-[#ececec] hover:text-[#808080] data-[state=checked]:bg-[#848484] data-[state=checked]:text-white dark:bg-[#505050] dark:text-[#a5a5a5] dark:hover:bg-[#444444] dark:data-[state=checked]:bg-[#848484] dark:data-[state=checked]:text-white;
+  }
+
+  /* 버튼 모양 */
+  div[role="radiogroup"][data-variant="button"][data-shape="rounded"] {
+    @apply rounded-full;
+  }
+  div[role="radiogroup"][data-variant="button"][data-color="primary"][data-shape="rounded"]
+    button {
+    @apply bg-[#70bcff] text-white hover:bg-[#6bb0ec] data-[state=checked]:bg-primary dark:bg-[#505050] dark:hover:bg-[#525e69] dark:data-[state=checked]:bg-primary;
+  }
+  div[role="radiogroup"][data-variant="button"][data-color="secondary"][data-shape="rounded"] {
+    @apply border-[#7b7b7b];
+  }
+  div[role="radiogroup"][data-variant="button"][data-color="secondary"][data-shape="rounded"]
+    button {
+    @apply bg-[#b7b7b7] text-white hover:bg-[#a9a9a9] data-[state=checked]:bg-[#797979] dark:bg-[#505050] dark:hover:bg-[#444444] dark:data-[state=checked]:bg-[#797979];
+  }
+}

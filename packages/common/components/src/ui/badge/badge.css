@@ -1,0 +1,51 @@
+@tailwind components;
+
+@layer components {
+  .badge {
+    @apply inline-flex items-center rounded-[0.4rem] border font-normal text-white transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+  .badge.default {
+    @apply border-transparent bg-primary;
+  }
+  .badge.secondary {
+    @apply border-transparent bg-secondary;
+  }
+  .badge.destructive {
+    @apply border-transparent bg-destructive;
+  }
+  .badge.outline {
+  }
+  .badge.red {
+    @apply bg-[#ff6354];
+  }
+  .badge.blue {
+    @apply bg-[#1ba9ff];
+  }
+  .badge.yellow {
+    @apply bg-[#fbc700];
+  }
+  .badge.orange {
+    @apply bg-[#ff8a22];
+  }
+  .badge.smokyBlue {
+    @apply bg-[#5b85ff];
+  }
+  .badge.purple {
+    @apply bg-[#d85bff];
+  }
+  .badge.green {
+    @apply bg-[#07bd9d];
+  }
+  .badge.gray {
+    @apply bg-[#838383];
+  }
+  .badge.lightGray {
+    @apply bg-[#b9b9b9];
+  }
+  .badge.base {
+    @apply px-2.5 py-0.5 text-[1.1rem];
+  }
+  .badge.lg {
+    @apply px-5 py-1 text-[1.3rem];
+  }
+}

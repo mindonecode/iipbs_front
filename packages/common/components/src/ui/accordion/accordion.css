@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer components {
+  .accordion-trigger {
+    @apply flex flex-1 items-center justify-between rounded-sm bg-primary p-4 text-[1.4rem] font-semibold text-white transition-all hover:underline data-[state=open]:rounded-b-none [&[data-state=open]>svg]:rotate-180;
+  }
+  .accordion-content {
+    @apply overflow-hidden rounded-b-sm bg-secondary text-[1.3rem] text-secondary-foreground transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down;
+  }
+  .accordion-content > div {
+    @apply p-4;
+  }
+  .secondary .accordion-trigger {
+    @apply border border-border bg-secondary text-secondary-foreground;
+  }
+  .secondary .accordion-content {
+    @apply border border-t-0 border-border bg-background text-foreground;
+  }
+}

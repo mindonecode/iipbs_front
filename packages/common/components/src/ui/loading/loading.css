@@ -1,0 +1,28 @@
+@tailwind components;
+
+@layer components {
+  .loading {
+    @apply absolute left-1/2 top-1/2 size-full animate-spin-parent;
+  }
+  .spinner {
+    @apply inline-block size-full animate-spin-child;
+  }
+  .loading-animation .spinner {
+    @apply rounded-full border-[0.3rem];
+  }
+  .loading-animation .spinner.primary {
+    @apply border-t-primary;
+  }
+  .loading-animation .spinner.secondary {
+    @apply border-t-white;
+  }
+  .loading-image {
+    @apply duration-1000;
+  }
+  .loading-image .spinner.primary {
+    @apply bg-[url('../../../public/assets/images/loading_primary.png')] bg-no-repeat duration-0;
+  }
+  .loading-image .spinner.secondary {
+    @apply bg-[url('../../../public/assets/images/loading_secondary.png')] bg-no-repeat duration-0;
+  }
+}
