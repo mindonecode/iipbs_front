@@ -1,7 +1,8 @@
-import { Header } from "./header";
 import { LNB } from "./lnb";
-import "./common.css";
+import { Header } from "./header";
 import { Footer } from "./footer";
+
+import "./common.css";
 
 export function BaseLayout({ children }: { children: React.ReactNode }) {
   return (
