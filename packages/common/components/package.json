@@ -13,8 +13,8 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./base.css": "./dist/base.css",
-    "./diveicon.css": "./dist/diveicon.css"
+    "./base.css": "./src/base.css",
+    "./diveicon.css": "./src/diveicon.css"
   },
   "files": [
     "dist/**"

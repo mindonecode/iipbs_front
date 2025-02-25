@@ -17,10 +17,4 @@ export default defineConfig((options) => ({
   cssMinify: !options.watch,
   cssModules: true,
   postcss: true,
-  esbuildOptions(options) {
-    options.entryPoints = ["src/index.ts", "src/base.css", "src/diveicon.css"];
-    // options.alias = {
-    //   "@/": path.resolve(__dirname, "src/"),
-    // };
-  },
 }));
