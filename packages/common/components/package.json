@@ -1,7 +1,8 @@
 {
   "name": "@common/components",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,11 +10,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
     "./base.css": "./dist/base.css",
     "./diveicon.css": "./dist/diveicon.css"
   },
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "tsup",
     "storybook": "storybook dev -p 6006",
