@@ -17,15 +17,5 @@ const config: StorybookConfig = {
       },
     },
   },
-  async viteFinal(config) {
-    config.define = {
-      ...config.define,
-      "import.meta.env.BASE_ASSETS_PATH": JSON.stringify(
-        process.env.BASE_ASSETS_PATH,
-      ),
-    };
-
-    return config;
-  },
 };
 export default config;

@@ -8,9 +8,19 @@ export default defineConfig((options) => ({
   clean: true,
   dts: true,
   format: ["esm"],
+  external: ["react", "react-dom"],
   platform: "browser",
   target: ["es2020", "chrome70", "edge18", "firefox70", "node18"],
   tsconfig: path.resolve(__dirname, "tsconfig.build.json"),
   sourcemap: !options.watch,
   minify: !options.watch,
+  cssMinify: !options.watch,
+  cssModules: true,
+  postcss: true,
+  esbuildOptions(options) {
+    options.entryPoints = ["src/index.ts", "src/base.css", "src/diveicon.css"];
+    // options.alias = {
+    //   "@/": path.resolve(__dirname, "src/"),
+    // };
+  },
 }));

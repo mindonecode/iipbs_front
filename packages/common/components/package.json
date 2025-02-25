@@ -10,7 +10,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./base.css": "./dist/base.css",
+    "./diveicon.css": "./dist/diveicon.css"
   },
   "scripts": {
     "build": "tsup",
