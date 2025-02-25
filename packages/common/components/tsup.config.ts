@@ -17,4 +17,10 @@ export default defineConfig((options) => ({
   cssMinify: !options.watch,
   cssModules: true,
   postcss: true,
+  esbuildOptions(options) {
+    options.alias = {
+      "@/*": path.resolve(__dirname, "src/*"),
+      "@assets/*": path.resolve(__dirname, "public/assets/*"),
+    };
+  },
 }));
