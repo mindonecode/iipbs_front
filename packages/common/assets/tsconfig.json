@@ -3,9 +3,6 @@
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@common/assets/*": ["./src/*"]
-    }
+    "baseUrl": "."
   }
 }

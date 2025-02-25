@@ -13,10 +13,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./images": "./src/images",
-    "./icons": "./src/icons",
-    "./fonts": "./src/fonts"
+    }
   },
   "scripts": {
     "build": "tsup",
