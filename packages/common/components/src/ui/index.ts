@@ -9,6 +9,7 @@ export * from "./input";
 export * from "./file-search";
 export * from "./input";
 export * from "./label";
+export * from "./layout";
 export * from "./loading";
 export * from "./popover";
 export * from "./radio-group";

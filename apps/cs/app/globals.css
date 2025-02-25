@@ -1,4 +1,5 @@
-@import "../../../packages/common/components/src/base.css";
+@import "@common/components/base.css";
+@import "@common/components/diveicon.css";
 
 @tailwind base;
 @tailwind components;
