@@ -11,11 +11,15 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: "@storybook/react-vite",
-    options: {
-      builder: {
-        viteConfigPath: "./vite.config.storybook.ts",
-      },
-    },
+    options: {},
+  },
+  viteFinal: (config) => {
+    config.define = {
+      "process.env.BASE_ASSETS_PATH": JSON.stringify(
+        process.env.BASE_ASSETS_PATH,
+      ),
+    };
+    return config;
   },
 };
 export default config;
