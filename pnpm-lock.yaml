@@ -56,6 +56,18 @@ importers:
         specifier: ^5
         version: 5.6.3
 
+  packages/common/assets:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.0
+        version: 20.17.19
+      tsup:
+        specifier: ^8.0.1
+        version: 8.3.6(postcss@8.5.3)(typescript@5.6.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.6.3
+
   packages/common/components:
     dependencies:
       '@radix-ui/react-accordion':
@@ -2678,6 +2690,12 @@ packages:
 
   /@types/mdx@2.0.13:
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
+    dev: true
+
+  /@types/node@20.17.19:
+    resolution: {integrity: sha512-LEwC7o1ifqg/6r2gn9Dns0f1rhK+fPFDoMiceTJ6kWmVk6bgXBI/9IOWfVan4WiAavK9pIVWdX0/e3J+eEUh5A==}
+    dependencies:
+      undici-types: 6.19.8
     dev: true
 
   /@types/node@22.13.4:
@@ -6236,6 +6254,10 @@ packages:
       has-bigints: 1.1.0
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
+    dev: true
+
+  /undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
     dev: true
 
   /undici-types@6.20.0:
