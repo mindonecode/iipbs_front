@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@common/components": "workspace:*",
+    "@common/business_components": "workspace:*",
     "next": "15.1.7"
   },
   "devDependencies": {

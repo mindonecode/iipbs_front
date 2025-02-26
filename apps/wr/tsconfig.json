@@ -26,7 +26,9 @@
     "paths": {
       "@/*": ["./*"],
       "@common/components/*": ["../../packages/common/components/src/*"],
-      "@common/components": ["../../packages/common/components/src/index"]
+      "@common/components": ["../../packages/common/components/src/index"],
+      "@common/business_components/*": ["../../packages/common/business_components/src/*"],
+      "@common/business_components": ["../../packages/common/business_components/src/index"],
     }
   },
   "include": [
