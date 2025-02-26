@@ -1,5 +1,6 @@
-import type { ChartConfig } from "@/components/ui/chart";
-import { Chart, CHART_FORM} from "./components/chart/Chart";
+import type { ChartConfig } from "@common/business_components";
+import {MainChart} from "@common/business_components";
+import {CHART_FORM} from "@common/business_components";
 
 /**
  * 차트 Form
@@ -21,10 +22,9 @@ const chartData = [
 /**
  * 차트 Config
  */
-const chartConfig = chartData.reduce((config,element,idx) => {
-    element.fill = "hsl(var(--chart-"+(idx+1)+"))";
-    config[element.month] = {
-      label: element.month,
+const chartConfig = chartData.reduce((config,element) => {
+    config[element.label] = {
+      label: element.label,
       color : "hsl(var(--chart-1))"
     };
     return config;
@@ -34,7 +34,7 @@ const chartConfig = chartData.reduce((config,element,idx) => {
 export default function Home() {
   return (
     <div>
-      <Chart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></Chart>
+      <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
     </div>
   );
 }
