@@ -26,6 +26,7 @@
     "paths": {
       "@/*": ["./*"],
       "@common/components": ["../../packages/common/components/src"],
+      "@common/assets/*": ["../../packages/common/assets/dist/*"],
       "@common/assets": ["../../packages/common/assets/dist"]
     }
   },

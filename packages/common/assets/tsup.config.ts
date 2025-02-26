@@ -18,5 +18,6 @@ export default defineConfig({
     ".woff2": "dataurl",
     ".ttf": "dataurl",
     ".otf": "dataurl",
+    ".css": "css",
   },
 });
