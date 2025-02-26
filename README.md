@@ -11,15 +11,13 @@
  ┃ ┃ ┗ package.json
  ┃ ┃
  ┃ ┗ (타개발사 작업 폴더)
- ┃   ┣ feature1
- ┃   ┣ feature2
  ┃   ┣ ...
  ┃   ┗ package.json
  ┃
  ┣ packages # 공통 모듈이 위치할 폴더
  ┃ ┣ ⛔️common # 원앤올에서 제공하는 공통 모듈은 common 폴더로 제공
+ ┃ ┃ ┣ assets
  ┃ ┃ ┣ components
- ┃ ┃ ┣ utils
  ┃ ┃ ┗ ...
  ┃ ┃
  ┃ ┗ (타개발사 작업 폴더)
@@ -27,8 +25,8 @@
  ┃   ┗ package.json
  ┃
  ┣ ⛔️package.json
- ┣ ⛔️pnpm-lock.yaml
  ┣ ⛔️pnpm-workspace.yaml
+ ┣ ⛔️tailwind.config.preset.ts
  ┣ ⛔️tsconfig.base.json
  ┗ ⛔️turbo.json
 ```
