@@ -1,0 +1,10 @@
+@tailwind components;
+
+@layer components {
+  .card {
+    @apply relative m-[0.6rem] box-border min-h-[2rem] rounded-[0.5rem] p-[0.6rem] text-[1.3rem] text-[#666];
+  }
+  .card-border {
+    @apply shadow-blur border border-[#dbe2e6] bg-[rgba(255,255,255,0.6)];
+  }
+}

@@ -1,0 +1,10 @@
+@import "@common/assets/index.css";
+
+@tailwind base;
+@tailwind utilities;
+
+html,
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+}
