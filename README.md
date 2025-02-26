@@ -33,6 +33,79 @@
  ┗ ⛔️turbo.json
 ```
 
+## 새로운 프로젝트 설치 및 실행
+
+### 1. 프로젝트 생성(Next.js)
+
+```bash
+npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
+```
+
+### 2. package.json 수정
+
+```json
+{
+  // 기타 설정 ...
+  "dependencies": {
+    "@common/components": "workspace:*", // 추가
+    "react": "^19.0.0", // 제거
+    "react-dom": "^19.0.0", // 제거
+  },
+  "devDependencies": {
+    "@types/react": "^19", // 제거
+    "@types/react-dom": "^19" // 제거
+  }
+}
+```
+
+### 3. tsconfig.json 수정
+
+```json
+{
+  // 기타 설정 ...
+  "paths": {
+    "@common/components": ["../../packages/common/components/src"], // 추가
+    "@common/assets/*": ["../../packages/common/assets/dist/*"], // 추가
+    "@common/assets": ["../../packages/common/assets/dist"] // 추가
+  }
+}
+```
+
+### 4. tailwind.config.ts 수정
+
+```ts
+import type { Config } from "tailwindcss";
+import presetConfig from "../../tailwind.config.preset";
+
+export default {
+  presets: [presetConfig],
+  darkMode: ["class", "[data-mode='dark']"],
+  content: [
+    "../../packages/common/components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
+    // 기타 컨텐츠 ...
+  ],
+} satisfies Config;
+```
+
+### 5. globals.css(또는 전역 css) 수정
+
+```css
+@import "@common/assets/index.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 기타 스타일 */
+```
+
+### 6. 패키지 의존성 재설치
+
+```bash
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+```
+
 ## 기술 스택
 
 - React(^18)
