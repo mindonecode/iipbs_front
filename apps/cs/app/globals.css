@@ -1,5 +1,4 @@
-@import "@common/components/base.css";
-@import "@common/components/diveicon.css";
+@import "@common/assets/index.css";
 
 @tailwind base;
 @tailwind components;

@@ -12,6 +12,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:cs": "turbo run dev --filter=cs",
+    "preview:components": "turbo run storybook --filter=@common/components",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
@@ -19,7 +20,6 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^22.13.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "turbo": "2.4.2"
