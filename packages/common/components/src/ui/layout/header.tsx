@@ -1,4 +1,3 @@
-import { BASE_ASSETS_PATH } from "../../env";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -6,20 +5,17 @@ import {
   DropdownMenuItem,
 } from "../dropdown-menu";
 import { Button } from "../button";
+import { images } from "@common/assets";
 
 export function Header() {
   return (
     <header className="sticky top-0 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border">
       <div className="flex items-center">
         <div className="MobMenuBtn">
-          <img src={`${BASE_ASSETS_PATH}/images/mob_menuBtn.svg`} />
+          <img src={images.menuBtn} />
         </div>
         <h1 className="flex items-center gap-4">
-          <img
-            src={`${BASE_ASSETS_PATH}/images/logo.png`}
-            className="h-[3rem]"
-            alt="logo"
-          />
+          <img src={images.logo} className="h-[3rem]" alt="logo" />
           <span className="text-[1.8rem] font-semibold">통합플랫폼관리</span>
         </h1>
       </div>

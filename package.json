@@ -9,8 +9,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
     "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:cs": "turbo run dev --filter=cs",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {

@@ -1,1 +1,1 @@
-export const BASE_ASSETS_PATH = import.meta.env.BASE_ASSETS_PATH;
+export const BASE_ASSETS_PATH = process.env.BASE_ASSETS_PATH ?? "/assets";
