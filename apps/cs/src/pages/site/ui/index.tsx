@@ -1,6 +1,32 @@
 "use client";
 
+import "@common/assets/styles/grid.css";
+
+import TuiGrid from "tui-grid";
+import Grid from "@toast-ui/react-grid";
 import { BaseLayout, Button, Input } from "@common/components";
+import { data, columns, header } from "../model/__mock__";
+
+TuiGrid.applyTheme("clean", {
+  row: {
+    hover: {
+      background: "#f5f5f5",
+    },
+  },
+  cell: {
+    normal: {
+      background: "#fff",
+      border: "#e0e6ea",
+      text: "#666",
+      showHorizontalBorder: true,
+    },
+    header: {
+      background: "#c6ccd1",
+      text: "#fff",
+      showVerticalBorder: false,
+    },
+  },
+});
 
 const SitePage = () => {
   return (
@@ -24,8 +50,18 @@ const SitePage = () => {
               <h3>사이트 목록</h3>
               <Button className="">등록</Button>
             </div>
+            <div className="card">
+              <Grid
+                data={data}
+                columns={columns}
+                header={header}
+                rowHeight={25}
+                bodyHeight={100}
+                heightResizable={true}
+                usageStatistics={false}
+              />
+            </div>
           </div>
-          <div>{/* 테이블 */}</div>
         </div>
       </div>
     </BaseLayout>

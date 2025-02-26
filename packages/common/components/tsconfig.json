@@ -15,6 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@common/assets/*": ["../assets/dist/*"],
       "@common/assets": ["../assets/dist"]
     }
   },

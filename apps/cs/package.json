@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@common/components": "workspace:*",
-    "next": "15.1.7"
+    "@toast-ui/react-grid": "^4.21.22",
+    "next": "15.1.7",
+    "tui-grid": "^4.21.22"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

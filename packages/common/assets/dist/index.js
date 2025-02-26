@@ -75,6 +75,13 @@ var require_diveicon5 = __commonJS({
   }
 });
 
+// src/styles/grid.css
+var require_grid = __commonJS({
+  "src/styles/grid.css"(exports2, module2) {
+    module2.exports = {};
+  }
+});
+
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
@@ -101,7 +108,8 @@ var fonts = {
 // src/styles/index.ts
 var styles = {
   base: require_base(),
-  diveicon: require_diveicon5()
+  diveicon: require_diveicon5(),
+  grid: require_grid()
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
