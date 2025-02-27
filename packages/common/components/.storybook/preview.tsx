@@ -1,5 +1,4 @@
 import "../src/base.css";
-import "../src/diveicon.css";
 
 import React from "react";
 import type { Preview } from "@storybook/react";

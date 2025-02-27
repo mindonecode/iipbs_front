@@ -3,6 +3,7 @@ export * from "./badge";
 export * from "./button";
 export * from "./calendar";
 export * from "./checkbox";
+export * from "./data-table";
 export * from "./date-picker";
 export * from "./dropdown-menu";
 export * from "./input";

@@ -12,9 +12,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./base.css": "./src/base.css",
-    "./diveicon.css": "./src/diveicon.css"
+    }
   },
   "files": [
     "dist/**"

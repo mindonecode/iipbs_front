@@ -14,9 +14,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@common/assets/*": ["../assets/dist/*"],
-      "@common/assets": ["../assets/dist"]
+      "@/*": ["src/*"]
     }
   },
   "exclude": ["**/node_modules", "**/.*/*", "dist"],

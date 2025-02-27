@@ -1,95 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Table } from ".";
-import { createColumnHelper } from "@tanstack/react-table";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "./index";
 
 const meta: Meta<typeof Table> = {
   title: "Elements/Table",
   component: Table,
-  parameters: {
-    docs: {
-      description: {
-        component: `
-- [Docs](https://ui.shadcn.com/docs/components/switch)
-- [API Reference](https://www.radix-ui.com/primitives/docs/components/switch#api-reference)
-`,
-      },
-      source: {
-        code: `
-import { createColumnHelper } from "@tanstack/react-table";
-
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
-
-const defaultData: Person[] = [
-  {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
-  },
-];
-
-const columnHelper = createColumnHelper<Person>();
-
-const columns = [
-  columnHelper.accessor("firstName", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: "lastName",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("age", {
-    header: () => "Age",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("visits", {
-    header: () => <span>Visits</span>,
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("status", {
-    header: "Status",
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("progress", {
-    header: "Profile Progress",
-    footer: (info) => info.column.id,
-  }),
-];
-
-return <Table data={defaultData} columns={columns} />;
-        `,
-      },
-    },
-  },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -97,74 +19,60 @@ type Story = StoryObj<typeof Table>;
 
 export const Default: Story = {
   render: () => {
-    type Person = {
-      firstName: string;
-      lastName: string;
-      age: number;
-      visits: number;
-      status: string;
-      progress: number;
-    };
-
-    const defaultData: Person[] = [
+    const invoices = [
       {
-        firstName: "tanner",
-        lastName: "linsley",
-        age: 24,
-        visits: 100,
-        status: "In Relationship",
-        progress: 50,
+        invoice: "INV001",
+        paymentStatus: "Paid",
+        totalAmount: "$250.00",
+        paymentMethod: "Credit Card",
       },
       {
-        firstName: "tandy",
-        lastName: "miller",
-        age: 40,
-        visits: 40,
-        status: "Single",
-        progress: 80,
+        invoice: "INV002",
+        paymentStatus: "Pending",
+        totalAmount: "$150.00",
+        paymentMethod: "PayPal",
       },
       {
-        firstName: "joe",
-        lastName: "dirte",
-        age: 45,
-        visits: 20,
-        status: "Complicated",
-        progress: 10,
+        invoice: "INV003",
+        paymentStatus: "Unpaid",
+        totalAmount: "$350.00",
+        paymentMethod: "Bank Transfer",
+      },
+      {
+        invoice: "INV004",
+        paymentStatus: "Paid",
+        totalAmount: "$450.00",
+        paymentMethod: "Credit Card",
+      },
+      {
+        invoice: "INV005",
+        paymentStatus: "Paid",
+        totalAmount: "$550.00",
+        paymentMethod: "PayPal",
       },
     ];
 
-    const columnHelper = createColumnHelper<Person>();
-
-    const columns = [
-      columnHelper.accessor("firstName", {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor((row) => row.lastName, {
-        id: "lastName",
-        cell: (info) => <i>{info.getValue()}</i>,
-        header: () => <span>Last Name</span>,
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("age", {
-        header: () => "Age",
-        cell: (info) => info.renderValue(),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("visits", {
-        header: () => <span>Visits</span>,
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("status", {
-        header: "Status",
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("progress", {
-        header: "Profile Progress",
-        footer: (info) => info.column.id,
-      }),
-    ];
-
-    return <Table data={defaultData} columns={columns} />;
+    return (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Invoice</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead>Payment Method</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {invoices.map((invoice) => (
+            <TableRow key={invoice.invoice}>
+              <TableCell className="font-medium">{invoice.invoice}</TableCell>
+              <TableCell>{invoice.paymentStatus}</TableCell>
+              <TableCell>{invoice.totalAmount}</TableCell>
+              <TableCell>{invoice.paymentMethod}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
   },
 };
