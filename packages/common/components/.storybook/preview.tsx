@@ -4,6 +4,7 @@ import React from "react";
 import type { Preview } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 
+// @ts-expect-error - Cannot find module '.mdx' or its corresponding type declarations.
 import DocsTemplate from "./markdown/docs-template.mdx";
 
 const preview: Preview = {
