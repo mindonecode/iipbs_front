@@ -1,0 +1,6 @@
+th {
+  @apply bg-[#c6ccd1] px-4 py-[1.2rem] text-[1.3rem] font-normal text-[#fff];
+}
+td {
+  @apply border-b border-b-[#e0e6ea] px-4 py-[1.2rem] text-[1.3rem] font-normal text-[#666];
+}
