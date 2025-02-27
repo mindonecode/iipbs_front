@@ -1,4 +1,4 @@
-@import "../../../packages/common/components/src/base.css";
+@import "@common/assets/index.css";
 
 @tailwind base;
 @tailwind components;

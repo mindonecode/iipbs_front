@@ -1,9 +1,9 @@
 {
-  "name": "cms",
+  "name": "cs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/node": "^22.13.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",

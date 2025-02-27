@@ -1,3 +1,5 @@
+import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
@@ -5,25 +7,24 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-onboarding",
     "@storybook/addon-essentials",
-    "@chromatic-com/storybook",
     "@storybook/addon-interactions",
     "@storybook/addon-themes",
   ],
   framework: {
     name: "@storybook/react-vite",
-    options: {
-      builder: {
-        viteConfigPath: "./vite.config.storybook.ts",
-      },
-    },
+    options: {},
   },
-  async viteFinal(config) {
+  viteFinal: async (config) => {
     config.define = {
-      ...config.define,
-      "import.meta.env.BASE_ASSETS_PATH": JSON.stringify(
+      "process.env.BASE_ASSETS_PATH": JSON.stringify(
         process.env.BASE_ASSETS_PATH,
       ),
     };
+    config.plugins?.push(
+      tsconfigPaths({
+        projects: [path.resolve(path.dirname(__dirname), "tsconfig.json")],
+      }),
+    );
 
     return config;
   },

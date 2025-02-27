@@ -1,9 +1,9 @@
-import baseConfig from "../../packages/common/components/tailwind.config";
-
 import type { Config } from "tailwindcss";
+import presetConfig from "../../tailwind.config.preset";
 
 export default {
-  presets: [baseConfig],
+  presets: [presetConfig],
+  darkMode: ["class", "[data-mode='dark']"],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/common/components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",

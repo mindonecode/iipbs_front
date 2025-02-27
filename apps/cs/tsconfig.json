@@ -25,8 +25,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@common/components/*": ["../../packages/common/components/src/*"],
-      "@common/components": ["../../packages/common/components/src/index"]
+      "@common/components": ["../../packages/common/components/src"],
+      "@common/assets/*": ["../../packages/common/assets/dist/*"],
+      "@common/assets": ["../../packages/common/assets/dist"]
     }
   },
   "include": [
