@@ -7,4 +7,10 @@
   .card-border {
     @apply shadow-blur border border-[#dbe2e6] bg-[rgba(255,255,255,0.6)];
   }
+  .card-header {
+    @apply -mx-[0.6rem] flex items-center justify-between border-b border-b-[#e1e7eb] p-4;
+  }
+  .card-footer {
+    @apply -mx-[0.6rem] mt-2 flex items-center justify-center border-t border-t-[#e1e7eb] py-4;
+  }
 }
