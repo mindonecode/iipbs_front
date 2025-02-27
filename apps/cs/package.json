@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@common/components": "workspace:*",
-    "@toast-ui/react-grid": "^4.21.22",
-    "next": "15.1.7",
-    "tui-grid": "^4.21.22"
+    "@tanstack/react-table": "^8.21.2",
+    "next": "15.1.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@faker-js/faker": "^9.5.0",
     "@types/node": "^22.13.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
