@@ -111,7 +111,7 @@ pnpm install
 - Next.js(^15)
 - Tailwind CSS(^3)
 - react-dnd-treeview(^3)
-- TUI Grid(^4)
+- ~~TUI Grid(^4)~~ -> TanStack Table (v8)
 - Chart.js(^4)
 - Storybook(^8)
 - tus-js-client(^4)
