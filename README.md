@@ -63,8 +63,6 @@ npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
   // 기타 설정 ...
   "paths": {
     "@common/components": ["../../packages/common/components/src"], // 추가
-    "@common/assets/*": ["../../packages/common/assets/dist/*"], // 추가
-    "@common/assets": ["../../packages/common/assets/dist"] // 추가
   }
 }
 ```
