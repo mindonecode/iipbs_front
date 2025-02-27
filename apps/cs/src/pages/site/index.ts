@@ -1,1 +1,2 @@
-export { SitePage } from "./ui";
+export { RegisterPage } from "./ui/register-page";
+export { SitePage } from "./ui/site-page";
