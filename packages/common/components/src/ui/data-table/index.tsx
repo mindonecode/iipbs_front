@@ -1,8 +1,5 @@
 import {
   flexRender,
-  getCoreRowModel,
-  useReactTable,
-  type ColumnDef,
   type RowData,
   type Table as TableType,
 } from "@tanstack/react-table";
@@ -39,19 +36,9 @@ function THead<T>({ table }: { table: TableType<T> }) {
   );
 }
 
-interface TableProps<T> {
-  data: T[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: ColumnDef<T, any>[];
-}
+type TableProps<T> = { table: TableType<T> };
 
-function DataTable<T>({ data, columns }: TableProps<T>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
+function DataTable<T>({ table }: TableProps<T>) {
   return (
     <Table className="w-full">
       <THead table={table} />
