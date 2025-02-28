@@ -12,6 +12,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:cs": "turbo run dev --filter=cs",
+    "dev:wr": "turbo run dev --filter=wr",
     "preview:components": "turbo run storybook --filter=@common/components",
     "preinstall": "npx only-allow pnpm"
   },
