@@ -1,6 +1,4 @@
-
-
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@common/components";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
 import UiPageNations from "./uiPageNations";
   
   
