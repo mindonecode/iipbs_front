@@ -59,6 +59,13 @@ var require_diveicon5 = __commonJS({
   }
 });
 
+// src/styles/grid.css
+var require_grid = __commonJS({
+  "src/styles/grid.css"(exports, module) {
+    module.exports = {};
+  }
+});
+
 // src/images/index.ts
 var images = {
   logo: require_logo(),
@@ -76,7 +83,8 @@ var fonts = {
 // src/styles/index.ts
 var styles = {
   base: require_base(),
-  diveicon: require_diveicon5()
+  diveicon: require_diveicon5(),
+  grid: require_grid()
 };
 export {
   fonts,

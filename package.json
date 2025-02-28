@@ -24,6 +24,14 @@
     "@types/react-dom": "^18.3.5",
     "turbo": "2.4.2"
   },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^18.3.18",
+      "@types/react-dom": "^18.3.5",
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1"
+    }
+  },
   "license": "ISC",
   "packageManager": "pnpm@8.15.5+sha1.a58c038faac410c947dbdb93eb30994037d0fce2"
 }
