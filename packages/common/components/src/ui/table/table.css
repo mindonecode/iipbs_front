@@ -1,6 +1,22 @@
 th {
-  @apply bg-[#c6ccd1] px-4 py-[1.2rem] text-[1.3rem] font-normal text-[#fff];
+  @apply bg-[#5987bf] px-4 py-[1.2rem] text-[1.3rem] font-medium leading-[1.2] text-[#fff];
 }
 td {
-  @apply border-b border-b-[#e0e6ea] px-4 py-[1.2rem] text-[1.3rem] font-normal text-[#666];
+  @apply border-b border-b-[#e0e6ea] bg-[#fff] px-2 py-[1.2rem] text-[1.3rem] font-normal leading-[1.2] text-[#666];
+}
+
+.secondary th {
+  @apply border border-[#e0e6ea] bg-[#eaf3fb] text-[#647784];
+}
+
+.secondary td {
+  @apply border border-[#e0e6ea];
+}
+
+.line th {
+  @apply border-0 border-b-2 border-t border-b-[#d4e0ea] border-t-[#d4e0ea] bg-[#fff] text-[#555];
+}
+
+.line td {
+  @apply border-b border-b-[#e0e6ea];
 }
