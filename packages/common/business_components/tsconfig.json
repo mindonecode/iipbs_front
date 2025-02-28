@@ -15,7 +15,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@common/assets": ["../assets/dist"]
+      "@common/assets": ["../assets/dist"],
+      "@common/components/*": ["../../packages/common/components/src/*"],
+      "@common/components": ["../../packages/common/components/src/index"]
     }
   },
   "exclude": ["**/node_modules", "**/.*/*", "dist"],

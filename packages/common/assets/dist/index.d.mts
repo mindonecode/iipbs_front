@@ -15,6 +15,7 @@ type FontType = keyof typeof fonts;
 declare const styles: {
     readonly base: any;
     readonly diveicon: any;
+    readonly grid: any;
 };
 type StyleType = keyof typeof styles;
 

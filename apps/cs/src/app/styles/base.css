@@ -1,0 +1,11 @@
+@import "@common/assets/styles/base.css";
+@import "@common/assets/styles/diveicon.css";
+
+@tailwind base;
+@tailwind utilities;
+
+html,
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+}

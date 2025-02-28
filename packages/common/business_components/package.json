@@ -26,7 +26,10 @@
   },
   "dependencies": {
     "@common/components": "workspace:*",
-    "recharts": "^2.15.1"
+    "clsx": "^2.1.1",
+    "path": "^0.12.7",
+    "recharts": "^2.15.1",
+    "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
