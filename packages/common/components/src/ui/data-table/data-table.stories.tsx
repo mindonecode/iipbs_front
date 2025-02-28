@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { createColumnHelper } from "@tanstack/react-table";
+import {
+  createColumnHelper,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { DataTable } from ".";
 
 const meta: Meta<typeof DataTable> = {
@@ -14,8 +18,6 @@ const meta: Meta<typeof DataTable> = {
       },
       source: {
         code: `
-import { createColumnHelper } from "@tanstack/react-table";
-
 type Person = {
   firstName: string;
   lastName: string;
@@ -25,7 +27,7 @@ type Person = {
   progress: number;
 };
 
-const defaultData: Person[] = [
+const data: Person[] = [
   {
     firstName: "tanner",
     lastName: "linsley",
@@ -78,7 +80,17 @@ const columns = [
   }),
 ];
 
-return <Table data={defaultData} columns={columns} />;
+
+function Table() {
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return <DataTable table={table} />;
+}
+
         `,
       },
     },
@@ -89,69 +101,77 @@ export default meta;
 type Story = StoryObj<typeof DataTable>;
 
 export const Default: Story = {
-  render: () => {
-    type Person = {
-      firstName: string;
-      lastName: string;
-      age: number;
-      visits: number;
-      status: string;
-      progress: number;
-    };
-
-    const defaultData: Person[] = [
-      {
-        firstName: "tanner",
-        lastName: "linsley",
-        age: 24,
-        visits: 100,
-        status: "In Relationship",
-        progress: 50,
-      },
-      {
-        firstName: "tandy",
-        lastName: "miller",
-        age: 40,
-        visits: 40,
-        status: "Single",
-        progress: 80,
-      },
-      {
-        firstName: "joe",
-        lastName: "dirte",
-        age: 45,
-        visits: 20,
-        status: "Complicated",
-        progress: 10,
-      },
-    ];
-
-    const columnHelper = createColumnHelper<Person>();
-
-    const columns = [
-      columnHelper.accessor("firstName", {
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor((row) => row.lastName, {
-        id: "lastName",
-        cell: (info) => <i>{info.getValue()}</i>,
-        header: () => <span>Last Name</span>,
-      }),
-      columnHelper.accessor("age", {
-        header: () => "Age",
-        cell: (info) => info.renderValue(),
-      }),
-      columnHelper.accessor("visits", {
-        header: () => <span>Visits</span>,
-      }),
-      columnHelper.accessor("status", {
-        header: "Status",
-      }),
-      columnHelper.accessor("progress", {
-        header: "Profile Progress",
-      }),
-    ];
-
-    return <DataTable data={defaultData} columns={columns} />;
-  },
+  render: () => <Table />,
 };
+
+type Person = {
+  firstName: string;
+  lastName: string;
+  age: number;
+  visits: number;
+  status: string;
+  progress: number;
+};
+
+const data: Person[] = [
+  {
+    firstName: "tanner",
+    lastName: "linsley",
+    age: 24,
+    visits: 100,
+    status: "In Relationship",
+    progress: 50,
+  },
+  {
+    firstName: "tandy",
+    lastName: "miller",
+    age: 40,
+    visits: 40,
+    status: "Single",
+    progress: 80,
+  },
+  {
+    firstName: "joe",
+    lastName: "dirte",
+    age: 45,
+    visits: 20,
+    status: "Complicated",
+    progress: 10,
+  },
+];
+
+const columnHelper = createColumnHelper<Person>();
+
+const columns = [
+  columnHelper.accessor("firstName", {
+    cell: (info) => info.getValue(),
+  }),
+  columnHelper.accessor((row) => row.lastName, {
+    id: "lastName",
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>Last Name</span>,
+  }),
+  columnHelper.accessor("age", {
+    header: () => "Age",
+    cell: (info) => info.renderValue(),
+  }),
+  columnHelper.accessor("visits", {
+    header: () => <span>Visits</span>,
+  }),
+  columnHelper.accessor("status", {
+    header: "Status",
+  }),
+  columnHelper.accessor("progress", {
+    header: "Profile Progress",
+  }),
+];
+
+function Table() {
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return <DataTable table={table} />;
+}
