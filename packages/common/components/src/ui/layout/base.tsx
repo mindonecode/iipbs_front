@@ -11,7 +11,9 @@ export function BaseLayout({ children }: { children: React.ReactNode }) {
       <div className="flex h-[calc(100vh-50px)]">
         <LNB />
         <div className="flex flex-1 flex-col">
-          <div className="flex-1">{children}</div>
+          <div className="max-h-[calc(100%-50px)] flex-1 overflow-auto">
+            {children}
+          </div>
           <Footer />
         </div>
       </div>
