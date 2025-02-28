@@ -2,34 +2,11 @@
 ### 공통 모듈 중 Chart를 다양한 테마로 적용시킬 수 있도록 해주는 모듈
 &emsp; 1. 차트 모듈 사용법
 
-&emsp; &emsp; 1-1) 설정
-
-&emsp; &emsp; &emsp; (1) tsconfig.json 'path'에 '@common/business_components' 변수를 추가
-```json
-"paths": {
-  "@/*": ["./*"],
-  "@common/components/*": ["../../packages/common/components/src/*"],
-  "@common/components": ["../../packages/common/components/src/index"],
-  // 작성구문문
-  "@common/business_components/*": ["../../packages/common/business_components/src/*"],
-  "@common/business_components": ["../../packages/common/business_components/src/index"]
-}
-```
-&emsp; &emsp; &emsp; (2) package.json 'dependencies'에 '@common/business_components' 추가
-```json
-"dependencies": {
-  "@common/business_components": "workspace:*",
-  "next": "15.1.7"
-},
-```
-
-&emsp; &emsp; 1-2) 호출방법
+&emsp; &emsp; 1-1) 호출방법
 
 &emsp; &emsp; &emsp; (1) 파일에 차트생성에 필요한 form, MainChart, MainConfig 임폴트
 ```js
-import type { ChartConfig } from "@common/business_components";
-import {MainChart} from "@common/business_components";
-import {CHART_FORM} from "@common/business_components";
+import  {type ChartConfig, MainChart, CHART_FORM } from "@common/business_components";
 ```
 &emsp; &emsp; &emsp; (2) ChartForm 지정
 ```js
@@ -75,13 +52,3 @@ return (
     </div>
   );
 ```
-&emsp; 
-
-&emsp; 2. 차트 모듈 구조
-
-
-
-
-
-
-
