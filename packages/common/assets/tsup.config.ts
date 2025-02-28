@@ -1,7 +1,12 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: [
+    "src/index.ts",
+    "src/styles/base.css",
+    "src/styles/diveicon.css",
+    "src/styles/grid.css",
+  ],
   format: ["cjs", "esm"],
   dts: true,
   clean: true,

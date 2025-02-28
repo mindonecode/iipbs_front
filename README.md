@@ -63,8 +63,6 @@ npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
   // 기타 설정 ...
   "paths": {
     "@common/components": ["../../packages/common/components/src"], // 추가
-    "@common/assets/*": ["../../packages/common/assets/dist/*"], // 추가
-    "@common/assets": ["../../packages/common/assets/dist"] // 추가
   }
 }
 ```
@@ -111,7 +109,7 @@ pnpm install
 - Next.js(^15)
 - Tailwind CSS(^3)
 - react-dnd-treeview(^3)
-- TUI Grid(^4)
+- ~~TUI Grid(^4)~~ -> TanStack Table (v8)
 - Chart.js(^4)
 - Storybook(^8)
 - tus-js-client(^4)

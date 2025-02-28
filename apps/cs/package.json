@@ -9,15 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@common/assets": "workspace:*",
     "@common/components": "workspace:*",
+    "@tanstack/react-table": "^8.21.2",
     "next": "15.1.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@faker-js/faker": "^9.5.0",
     "@types/node": "^22.13.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "steiger": "^0.5.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
