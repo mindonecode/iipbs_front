@@ -3,29 +3,30 @@ import UiPageNations from "./uiPageNations";
   
   
 interface UiTableProps {
+  headName: string;
   publicReuseFacility: any[];
   headlist: { id: string; title: string; }[];
   pageSize: number;
   total: number;
+  children: React.ReactNode|undefined;
 }
 
 export function UiTable(UiTableProps: UiTableProps) {
-  const { publicReuseFacility, headlist,pageSize , total} = UiTableProps;
-  let cur = 1;
-
+  const { publicReuseFacility, headlist,pageSize , total, children,headName} = UiTableProps;
+  const cur = 1;
 
 
     return (
       <>
-      <p>공공하수처리시설 목록</p>
+      <p>{headName}</p>
         <Table>
           <TableHeader>
-            <TableRow>
+            {children? <>{children}</>:<TableRow>
               {headlist.map((head) => (
                 <TableHead key={head.id}>{head.title}</TableHead>
               ))}
-  
-            </TableRow>
+            </TableRow>}
+            
           </TableHeader>
           <TableBody>
             {publicReuseFacility.map((el: any,index) => (
