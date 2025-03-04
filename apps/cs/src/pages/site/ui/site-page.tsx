@@ -3,8 +3,7 @@
 import "@common/assets/styles/grid.css";
 
 import { useRouter } from "next/navigation";
-import { Button, Input, DataTable } from "@common/components";
-import { data, columns } from "../model/__mocks__";
+import { Button, Input } from "@common/components";
 import { SitePageLayout } from "./layout";
 
 function SitePage() {
@@ -28,7 +27,7 @@ function SitePage() {
             <Button onClick={() => router.push("/site/register")}>등록</Button>
           </div>
           <div className="card !m-[1.2rem] h-[49rem] overflow-auto !p-0">
-            <DataTable data={data} columns={columns} />
+            {/* <DataTabledata={data} columns={columns} /> */}
           </div>
         </div>
       </div>
