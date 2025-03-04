@@ -24,20 +24,20 @@ function RegisterPage() {
           <h3 className="text-2xl font-medium text-[#666]">사이트 등록/수정</h3>
         </div>
         <div className="card">
-          <Table>
+          <Table variant="secondary">
+            <colgroup>
+              <col width="20%" />
+              <col width="80%" />
+            </colgroup>
             <TableBody>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 코드
-                </TableHead>
+                <TableHead>사이트 코드</TableHead>
                 <TableCell className="border">
                   <Input className="w-[12rem] !text-[1.3rem]" />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 구분
-                </TableHead>
+                <TableHead>사이트 구분</TableHead>
                 <TableCell className="border">
                   <div className="flex gap-2">
                     <DropdownMenu>
@@ -62,9 +62,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 디자인
-                </TableHead>
+                <TableHead>사이트 디자인</TableHead>
                 <TableCell className="border">
                   <DropdownMenu>
                     <DropdownMenu>
@@ -86,9 +84,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트명
-                </TableHead>
+                <TableHead>사이트명</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -97,9 +93,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 설명
-                </TableHead>
+                <TableHead>사이트 설명</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -108,9 +102,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 하단 표기 주소
-                </TableHead>
+                <TableHead>사이트 하단 표기 주소</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -119,9 +111,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 하단 표기 전화번호
-                </TableHead>
+                <TableHead>사이트 하단 표기 전화번호</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -130,9 +120,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 하단 표기 팩스번호
-                </TableHead>
+                <TableHead>사이트 하단 표기 팩스번호</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -141,9 +129,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사이트 하단 표기 내용
-                </TableHead>
+                <TableHead>사이트 하단 표기 내용</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -152,9 +138,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  북마크 아이콘
-                </TableHead>
+                <TableHead>북마크 아이콘</TableHead>
                 <TableCell className="border">
                   <Input
                     className="!text-[1.3rem]"
@@ -163,9 +147,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  기본 사이트 여부
-                </TableHead>
+                <TableHead>기본 사이트 여부</TableHead>
                 <TableCell className="border">
                   <RadioGroup defaultValue="comfortable">
                     <div className="flex items-center space-x-2">
@@ -180,9 +162,7 @@ function RegisterPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableHead className="border bg-[#eaf3fb] text-[#647784]">
-                  사용 여부
-                </TableHead>
+                <TableHead>사용 여부</TableHead>
                 <TableCell className="border">
                   <RadioGroup defaultValue="comfortable">
                     <div className="flex items-center space-x-2">
@@ -200,7 +180,7 @@ function RegisterPage() {
           </Table>
         </div>
       </div>
-      <div className="mt-10 flex justify-center gap-4">
+      <div className="flex justify-center gap-4 pb-12 pt-10">
         <Button size="lg">저장</Button>
         <Button size="lg" color="white">
           취소

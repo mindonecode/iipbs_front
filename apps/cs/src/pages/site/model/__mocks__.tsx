@@ -38,7 +38,7 @@ const columns = [
     header: "사이트명",
   }),
   columnHelper.accessor("대표_URL", {
-    header: "대표_URL",
+    header: "대표 URL",
   }),
   columnHelper.accessor("기본_사이트_여부", {
     header: "기본 사이트 여부",
