@@ -16,8 +16,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@common/assets": ["../assets/dist"],
-      "@common/components/*": ["../../packages/common/components/src/*"],
-      "@common/components": ["../../packages/common/components/src/index"]
+      "@common/components/*": ["../components/src/*"],
+      "@common/components": ["../components/src/index"]
     }
   },
   "exclude": ["**/node_modules", "**/.*/*", "dist"],
