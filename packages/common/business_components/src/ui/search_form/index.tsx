@@ -1,7 +1,7 @@
-function SearchDiv (props: { leftPart1: string }) {
+function SearchDiv ({children}:{ children: React.ReactNode; }) {
    return (
       <div>
-        {props.leftPart1}   
+        {children}   
       </div>
     )
 }
