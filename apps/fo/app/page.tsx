@@ -1,7 +1,7 @@
 import type { ChartConfig } from "@common/business_components";
 import {MainChart} from "@common/business_components";
 import {CHART_FORM} from "@common/business_components";
-import { searchDiv } from "@common/business_components";
+import { SearchDiv } from "@common/business_components";
 
 /**
  * 차트 Form
@@ -33,14 +33,11 @@ const chartConfig = chartData.reduce((config,element) => {
   }, {} as Record<string, { label: string; color: string; }>) satisfies ChartConfig;
 
 export default function Home() {
-  const tmpPart1 = '<div>ddd</div>';
-
   return (
-
-
     <div>
       <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
-      <searchDiv leftPart1={tmpPart1}></searchDiv>
+      <SearchDiv>
+      </SearchDiv>
     </div>
   );
 }
