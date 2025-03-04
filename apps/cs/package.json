@@ -12,7 +12,8 @@
     "@common/assets": "workspace:*",
     "@common/components": "workspace:*",
     "@tanstack/react-table": "^8.21.2",
-    "next": "15.1.7"
+    "next": "15.1.7",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

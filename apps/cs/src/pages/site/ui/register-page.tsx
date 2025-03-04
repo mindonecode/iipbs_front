@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@common/components";
 import { SitePageLayout } from "./layout";
-
+import { IPManagementDialog } from "./ip-management-dialog";
 function RegisterPage() {
   return (
     <SitePageLayout>
@@ -57,7 +57,7 @@ function RegisterPage() {
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </DropdownMenu>
-                    <Button>IP 관리</Button>
+                    <IPManagementDialog />
                   </div>
                 </TableCell>
               </TableRow>
