@@ -1,7 +1,7 @@
 import type { ChartConfig } from "@common/business_components";
 import { CHART_FORM, MainChart, SearchDiv, SelectBox } from "@common/business_components";
-import { Label } from "@common/business_components/ui/form/label";
 import { Button } from "@common/components/ui";
+import { StoreProvider } from "./store";
 
 /**
  * 차트 Form
@@ -75,25 +75,27 @@ const labelArray = ['구분', '시도', '시군구'];
 
 export default function Home() {
   return (
-    <div>
-      <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
+    <StoreProvider>
+      <div>
+        <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
 
-      <SearchDiv>
-          <div style={styles.leftDiv}>
-            <SelectBox label={labelArray[0]} selectArray={selectData1}>
-            </SelectBox>
-            <SelectBox label={labelArray[1]} selectArray={selectData2}>
-            </SelectBox>
-          </div>
-          <div style={styles.rightDiv}>
-            <Button style={styles.searchBtn} size="sm">
-              초기화
-            </Button>
-            <Button style={styles.searchBtn} size="sm">
-              조회
-            </Button>
-          </div>
-      </SearchDiv>
-    </div>
+        <SearchDiv>
+            <div style={styles.leftDiv}>
+              <SelectBox label={labelArray[0]} selectArray={selectData1}>
+              </SelectBox>
+              <SelectBox label={labelArray[1]} selectArray={selectData2}>
+              </SelectBox>
+            </div>
+            <div style={styles.rightDiv}>
+              <Button style={styles.searchBtn} size="sm">
+                초기화
+              </Button>
+              <Button style={styles.searchBtn} size="sm">
+                조회
+              </Button>
+            </div>
+        </SearchDiv>
+      </div>
+    </StoreProvider>
   );
 }
