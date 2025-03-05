@@ -4,12 +4,8 @@ export type SelectDataType = {
     val: string;
 }
 const selectData1:SelectDataType[] = [
-    { text: "January", val: '00'},
-    { text: "February", val: '01'},
-    { text: "March", val: '03'},
-    { text: "April", val: '04'},
-    { text: "May", val: '05'},
-    { text: "June", val: '06'},
+    { text: "행정별", val: '00'},
+    { text: "구역별", val: '01'},
 ]
 
 const selectData2:SelectDataType[] = [
@@ -22,7 +18,6 @@ const selectData2:SelectDataType[] = [
 ]
 
 const labelArray:string[] = ['구분', '시도', '시군구'];
-
 
 export type DashBoardType = {
     DashBoard: {
@@ -61,7 +56,6 @@ export const dashBoardReducer:(set:any)=>DashBoardActions=(set: any) => {
                     DashBoard: {
                         ...state.DashBoard,
                         labelArray: state.DashBoard.labelArray
-                    
                 }})}
             )
         }
