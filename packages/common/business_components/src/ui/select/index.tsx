@@ -23,12 +23,14 @@ interface SelectBox1 {
 }
 
 function SelectBox(props: {label : string, selectArray: SelectBox1[]}){
+  const placeHolder = props.selectArray.length > 0 ? props.selectArray[0].text : "";
+
   return (
     <div style={styles.selectBoxDiv}>
-      <Label style={styles.labelStyle}>{props.label}</Label>
+      {props.label && <Label style={styles.labelStyle}>{props.label}</Label>}
       <Select style={styles.selectStyle}>
         <SelectTrigger style={styles.selectStyle} className="w-[180px]">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder={placeHolder} />
         </SelectTrigger>
         <SelectContent>
           {props.selectArray.map((selectArray) => (
