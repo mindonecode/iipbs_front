@@ -1,21 +1,19 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
+import { type TableUpperProps } from '../../../../../../apps/wr/app/store/publicReuseFaciltyInsert/index';
 import UiPageNations from "./uiPageNations";
   
   
 interface UiTableProps {
   headName: string;
-  publicReuseFacility: any[];
-  headlist: { id: string; title: string; }[];
+  publicReuseFacility: { [key: string]: string | number | boolean }[];
+  headlist: TableUpperProps[];
   pageSize: number;
   total: number;
   children: React.ReactNode|undefined;
 }
 
-export function UiTable(UiTableProps: UiTableProps) {
-  const { publicReuseFacility, headlist,pageSize , total, children,headName} = UiTableProps;
+export function UiTable({ publicReuseFacility, headlist,pageSize , total, children,headName}: UiTableProps) {
   const cur = 1;
-
-
     return (
       <>
       <p>{headName}</p>
@@ -29,7 +27,7 @@ export function UiTable(UiTableProps: UiTableProps) {
             
           </TableHeader>
           <TableBody>
-            {publicReuseFacility.map((el: any,index) => (
+            {publicReuseFacility.map((el: { [key: string]: string | number | boolean },index) => (
               <TableRow  key={index+"row"} >
                 {headlist.map((head) => (
                   <TableCell key={head.id+index}>{el[head.id]}</TableCell>
