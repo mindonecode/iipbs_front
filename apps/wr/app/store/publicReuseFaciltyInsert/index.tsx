@@ -79,13 +79,9 @@ export const tableStateExport:tableState= {
     publicReuseFacilityUper: publicReuseFacilityUper,
 }
 export const tableActionsExport:(set:any)=>tableActions=(set: any) => {
-
-    console.log("tableActionsExport");
     return {
         decrementList:()=>set(
             (state:tableState) => {
-
-            console.log("tableActionsExport", state);
             return (
             { 
                 upHeadList: state.upHeadList, 

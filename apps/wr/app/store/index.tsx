@@ -19,12 +19,9 @@ export const StoreProvider = ({
   children,
 }: StoreProviderProps) => {
   const storeRef = useRef<StoreApi>(null)
-  console.log("StoreProvider");
-  
   if (!storeRef.current) {
     storeRef.current = StoreZus()
   }
-
   return (
     <StoreContext.Provider value={storeRef.current}>
       {children}
@@ -36,8 +33,6 @@ export const useWrStore = <T,>(
   selector: (store: WrStore) => T,
 ): T => {
   const storeContext = useContext(StoreContext)
-  console.log("useStore", storeContext);
-  
   if (!storeContext) {
     throw new Error(`useStore must be used within StoreProvider`)
   }
