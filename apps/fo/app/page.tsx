@@ -1,7 +1,7 @@
 import type { ChartConfig } from "@common/business_components";
-import {MainChart} from "@common/business_components";
-import {CHART_FORM} from "@common/business_components";
-import { SearchDiv } from "@common/business_components";
+import { CHART_FORM, MainChart, SearchDiv, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@common/business_components";
+import { Label } from "@common/business_components/ui/form/label";
+import { Button } from "@common/components/ui";
 
 /**
  * 차트 Form
@@ -32,11 +32,39 @@ const chartConfig = chartData.reduce((config,element) => {
 
   }, {} as Record<string, { label: string; color: string; }>) satisfies ChartConfig;
 
+interface SelectBox1 {
+  text:string,
+  val:string
+}
+
+const selectData1 : SelectBox1[] = [
+  { text: "January", val: '00'},
+  { text: "February", val: '01'},
+  { text: "March", val: '03'},
+  { text: "April", val: '04'},
+  { text: "May", val: '05'},
+  { text: "June", val: '06'},
+]
+
 export default function Home() {
   return (
     <div>
       <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
       <SearchDiv>
+          <Label>ddd</Label>
+          <Select>
+            <SelectTrigger className="w-[100px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              {selectData1.map((data) => (
+                <SelectItem key={data.val} value={data.val}>{data.text}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button>
+            search
+          </Button>
       </SearchDiv>
     </div>
   );
