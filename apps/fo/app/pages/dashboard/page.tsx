@@ -1,6 +1,7 @@
-﻿import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
+﻿"use client"
+import { useFoStore } from "@/app/store";
+import { SearchDiv, SelectBox } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { StoreProvider } from "../../store";
 
 /** 기본 스타일 */
 const styles = {
@@ -20,30 +21,9 @@ const styles = {
     } as React.CSSProperties,
   }
 
-/**
- * selectBox data
- */
-const selectData1 = [
-  { text: "January", val: '00'},
-  { text: "February", val: '01'},
-  { text: "March", val: '03'},
-  { text: "April", val: '04'},
-  { text: "May", val: '05'},
-  { text: "June", val: '06'},
-]
-
-const selectData2 = [
-  { text: "January", val: '00'},
-  { text: "February", val: '01'},
-  { text: "March", val: '03'},
-  { text: "April", val: '04'},
-  { text: "May", val: '05'},
-  { text: "June", val: '06'},
-]
-
-const labelArray = ['구분', '시도', '시군구'];
-
 export default function DashBoard() {
+  const {DashBoard} = useFoStore((state) => state);
+  const {labelArray, selectData1, selectData2} = DashBoard;
   return (
       <div>
         <SearchDiv>

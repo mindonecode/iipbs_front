@@ -2,7 +2,7 @@
 
 import { type ReactNode, createContext, useContext, useRef } from 'react'
 import { useStore } from 'zustand'
-import { type WrStore, StoreZus } from './store'
+import { type FoStore, StoreZus } from './store'
 
 
 export type StoreApi = ReturnType<typeof StoreZus>
@@ -32,11 +32,10 @@ export const StoreProvider = ({
   )
 }
 
-export const useWrStore = <T,>(
-  selector: (store: WrStore) => T,
+export const useFoStore = <T,>(
+  selector: (store: FoStore) => T,
 ): T => {
   const storeContext = useContext(StoreContext)
-  console.log("useStore", storeContext);
   
   if (!storeContext) {
     throw new Error(`useStore must be used within StoreProvider`)
