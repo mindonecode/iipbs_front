@@ -1,8 +1,7 @@
 
 
-"use client"
 import { Button } from "@common/components"
-import { Form } from "./form"
+import { Form } from "./lib/form"
 
   interface UiFormProps {
     onSubmit: object
@@ -28,7 +27,7 @@ import { Form } from "./form"
             )}
           />*/
 
-export default function UIForm(uiFormProps: UiFormProps) {
+export  function UiForm(uiFormProps: UiFormProps) {
 
   const {onSubmit, form, formField} = uiFormProps;  
     return (
