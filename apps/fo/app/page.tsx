@@ -8,6 +8,24 @@ import { Button } from "@common/components/ui";
  */
 const chartForm = CHART_FORM.BAR;
 
+/** 기본 스타일 */
+const styles = {
+    leftDiv : {
+      width : '70%',
+      margin : '1rem 0rem 1rem 0rem',
+      display : 'flex'
+    } as React.CSSProperties,
+    rightDiv : {
+      width : '30%',
+      margin : '1rem 2rem 1rem 0rem',
+    } as React.CSSProperties,
+    searchBtn : {
+      float : 'right',
+      fontSize : '14px',
+      marginRight : '0.8rem'
+    } as React.CSSProperties,
+  }
+
 /**
  * 차트 Data
  */
@@ -53,19 +71,28 @@ const selectData2 = [
   { text: "June", val: '06'},
 ]
 
+const labelArray = ['구분', '시도', '시군구'];
+
 export default function Home() {
   return (
     <div>
       <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
+
       <SearchDiv>
-          <Label>ddd</Label>
-          <SelectBox selectArray={selectData1}>
-          </SelectBox>
-          <SelectBox selectArray={selectData2}>
-          </SelectBox>
-          <Button className="h-[2.5rem] w-[1.5rem]">
-            조회
-          </Button>
+          <div style={styles.leftDiv}>
+            <SelectBox label={labelArray[0]} selectArray={selectData1}>
+            </SelectBox>
+            <SelectBox label={labelArray[1]} selectArray={selectData2}>
+            </SelectBox>
+          </div>
+          <div style={styles.rightDiv}>
+            <Button style={styles.searchBtn} size="sm">
+              초기화
+            </Button>
+            <Button style={styles.searchBtn} size="sm">
+              조회
+            </Button>
+          </div>
       </SearchDiv>
     </div>
   );
