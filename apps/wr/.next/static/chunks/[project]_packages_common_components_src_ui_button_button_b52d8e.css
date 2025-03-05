@@ -1,0 +1,92 @@
+/* [project]/packages/common/components/src/ui/button/button.css [app-client] (css) */
+button[role="button"] {
+  font-size: 1.3rem;
+}
+
+button[role="button"].primary {
+  background-color: #2094fa;
+}
+
+button[role="button"].primary:hover {
+  background-color: #2094fae6;
+}
+
+button[role="button"].green {
+  background-color: #1fd078;
+}
+
+button[role="button"].green:hover {
+  background-color: #1fd078e6;
+}
+
+button[role="button"].sky {
+  background-color: #329acb;
+}
+
+button[role="button"].sky:hover {
+  background-color: #329acbe6;
+}
+
+button[role="button"].yellow {
+  background-color: #f3c900;
+}
+
+button[role="button"].yellow:hover {
+  background-color: #f3c900e6;
+}
+
+button[role="button"].orange {
+  background-color: #ff9500;
+}
+
+button[role="button"].orange:hover {
+  background-color: #ff9500e6;
+}
+
+button[role="button"].emerald {
+  background-color: #5ac8fa;
+}
+
+button[role="button"].emerald:hover {
+  background-color: #5ac8fae6;
+}
+
+button[role="button"].white {
+  border-width: 1px;
+  border-color: var(--border);
+  background-color: #fff;
+  --tw-text-opacity: 1;
+  color: rgb(102 102 102 / var(--tw-text-opacity, 1));
+}
+
+button[role="button"].white:hover {
+  background-color: #ffffffe6;
+}
+
+button[role="button"].red {
+  background-color: #e85d55;
+}
+
+button[role="button"].red:hover {
+  background-color: #e85d55e6;
+}
+
+button[role="button"].gray {
+  background-color: #999;
+}
+
+button[role="button"].gray:hover {
+  background-color: #999999e6;
+}
+
+button[role="button"].lightGray {
+  background-color: #ebebeb;
+  --tw-text-opacity: 1;
+  color: rgb(146 146 146 / var(--tw-text-opacity, 1));
+}
+
+button[role="button"].lightGray:hover {
+  background-color: #ebebebe6;
+}
+
+/*# sourceMappingURL=%5Bproject%5D_packages_common_components_src_ui_button_button_b52d8e.css.map*/
