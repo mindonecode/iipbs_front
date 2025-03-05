@@ -1,13 +1,6 @@
-import type { ChartConfig } from "@common/business_components";
-import { CHART_FORM, MainChart, SearchDiv, SelectBox } from "@common/business_components";
+﻿import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { StoreProvider } from "./store";
-import DashBoard from "./pages/dashboard/page";
-
-/**
- * 차트 Form
- */
-const chartForm = CHART_FORM.BAR;
+import { StoreProvider } from "../../store";
 
 /** 기본 스타일 */
 const styles = {
@@ -26,30 +19,6 @@ const styles = {
       marginRight : '0.8rem'
     } as React.CSSProperties,
   }
-
-/**
- * 차트 Data
- */
-const chartData = [
-  { label: "January", val: 186},
-  { label: "February", val: 305},
-  { label: "March", val: 237},
-  { label: "April", val: 73},
-  { label: "May", val: 209},
-  { label: "June", val: 214},
-]
-
-/**
- * 차트 Config
- */
-const chartConfig = chartData.reduce((config,element) => {
-    config[element.label] = {
-      label: element.label,
-      color : "hsl(var(--chart-1))"
-    };
-    return config;
-
-  }, {} as Record<string, { label: string; color: string; }>) satisfies ChartConfig;
 
 /**
  * selectBox data
@@ -74,10 +43,25 @@ const selectData2 = [
 
 const labelArray = ['구분', '시도', '시군구'];
 
-export default function Home() {
+export default function DashBoard() {
   return (
-    <StoreProvider>
-      <DashBoard></DashBoard>
-    </StoreProvider>
+      <div>
+        <SearchDiv>
+            <div style={styles.leftDiv}>
+              <SelectBox label={labelArray[0] as string} selectArray={selectData1}>
+              </SelectBox>
+              <SelectBox label={labelArray[1] as string} selectArray={selectData2}>
+              </SelectBox>
+            </div>
+            <div style={styles.rightDiv}>
+              <Button style={styles.searchBtn} size="sm">
+                초기화
+              </Button>
+              <Button style={styles.searchBtn} size="sm">
+                조회
+              </Button>
+            </div>
+        </SearchDiv>
+      </div>
   );
 }
