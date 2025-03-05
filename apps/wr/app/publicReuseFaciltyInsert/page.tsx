@@ -8,20 +8,19 @@ import type { TableUpperProps } from '../store/publicReuseFaciltyInsert';
 
 
 
-  const headMakeColSpan = (upHeadList: any) => {
-    return  ( <>
-    <TableRow>{
-    upHeadList.map((head: TableUpperProps) => 
-      (!head.upSequnce?null:
-        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={3}>{'중축 개축 증축 '}</TableHead>:
-        head.upSequnce > 1?null:<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>))}
-    </TableRow>
-    <TableRow>
-      {upHeadList.map((head: TableUpperProps) =>
-        (head.upName === 'upChangeRe'?<TableHead key={head.id}>{head.title}</TableHead>:null))}
-    </TableRow>
-    </>)
-  }
+const headMakeColSpan = (upHeadList: any) => {
+  return  ( <>
+  <TableRow>{
+  upHeadList.map((head: TableUpperProps) => 
+    (!head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
+      head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={3}>{'중축 개축 증축 '}</TableHead>:null))}
+  </TableRow>
+  <TableRow>
+    {upHeadList.map((head: TableUpperProps) =>
+      (head.upName === 'upChangeRe'?<TableHead key={head.id}>{head.title}</TableHead>:null))}
+  </TableRow>
+  </>)
+}
 
 export default function PublicReuseFaciltyInsert() {
   const { isInit, upHeadList, publicReuseFacilityUper, decrementList} = useWrStore((state) => state);
