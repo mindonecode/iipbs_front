@@ -62,6 +62,19 @@ const publicReuseFacilityUper:PublicReuseFacility[] = [
     },
 ]
 
+const facilityList:PublicReuseFacility[] = [
+    { 
+        sido: "서울",
+        sigungo: "강남구",
+        facilityName: "난지",
+        location: "경기도 고양시 덕양구 대차로 4가",
+        locationgubun: "500",
+        facilityCapacity: "800,000",
+        reuse: "Y",
+        register: "Y"
+    }
+]
+
 export type tableState = {
     isInit: boolean;
     upHeadList: TableUpperProps[];
