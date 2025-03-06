@@ -1,0 +1,127 @@
+﻿"use client"
+import { useFoStore } from "@/app/store";
+import type { TableUpperProps } from "@/app/store/processFacility";
+import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@common/business_components/ui/select/lib/selectBox";
+import { Button, Input, Label, TableHead, TableRow } from "@common/components/ui";
+
+/** 기본 스타일 */
+const styles = {
+    leftDiv : {
+      width : '55%',
+      margin : '1rem 0rem 1rem 0rem',
+    } as React.CSSProperties,
+    rightDiv : {
+      width : '45%',
+      margin : '1rem 2rem 1rem 0rem',
+    } as React.CSSProperties,
+    searchBtn : {
+      float : 'right',
+      fontSize : '14px',
+      marginRight : '0.8rem'
+    } as React.CSSProperties,
+
+    /** 패키지화 필요 */
+    selectBoxDiv : {
+      marginLeft : '2rem',
+      display : 'flex'
+    } as React.CSSProperties,
+    labelStyle : {
+      margin:'0.8rem 0.8rem 0.8rem 1rem',
+      fontSize: '10px',
+    } as React.CSSProperties,
+    inputStyleShort : {
+      width:'4rem',
+      height:'2.5rem',
+    } as React.CSSProperties,
+    inputStyleLong : {
+      width:'10rem',
+      height:'2.5rem',
+    } as React.CSSProperties,
+    selectStyle : {
+      marginLeft: '0.5rem',
+      width:'5rem'
+    } as React.CSSProperties,
+  }
+
+const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
+    return  ( <>
+    <TableRow>{
+    upHeadList.map((head: TableUpperProps) => 
+      (!head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
+        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={2}>{'중축 개축 증축 '}</TableHead>:null))}
+    </TableRow>
+    <TableRow>
+      {upHeadList.map((head: TableUpperProps) =>
+        (head.upName === 'upChangeRe'?<TableHead key={head.id}>{head.title}</TableHead>:null))}
+    </TableRow>
+    </> )
+  }
+
+export default function ProcessFacilitySearch() {
+  const {ProcessFacility} = useFoStore((state) => state);
+
+  // 상단바 관련
+  const {
+    processFacilityLabelArray, 
+    selectPartData,
+    selectUpdownData,
+    selectOperationData,
+    selectFacilityPartData,
+    selectSidoData,
+    selectSigunData,
+  } = ProcessFacility;
+
+  // 그리드 관련
+  const {upHeadList, processFacilityList} = useFoStore((state) => state);
+
+  const upChangeRe= headMakeColSpan(upHeadList);
+
+  return (
+      <div>
+        <SearchDiv>
+            <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
+              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
+              </SelectBox>
+              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
+              </SelectBox>
+              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
+              </SelectBox>
+              <div className="col-span-4 flex" >
+                {processFacilityLabelArray[3] && <Label style={styles.labelStyle}>{processFacilityLabelArray[3]}</Label>}
+                <Input style={styles.inputStyleShort}></Input>
+                <Select>
+                  <SelectTrigger style={styles.selectStyle} className="w-[100px]">
+                    <SelectValue placeholder={selectUpdownData?.[0]?.text ?? ""} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {selectUpdownData.map((selectArray) => (
+                      <SelectItem key={selectArray.val} value={selectArray.val}>{selectArray.text}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="col-span-4 flex" >
+                {processFacilityLabelArray[4] && <Label style={styles.labelStyle}>{processFacilityLabelArray[4]}</Label>}
+                <Input style={styles.inputStyleLong}></Input>
+              </div>
+              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
+              </SelectBox>
+              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
+              </SelectBox>
+            </div>
+            <div style={styles.rightDiv}>
+              <Button style={styles.searchBtn} size="sm">
+                초기화
+              </Button>
+              <Button style={styles.searchBtn} size="sm">
+                조회
+              </Button>
+            </div>
+        </SearchDiv>
+        <UiTable headName={""} publicReuseFacility={processFacilityList} headlist={upHeadList} pageSize={0} total={0}>
+          {upChangeRe}
+        </UiTable>
+      </div>
+  );
+}
