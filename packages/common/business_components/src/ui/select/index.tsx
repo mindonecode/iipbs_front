@@ -1,22 +1,44 @@
+import { Label } from "@common/components";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./lib/selectBox";
+
+/** 차트 기본 스타일 */
+const styles = {
+    selectBoxDiv : {
+      marginLeft : '2rem',
+      display : 'flex'
+    } as React.CSSProperties,
+    selectStyle : {
+      marginLeft: '1rem',
+      width:'8rem'
+    } as React.CSSProperties,
+    labelStyle : {
+      margin:'0.8rem 0.8rem 0.8rem 0.8rem',
+      fontSize: '10px',
+    } as React.CSSProperties
+}
 
 interface SelectBox1 {
   text:string,
   val:string
 }
 
-function SelectBox(props: { selectArray: SelectBox1[]}){
+function SelectBox(props: {label : string, selectArray: SelectBox1[]}){
+  const placeHolder = props.selectArray.length > 0 ? props.selectArray[0].text : "";
+
   return (
-    <Select>
-      <SelectTrigger className="w-[100px]">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        {props.selectArray.map((selectArray) => (
-          <SelectItem key={selectArray.val} value={selectArray.val}>{selectArray.text}</SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div style={styles.selectBoxDiv}>
+      {props.label && <Label style={styles.labelStyle}>{props.label}</Label>}
+      <Select style={styles.selectStyle}>
+        <SelectTrigger style={styles.selectStyle} className="w-[180px]">
+          <SelectValue placeholder={placeHolder} />
+        </SelectTrigger>
+        <SelectContent>
+          {props.selectArray.map((selectArray) => (
+            <SelectItem key={selectArray.val} value={selectArray.val}>{selectArray.text}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   )  
 }
 

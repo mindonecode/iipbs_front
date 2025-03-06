@@ -13,6 +13,12 @@ import {
   FormMessage,
 } from "@common/business_components/ui/form";
 import { UiTable } from "@common/business_components/ui";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@common/business_components/ui/form";
+import { Button, FileSearch, Input } from "@common/components";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { useWrStore } from "../store";
 import Style from "../style/PublicReuseFaciltyInsert.module.css";
 import { SelectBox } from "@common/business_components";
@@ -609,11 +615,6 @@ const formIter =  (formData: typeOfForm[] ) => {
                 />
               </div>
             </div>
-
-
-
-
-
 
          <h1 className="bg-gray-400 text-xl text-center border-2 p-2 ">
               농축수관리{" "}
