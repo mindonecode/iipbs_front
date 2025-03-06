@@ -12,6 +12,7 @@
     "@common/assets": "workspace:*",
     "@common/components": "workspace:*",
     "@tanstack/react-table": "^8.21.2",
+    "axios": "^1.8.1",
     "chart.js": "^4.4.8",
     "next": "15.1.7",
     "react-chartjs-2": "^5.3.0",
