@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { client } from "../api/client";
-import { ENDPOINT } from "../config/api";
+import { ENDPOINT } from "../config";
+import { client } from "./client";
 
 export interface UserInfo {
   userName: string;

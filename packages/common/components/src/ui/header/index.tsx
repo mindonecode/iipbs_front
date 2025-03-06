@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { images } from "@common/assets";
+import { useUsersMutation, type UserInfo } from "../../api";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,8 +10,6 @@ import {
   DropdownMenuItem,
 } from "../dropdown-menu";
 import { Button } from "../button";
-import { useUsersMutation, type UserInfo } from "../../api/user";
-import { useEffect, useState } from "react";
 
 export function Header() {
   const { mutate } = useUsersMutation();
