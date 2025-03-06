@@ -1,16 +1,12 @@
 'use client'
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
 
 import {UiTable } from '@common/business_components';
-import {UiForm} from '@common/business_components';
-import { Input, TableRow } from '@common/components';
+import {  TableRow } from '@common/components';
 import { TableHead } from '@common/components';
-import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@common/business_components/ui/form/lib/form";
 import Style from "../style/PublicReuseFaciltyInsert.module.css";
 import { useWrStore } from '../store';
 import type { TableUpperProps } from '../store/publicReuseFaciltyInsert';
+import  { PublicReuseFaciltyFormInsert } from '../component/publicReuseInsertForm';
 
 
 
@@ -32,62 +28,25 @@ import type { TableUpperProps } from '../store/publicReuseFaciltyInsert';
   
 
 
-  export default function PublicReuseFaciltyInsert() {
+  export  function PublicReuseFaciltyInsert() {
   const {  upHeadList, publicReuseFacilityUper} = useWrStore((state) => state);
   const nodeList= headMakeColSpan(upHeadList);
   const total = 100;
  
-  const formSchema= z.object({
-    username: z.string().min(2).max(50),
-  })
-
-const form = useForm<z.infer<typeof formSchema>>({
-  resolver: zodResolver(formSchema),
-  defaultValues: {
-    username: "",
-  },
-})
-
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
-  }
-  const formField = ()=>{
-    return(
-    <FormField
-    control={form.control}
-    name="username"
-    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Username</FormLabel>
-                        <FormControl>
-                        <Input placeholder="shadcn" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                        This is your public display name.
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-    )}
-  />
- ) }
-
- const makeFromField= formField();
+ 
 
 
   return (  <>
-  <div>
-        <div className={Style.table}>
+  <div className="grid grid-cols-2 gap-4">
+        <div className="colsapn-1">
           <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={'test'}>
             {nodeList}
            </UiTable>
         </div>
-          <div className={Style.form} >
-          <UiForm onSubmit={onSubmit} form={form} formField={makeFromField}      ></UiForm>
-
-          </div>
+        <div className="colsapn-1">
+          <PublicReuseFaciltyFormInsert></PublicReuseFaciltyFormInsert>
+        </div>
+        
 </div>     
           
           </>

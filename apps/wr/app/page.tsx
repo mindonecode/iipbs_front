@@ -1,4 +1,4 @@
-import PublicReuseFaciltyInsert from './publicReuseFaciltyInsert/page';
+import {PublicReuseFaciltyInsert} from './publicReuseFaciltyInsert/page';
 import { StoreProvider } from './store';
 
 
