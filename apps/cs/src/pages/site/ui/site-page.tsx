@@ -3,12 +3,18 @@
 import "@common/assets/styles/grid.css";
 
 import { useRouter } from "next/navigation";
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Button, Input, DataTable } from "@common/components";
 import { data, columns } from "../model/__mocks__";
 import { SitePageLayout } from "./layout";
 
 function SitePage() {
   const router = useRouter();
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
     <SitePageLayout>
@@ -28,7 +34,7 @@ function SitePage() {
             <Button onClick={() => router.push("/site/register")}>등록</Button>
           </div>
           <div className="card !m-[1.2rem] h-[49rem] overflow-auto !p-0">
-            <DataTable data={data} columns={columns} />
+            <DataTable table={table} />
           </div>
         </div>
       </div>

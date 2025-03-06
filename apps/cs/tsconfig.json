@@ -25,6 +25,7 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
+      "@common/components/*": ["../../../packages/common/components/src/*"],
       "@common/components": ["../../../packages/common/components/src"]
     }
   },
