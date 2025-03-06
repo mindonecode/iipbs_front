@@ -1,15 +1,6 @@
 import axios from "axios";
-import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
-
-interface ApiResponse<T = unknown> {
-  data: T;
-  status: number;
-  message?: string;
-}
-
-interface RequestData {
-  [key: string]: unknown;
-}
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { SERVER_API_URL, SITE_ID } from "../config";
 
 class Client {
   private static instance: Client;
@@ -17,10 +8,12 @@ class Client {
 
   private constructor() {
     this.axiosInstance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      baseURL: SERVER_API_URL,
       headers: {
         "Content-Type": "application/json",
+        "X-Site-Id": SITE_ID,
       },
+      withCredentials: true,
     });
   }
 
@@ -31,49 +24,38 @@ class Client {
     return Client.instance;
   }
 
-  public async get<T>(
+  public async get<T = unknown, R = AxiosResponse<T>>(
     url: string,
-    config?: InternalAxiosRequestConfig,
-  ): Promise<ApiResponse<T>> {
-    const response = await this.axiosInstance.get<ApiResponse<T>>(url, config);
-    return response.data;
+    config?: AxiosRequestConfig,
+  ): Promise<R> {
+    const response = await this.axiosInstance.get<T, R>(url, config);
+    return response;
   }
 
-  public async post<T>(
+  public async post<T = unknown, R = AxiosResponse<T>, D = unknown>(
     url: string,
-    data?: RequestData,
-    config?: InternalAxiosRequestConfig,
-  ): Promise<ApiResponse<T>> {
-    const response = await this.axiosInstance.post<ApiResponse<T>>(
-      url,
-      data,
-      config,
-    );
-    return response.data;
+    data?: D,
+    config?: AxiosRequestConfig<D>,
+  ): Promise<R> {
+    const response = await this.axiosInstance.post<T, R>(url, data, config);
+    return response;
   }
 
-  public async put<T>(
+  public async put<T = unknown, R = AxiosResponse<T>, D = unknown>(
     url: string,
-    data?: RequestData,
-    config?: InternalAxiosRequestConfig,
-  ): Promise<ApiResponse<T>> {
-    const response = await this.axiosInstance.put<ApiResponse<T>>(
-      url,
-      data,
-      config,
-    );
-    return response.data;
+    data?: D,
+    config?: AxiosRequestConfig<D>,
+  ): Promise<R> {
+    const response = await this.axiosInstance.put<T, R>(url, data, config);
+    return response;
   }
 
-  public async delete<T>(
+  public async delete<T = unknown, R = AxiosResponse<T>>(
     url: string,
-    config?: InternalAxiosRequestConfig,
-  ): Promise<ApiResponse<T>> {
-    const response = await this.axiosInstance.delete<ApiResponse<T>>(
-      url,
-      config,
-    );
-    return response.data;
+    config?: AxiosRequestConfig,
+  ): Promise<R> {
+    const response = await this.axiosInstance.delete<T, R>(url, config);
+    return response;
   }
 }
 
