@@ -1,16 +1,13 @@
 "use client";
 import { CloudUpload, Paperclip } from "lucide-react";
-import React from "react";
 import { FileInput, FileUploader, FileUploaderContent, FileUploaderItem } from "./lib/file_upload";
 const dropZoneConfig = {
     maxFiles: 5,
     maxSize: 1024 * 1024 * 4,
     multiple: true,
   };
-export const FileUpload = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement> & { files: File[]|null, setFiles: (files: File[]|null) => void , fileTypes: string|undefined}
->(({ ...props }) => {
+export const FileUpload = 
+(({ ...props }) => {
     return (
         <FileUploader
             value={props.files}
