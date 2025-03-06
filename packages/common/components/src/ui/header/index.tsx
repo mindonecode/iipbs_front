@@ -1,3 +1,6 @@
+"use client";
+
+import { images } from "@common/assets";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -5,9 +8,29 @@ import {
   DropdownMenuItem,
 } from "../dropdown-menu";
 import { Button } from "../button";
-import { images } from "@common/assets";
+import { useUsersMutation, type UserInfo } from "../../api/user";
+import { useEffect, useState } from "react";
 
 export function Header() {
+  const { mutate } = useUsersMutation();
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    userName: "",
+    lastLoginDate: "",
+  });
+
+  useEffect(() => {
+    mutate(
+      {
+        userUniqId: "65a00f65-8460-49af-98ec-042977e56f4b",
+      },
+      {
+        onSuccess: (data) => {
+          setUserInfo(data.data);
+        },
+      },
+    );
+  }, []);
+
   return (
     <header className="sticky top-0 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border">
       <div className="flex items-center">
@@ -23,13 +46,20 @@ export function Header() {
         <DropdownMenuTrigger asChild>
           <Button className="group m-0 flex h-[3rem] items-center !bg-background px-4 py-0 text-label">
             <i className="diveicon di-account-circle static translate-y-0.5 pr-2 text-3xl" />
-            관리자
+            {userInfo.userName}
             <i className="diveicon di-chevron-down static p-0 transition-transform group-data-[state=open]:rotate-180" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>프로필</DropdownMenuItem>
-          <DropdownMenuItem>설정</DropdownMenuItem>
+          <DropdownMenuItem>프로필 설정</DropdownMenuItem>
+          <div className="flex flex-col items-start gap-0 px-4 py-3">
+            <p className="text-base text-label">최종접속일</p>
+            <p>{userInfo.lastLoginDate}</p>
+          </div>
+          <div className="flex flex-col items-start gap-0 px-4 py-3">
+            <p className="text-base text-label">접속 IP</p>
+            <p></p>
+          </div>
           <DropdownMenuItem>로그아웃</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
