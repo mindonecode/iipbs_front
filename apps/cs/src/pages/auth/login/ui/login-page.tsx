@@ -1,9 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import { images } from "@common/assets";
-
+import { LoginApi } from "../api/login";
 import "./login.css";
 
 function LoginPage() {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const userId = formData.get("id") as string;
+    const password = formData.get("password") as string;
+
+    LoginApi.login({ userId, password });
+  };
+
   return (
     <div className="login fx">
       <div className="left_box fx">
@@ -19,7 +31,12 @@ function LoginPage() {
           <Image src={images.logo} width={229} height={46} alt="logo" />
         </div>
       </div>
-      <form id="loginForm" name="loginForm" method="post">
+      <form
+        id="loginForm"
+        name="loginForm"
+        method="post"
+        onSubmit={handleSubmit}
+      >
         <div className="login_box fx">
           <ul className="fx">
             <li>
@@ -63,9 +80,9 @@ function LoginPage() {
             </div>
             {/* <a href="javascript:fnUserSearch();" className=" pw_message fx"><i className="xi-external-link"></i>비밀번호 또는 아이디를 잃어버리셨나요?</a> */}
           </div>
-          <a className="login_btn fx">
+          <button type="submit" className="login_btn fx">
             <span>LOGIN</span>
-          </a>
+          </button>
           <div className="footer">
             <div className="copy fx">
               <p>copyright © 2023 KECO. All rights reserved.</p>

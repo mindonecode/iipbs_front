@@ -62,15 +62,9 @@ export class LoginApiService implements LoginService {
         throw new Error("No refresh token available");
       }
 
-      const response = await client.put(
-        ENDPOINT.USER_SERVICE.SILENT_REFRESH,
-        {},
-        {
-          headers: {
-            [CLAIM_NAME]: refreshToken,
-          },
-        },
-      );
+      tokenManager.setToken(CLAIM_NAME, refreshToken);
+
+      const response = await client.put(ENDPOINT.USER_SERVICE.SILENT_REFRESH);
 
       const accessToken = response.headers[ACCESS_TOKEN];
       const tokenId = response.headers[TOKEN_ID];
