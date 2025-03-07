@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import UiPageNations from "./uiPageNations";
   
   
-interface UiTableProps {
+type UiTableProps  = {
   headName: React.ReactNode|undefined;
   publicReuseFacility: { [key: string]: string | number | boolean }[];
   headlist: UiHeadProps[];
@@ -11,8 +11,7 @@ interface UiTableProps {
   children: React.ReactNode|undefined;
 }
 
-
-interface UiHeadProps{
+type UiHeadProps={   
   id:string;
   title:string;
 
