@@ -42,10 +42,6 @@ const styles = {
       marginLeft: '0.5rem',
       width:'5rem'
     } as React.CSSProperties,
-    selectDefaultStyle : {
-      marginLeft: '1rem',
-      width:'10rem'
-    } as React.CSSProperties,
   }
 
 const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
@@ -95,11 +91,11 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
               </SelectBox>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
               </SelectBox>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
               </SelectBox>
               <div className="col-span-3 flex" >
                 {processFacilityLabelArray[3] && <Label style={styles.labelStyle}>{processFacilityLabelArray[3]}</Label>}
@@ -119,9 +115,9 @@ export default function ProcessFacilitySearch() {
                 {processFacilityLabelArray[4] && <Label style={styles.labelStyle}>{processFacilityLabelArray[4]}</Label>}
                 <Input style={styles.inputStyleLong}></Input>
               </div>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
               </SelectBox>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
               </SelectBox>
             </div>
             <div style={styles.rightDiv}>
