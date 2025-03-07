@@ -7,10 +7,6 @@ const styles = {
       marginLeft : '2rem',
       display : 'flex'
     } as React.CSSProperties,
-    selectStyle : {
-      marginLeft: '1rem',
-      width:'10rem'
-    } as React.CSSProperties,
     labelStyle : {
       margin:'0.8rem 0.8rem 0.8rem 1rem',
       fontSize: '10px',
@@ -22,14 +18,15 @@ interface SelectBox1 {
   val:string
 }
 
-function SelectBox(props: {label : string, selectArray: SelectBox1[], styleClassName : string}){
+
+function SelectBox(props: {label : string, selectArray: SelectBox1[], styleClassName : string, styleSelect : React.CSSProperties}){
   const placeHolder = props.selectArray?.[0]?.text ?? "";
 
   return (
     <div className={props.styleClassName+" flex"} >
       {props.label && <Label style={styles.labelStyle}>{props.label}</Label>}
       <Select>
-        <SelectTrigger style={styles.selectStyle} className="w-[180px]">
+        <SelectTrigger style={props.styleSelect} className="">
           <SelectValue placeholder={placeHolder} />
         </SelectTrigger>
         <SelectContent>
