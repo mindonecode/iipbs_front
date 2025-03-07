@@ -1,7 +1,7 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
-import { SearchDiv, SelectBox } from "@common/business_components";
-import { Button, Input, Label } from "@common/components/ui";
+import { SearchDiv } from "@common/business_components";
+import { Button } from "@common/components/ui";
 
 /** 기본 스타일 */
 const styles = {
@@ -34,18 +34,6 @@ export default function DashBoard() {
       <div>
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox styleClassName="col-span-4" label={labelArray[0] as string} selectArray={selectData1}>
-              </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={labelArray[1] as string} selectArray={selectData2}>
-              </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={labelArray[2] as string} selectArray={selectData2}>
-              </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={labelArray[2] as string} selectArray={selectData2}>
-              </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={labelArray[2] as string} selectArray={selectData2}>
-              </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={labelArray[2] as string} selectArray={selectData2}>
-              </SelectBox>
             </div>
             <div style={styles.rightDiv}>
               <Button style={styles.searchBtn} size="sm">

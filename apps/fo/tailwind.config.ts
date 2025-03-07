@@ -6,6 +6,7 @@ export default {
   darkMode: ["class", "[data-mode='dark']"],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/common/business_components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/common/components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
 } satisfies Config;
