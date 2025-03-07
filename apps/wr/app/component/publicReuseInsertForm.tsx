@@ -67,27 +67,25 @@ export function PublicReuseFaciltyFormInsert() {
 
   const [files, setFiles] = useState(null);
 
-
-  
   return (
     <div>
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {/* <div className="flex justify-between items-center mx-3"> */}
-            <div className="grid grid-cols-12 gap-4 my-4">
-              <div className="col-span-2 flex items-center">
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-2 flex items-top">
                 <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
               </div>
 
-              <div className="col-span-4">
+              <div className="col-span-4 ">
                 <FormField
                   control={form.control}
                   name="facilityName"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="하수처리장-1" type="" {...field} />
+                        <Input  placeholder="하수처리장-1" type="" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -95,8 +93,8 @@ export function PublicReuseFaciltyFormInsert() {
                 />
               </div>
               <div className="col-start-12 col-end-12 flex justify-between items-end mt-3">
-                <Button size="sm" type="submit">
-                  Submit
+                <Button className="my-3" size="xs" type="submit">
+                  신규등록
                 </Button>
               </div>
             </div>
@@ -136,7 +134,7 @@ export function PublicReuseFaciltyFormInsert() {
 
             <div className="flex justify-between items-center mx-3">
               <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
-              <Button size="xs">추가등록</Button>
+              <Button className="my-3" size="xs">추가등록</Button>
             </div>
             <div>
               <UiTable
@@ -237,13 +235,12 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_1486273033"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>등록 차수</FormLabel>
-                      <SelectBox selectArray={selectboxValue}></SelectBox>
+                      <SelectBox label ='등록차수'selectArray={selectboxValue}></SelectBox>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button className="mx-5 mt-6" size="xs" type="submit">
+                <Button className="mx-5 mt-2" size="xs" type="submit">
                   신규등록
                 </Button>
               </div>
@@ -262,7 +259,7 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_8928357542"
                   render={({ field }) => (
-                    <FormItem className="w-1000">
+                    <FormItem >
                       <FormLabel>구분</FormLabel>
                       <SelectBox selectArray={selectboxDivValue}></SelectBox>
                     </FormItem>
@@ -275,7 +272,7 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_9484942814"
                   render={({ field }) => (
-                    <FormItem className="w-1000">
+                    <FormItem >
                       <FormLabel>사업방식</FormLabel>
                       <SelectBox selectArray={selectboxBuisValue}></SelectBox>
                     </FormItem>

@@ -36,9 +36,14 @@ import  { PublicReuseFaciltyFormInsert } from '../component/publicReuseInsertFor
  
   const searchDiv ='시군구'
   const selectBox = [{text:'한양', value:1}]
-
+  const headName= ()=>{
+        return(
+          <h1 className="pl-3 text-xl">○공공 허수처리시설 등록</h1>
+        )
+  }
   return (  <>
   <div>
+    <h1 className="pl-3 text-2xl" > 하수재이용시설 등록</h1>
     <SearchDiv   >
         <div className='flex'> 
           <SelectBox label={searchDiv} selectArray={selectBox} /> 
@@ -48,8 +53,9 @@ import  { PublicReuseFaciltyFormInsert } from '../component/publicReuseInsertFor
     </SearchDiv>
   </div>
   <div className="grid grid-cols-2 gap-4">
+
         <div className="colsapn-1">
-          <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={'ㅈㅇ'}>
+          <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={headName()}>
             {nodeList}
            </UiTable>
         </div>
