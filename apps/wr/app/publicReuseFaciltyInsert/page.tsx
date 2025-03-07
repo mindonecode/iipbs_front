@@ -1,7 +1,7 @@
 'use client'
 
-import {UiTable } from '@common/business_components';
-import {  TableRow } from '@common/components';
+import {SearchDiv, SelectBox, UiTable } from '@common/business_components';
+import {  Button, TableRow } from '@common/components';
 import { TableHead } from '@common/components';
 import Style from "../style/PublicReuseFaciltyInsert.module.css";
 import { useWrStore } from '../store';
@@ -34,16 +34,26 @@ import  { PublicReuseFaciltyFormInsert } from '../component/publicReuseInsertFor
   const total = 100;
  
  
-
+  const searchDiv ='시군구'
+  const selectBox = [{text:'한양', value:1}]
 
   return (  <>
+  <div>
+    <SearchDiv   >
+        <div className='flex'> 
+          <SelectBox label={searchDiv} selectArray={selectBox} /> 
+            <Button className ='mr-4' size='sm'>조회</Button>
+           <Button className ='mr-4' size='sm'>신규추가</Button>
+        </div>
+    </SearchDiv>
+  </div>
   <div className="grid grid-cols-2 gap-4">
         <div className="colsapn-1">
-          <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={'test'}>
+          <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={'ㅈㅇ'}>
             {nodeList}
            </UiTable>
         </div>
-        <div className="colsapn-1">
+        <div className="colsapn-1 h-full">
           <PublicReuseFaciltyFormInsert></PublicReuseFaciltyFormInsert>
         </div>
         

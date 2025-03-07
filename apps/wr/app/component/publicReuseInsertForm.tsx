@@ -1,18 +1,6 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button, FileSearch, Input } from "@common/components";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-} from "@common/business_components/ui/form";
-import { UiTable } from "@common/business_components/ui";
+
+import { FileUpload, UiTable } from "@common/business_components/ui";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@common/business_components/ui/form";
 import { Button, FileSearch, Input } from "@common/components";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -75,49 +63,14 @@ export function PublicReuseFaciltyFormInsert() {
     { text: "자쳬+연계", val: "3" },
   ];
 
-let formData =[
-  {labelName:'농축수발생량(m³/일)', type:'input',selectvlaue:undefined},
-  {labelName:'농축수연계지점',type:'input',selectvlaue:undefined},
-  {labelName:'시설용량(m³/일)',type:'input',selectvlaue:undefined},
-  {labelName:'농축수 처리방식',type:'check', selectvlaue:selectboxMethodValue},
-  {labelName:'농축수 처리공법',type:'input',selectvlaue:undefined},
-]
 
 
+  const [files, setFiles] = useState(null);
 
-const formIter =  (formData: typeOfForm[] ) => {
+
+  
   return (
-    <>
-        {formData.map((data:typeOfForm) =>{
-          
-        <div className="col-span-4">
-            <FormField
-              control={form.control}
-              name="name_7678668236"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>data.name</FormLabel>
-                  <FormControl>
-                    {data.type==='input'? <Input placeholder="shadcn" type="" {...field} />:  <SelectBox selectArray={selectboxBuisValue}></SelectBox> }        
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-          </div>
-        } )}
-      </>
-    )
-  }
-
-  const filedForm = formIter(formData);
-  
-  
-  
-
-
-  return (
-    <>
+    <div>
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -157,59 +110,14 @@ const formIter =  (formData: typeOfForm[] ) => {
                     <FormItem>
                       <FormLabel>계통도</FormLabel>
                       <FormControl>
-                        <FileSearch id="test1"></FileSearch>
+                      <FileUpload files={files} setFiles={setFiles} fileTypes="PDF"></FileUpload>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                {/* <FormField
-                                  control={form.control}
-                                  name="name_3799085626"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>계통도</FormLabel>
-                                      <FormControl className="w-100">
-                                      <FileUploader
-                                          value={files}
-                                          onValueChange={setFiles}
-                                          dropzoneOptions={dropZoneConfig}
-                                          className="relative bg-background rounded-lg p-2"
-                                        >
-                                          <FileInput
-                                            id="fileInput"
-                                            className="outline-dashed outline-1 outline-slate-500"
-                                          >
-                                            <div className="flex items-center justify-center flex-col p-8 w-full ">
-                                              <CloudUpload className='text-gray-500 w-10 h-10' />
-                                              <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
-                                                <span className="font-semibold">Click to upload</span>
-                                                &nbsp; or drag and drop
-                                              </p>
-                                              <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                SVG, PNG, JPG or GIF
-                                              </p>
-                                            </div>
-                                          </FileInput>
-                                          <FileUploaderContent>
-                                            {files &&
-                                              files.length > 0 &&
-                                              files.map((file, i) => (
-                                                <FileUploaderItem key={i} index={i}>
-                                                  <Paperclip className="h-4 w-4 stroke-current" />
-                                                  <span>{file.name}</span>
-                                                </FileUploaderItem>
-                                              ))}
-                                          </FileUploaderContent>
-                                        </FileUploader>                                        
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                /> */}
-              </div>
-
-              <div className="con-start-2 col-end-8">
+                  </div>
+              <div className="col-start-6 col-end-10">
                 <FormField
                   control={form.control}
                   name="name_0211213336"
@@ -217,7 +125,7 @@ const formIter =  (formData: typeOfForm[] ) => {
                     <FormItem>
                       <FormLabel>평면도</FormLabel>
                       <FormControl>
-                        <FileSearch id="test"></FileSearch>
+                      <FileUpload files={files} setFiles={setFiles} fileTypes="PDF"></FileUpload>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -619,13 +527,10 @@ const formIter =  (formData: typeOfForm[] ) => {
          <h1 className="bg-gray-400 text-xl text-center border-2 p-2 ">
               농축수관리{" "}
             </h1>
-          
-              { filedForm}
-
-                  
+            
           </form>
         </Form>
       </div>
-    </>
+    </div>
   );
 }
