@@ -37,32 +37,27 @@ function TreeView() {
 
   return (
     <DndProvider backend={MultiBackend} options={getBackendOptions()}>
-      <div>
-        <Tree<CustomData>
-          tree={treeData}
-          rootId={0}
-          render={(
-            node: NodeModel<CustomData>,
-            { depth, isOpen, onToggle },
-          ) => (
-            <CustomNode
-              node={node}
-              depth={depth}
-              isOpen={isOpen}
-              onToggle={onToggle}
-            />
-          )}
-          onDrop={handleDrop}
-          classes={{
-            root: "",
-            container: "flex flex-col",
-            listItem: "",
-            dropTarget: "bg-primary rounded-sm",
-            draggingSource: "",
-            placeholder: "",
-          }}
-        />
-      </div>
+      <Tree<CustomData>
+        tree={treeData}
+        rootId={0}
+        render={(node: NodeModel<CustomData>, { depth, isOpen, onToggle }) => (
+          <CustomNode
+            node={node}
+            depth={depth}
+            isOpen={isOpen}
+            onToggle={onToggle}
+          />
+        )}
+        onDrop={handleDrop}
+        classes={{
+          root: "p-10",
+          container: "flex flex-col",
+          listItem: "",
+          dropTarget: "bg-primary rounded-sm",
+          draggingSource: "",
+          placeholder: "",
+        }}
+      />
     </DndProvider>
   );
 }
