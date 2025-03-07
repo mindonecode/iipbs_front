@@ -1,6 +1,6 @@
 import { addons } from "@storybook/manager-api";
 import { create } from "@storybook/theming";
-import { BASE_ASSETS_PATH } from "../src/env";
+import { BASE_ASSETS_PATH } from "./env";
 
 const theme = create({
   base: "light",
