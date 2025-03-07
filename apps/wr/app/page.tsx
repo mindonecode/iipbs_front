@@ -1,12 +1,9 @@
-import {PublicReuseFaciltyInsert} from './publicReuseFaciltyInsert/page';
-import { StoreProvider } from './store';
+import {PublicReuseFaciltyInsert }from './publicReuseFaciltyInsert/page';
 
 
 
 export default function Home() {
   return (
-    <StoreProvider>
       <PublicReuseFaciltyInsert   />
-    </StoreProvider>
   );
 }
