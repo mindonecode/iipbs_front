@@ -79,10 +79,6 @@ export default function Home() {
 
         <SearchDiv>
             <div style={styles.leftDiv}>
-              <SelectBox label={labelArray[0] as string} selectArray={selectData1}>
-              </SelectBox>
-              <SelectBox label={labelArray[1] as string} selectArray={selectData2}>
-              </SelectBox>
             </div>
             <div style={styles.rightDiv}>
               <Button style={styles.searchBtn} size="sm">

@@ -1,9 +1,11 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
+import type { FlowRateSearchType } from '@/app/store/flowRate'
 import type { TableUpperProps } from "@/app/store/processFacility";
 import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@common/business_components/ui/select/lib/selectBox";
 import { Button, Input, Label, TableHead, TableRow } from "@common/components/ui";
+import { flowRateSearchInitState } from './../../store/flowRate/index';
 
 /** 기본 스타일 */
 const styles = {
@@ -42,6 +44,10 @@ const styles = {
       marginLeft: '0.5rem',
       width:'5rem'
     } as React.CSSProperties,
+    selectDefaultStyle : {
+      marginLeft: '1rem',
+      width:'10rem'
+    } as React.CSSProperties,
   }
 
 const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
@@ -69,18 +75,18 @@ const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
   }
 
 export default function ProcessFacilitySearch() {
-  const {ProcessFacility} = useFoStore((state) => state);
+  const {FlowRateSearch} = useFoStore((state) => state);
 
   // 상단바 관련
   const {
-    processFacilityLabelArray, 
+    flowRateSearchLabelArray, 
     selectPartData,
     selectUpdownData,
     selectOperationData,
     selectFacilityPartData,
     selectSidoData,
     selectSigunData,
-  } = ProcessFacility;
+  } = FlowRateSearch;
 
   // 그리드 관련
   const {upHeadList, processFacilityList} = useFoStore((state) => state);
@@ -91,14 +97,14 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
+              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData}>
               </SelectBox>
-              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
+              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData}>
               </SelectBox>
-              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
+              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData}>
               </SelectBox>
               <div className="col-span-3 flex" >
-                {processFacilityLabelArray[3] && <Label style={styles.labelStyle}>{processFacilityLabelArray[3]}</Label>}
+                {flowRateSearchLabelArray[3] && <Label style={styles.labelStyle}>{flowRateSearchLabelArray[3]}</Label>}
                 <Input style={styles.inputStyleShort}></Input>
                 <Select>
                   <SelectTrigger style={styles.selectStyle} className="w-[100px]">
@@ -112,12 +118,12 @@ export default function ProcessFacilitySearch() {
                 </Select>
               </div>
               <div className="col-span-3 flex" >
-                {processFacilityLabelArray[4] && <Label style={styles.labelStyle}>{processFacilityLabelArray[4]}</Label>}
+                {flowRateSearchLabelArray[4] && <Label style={styles.labelStyle}>{flowRateSearchLabelArray[4]}</Label>}
                 <Input style={styles.inputStyleLong}></Input>
               </div>
-              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
+              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectOperationData}>
               </SelectBox>
-              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
+              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectFacilityPartData}>
               </SelectBox>
             </div>
             <div style={styles.rightDiv}>
