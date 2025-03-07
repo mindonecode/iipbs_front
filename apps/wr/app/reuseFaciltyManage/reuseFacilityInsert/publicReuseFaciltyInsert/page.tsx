@@ -3,10 +3,9 @@
 import {SearchDiv, SelectBox, UiTable } from '@common/business_components';
 import {  Button, TableRow } from '@common/components';
 import { TableHead } from '@common/components';
-import Style from "../style/PublicReuseFaciltyInsert.module.css";
-import { useWrStore } from '../store';
-import type { TableUpperProps } from '../store/publicReuseFaciltyInsert';
-import  { PublicReuseFaciltyFormInsert } from '../component/publicReuseInsertForm';
+import { useWrStore } from '../../../store';
+import type { TableUpperProps } from '../../../store/publicReuseFaciltyInsert';
+import  { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicReuseInsertForm';
 
 
 
@@ -28,7 +27,7 @@ import  { PublicReuseFaciltyFormInsert } from '../component/publicReuseInsertFor
   
 
 
-  export  function PublicReuseFaciltyInsert() {
+  export  default function PublicReuseFaciltyInsert() {
   const {  upHeadList, publicReuseFacilityUper} = useWrStore((state) => state);
   const nodeList= headMakeColSpan(upHeadList);
   const total = 100;
