@@ -1,41 +1,35 @@
 import { Label } from "@common/components";
+import React from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./lib/selectBox";
 
 /** 차트 기본 스타일 */
-const styles = {
-    selectBoxDiv : {
-      marginLeft : '2rem',
-      display : 'flex'
-    } as React.CSSProperties,
-    labelStyle : {
-      margin:'0.8rem 0.8rem 0.8rem 1rem',
-      fontSize: '10px',
-    } as React.CSSProperties
-}
-
 interface SelectBox1 {
   text:string,
   val:string
 }
 
-function SelectBox(props: {label : string, selectArray: SelectBox1[], styleClassName : string, styleSelect : React.CSSProperties}){
-  const placeHolder = props.selectArray?.[0]?.text ?? "";
+
+const SelectBox = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {label:string, className:string, selectArray:SelectBox1[]}
+>(({ label, className, selectArray }, ref)=>{
+  const placeHolder = selectArray?.[0]?.text ?? "";
 
   return (
-    <div className={props.styleClassName+" flex"} >
-      {props.label && <Label style={styles.labelStyle}>{props.label}</Label>}
+    <div className={className+" flex"} ref={ref}>
+      {label && <Label className="m-4 text-xs w-1/4">{label}</Label>}
       <Select>
-        <SelectTrigger style={props.styleSelect} className="">
+        <SelectTrigger className="ml-8 flex w-3/4">
           <SelectValue placeholder={placeHolder} />
         </SelectTrigger>
         <SelectContent>
-          {props.selectArray.map((selectArray) => (
+          {selectArray.map((selectArray) => (
             <SelectItem key={selectArray.val} value={selectArray.val}>{selectArray.text}</SelectItem>
           ))}
         </SelectContent>
       </Select>
     </div>
   )  
-}
+})
 
 export { SelectBox };
