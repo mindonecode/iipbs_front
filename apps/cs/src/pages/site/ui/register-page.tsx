@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   DropdownMenu,
@@ -16,6 +18,7 @@ import {
 } from "@common/components";
 import { SitePageLayout } from "./layout";
 import { IPManagementDialog } from "./ip-management-dialog";
+
 function RegisterPage() {
   return (
     <SitePageLayout>
