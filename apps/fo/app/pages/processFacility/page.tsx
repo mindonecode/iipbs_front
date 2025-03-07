@@ -8,11 +8,11 @@ import { Button, Input, Label, TableHead, TableRow } from "@common/components/ui
 /** 기본 스타일 */
 const styles = {
     leftDiv : {
-      width : '55%',
+      width : '80%',
       margin : '1rem 0rem 1rem 0rem',
     } as React.CSSProperties,
     rightDiv : {
-      width : '45%',
+      width : '20%',
       margin : '1rem 2rem 1rem 0rem',
     } as React.CSSProperties,
     searchBtn : {
@@ -48,12 +48,22 @@ const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
     return  ( <>
     <TableRow>{
     upHeadList.map((head: TableUpperProps) => 
-      (!head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
-        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={2}>{'중축 개축 증축 '}</TableHead>:null))}
+      ( head.id==='publicMethod'?<TableHead rowSpan={2} className="w-1/16" key={head.id}>{head.title}</TableHead>:
+        !head.upSequnce&&head.id!='facilityCapacity'&&head.id!='planInputWaterQlty'&&head.id!='designInputWaterQlty'?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
+        head.id=='facilityCapacity'||head.id=='planInputWaterQlty'||head.id=='designInputWaterQlty'?<TableHead rowSpan={2} className="w-13" key={head.id}>{head.title}</TableHead>:
+        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead className="w-75" key={head.id} rowSpan={1} colSpan={2}>{'행정구역'}</TableHead>:null))}
     </TableRow>
     <TableRow>
-      {upHeadList.map((head: TableUpperProps) =>
-        (head.upName === 'upChangeRe'?<TableHead key={head.id}>{head.title}</TableHead>:null))}
+    {upHeadList.map((head: TableUpperProps, idx) =>{
+      if(head.upName === 'upChangeRe'){
+        if(idx==1){
+          return <TableHead key={head.id} className="w-36">{head.title}</TableHead>;
+        }
+        else{
+          return <TableHead key={head.id} className="w-40">{head.title}</TableHead>;
+        }
+      }
+    })}
     </TableRow>
     </> )
   }
@@ -78,16 +88,16 @@ export default function ProcessFacilitySearch() {
   const upChangeRe= headMakeColSpan(upHeadList);
 
   return (
-      <div>
+      <div className="m-8">
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
               </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
               </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
               </SelectBox>
-              <div className="col-span-4 flex" >
+              <div className="col-span-3 flex" >
                 {processFacilityLabelArray[3] && <Label style={styles.labelStyle}>{processFacilityLabelArray[3]}</Label>}
                 <Input style={styles.inputStyleShort}></Input>
                 <Select>
@@ -101,16 +111,19 @@ export default function ProcessFacilitySearch() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="col-span-4 flex" >
+              <div className="col-span-3 flex" >
                 {processFacilityLabelArray[4] && <Label style={styles.labelStyle}>{processFacilityLabelArray[4]}</Label>}
                 <Input style={styles.inputStyleLong}></Input>
               </div>
-              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
               </SelectBox>
-              <SelectBox styleClassName="col-span-4" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
+              <SelectBox styleClassName="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
               </SelectBox>
             </div>
             <div style={styles.rightDiv}>
+              <Button style={styles.searchBtn} size="sm">
+                엑셀다운로드
+              </Button>
               <Button style={styles.searchBtn} size="sm">
                 초기화
               </Button>
@@ -119,7 +132,7 @@ export default function ProcessFacilitySearch() {
               </Button>
             </div>
         </SearchDiv>
-        <UiTable headName={""} publicReuseFacility={processFacilityList} headlist={upHeadList} pageSize={0} total={0}>
+        <UiTable headName={""} publicReuseFacility={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
           {upChangeRe}
         </UiTable>
       </div>

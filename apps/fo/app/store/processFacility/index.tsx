@@ -132,7 +132,7 @@ const upHeadList:TableUpperProps[] = [
     { id: "sigungo", title: "시군구", upName:"upChangeRe",upSequnce:2 },
     { id: "facilityName", title: "시설명"},
     { id: "location", title: "주소"},
-    { id: "facilityCapacity", title: "시설용량(m3/L)"},
+    { id: "facilityCapacity", title: "시설용량(m³/L)"},
     { id: "planInputWaterQlty", title: "계획유입수질(mg/L)"},
     { id: "designInputWaterQlty", title: "설계유입수질(mg/L)"},
     { id: "publicMethod", title: '공법'},
@@ -172,7 +172,7 @@ const processFacilityList:facilityListProps[] = [
     {
         facilityCd : "11500PB001R",
         sido: "서울특별시시",
-        sigungo: "강서서구",
+        sigungo: "강서구",
         facilityName: "서남",
         location: "서울특별시 강서구 마곡동 74",
         facilityCapacity: "1,630,000",
