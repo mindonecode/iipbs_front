@@ -104,13 +104,13 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}/>
               <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
               <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue}/>
             </div>
             <div style={styles.rightDiv}>
               <Button style={styles.searchBtn} size="sm" >
