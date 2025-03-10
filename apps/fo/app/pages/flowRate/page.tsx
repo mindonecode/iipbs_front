@@ -1,20 +1,18 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
-import type { FlowRateSearchType } from '@/app/store/flowRate'
 import type { TableUpperProps } from "@/app/store/processFacility";
 import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@common/business_components/ui/select/lib/selectBox";
 import { Button, Input, Label, TableHead, TableRow } from "@common/components/ui";
-import { flowRateSearchInitState } from './../../store/flowRate/index';
 
 /** 기본 스타일 */
 const styles = {
     leftDiv : {
-      width : '80%',
+      width : '70%',
       margin : '1rem 0rem 1rem 0rem',
     } as React.CSSProperties,
     rightDiv : {
-      width : '20%',
+      width : '30%',
       margin : '1rem 2rem 1rem 0rem',
     } as React.CSSProperties,
     searchBtn : {
@@ -24,14 +22,6 @@ const styles = {
     } as React.CSSProperties,
 
     /** 패키지화 필요 */
-    selectBoxDiv : {
-      marginLeft : '2rem',
-      display : 'flex'
-    } as React.CSSProperties,
-    labelStyle : {
-      margin:'0.8rem 0.8rem 0.8rem 1rem',
-      fontSize: '10px',
-    } as React.CSSProperties,
     inputStyleShort : {
       width:'4rem',
       height:'2.5rem',
@@ -43,10 +33,6 @@ const styles = {
     selectStyle : {
       marginLeft: '0.5rem',
       width:'5rem'
-    } as React.CSSProperties,
-    selectDefaultStyle : {
-      marginLeft: '1rem',
-      width:'10rem'
     } as React.CSSProperties,
   }
 
@@ -75,7 +61,7 @@ const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
   }
 
 export default function ProcessFacilitySearch() {
-  const {FlowRateSearch} = useFoStore((state) => state);
+  const {FlowRateSearch, FlowRateList} = useFoStore((state) => state);
 
   // 상단바 관련
   const {
@@ -83,13 +69,16 @@ export default function ProcessFacilitySearch() {
     selectPartData,
     selectUpdownData,
     selectOperationData,
-    selectFacilityPartData,
+    selectSearchYear,
     selectSidoData,
     selectSigunData,
   } = FlowRateSearch;
 
   // 그리드 관련
-  const {upHeadList, processFacilityList} = useFoStore((state) => state);
+  const {
+    upHeadList, 
+    flowRateList
+  } = FlowRateList;
 
   const upChangeRe= headMakeColSpan(upHeadList);
 
@@ -97,14 +86,14 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData}>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData}>
               </SelectBox>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData}>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData}>
               </SelectBox>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData}>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData}>
               </SelectBox>
               <div className="col-span-3 flex" >
-                {flowRateSearchLabelArray[3] && <Label style={styles.labelStyle}>{flowRateSearchLabelArray[3]}</Label>}
+                {flowRateSearchLabelArray[3] && <Label className="m-4 text-xs w-1/4">{flowRateSearchLabelArray[3]}</Label>}
                 <Input style={styles.inputStyleShort}></Input>
                 <Select>
                   <SelectTrigger style={styles.selectStyle} className="w-[100px]">
@@ -118,12 +107,12 @@ export default function ProcessFacilitySearch() {
                 </Select>
               </div>
               <div className="col-span-3 flex" >
-                {flowRateSearchLabelArray[4] && <Label style={styles.labelStyle}>{flowRateSearchLabelArray[4]}</Label>}
+                {flowRateSearchLabelArray[4] && <Label className="m-4 text-xs w-1/4">{flowRateSearchLabelArray[4]}</Label>}
                 <Input style={styles.inputStyleLong}></Input>
               </div>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectOperationData}>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear}>
               </SelectBox>
-              <SelectBox styleSelect={styles.selectDefaultStyle} styleClassName="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectFacilityPartData}>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData}>
               </SelectBox>
             </div>
             <div style={styles.rightDiv}>
@@ -138,7 +127,7 @@ export default function ProcessFacilitySearch() {
               </Button>
             </div>
         </SearchDiv>
-        <UiTable headName={""} publicReuseFacility={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
+        <UiTable headName={""} publicReuseFacility={flowRateList} headlist={upHeadList} pageSize={8} total={16}>
           {upChangeRe}
         </UiTable>
       </div>
