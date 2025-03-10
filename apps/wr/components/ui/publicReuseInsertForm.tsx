@@ -1,15 +1,14 @@
 "use client";
 
+import { SelectBox } from "@common/business_components";
 import { FileUpload, UiTable } from "@common/business_components/ui";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@common/business_components/ui/form";
-import { Button, FileSearch, Input } from "@common/components";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@common/business_components/ui/form";
+import { Button, DatePicker, Input } from "@common/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useWrStore } from "../../app/store/index";
-import { SelectBox } from "@common/business_components";
-import { DatePicker } from "@common/components";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -17,13 +16,14 @@ const formSchema = z.object({
 });
 
 
-type typeOfForm = {
-  labelName: string;
-  type: string;
-  selectvlaue?: { text: string; val: string }[];
-}
+// type typeOfForm = {
+//   labelName: string;
+//   type: string;
+//   selectvlaue?: { text: string; val: string }[];
+// }
 export function PublicReuseFaciltyFormInsert() {
-  const { upHeadList, publicReuseFacilityUper } = useWrStore((state) => state);
+  const { pubFac } = useWrStore((state) => state);
+  const { upHeadList, publicReuseFacilityUper } = pubFac;
   const total = 100;
 
   const form = useForm<z.infer<typeof formSchema>>({
