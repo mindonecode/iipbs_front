@@ -1,4 +1,5 @@
 import type { SelectDataType } from "@common/business_components/ui";
+import type { TableUpperProps } from "../dashboard";
 
 export type ProcessFacilityType = {
     ProcessFacility: {
@@ -104,12 +105,6 @@ export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any)
     }
 }
 
-export type TableUpperProps = {
-    id: string;
-    title: string;
-    upName?: string;
-    upSequnce?: number;
-}
 export type facilityListProps = {
     facilityCd : string,
     sido : string,
