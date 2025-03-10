@@ -92,7 +92,7 @@ export default function ProcessFacilitySearch() {
   
   const chkVal = () => {
     console.log(inputRef?.current?.value);
-    console.log(inputSelectRef);
+    console.log(inputSelectRef?.current?.value);
   }
   const initVal = () => {
     if(inputRef.current?.value)
@@ -107,7 +107,6 @@ export default function ProcessFacilitySearch() {
               <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}/>
               <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}/>
               <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}/>
-              <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} onSelectValue={onSelectValue}/>
               <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
               <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
               <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}/>
