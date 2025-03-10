@@ -11,15 +11,15 @@ interface SelectBox1 {
 
 const SelectBox = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & {label:string, className:string, selectArray:SelectBox1[]}
->(({ label, className, selectArray }, ref)=>{
+  React.HTMLAttributes<HTMLDivElement> & {label:string, className:string, selectArray:SelectBox1[], onSelectValue:(val:string)=>void}
+>(({ label, className, selectArray, onSelectValue }, ref)=>{
   const placeHolder = selectArray?.[0]?.text ?? "";
 
   return (
-    <div className={className+" flex"} ref={ref}>
-      {label && <Label className="m-4 text-xs w-1/4">{label}</Label>}
-      <Select>
-        <SelectTrigger className="ml-8 flex w-3/4">
+    <div className={className+" flex items-center"} ref={ref}>
+      {label && <Label className="m-4 text-lg w-1/4">{label}</Label>}
+      <Select onValueChange={onSelectValue}>
+        <SelectTrigger className="ml-8 w-3/4 text-lg">
           <SelectValue placeholder={placeHolder} />
         </SelectTrigger>
         <SelectContent>
