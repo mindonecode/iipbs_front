@@ -1,3 +1,5 @@
+import type { SelectDataType } from "@common/business_components/ui";
+
 export type ProcessFacilityType = {
     ProcessFacility: {
         isInit: boolean;
@@ -12,10 +14,6 @@ export type ProcessFacilityType = {
 }
 const ProcessFacilityLabelArray:string[] = ['구분', '시도', '시군구','용량별', '시설명', '시설상태','시설구분'];
 
-export type SelectDataType = {
-    text: string;
-    val: string;
-}
 const selectPartData:SelectDataType[] = [
     { text: "행정별", val: '00'},
     { text: "유역별", val: '01'},

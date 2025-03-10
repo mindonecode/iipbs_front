@@ -1,9 +1,9 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/processFacility";
-import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@common/business_components/ui/select/lib/selectBox";
-import { Button, Input, Label, TableHead, TableRow } from "@common/components/ui";
+import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
+import { Button, TableHead, TableRow } from "@common/components/ui";
+import React, { useRef } from "react";
 
 /** 기본 스타일 */
 const styles = {
@@ -22,10 +22,6 @@ const styles = {
     } as React.CSSProperties,
 
     /** 패키지화 필요 */
-    selectBoxDiv : {
-      marginLeft : '2rem',
-      display : 'flex'
-    } as React.CSSProperties,
     labelStyle : {
       margin:'0.8rem 0.8rem 0.8rem 1rem',
       fontSize: '10px',
@@ -34,10 +30,7 @@ const styles = {
       width:'4rem',
       height:'2.5rem',
     } as React.CSSProperties,
-    inputStyleLong : {
-      width:'10rem',
-      height:'2.5rem',
-    } as React.CSSProperties,
+    
     selectStyle : {
       marginLeft: '0.5rem',
       width:'5rem'
@@ -90,48 +83,44 @@ export default function ProcessFacilitySearch() {
   const {upHeadList, processFacilityList} = useFoStore((state) => state);
 
   const upChangeRe= headMakeColSpan(upHeadList);
-
+  const inputRef = useRef<HTMLInputElement>(null);
+  const inputSelectRef=useRef<HTMLInputElement>(null);
+  
+  const onSelectValue=(val:string)=>{
+    console.log(val);
+  }
+  
+  const chkVal = () => {
+    console.log(inputRef?.current?.value);
+    console.log(inputSelectRef);
+  }
+  const initVal = () => {
+    if(inputRef.current?.value)
+      inputRef.current.value = ""
+    console.log(inputRef?.current?.value);
+    console.log(inputSelectRef);
+  }
   return (
       <div className="m-8">
         <SearchDiv>
             <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}>
-              </SelectBox>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}>
-              </SelectBox>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}>
-              </SelectBox>
-              <div className="col-span-3 flex" >
-                {processFacilityLabelArray[3] && <Label style={styles.labelStyle}>{processFacilityLabelArray[3]}</Label>}
-                <Input style={styles.inputStyleShort}></Input>
-                <Select>
-                  <SelectTrigger style={styles.selectStyle} className="w-[100px]">
-                    <SelectValue placeholder={selectUpdownData?.[0]?.text ?? ""} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {selectUpdownData.map((selectArray) => (
-                      <SelectItem key={selectArray.val} value={selectArray.val}>{selectArray.text}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="col-span-3 flex" >
-                {processFacilityLabelArray[4] && <Label style={styles.labelStyle}>{processFacilityLabelArray[4]}</Label>}
-                <Input style={styles.inputStyleLong}></Input>
-              </div>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}>
-              </SelectBox>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}>
-              </SelectBox>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData}/>
+              <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} onSelectValue={onSelectValue}/>
+              <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
+              <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData}/>
+              <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData}/>
             </div>
             <div style={styles.rightDiv}>
-              <Button style={styles.searchBtn} size="sm">
+              <Button style={styles.searchBtn} size="sm" >
                 엑셀다운로드
               </Button>
-              <Button style={styles.searchBtn} size="sm">
+              <Button style={styles.searchBtn} size="sm" onClick={initVal}>
                 초기화
               </Button>
-              <Button style={styles.searchBtn} size="sm">
+              <Button style={styles.searchBtn} size="sm" onClick={chkVal}>
                 조회
               </Button>
             </div>
