@@ -16,12 +16,24 @@ export type TableUpperProps = {
     upSequnce?: number;
 }
 
+// ===TAB1
 // main fclty
 export type mainFcltyProps = {
     fcltyNm : string,
     facilityCapacity : string,
     publicMethod : string,
     location : string
+}
+
+// 시설계획
+export type planFcltyListProps = {
+    item : string,
+    provisionalApproval : string,
+    now : string,
+    stepOne : string,
+    stepTwo : string,
+    stepThree : string,
+    stepFour : string,
 }
 
 // list1
@@ -39,10 +51,10 @@ export type flowRateListProps = {
     discharge : string,
 }
 
+
 /**
  * Store - data
  */
-
 // Main
 const DashBoardTopLabelArray:string[] = ['구분', '시도', '시군구', '년도', '시설명'];
 const selectPartData:SelectDataType[] = [
@@ -81,12 +93,123 @@ const selectSigunData:SelectDataType[] = [
     { text: "망원동", val: '08'},
 ];
 
+// === Tab1
 // grid header
 const upHeadListFclty:TableUpperProps[] = [
     { id : "fcltyNm", title : "시설명"},
     { id : "facilityCapacity", title : "시설용량(m³/L)"},
     { id : "publicMethod", title : "공법"},
     { id : "location", title : "지역구"},
+]
+const fcltyList : mainFcltyProps[] = [
+    {
+        fcltyNm : "난지",
+        facilityCapacity : "860,000",
+        publicMethod : "MLE, A2O",
+        location : "500톤 이상(Ⅲ지역)"
+    }
+]
+
+const upHeadListPlanFclty : TableUpperProps[] = [
+    { id: "item", title: "", upName:"upChangeRe", upSequnce:1 },
+    { id: "provisionalApproval", title: "가승인", upName:"upChangeRe", upSequnce:2 },
+    { id: "now", title: "현재", upName:"upChangeRe", upSequnce:3 },
+    { id: "stepOne", title: "1단계", upName:"upChangeRe", upSequnce:4 },
+    { id: "stepTwo", title: "2단계", upName:"upChangeRe", upSequnce:5 },
+    { id: "stepThree", title: "3단계", upName:"upChangeRe", upSequnce:6 },
+    { id: "stepFour", title: "4단계", upName:"upChangeRe", upSequnce:7 },
+]
+const planFcltyList:planFcltyListProps[] = [
+    {
+        item : "1. 증설계획(㎥/일)",
+        provisionalApproval: "6,797",
+        now: "5,794",
+        stepOne: "6,957",
+        stepTwo: "7,680",
+        stepThree: "7,894",
+        stepFour : "7,768",
+    },
+    {
+        item : "2. 처리인구",
+        provisionalApproval: "17,571",
+        now: "13,114",
+        stepOne: "16,587",
+        stepTwo: "18,335",
+        stepThree: "18,847",
+        stepFour : "18,552",
+    },
+    {
+        item : "3. 처리구역 (km2)",
+        provisionalApproval: "79.94",
+        now: "79.94",
+        stepOne: "79.94",
+        stepTwo: "79.94",
+        stepThree: "79.94",
+        stepFour : "79.94",
+    },
+    {
+        item : "4. 분류식화율 (%)",
+        provisionalApproval: "80.6",
+        now: "80.8",
+        stepOne: "81.1",
+        stepTwo: "82.3",
+        stepThree: "83.0",
+        stepFour : "83.8",
+    },
+    {
+        item : "5. 오수량원단위(일최대)",
+        provisionalApproval: "",
+        now: "",
+        stepOne: "",
+        stepTwo: "",
+        stepThree: "0.32",
+        stepFour : "",
+    },
+    {
+        item : "6. 물사용량",
+        provisionalApproval: "",
+        now: "",
+        stepOne: "",
+        stepTwo: "",
+        stepThree: "",
+        stepFour : "",
+    },
+    {
+        item : "년도 (최근 3개년)",
+        provisionalApproval: "급수인구\n(처리구역)",
+        now: "물사용량(㎥/일)",
+        stepOne: "",
+        stepTwo: "사용량 원단위",
+        stepThree: "",
+        stepFour : "비고",
+    },
+    {
+        item : "2021",
+        provisionalApproval: "-",
+        now: "-",
+        stepOne: "",
+        stepTwo: "-",
+        stepThree: "",
+        stepFour : "-",
+    },
+    {
+        item : "2022",
+        provisionalApproval: "-",
+        now: "-",
+        stepOne: "",
+        stepTwo: "-",
+        stepThree: "",
+        stepFour : "-",
+    },
+    {
+        item : "2023",
+        provisionalApproval: "1,573,277",
+        now: "560,000",
+        stepOne: "",
+        stepTwo: "0.32",
+        stepThree: "",
+        stepFour : "-",
+    },
 ]
 
 const upHeadList:TableUpperProps[] = [
@@ -102,18 +225,6 @@ const upHeadList:TableUpperProps[] = [
     { id: "totReturnWater", title: '총인 반류수량(m³/일)'},
     { id: "discharge", title: '방류량(m³/일)'}
 ];
-
-// main fclty
-const fcltyList : mainFcltyProps[] = [
-    {
-        fcltyNm : "난지",
-        facilityCapacity : "860,000",
-        publicMethod : "MLE, A2O",
-        location : "500톤 이상(Ⅲ지역)"
-    }
-]
-
-// list1
 const flowRateList:flowRateListProps[] = [
     {
         facilityCd : "11000SW001R",
@@ -191,6 +302,12 @@ export type DashBoardType = {
         fcltyList : mainFcltyProps[];
     },
 
+    PlanFclty : {
+        isInit : boolean;
+        upHeadListPlanFclty : TableUpperProps[];
+        planFcltyList : planFcltyListProps[];
+    }
+
     FlowRateList : {
         isInit : boolean;
         upHeadList: TableUpperProps[];
@@ -214,6 +331,12 @@ export const dashInitState:DashBoardType = {
         isInit : false,
         upHeadListFclty : upHeadListFclty,
         fcltyList : fcltyList,
+    },
+
+    PlanFclty : {
+        isInit : false,
+        upHeadListPlanFclty : upHeadListPlanFclty,
+        planFcltyList : planFcltyList
     },
 
     FlowRateList : {
