@@ -8,6 +8,7 @@ export default {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/common/components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/common/business_components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
     plugins: [require("tailwindcss-animate")],
     theme: {

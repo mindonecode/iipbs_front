@@ -62,32 +62,32 @@ const publicReuseFacilityUper:PublicReuseFacility[] = [
     },
 ]
 
-export type tableState = {
+export type tableState = {pubFac:{
     isInit: boolean;
     upHeadList: TableUpperProps[];
     publicReuseFacilityUper: PublicReuseFacility[];
-}
+}}
 type tableActions = {
     decrementList: () => void
 }
 
 export type tableType = tableState & tableActions;
 
-export const tableStateExport:tableState= {
+export const tableStateExport:tableState= {pubFac:{
     isInit:false,
     upHeadList: upHeadList,
     publicReuseFacilityUper: publicReuseFacilityUper,
-}
+}}
 export const tableActionsExport:(set:any)=>tableActions=(set: any) => {
     return {
         decrementList:()=>set(
             (state:tableState) => {
             return (
-            { 
-                upHeadList: state.upHeadList, 
+            {pubFac:{ 
+                upHeadList: state.pubFac.upHeadList, 
                 publicReuseFacilityUper: 
-                state.publicReuseFacilityUper.slice(0, state.publicReuseFacilityUper.length - 1)
-            })}
+                state.pubFac.publicReuseFacilityUper.slice(0, state.pubFac.publicReuseFacilityUper.length - 1)
+            }})}
         )
     }
 }

@@ -1,11 +1,10 @@
 'use client'
 
-import {ScrollArea, ScrollBar, SearchDiv, SelectBox, UiTable } from '@common/business_components';
-import {  Button, TableRow } from '@common/components';
-import { TableHead } from '@common/components';
+import { ScrollArea, SearchDiv, SelectBox, UiTable } from '@common/business_components';
+import { Button, TableHead, TableRow } from '@common/components';
+import { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicReuseInsertForm';
 import { useWrStore } from '../../../store';
 import type { TableUpperProps } from '../../../store/publicReuseFaciltyInsert';
-import  { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicReuseInsertForm';
 
 
 
@@ -28,7 +27,8 @@ import  { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicR
 
 
   export  default function PublicReuseFaciltyInsert() {
-  const {  upHeadList, publicReuseFacilityUper} = useWrStore((state) => state);
+  const {building} = useWrStore((state) => state);
+  const {  upHeadList, publicReuseFacilityUper} = building;
   const nodeList= headMakeColSpan(upHeadList);
   const total = 100;
  
