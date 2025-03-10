@@ -1,5 +1,5 @@
 ﻿"use client"
-import { HeadMakeColSpan } from "@/app/components/processFacility/HeadMakeColSpan";
+import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
 import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
@@ -50,7 +50,7 @@ export default function ProcessFacilitySearch() {
               <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
               <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue}/>
             </div>
-            <div className="w-1/5 mx-5 mr-8 flex items-center justify-end">
+            <div className="w-1/5 mx-5 flex items-center justify-end">
               <Button className="mr-3">
                 엑셀다운로드
               </Button>

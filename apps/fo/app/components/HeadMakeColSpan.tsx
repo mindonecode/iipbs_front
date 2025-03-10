@@ -1,5 +1,5 @@
 import { TableHead, TableRow } from "@common/components/ui";
-import type { TableUpperProps } from "../../store/dashboard";
+import type { TableUpperProps } from "../store/dashboard";
 
 const HeadMakeColSpan = ({ upHeadList }: { upHeadList: TableUpperProps[] }) => {
     return (<>

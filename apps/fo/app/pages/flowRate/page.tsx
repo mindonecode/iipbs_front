@@ -1,64 +1,9 @@
 ﻿"use client"
+import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import type { TableUpperProps } from "@/app/store/processFacility";
-import { SearchDiv, SelectBox, UiTable } from "@common/business_components";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@common/business_components/ui/select/lib/selectBox";
-import { Button, Input, Label, TableHead, TableRow } from "@common/components/ui";
-
-/** 기본 스타일 */
-const styles = {
-    leftDiv : {
-      width : '70%',
-      margin : '1rem 0rem 1rem 0rem',
-    } as React.CSSProperties,
-    rightDiv : {
-      width : '30%',
-      margin : '1rem 2rem 1rem 0rem',
-    } as React.CSSProperties,
-    searchBtn : {
-      float : 'right',
-      fontSize : '14px',
-      marginRight : '0.8rem'
-    } as React.CSSProperties,
-
-    /** 패키지화 필요 */
-    inputStyleShort : {
-      width:'4rem',
-      height:'2.5rem',
-    } as React.CSSProperties,
-    inputStyleLong : {
-      width:'10rem',
-      height:'2.5rem',
-    } as React.CSSProperties,
-    selectStyle : {
-      marginLeft: '0.5rem',
-      width:'5rem'
-    } as React.CSSProperties,
-  }
-
-const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
-    return  ( <>
-    <TableRow>{
-    upHeadList.map((head: TableUpperProps) => 
-      ( head.id==='publicMethod'?<TableHead rowSpan={2} className="w-1/16" key={head.id}>{head.title}</TableHead>:
-        !head.upSequnce&&head.id!='facilityCapacity'&&head.id!='planInputWaterQlty'&&head.id!='designInputWaterQlty'?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
-        head.id=='facilityCapacity'||head.id=='planInputWaterQlty'||head.id=='designInputWaterQlty'?<TableHead rowSpan={2} className="w-13" key={head.id}>{head.title}</TableHead>:
-        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead className="w-75" key={head.id} rowSpan={1} colSpan={2}>{'행정구역'}</TableHead>:null))}
-    </TableRow>
-    <TableRow>
-    {upHeadList.map((head: TableUpperProps, idx) =>{
-      if(head.upName === 'upChangeRe'){
-        if(idx==1){
-          return <TableHead key={head.id} className="w-36">{head.title}</TableHead>;
-        }
-        else{
-          return <TableHead key={head.id} className="w-40">{head.title}</TableHead>;
-        }
-      }
-    })}
-    </TableRow>
-    </> )
-  }
+import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
+import { Button } from "@common/components/ui";
+import { useRef } from "react";
 
 export default function ProcessFacilitySearch() {
   const {FlowRateSearch, FlowRateList} = useFoStore((state) => state);
@@ -80,55 +25,38 @@ export default function ProcessFacilitySearch() {
     flowRateList
   } = FlowRateList;
 
-  const upChangeRe= headMakeColSpan(upHeadList);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const inputSelectRef = useRef<HTMLInputElement>(null);
 
+  const onSelectValue= (value: string) => {
+    console.log(value);
+  }
   return (
       <div className="m-8">
         <SearchDiv>
-            <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData}>
-              </SelectBox>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData}>
-              </SelectBox>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData}>
-              </SelectBox>
-              <div className="col-span-3 flex" >
-                {flowRateSearchLabelArray[3] && <Label className="m-4 text-xs w-1/4">{flowRateSearchLabelArray[3]}</Label>}
-                <Input style={styles.inputStyleShort}></Input>
-                <Select>
-                  <SelectTrigger style={styles.selectStyle} className="w-[100px]">
-                    <SelectValue placeholder={selectUpdownData?.[0]?.text ?? ""} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {selectUpdownData.map((selectArray) => (
-                      <SelectItem key={selectArray.val} value={selectArray.val}>{selectArray.text}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="col-span-3 flex" >
-                {flowRateSearchLabelArray[4] && <Label className="m-4 text-xs w-1/4">{flowRateSearchLabelArray[4]}</Label>}
-                <Input style={styles.inputStyleLong}></Input>
-              </div>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear}>
-              </SelectBox>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData}>
-              </SelectBox>
+            <div className="grid grid-cols-12 gap-1 mx-4 w-4/5">
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}/>
+              <SearchInputSelect className="col-span-3" label={flowRateSearchLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
+              <SearchInput className="col-span-3" label={flowRateSearchLabelArray[4] as string} ref={inputRef}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
             </div>
-            <div style={styles.rightDiv}>
-              <Button style={styles.searchBtn} size="sm">
+            <div className="w-1/5 mx-5 flex items-center justify-end">
+              <Button className="mr-3">
                 엑셀다운로드
               </Button>
-              <Button style={styles.searchBtn} size="sm">
+              <Button className="mr-3">
                 초기화
               </Button>
-              <Button style={styles.searchBtn} size="sm">
+              <Button className="mr-3">
                 조회
               </Button>
             </div>
         </SearchDiv>
         <UiTable headName={""} publicReuseFacility={flowRateList} headlist={upHeadList} pageSize={8} total={16}>
-          {upChangeRe}
+          <HeadMakeColSpan upHeadList={upHeadList}/>
         </UiTable>
       </div>
   );
