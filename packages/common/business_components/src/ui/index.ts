@@ -6,4 +6,4 @@ export * from "./search_input";
 export * from "./search_input_select";
 export * from "./select";
 export * from "./table";
-
+export * from "./scroll"
