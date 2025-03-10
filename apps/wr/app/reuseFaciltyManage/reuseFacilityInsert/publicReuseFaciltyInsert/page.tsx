@@ -1,6 +1,6 @@
 'use client'
 
-import {SearchDiv, SelectBox, UiTable } from '@common/business_components';
+import {ScrollArea, ScrollBar, SearchDiv, SelectBox, UiTable } from '@common/business_components';
 import {  Button, TableRow } from '@common/components';
 import { TableHead } from '@common/components';
 import { useWrStore } from '../../../store';
@@ -41,7 +41,8 @@ import  { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicR
         )
   }
   return (  <>
-  <div>
+  <div className="grid grid-cols-2 gap-4 h-full">
+  <div className='col-span-2'>
     <h1 className="pl-3 text-2xl" > 하수재이용시설 등록</h1>
     <SearchDiv   >
         <div className='flex'> 
@@ -51,15 +52,17 @@ import  { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicR
         </div>
     </SearchDiv>
   </div>
-  <div className="grid grid-cols-2 gap-4">
 
-        <div className="colsapn-1">
+        <div className="col-span-1">
           <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={headName()}>
             {nodeList}
            </UiTable>
         </div>
-        <div className="colsapn-1 h-full">
+        <div className="col-span-1 max-h-full overflow-y-scroll">
+          <ScrollArea>
           <PublicReuseFaciltyFormInsert></PublicReuseFaciltyFormInsert>
+          {/* <ScrollBar orientation="vertical"></ScrollBar> */}
+          </ScrollArea>
         </div>
         
 </div>     
