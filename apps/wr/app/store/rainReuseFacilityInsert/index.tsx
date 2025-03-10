@@ -21,6 +21,7 @@ type buildingOfType = {
         register?: string,
         legalTargetYn:string,
 }
+
 const upHeadList:TableUpperProps[] = [
     { id: "sido", title: "시도"},
     { id: "sigungo", title: "시군구"},
@@ -92,6 +93,7 @@ export const buildingtableStateExport:buildingTableState= {building:{
     isInit:false,
     upHeadList: upHeadList,
     buildingObject: buildingObject,
+    
 }}
 export const buildingTableActionsExport:(set:any)=>buildingTableActions=(set: any) => {
     return {

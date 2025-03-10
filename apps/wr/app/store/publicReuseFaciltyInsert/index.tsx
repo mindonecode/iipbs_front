@@ -1,10 +1,14 @@
-export type TableUpperProps = {
+export type TableProps = {
     id: string;
     title: string;
-    upName?: string;
-    upSequnce?: number;
 }
-type PublicReuseFacility = {
+
+export type selectLabel={
+    title:string,
+    val:string
+}
+
+type publicReuseFacilityData = {
         sido: string,
         sigungo: string,
         facilityName: string,
@@ -16,19 +20,27 @@ type PublicReuseFacility = {
         area?: string,
         reuse?: string,
         register?: string
+
+        
 }
-const upHeadList:TableUpperProps[] = [
+
+
+const selectLabel:selectLabel[]=[
+    {title:'test',val:'1'}
+]
+
+
+const pubFacHeadList:TableProps[] = [
     { id: "sido", title: "시도"},
     { id: "sigungo", title: "시군구"},
     { id: "facilityName", title: "시설명"},
     { id: "location", title: "위치"},
     { id: "locationgubun", title: "지역구분"},
     { id: "facilityCapacity", title: "시설용량"},
-    { id: "yn", title: '여부', upName:'upChangeRe' , upSequnce:1 },
-    { id: "authoDay", title: '허가일',upName:'upChangeRe', upSequnce:2 },
-    { id: "area", title: '면적' ,upName:'upChangeRe',upSequnce:3 }];
+    { id: "yn", title: '재이용여부' },
+    { id: "authoDay", title: '등록여부'}];
 
-const publicReuseFacilityUper:PublicReuseFacility[] = [
+const publicReuseFacilityData:publicReuseFacilityData[] = [
     { 
         sido: "서울",
         sigungo: "강남구",
@@ -62,31 +74,33 @@ const publicReuseFacilityUper:PublicReuseFacility[] = [
     },
 ]
 
-export type tableState = {pubFac:{
+export type pubFacState = {pubFac:{
     isInit: boolean;
-    upHeadList: TableUpperProps[];
-    publicReuseFacilityUper: PublicReuseFacility[];
+    pubFacHeadList: TableProps[];
+    publicReuseFacilityData: publicReuseFacilityData[];
+    selectLabel:selectLabel[];
 }}
-type tableActions = {
+type pubFacActions = {
     decrementList: () => void
 }
 
-export type tableType = tableState & tableActions;
+export type pubFacType = pubFacState & pubFacActions;
 
-export const tableStateExport:tableState= {pubFac:{
+export const pubFacStateExport:pubFacState= {pubFac:{
     isInit:false,
-    upHeadList: upHeadList,
-    publicReuseFacilityUper: publicReuseFacilityUper,
+    pubFacHeadList: pubFacHeadList,
+    publicReuseFacilityData: publicReuseFacilityData,
+    selectLabel:selectLabel
 }}
-export const tableActionsExport:(set:any)=>tableActions=(set: any) => {
+export const pubFacActionsExport:(set:any)=>pubFacActions=(set: any) => {
     return {
         decrementList:()=>set(
-            (state:tableState) => {
+            (state:pubFacState) => {
             return (
             {pubFac:{ 
-                upHeadList: state.pubFac.upHeadList, 
+                pubFacheadList: state.pubFac.pubFacHeadList, 
                 publicReuseFacilityUper: 
-                state.pubFac.publicReuseFacilityUper.slice(0, state.pubFac.publicReuseFacilityUper.length - 1)
+                state.pubFac.publicReuseFacilityData.slice(0, state.pubFac.publicReuseFacilityData.length - 1)
             }})}
         )
     }

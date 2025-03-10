@@ -1,6 +1,6 @@
 'use client'
 import { useWrStore } from "@/app/store";
-import type { TableUpperProps } from "@/app/store/publicReuseFaciltyInsert";
+import type { TableUpperProps } from "@/app/store/rainReuseFacilityInsert"
 import { RainReuseFaciltyInsertForm } from "@/components/ui/rainReuseInsertForm";
 import { SearchDiv, SearchInput, UiTable } from "@common/business_components";
 import { Button, TableHead, TableRow } from "@common/components";
@@ -50,7 +50,7 @@ export default function Home() {
       <div className="grid grid-cols-2 gap-4">
 
         <div className="colsapn-1 ">
-          <UiTable publicReuseFacility={building.buildingObject} headlist={building.upHeadList} pageSize={100} total={total} headName={headName()}>
+          <UiTable tableData={building.buildingObject} headlist={building.upHeadList} pageSize={100} total={10} headName={headName()}>
             {nodeList}
           </UiTable>
         </div>

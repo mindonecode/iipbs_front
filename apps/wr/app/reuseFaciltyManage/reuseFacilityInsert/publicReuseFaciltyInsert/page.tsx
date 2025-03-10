@@ -4,34 +4,13 @@ import { ScrollArea, SearchDiv, SelectBox, UiTable } from '@common/business_comp
 import { Button, TableHead, TableRow } from '@common/components';
 import { PublicReuseFaciltyFormInsert } from '../../../../components/ui/publicReuseInsertForm';
 import { useWrStore } from '../../../store';
-import type { TableUpperProps } from '../../../store/publicReuseFaciltyInsert';
 
-
-
-
-  const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
-    return  ( <>
-    <TableRow>{
-    upHeadList.map((head: TableUpperProps) => 
-      (!head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
-        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={3}>{'중축 개축 증축 '}</TableHead>:null))}
-    </TableRow>
-    <TableRow>
-      {upHeadList.map((head: TableUpperProps) =>
-        (head.upName === 'upChangeRe'?<TableHead key={head.id}>{head.title}</TableHead>:null))}
-    </TableRow>
-    </> )
-  }
-
-  
 
 
   export  default function PublicReuseFaciltyInsert() {
-  const {building} = useWrStore((state) => state);
-  const {  upHeadList, publicReuseFacilityUper} = building;
-  const nodeList= headMakeColSpan(upHeadList);
-  const total = 100;
- 
+  const {pubFac} = useWrStore((state) => state);
+  const {  pubFacHeadList, publicReuseFacilityData, selectLabel} = pubFac;
+  console.log(pubFacHeadList)
  
   const searchDiv ='시군구'
   const selectBox = [{text:'한양', value:1}]
@@ -54,9 +33,9 @@ import type { TableUpperProps } from '../../../store/publicReuseFaciltyInsert';
   </div>
 
         <div className="col-span-1">
-          <UiTable publicReuseFacility={publicReuseFacilityUper} headlist={upHeadList} pageSize={100} total={total}  headName={headName()}>
-            {nodeList}
-           </UiTable>
+          <UiTable tableData={publicReuseFacilityData} headlist={pubFacHeadList} pageSize={100} total={10}  headName={headName()} children={undefined}>
+       
+            </ UiTable>
         </div>
         <div className="col-span-1 max-h-full overflow-y-scroll">
           <ScrollArea>
