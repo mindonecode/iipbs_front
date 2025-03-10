@@ -1,13 +1,15 @@
 import { createStore } from 'zustand/vanilla';
-import { pubFacActionsExport, pubFacStateExport, type pubFacState, type pubFacType } from './publicReuseFaciltyInsert/index';
-import { buildingTableActionsExport, buildingtableStateExport, type buildingTableType } from './rainReuseFacilityInsert';
-export type WrStore = pubFacType & buildingTableType;
-export const StoreZus = (initState: pubFacState = pubFacStateExport) => {
+import { pubFacActionsExport, pubFacStateExport, type pubFacState } from './publicReuseFaciltyInsert/index';
+import { buildingTableActionsExport, buildingtableStateExport, type buildingTableState, type buildingTableType } from './rainReuseFacilityInsert';
+export type WrStore = pubFacState & buildingTableType;
+export const StoreZus = (initState: buildingTableState& pubFacState = {
+  ...pubFacStateExport, 
+  ...buildingtableStateExport 
+}) => {
   return createStore<WrStore>()((set) => {
     return {
       ...initState,
       ...pubFacActionsExport(set),
-      ...buildingtableStateExport,
       ...buildingTableActionsExport(set)
     }
   })
