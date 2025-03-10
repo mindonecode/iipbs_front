@@ -152,7 +152,10 @@ export function RainReuseFaciltyInsertForm() {
     },
     
   ];
+  const onSelectValue=(val:string)=>{
+      console.log(val)
 
+  }
   return (
     <div className="">
       <Form  {...form}>
@@ -204,12 +207,12 @@ export function RainReuseFaciltyInsertForm() {
           <div>
             <h2 className="pl-3 text-l">✓ 1. 집수면</h2>
           </div>
-          <div className="grid grid-cols-4 gap-2 mt-4">{IteraterFrom(homeWaterData,form,'2')}</div>
+          <div className="grid grid-cols-4 gap-2 mt-4">{IteraterFrom(homeWaterData,form,'2',onSelectValue)}</div>
             
           <div>
             <h2 className="pl-3 text-l">✓ 2. 여과 등 처리시설</h2>
           </div>
-          <div className="grid grid-cols-12 gap-2 mt-4">{IteraterFrom(filtrTrtmfct,form,'2' )}</div>
+          <div className="grid grid-cols-12 gap-2 mt-4">{IteraterFrom(filtrTrtmfct,form,'2' ,onSelectValue)}</div>
           <div className=" my-2">
             <h1 className="bg-gray-400 text-xl text-center border-2 p-2 mt-4 ">
               인센티브 정보
@@ -218,12 +221,12 @@ export function RainReuseFaciltyInsertForm() {
           <div>
             <h2 className="pl-3 text-l">✓ 1. 설치비 지원</h2>
           </div>
-          <div className="grid grid-cols-2 gap-2 mt-4">{IteraterFrom(instlCst,form,'2' )}</div>
+          <div className="grid grid-cols-2 gap-2 mt-4">{IteraterFrom(instlCst,form,'2' ,onSelectValue)}</div>
             
           <div>
             <h2 className="pl-3 text-l">✓ 2. 녹색건축물 인증</h2>
           </div>
-          <div className="grid grid-cols-16 gap-2 mt-4">{IteraterFrom(greenBuilding,form,'2')}</div>
+          <div className="grid grid-cols-16 gap-2 mt-4">{IteraterFrom(greenBuilding,form,'2',onSelectValue)}</div>
 
 
         </form>

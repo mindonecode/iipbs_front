@@ -23,7 +23,8 @@ type typeOfForm = {
   selectvlaue?: { text: string; val: string }[];
 }
 export function PublicReuseFaciltyFormInsert() {
-  const { upHeadList, publicReuseFacilityUper } = useWrStore((state) => state);
+  const { pubFac } = useWrStore((state) => state);
+  const { pubFacHeadList, publicReuseFacilityData} = pubFac;
   const total = 100;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -137,8 +138,8 @@ export function PublicReuseFaciltyFormInsert() {
             </div>
             <div>
               <UiTable
-                publicReuseFacility={publicReuseFacilityUper}
-                headlist={upHeadList}
+                tableData={publicReuseFacilityData}
+                headlist={pubFacHeadList}
                 pageSize={100}
                 total={total}
                 headName={""}
@@ -234,7 +235,9 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_1486273033"
                   render={({ field }) => (
                     <FormItem>
-                      <SelectBox label ='등록차수'selectArray={selectboxValue}></SelectBox>
+                      <SelectBox label='등록차수' selectArray={selectboxValue} className={""} onSelectValue={function (val: string): void {
+                        throw new Error("Function not implemented.");
+                      } }></SelectBox>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -260,7 +263,9 @@ export function PublicReuseFaciltyFormInsert() {
                   render={({ field }) => (
                     <FormItem >
                       <FormLabel>구분</FormLabel>
-                      <SelectBox selectArray={selectboxDivValue}></SelectBox>
+                      <SelectBox selectArray={selectboxDivValue} className={""} label={""} onSelectValue={function (val: string): void {
+                        throw new Error("Function not implemented.");
+                      } }></SelectBox>
                     </FormItem>
                   )}
                 />
@@ -273,7 +278,9 @@ export function PublicReuseFaciltyFormInsert() {
                   render={({ field }) => (
                     <FormItem >
                       <FormLabel>사업방식</FormLabel>
-                      <SelectBox selectArray={selectboxBuisValue}></SelectBox>
+                      <SelectBox selectArray={selectboxBuisValue} className={""} label={""} onSelectValue={function (val: string): void {
+                        throw new Error("Function not implemented.");
+                      } }></SelectBox>
                     </FormItem>
                   )}
                 />
@@ -477,7 +484,9 @@ export function PublicReuseFaciltyFormInsert() {
                     <FormItem>
                       <FormLabel  className="w-32" >재처리방식</FormLabel>
                       <FormControl>
-                      <SelectBox  selectArray={selectboxReuseMethodValue}></SelectBox>
+                      <SelectBox  selectArray={selectboxReuseMethodValue} className={""} label={""} onSelectValue={function (val: string): void {
+                          throw new Error("Function not implemented.");
+                        } }></SelectBox>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

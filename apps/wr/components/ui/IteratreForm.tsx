@@ -10,7 +10,11 @@ type typeOfForm ={
   formName: string;
 }
 
-export function IteraterFrom(formData:typeOfForm[],form:any , colSpanValue:string){
+type onSelectValue = (val:string) => void;
+
+
+
+export function IteraterFrom(formData:typeOfForm[],form:any , formClass:string , onSelectValue:onSelectValue ){
 
     return (
         <>
@@ -19,13 +23,13 @@ export function IteraterFrom(formData:typeOfForm[],form:any , colSpanValue:strin
                 control={form.control}
                 name={data.formName}
                 render={({ field }) => (
-                  <FormItem className='col-span-4' >
+                  <FormItem className={formClass} >
                     <FormLabel>{data.labelName}</FormLabel>
                     <FormControl>
                       {data.selectvlaue == undefined ? (
                         <Input className ='w-64'placeholder= {data.placeholder} type="" {...field} />
                       ) : (
-                        <SelectBox className='' label =''selectArray={data.selectvlaue}></SelectBox>
+                        <SelectBox className='' label='' selectArray={data.selectvlaue} onSelectValue={onSelectValue}   ></SelectBox>
                       )}
                     </FormControl>
                     <FormMessage />
