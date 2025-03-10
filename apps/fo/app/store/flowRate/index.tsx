@@ -1,9 +1,7 @@
+import type { SelectDataType, TableUpperProps } from "../dashboard";
+
 const FlowRateSearchLabelArray:string[] = ['구분', '시도', '시군구', '용량별', '시설명', '조회기간', '시설상태'];
 
-export type SelectDataType = {
-    text: string;
-    val: string;
-}
 const selectPartData:SelectDataType[] = [
     { text: "행정별", val: '00'},
     { text: "유역별", val: '01'},
@@ -51,12 +49,6 @@ const selectSigunData:SelectDataType[] = [
 ];
 
 // GRID관련
-export type TableUpperProps = {
-    id: string;
-    title: string;
-    upName?: string;
-    upSequnce?: number;
-}
 export type flowRateListProps = {
     facilityCd : string,
     sido : string,
