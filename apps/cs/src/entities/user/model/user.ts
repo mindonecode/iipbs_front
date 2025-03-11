@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { ENDPOINT } from "../config";
-import { client } from "./client";
+export interface IUserInfo {
+  userUniqId: string;
+}
 
 export interface IUser {
   regDt: string;
@@ -36,10 +36,6 @@ export interface IUser {
   hasPassword: boolean;
 }
 
-export const useUsersQuery = ({ userUniqId }: { userUniqId: string }) => {
-  return useQuery({
-    queryKey: [ENDPOINT.USER_SERVICE.USERS],
-    queryFn: () =>
-      client.get<IUser>(`${ENDPOINT.USER_SERVICE.USERS}/${userUniqId}`),
-  });
-};
+export interface UserService {
+  userInfo: (payload: IUserInfo) => Promise<IUser>;
+}
