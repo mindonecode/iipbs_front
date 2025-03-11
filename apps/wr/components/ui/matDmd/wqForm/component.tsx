@@ -1,7 +1,7 @@
 import { FormField, FormUi } from "@common/business_components";
 import { Input } from "@common/components";
 
-export function WqFrom(form: any) {
+export function WqForm(form: any) {
   return (
     <>
       <div className="grid grid-cols-12 gap-4">

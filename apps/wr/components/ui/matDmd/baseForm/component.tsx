@@ -1,8 +1,10 @@
-import { FormField, FormUi, SelectBox } from "@common/business_components";
-import { Input } from "@common/components";
+import { useWrStore } from "@/app/store";
+import { FormField, FormItem, FormLabel, FormUi, SelectBox } from "@common/business_components";
+import { DatePicker, Input } from "@common/components";
 
-export function baseFrom(form:any){
+export function BaseForm(form:any){
     
+  const { dmd } = useWrStore((state) => state);
 
     return(
 
@@ -12,7 +14,7 @@ export function baseFrom(form:any){
           name="ctpv"
           render={({ field }) => (
                 <FormUi label="시도">
-                <SelectBox selectClass={''} label={""} selectArray={rain.selectYN} onSelectValue={field.onChange} />
+                <SelectBox selectClass={''} label={""} selectArray={dmd.selectSido} onSelectValue={field.onChange} />
                 </FormUi>
 
           )}
@@ -23,7 +25,7 @@ export function baseFrom(form:any){
           name="sgg"
           render={({ field }) => (
             <FormUi label="시군구">
-            <SelectBox selectClass={''} label={""} selectArray={rain.selectYN} onSelectValue={field.onChange} />
+            <SelectBox selectClass={''} label={""} selectArray={dmd.selectSgg} onSelectValue={field.onChange} />
             </FormUi>
          
           )}
@@ -102,34 +104,7 @@ export function baseFrom(form:any){
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>요구시기</FormLabel>
-          <Popover>
-            <PopoverTrigger asChild>
-              <FormControl>
-                <Button
-                  variant={"outline"}
-                  className={cn(
-                    "w-[240px] pl-3 text-left font-normal",
-                    !field.value && "text-muted-foreground"
-                  )}
-                >
-                  {field.value ? (
-                    format(field.value, "PPP")
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                </Button>
-              </FormControl>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={field.value}
-                onSelect={field.onChange}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
+         <DatePicker mode={"single"} {...field} />
         </FormItem>
       )}
     />
@@ -154,7 +129,7 @@ export function baseFrom(form:any){
           name="useUsgCd"
           render={({ field }) => (
             <FormUi label="사용용도">
-            <SelectBox selectClass={''} label={""} selectArray={rain.selectYN} onSelectValue={field.onChange} />
+            <SelectBox selectClass={''} label={""} selectArray={dmd.selectUsg} onSelectValue={field.onChange} />
             </FormUi>
            
           )}

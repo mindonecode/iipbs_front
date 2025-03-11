@@ -16,6 +16,10 @@ export default function Home() {
       <Button className='place-self-auto'> 
         <Link href="reuseFaciltyManage/reuseFacilityInsert/rswtReuseFacilityInsert"> 중수도시설  등록</Link>
       </Button>
+
+      <Button className='place-self-auto'> 
+        <Link href="matMng/matDmd">수요처 등록</Link>
+      </Button>
       </div>
       </>  
   );

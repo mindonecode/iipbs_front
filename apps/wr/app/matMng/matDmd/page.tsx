@@ -1,8 +1,6 @@
 "use client"
 
-import {
-  toast
-} from "sonner"
+
 import {
   useForm
 } from "react-hook-form"
@@ -10,15 +8,14 @@ import {
   zodResolver
 } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import {
-  format
-} from "date-fns"
 
 import {
   Calendar as CalendarIcon
 } from "lucide-react"
-import { Form, FormField, FormUi, SelectBox } from "@common/business_components/ui"
+import { Form, FormField, FormUi, ScrollArea, SelectBox } from "@common/business_components/ui"
 import { Button, Input } from "@common/components/ui"
+import { BaseForm } from "@/components/ui/matDmd/baseForm/component"
+import { WqForm } from "@/components/ui/matDmd/wqForm/component"
 
 const formSchema = z.object({
   ctpv: z.string(),
@@ -58,25 +55,42 @@ export default function MyForm() {
   function onSubmit(values: z.infer < typeof formSchema > ) {
     try {
       console.log(values);
+      /*
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(values, null, 2)}</code>
         </pre>
-      );
+      );*/
     } catch (error) {
       console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+    //  toast.error("Failed to submit the form. Please try again.");
     }
   }
 
   return (
+    <>
+    <div>
+            <h1 className="pl-3 text-4xl" >수요처 정보 등록 </h1>
+    </div>
+   
+    <div>
+      <div>
+            <h1 className="space-y-8 max-w-3xl mx-auto py-1 text-2xl" >정보입력 </h1>
+      </div>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
+
+      <ScrollArea>
+        <BaseForm >{form} </BaseForm>
         
-     
+        
+        <WqForm> {form}</WqForm>
        
         <Button type="submit">Submit</Button>
+        </ScrollArea>
       </form>
     </Form>
+    </div>
+    </>
   )
 }
