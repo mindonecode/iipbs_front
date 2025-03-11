@@ -33,7 +33,7 @@
 
 ## 새로운 프로젝트 설치 및 실행
 
-### 1. 프로젝트 생성(Next.js)
+### 1. 프로젝트 생성(Next.js 기준)
 
 ```bash
 npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
@@ -84,7 +84,7 @@ export default {
 ```
 
 ### 5. next.config.ts 수정
-```
+```json
 import type { NextConfig } from "next";
 import webpack from "webpack";
 
@@ -137,7 +137,7 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
-### 5. globals.css(또는 전역 css) 수정
+### 6. globals.css(또는 전역 css) 수정
 
 ```css
 @import "@common/assets/index.css";
@@ -149,7 +149,7 @@ export default nextConfig;
 /* 기타 스타일 */
 ```
 
-### 6. 패키지 의존성 재설치
+### 7. 패키지 의존성 재설치
 
 ```bash
 rm -rf node_modules pnpm-lock.yaml
