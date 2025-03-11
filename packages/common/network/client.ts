@@ -1,5 +1,7 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import Cookies from "js-cookie";
+import { AUTH_USER_ID, CLAIM_NAME } from "./env";
 
 interface ClientConfig {
   baseURL: string;
@@ -18,6 +20,20 @@ class Client {
         "X-Site-Id": config.siteId,
       },
       withCredentials: true,
+    });
+
+    this.axiosInstance.interceptors.request.use((config) => {
+      const token = Cookies.get(CLAIM_NAME);
+      const userId = Cookies.get(AUTH_USER_ID);
+
+      if (!token || !userId) {
+        throw new Error("Missing required authentication tokens");
+      }
+
+      config.headers[CLAIM_NAME] = token;
+      config.headers[AUTH_USER_ID] = userId;
+
+      return config;
     });
   }
 
