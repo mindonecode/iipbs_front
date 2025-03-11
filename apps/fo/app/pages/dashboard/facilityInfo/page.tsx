@@ -2,8 +2,8 @@
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/processFacility";
 import { SearchDiv, SearchInput, SelectBox, UiTable } from "@common/business_components";
-import { Button, Input, Label} from "@common/components/ui";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
+import { Button } from "@common/components/ui";
 import { useRef } from "react";
 
 /** 기본 스타일 */
@@ -125,7 +125,7 @@ export default function ProcessFacilitySearch() {
             </Button>
           </div>
         </SearchDiv>
-        <UiTable headName={""} publicReuseFacility={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} children={undefined}/>
+        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} children={undefined}/>
         <div className="grid grid-cols-12 gap-1">
           <div className="col-span-5">
              <Table>
@@ -151,11 +151,12 @@ export default function ProcessFacilitySearch() {
               <TableBody>
                 {operationalStatusList.map((el: { [key: string]: string | number | boolean },index) => (
                   <TableRow  key={index+"row"} >
-                    {upHeadListOperationStatus.map((head, idx) => (
+                    {upHeadListOperationStatus.map((head) => (
                       (head.id==='flowRate'&&index==0?<TableCell rowSpan={5} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
                       head.id==='flowRate'&&index==5?<TableCell rowSpan={6} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
                       head.id==='flowRate'&&index==11?<TableCell rowSpan={2} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
-                      (head.id==='groundWaterAvg'||head.id==='groundWaterSummer'||head.id==='groundWaterWinter'||head.id==='rdi')&&(index==0||index==7)?<TableCell rowSpan={7} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
+                      (head.id==='groundWaterAvg'||head.id==='groundWaterSummer'||head.id==='groundWaterWinter'||head.id==='rdi')&&(index==0)?<TableCell rowSpan={7} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
+                      (head.id==='groundWaterAvg'||head.id==='groundWaterSummer'||head.id==='groundWaterWinter'||head.id==='rdi')&&(index==7)?<TableCell rowSpan={6} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
                       head.id!='flowRate'&&head.id!='groundWaterAvg'&&head.id!='groundWaterSummer'&&head.id!='groundWaterWinter'&&head.id!='rdi'?<TableCell style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:null)
                     ))}
                   </TableRow>
