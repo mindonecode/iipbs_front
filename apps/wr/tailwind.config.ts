@@ -7,6 +7,7 @@ export default {
     presets: [baseConfig],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+	"./components/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/common/components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/common/business_components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],

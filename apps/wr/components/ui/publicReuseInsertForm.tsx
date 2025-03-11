@@ -1,8 +1,8 @@
 "use client";
 
 import { SelectBox } from "@common/business_components";
-import { FileUpload, UiTable } from "@common/business_components/ui";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@common/business_components/ui/form";
+import { FileUpload, FormUi, UiTable } from "@common/business_components/ui";
+import { Form, FormField } from "@common/business_components/ui/form";
 import { Button, DatePicker, Input } from "@common/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -23,7 +23,7 @@ const formSchema = z.object({
 // }
 export function PublicReuseFaciltyFormInsert() {
   const { pubFac } = useWrStore((state) => state);
-  const { upHeadList, publicReuseFacilityUper } = pubFac;
+  const { pubFacHeadList, publicReuseFacilityData } = pubFac;
   const total = 100;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -77,68 +77,57 @@ export function PublicReuseFaciltyFormInsert() {
                 <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
               </div>
 
-              <div className="col-span-4 ">
+              <div className="col-span-6 ">
                 <FormField
                   control={form.control}
                   name="facilityName"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input  placeholder="하수처리장-1" type="" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="">
+                      <Input  placeholder="하수처리장-1" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
-              <div className="col-start-12 col-end-12 flex justify-between items-end mt-3">
-                <Button className="my-3" size="xs" type="submit">
+              <div className="col-span-2 col-end-13">
+                <Button className="mr-3 rounded-lg" type="submit">
                   신규등록
                 </Button>
               </div>
             </div>
 
             <div className="grid grid-cols-12 gap-4 my-4">
-              <div className="col-span-4">
+              <div className="col-span-6">
                 <FormField
                   control={form.control}
                   name="name_0211213336"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>계통도</FormLabel>
-                      <FormControl>
+                  render={({  }) => (
+                    <FormUi label="계통도">
                       <FileUpload files={files} setFiles={setFiles} fileTypes="PDF"></FileUpload>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                    </FormUi>
                   )}
                 />
                   </div>
-              <div className="col-start-6 col-end-10">
+              <div className="col-span-6">
                 <FormField
                   control={form.control}
                   name="name_0211213336"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>평면도</FormLabel>
-                      <FormControl>
+                  render={({  }) => (
+                    <FormUi label="평면도">
                       <FileUpload files={files} setFiles={setFiles} fileTypes="PDF"></FileUpload>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                    </FormUi>
                   )}
                 />
               </div>
             </div>
 
-            <div className="flex justify-between items-center mx-3">
+            <div className="flex justify-between items-center mx-3 mb-3">
               <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
-              <Button className="my-3" size="xs">추가등록</Button>
+              <Button className="mr-3 rounded-lg" >추가등록</Button>
             </div>
             <div>
               <UiTable
-                publicReuseFacility={publicReuseFacilityUper}
-                headlist={upHeadList}
+                tableData={publicReuseFacilityData}
+                headlist={pubFacHeadList}
                 pageSize={100}
                 total={total}
                 headName={""}
@@ -146,20 +135,16 @@ export function PublicReuseFaciltyFormInsert() {
               ></UiTable>
             </div>
             <div>
-              <h1 className="pl-3 text-xl">○ 재이용수 공급 가능량</h1>
+              <h1 className="pl-3 text-xl mb-3">○ 재이용수 공급 가능량</h1>
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-3">
                   <FormField
                     control={form.control}
                     name="name_0943143371"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>시설용량(m³/일)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="shadcn" type="" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                      <FormUi label="시설용량(m³/일)">
+                        <Input placeholder="" type="" {...field} />
+                      </FormUi>
                     )}
                   />
                 </div>
@@ -169,13 +154,9 @@ export function PublicReuseFaciltyFormInsert() {
                     control={form.control}
                     name="name_2007089217"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>하수처리량(m³/일)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="shadcn" type="" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                      <FormUi label="하수처리량(m³/일)">
+                        <Input placeholder="" type="" {...field} />
+                      </FormUi>
                     )}
                   />
                 </div>
@@ -185,13 +166,9 @@ export function PublicReuseFaciltyFormInsert() {
                     control={form.control}
                     name="name_1624679275"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>재이용량(m³/일)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="shadcn" type="" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                      <FormUi label="재이용량(m³/일)">
+                        <Input placeholder="" type="" {...field} />
+                      </FormUi>
                     )}
                   />
                 </div>
@@ -200,13 +177,9 @@ export function PublicReuseFaciltyFormInsert() {
                     control={form.control}
                     name="name_1624679277"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>공급여유량(m³/일)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="shadcn" type="" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                      <FormUi label="공급여유량(m³/일)">
+                        <Input placeholder="" type="" {...field} />
+                      </FormUi>
                     )}
                   />
                 </div>
@@ -220,26 +193,26 @@ export function PublicReuseFaciltyFormInsert() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8  mx-auto py-10  w-100"
-          >
-            <div className="flex justify-between">
-              <div className="">
+            className="space-y-8  mx-auto w-full mt-7">
+            <div className="grid grid-cols-12">
+              <div className="col-span-6">
                 <h1 className="pl-3 text-xl">
                   ○ 차수별 하수처리수 재이용 시설 현황
                 </h1>
               </div>
-              <div className=" flex items-center">
+              <div className="col-span-4">
                 <FormField
                   control={form.control}
                   name="name_1486273033"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormUi label="">
                       <SelectBox label ='등록차수'selectArray={selectboxValue}></SelectBox>
-                      <FormMessage />
-                    </FormItem>
+                    </FormUi>
                   )}
                 />
-                <Button className="mx-5 mt-2" size="xs" type="submit">
+              </div>
+              <div className="col-span-2 flex items-center mx-3">
+                <Button className="rounded-lg">
                   신규등록
                 </Button>
               </div>
@@ -258,10 +231,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_8928357542"
                   render={({ field }) => (
-                    <FormItem >
-                      <FormLabel>구분</FormLabel>
-                      <SelectBox selectArray={selectboxDivValue}></SelectBox>
-                    </FormItem>
+                    <FormUi label="구분">
+                      <SelectBox selectArray={selectboxDivValue} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -271,10 +243,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_9484942814"
                   render={({ field }) => (
-                    <FormItem >
-                      <FormLabel>사업방식</FormLabel>
-                      <SelectBox selectArray={selectboxBuisValue}></SelectBox>
-                    </FormItem>
+                    <FormUi label="사업방식">
+                      <SelectBox selectArray={selectboxBuisValue}/>
+                    </FormUi>
                   )}
                 />
               </div>
@@ -284,13 +255,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_2450741594"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>설치승인인가일</FormLabel>
-                      <FormControl>
-                        <DatePicker mode="single" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="설치승인인가일">
+                      <DatePicker mode="single" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -299,13 +266,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_2450741594"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel> 사업준공일</FormLabel>
-                      <FormControl>
+                    <FormUi label="사업준공일">
                         <DatePicker mode="single" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                    </FormUi>
                   )}
                 />
               </div>
@@ -317,14 +280,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_7678668236"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>국고</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="국고">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -334,14 +292,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_7913744238"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>지방비</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="지방비">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -351,14 +304,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_1368081408"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>민간투자비</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="민간투자비">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -367,14 +315,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_1368081408"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>원인자부담금</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="원인자부담금">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -383,14 +326,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_1368081408"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>기타</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="기타">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -399,14 +337,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_1368081408"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>합계</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="합계">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -420,14 +353,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_7678668236"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>시설용량(m³/일)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-                 
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="시설용량(m³/일)">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -437,14 +365,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_7913744238"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>주처리공법</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-                    
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="주처리공법">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -454,14 +377,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_1368081408"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>위치(주소)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-                
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="위치(주소)">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -470,17 +388,12 @@ export function PublicReuseFaciltyFormInsert() {
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-4 ">
                 <FormField
-                  
                   control={form.control}
                   name="name_5139286452"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel  className="w-32" >재처리방식</FormLabel>
-                      <FormControl>
-                      <SelectBox  selectArray={selectboxReuseMethodValue}></SelectBox>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="재처리방식">
+                      <SelectBox selectArray={selectboxReuseMethodValue}/>
+                    </FormUi>
                   )}
                 />
               </div>
@@ -490,14 +403,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_7233630277"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>위치(처리장 내외)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-               
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="위치(처리장 내외)">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>
@@ -507,14 +415,9 @@ export function PublicReuseFaciltyFormInsert() {
                   control={form.control}
                   name="name_0973765174"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>메인공급펌프 용량</FormLabel>
-                      <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
-                      </FormControl>
-                   
-                      <FormMessage />
-                    </FormItem>
+                    <FormUi label="메인공급펌프 용량">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
                   )}
                 />
               </div>

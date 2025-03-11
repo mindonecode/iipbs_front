@@ -32,8 +32,8 @@ import { useWrStore } from '../../../store';
                 <SelectBox className='col-span-2' label={searchDiv} selectArray={selectBox} onSelectValue={onSelectValue} />
               </div>
               <div className='w-1/5 flex items-center justify-end'>
-                <Button className='mr-4 rounded-md'>조회</Button>
-                <Button className='mr-4 rounded-md'>신규추가</Button>
+                <Button className='mr-4 rounded-lg'>조회</Button>
+                <Button className='mr-4 rounded-lg'>신규추가</Button>
               </div>
             </SearchDiv>
             {/* </div> */}
