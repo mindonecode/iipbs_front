@@ -1,10 +1,11 @@
+
 export type TableUpperProps = {
     id: string;
     title: string;
     upName?: string;
     upSequnce?: number;
 }
-type buildingOfType = {
+type rainFacOfType = {
         sido: string,
         sigungo: string,
         facilityName: string,
@@ -33,7 +34,7 @@ const upHeadList:TableUpperProps[] = [
     { id: "authoDay", title: '허가일',upName:'upChangeRe', upSequnce:2 },
     { id: "area", title: '면적' ,upName:'upChangeRe',upSequnce:3 }];
 
-const buildingObject:buildingOfType[] = [
+const rainOfObject:rainFacOfType[] = [
     { 
         sido: "서울",
         sigungo: "종로구",
@@ -78,32 +79,53 @@ const buildingObject:buildingOfType[] = [
     },
 ]
 
-export type buildingTableState ={ building:{
+
+type selectArray ={
+    text:string,
+    val:string
+    
+}
+const selectHomeWater = [
+    { text: '집수면', val: "1" },
+    { text: "종류", val: "2" },
+  ];
+
+  const selectYN= [
+    { text: 'Y', val: "1" },
+    { text: 'N', val: "2" },
+  ];
+
+export type rainFacState ={ rain:{
     isInit: boolean;
     upHeadList: TableUpperProps[];
-    buildingObject: buildingOfType[];
+    rainOfObject: rainFacOfType[];
+    selectHomeWater:selectArray[];
+    selectYN:selectArray[];
 }}
-type buildingTableActions = {
+type rainFacSActions = {
     decrementList: () => void
 }
 
-export type buildingTableType = buildingTableState & buildingTableActions;
+export type rainFacType = rainFacState & rainFacSActions;
 
-export const buildingtableStateExport:buildingTableState= {building:{
+export const rainFacStateExport:rainFacState= {rain:{
     isInit:false,
     upHeadList: upHeadList,
-    buildingObject: buildingObject,
+    rainOfObject: rainOfObject,
+    selectHomeWater:selectHomeWater,
+    selectYN:selectYN
+ 
     
 }}
-export const buildingTableActionsExport:(set:any)=>buildingTableActions=(set: any) => {
+export const rainFacActionsExport:(set:any)=>rainFacSActions=(set: any) => {
     return {
         decrementList:()=>set(
-            (state:buildingTableState) => {
+            (state:rainFacState) => {
             return (
-            {building:{ 
-                upHeadList: state.building.upHeadList, 
-                buildingObject: 
-                state.building.buildingObject.slice(0, state.building.buildingObject.length - 1)
+            {rain:{ 
+                upHeadList: state.rain.upHeadList, 
+                rainOfObject: 
+                state.rain.rainOfObject.slice(0, state.rain.rainOfObject.length - 1)
              }})}
         )
     }
