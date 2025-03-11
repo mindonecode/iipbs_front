@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { images } from "@common/assets";
-import { useUsersMutation, type UserInfo } from "../../api";
+import { useUsersQuery } from "../../api";
+import { AUTH_USER_ID } from "../../config";
+import { getToken } from "../../lib";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,24 +13,9 @@ import {
 import { Button } from "../button";
 
 export function Header() {
-  const { mutate } = useUsersMutation();
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    userName: "",
-    lastLoginDate: "",
+  const { data: userInfo } = useUsersQuery({
+    userUniqId: getToken(AUTH_USER_ID) ?? "",
   });
-
-  useEffect(() => {
-    mutate(
-      {
-        userUniqId: "65a00f65-8460-49af-98ec-042977e56f4b",
-      },
-      {
-        onSuccess: (data) => {
-          setUserInfo(data.data);
-        },
-      },
-    );
-  }, []);
 
   return (
     <header className="sticky top-0 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border">
@@ -46,7 +32,7 @@ export function Header() {
         <DropdownMenuTrigger asChild>
           <Button className="group m-0 flex h-[3rem] items-center !bg-background px-4 py-0 text-label">
             <i className="diveicon di-account-circle static translate-y-0.5 pr-2 text-3xl" />
-            {userInfo.userName}
+            {userInfo?.data.userName}
             <i className="diveicon di-chevron-down static p-0 transition-transform group-data-[state=open]:rotate-180" />
           </Button>
         </DropdownMenuTrigger>
@@ -54,7 +40,7 @@ export function Header() {
           <DropdownMenuItem>프로필 설정</DropdownMenuItem>
           <div className="flex flex-col items-start gap-0 px-4 py-3">
             <p className="text-base text-label">최종접속일</p>
-            <p>{userInfo.lastLoginDate}</p>
+            <p>{userInfo?.data.lastLoginDate}</p>
           </div>
           <div className="flex flex-col items-start gap-0 px-4 py-3">
             <p className="text-base text-label">접속 IP</p>
