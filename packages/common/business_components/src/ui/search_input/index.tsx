@@ -5,7 +5,6 @@ const SearchInput = React.forwardRef<
     HTMLDivElement& HTMLInputElement,
     React.HTMLAttributes<HTMLDivElement> & {className:string, label:string}>
 (({className, label}, ref) => {
-    console.log(ref);
     return (
         <div className={className+" flex"} >
             {label && <Label className="m-4 text-2xl w-1/4">{label}</Label>}
