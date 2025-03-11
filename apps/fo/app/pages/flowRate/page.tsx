@@ -55,7 +55,7 @@ export default function ProcessFacilitySearch() {
               </Button>
             </div>
         </SearchDiv>
-        <UiTable headName={""} publicReuseFacility={flowRateList} headlist={upHeadList} pageSize={8} total={16}>
+        <UiTable headName={""} tableData={flowRateList} headlist={upHeadList} pageSize={8} total={16}>
           <HeadMakeColSpan upHeadList={upHeadList}/>
         </UiTable>
       </div>
