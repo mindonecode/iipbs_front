@@ -28,8 +28,8 @@ const styles = {
   }
 
 export default function DashBoard() {
-  const {DashBoard} = useFoStore((state) => state);
-  const {labelArray, selectData1, selectData2} = DashBoard;
+  //const {DashBoard} = useFoStore((state) => state);
+  //const {labelArray, selectData1, selectData2} = DashBoard;
   return (
       <div>
         <SearchDiv>

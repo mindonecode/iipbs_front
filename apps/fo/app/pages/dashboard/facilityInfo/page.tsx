@@ -27,59 +27,47 @@ const onSelectValue=(val:string)=>{
   console.log(val);
 }  
 
-const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
-  return  ( <>
-    <TableRow>{
-    upHeadList.map((head: TableUpperProps) => 
-      ( head.id==='publicMethod'?<TableHead rowSpan={2} className="w-1/16" key={head.id}>{head.title}</TableHead>:
-        !head.upSequnce&&head.id!='facilityCapacity'&&head.id!='planInputWaterQlty'&&head.id!='designInputWaterQlty'?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
-        head.id=='facilityCapacity'||head.id=='planInputWaterQlty'||head.id=='designInputWaterQlty'?<TableHead rowSpan={2} className="w-13" key={head.id}>{head.title}</TableHead>:
-        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead className="w-75" key={head.id} rowSpan={1} colSpan={2}>{'행정구역'}</TableHead>:null))}
-    </TableRow>
-    <TableRow>
-    {upHeadList.map((head: TableUpperProps, idx) =>{
-      if(head.upName === 'upChangeRe'){
-        if(idx==1){
-          return <TableHead key={head.id} className="w-36">{head.title}</TableHead>;
-        }
-        else{
-          return <TableHead key={head.id} className="w-40">{head.title}</TableHead>;
-        }
-      }
-    })}
-    </TableRow>
-  </> )
-}
-
 // 시설계획 table header 변경
 const headMakeColSpanPlanFclty = (upHeadList: TableUpperProps[]) => {
   return  ( <>
     <TableRow>{
     upHeadList.map((head: TableUpperProps) => 
-      ( head.id==='publicMethod'?<TableHead rowSpan={2} className="w-1/16" key={head.id}>{head.title}</TableHead>:
-        !head.upSequnce&&head.id!='facilityCapacity'&&head.id!='planInputWaterQlty'&&head.id!='designInputWaterQlty'?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
-        head.id=='facilityCapacity'||head.id=='planInputWaterQlty'||head.id=='designInputWaterQlty'?<TableHead rowSpan={2} className="w-13" key={head.id}>{head.title}</TableHead>:
-        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead className="w-75" key={head.id} rowSpan={1} colSpan={2}>{'행정구역'}</TableHead>:null))}
+      (!head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
+        head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={7} style={{ whiteSpace: 'pre-line' }}>{'시설계획\n(금회)'}</TableHead>:null))}
     </TableRow>
     <TableRow>
-    {upHeadList.map((head: TableUpperProps, idx) =>{
-      if(head.upName === 'upChangeRe'){
-        if(idx==1){
-          return <TableHead key={head.id} className="w-36">{head.title}</TableHead>;
-        }
-        else{
-          return <TableHead key={head.id} className="w-40">{head.title}</TableHead>;
-        }
-      }
-    })}
+      {upHeadList.map((head: TableUpperProps) =>
+        (head.upName === 'upChangeRe'?<TableHead key={head.id}>{head.title}</TableHead>:null))}
     </TableRow>
-  </> )
+    </> )
+}
+
+// 시설계획 table header 변경
+const headMakeColSpanOperationStatus = (upHeadList: TableUpperProps[]) => {
+  return  ( <>
+    <TableRow>
+      <TableHead rowSpan={1} colSpan={16} style={{ whiteSpace: 'pre-line' }}>{'23년도 운영실태'}</TableHead>
+    </TableRow>
+    <TableRow>{
+    upHeadList.map((head: TableUpperProps) =>
+    (head.upName === 'upChangeRe1'&&head.upSequnce===1?<TableHead key={head.id} rowSpan={2}colSpan={2} style={{ whiteSpace: 'pre-line' }}>{head.title}</TableHead>:
+    !head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
+    head.upName === 'upChangeRe2'&&head.upSequnce===1?<TableHead key={head.id} colSpan={3} style={{ whiteSpace: 'pre-line' }}>{'연간 운영실태'}</TableHead>:
+    head.upName === 'upChangeRe3'&&head.upSequnce===1?<TableHead key={head.id} colSpan={3} style={{ whiteSpace: 'pre-line' }}>{'하절기 운영실태\n(6~8월)'}</TableHead>:
+    head.upName === 'upChangeRe4'&&head.upSequnce===1?<TableHead key={head.id} colSpan={3} style={{ whiteSpace: 'pre-line' }}>{'동절기 운영실태\n(1~2월)'}</TableHead>:
+    head.upName === 'upChangeRe5'&&head.upSequnce===1?<TableHead key={head.id} colSpan={4} style={{ whiteSpace: 'pre-line' }}>{'지하수유입량'}</TableHead>:null))}
+    </TableRow>
+    <TableRow>
+      {upHeadList.map((head: TableUpperProps) =>
+        (head.upName === 'upChangeRe2'||head.upName === 'upChangeRe3'||head.upName === 'upChangeRe4'||head.upName === 'upChangeRe5' ?<TableHead key={head.id}>{head.title}</TableHead>:null))}
+    </TableRow>
+    </> )
 }
 
 export default function ProcessFacilitySearch() {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const {DashboardMain, FcltyMain, FlowRateList, PlanFclty} = useFoStore((state) => state);
+  const {DashboardMain, FcltyMain, PlanFclty, OperationStatus} = useFoStore((state) => state);
 
   /**
    * 상단바 관련
@@ -107,14 +95,13 @@ export default function ProcessFacilitySearch() {
 
   // 그리드 관련
   const {
-    upHeadList, 
-    flowRateList
-  } = FlowRateList;
+    upHeadListOperationStatus,
+    operationalStatusList
+  } = OperationStatus;
 
 
-  const upChangeRe= headMakeColSpan(upHeadList);
   const upChangeRePlanFclty = headMakeColSpanPlanFclty(upHeadListPlanFclty);
-
+  const upChangeHeadListOperationStatus = headMakeColSpanOperationStatus(upHeadListOperationStatus);
   return (
       <div className="m-8">
         <SearchDiv>
@@ -141,15 +128,40 @@ export default function ProcessFacilitySearch() {
         <UiTable headName={""} publicReuseFacility={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} children={undefined}/>
         <div className="grid grid-cols-12 gap-1">
           <div className="col-span-5">
-            
-            <UiTable headName={""} publicReuseFacility={upHeadListPlanFclty} headlist={upHeadList} pageSize={8} total={16}>
-              {upChangeRe}
-            </UiTable>
+             <Table>
+              <TableHeader>
+                {upChangeRePlanFclty}
+              </TableHeader>
+              <TableBody>
+                {planFcltyList.map((el: { [key: string]: string | number | boolean },index) => (
+                  <TableRow  key={index+"row"} >
+                    {upHeadListPlanFclty.map((head) => (
+                      <TableCell style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
           <div className="col-span-7">
-            <UiTable headName={""} publicReuseFacility={flowRateList} headlist={upHeadList} pageSize={8} total={16}>
-              {upChangeRe}
-            </UiTable>
+            <Table>
+              <TableHeader>
+                {upChangeHeadListOperationStatus}
+              </TableHeader>
+              <TableBody>
+                {operationalStatusList.map((el: { [key: string]: string | number | boolean },index) => (
+                  <TableRow  key={index+"row"} >
+                    {upHeadListOperationStatus.map((head, idx) => (
+                      (head.id==='flowRate'&&index==0?<TableCell rowSpan={5} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
+                      head.id==='flowRate'&&index==5?<TableCell rowSpan={6} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
+                      head.id==='flowRate'&&index==11?<TableCell rowSpan={2} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
+                      (head.id==='groundWaterAvg'||head.id==='groundWaterSummer'||head.id==='groundWaterWinter'||head.id==='rdi')&&(index==0||index==7)?<TableCell rowSpan={7} style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:
+                      head.id!='flowRate'&&head.id!='groundWaterAvg'&&head.id!='groundWaterSummer'&&head.id!='groundWaterWinter'&&head.id!='rdi'?<TableCell style={{ whiteSpace: 'pre-line' }} key={head.id+index}>{el[head.id]}</TableCell>:null)
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </div>
