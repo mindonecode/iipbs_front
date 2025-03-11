@@ -8,7 +8,7 @@ const SearchInput = React.forwardRef<
     console.log(ref);
     return (
         <div className={className+" flex"} >
-            {label && <Label className="m-4 text-lg w-1/4">{label}</Label>}
+            {label && <Label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 m-4 text-2xl w-1/4">{label}</Label>}
             <Input className="ml-8 w-3/4 text-lg" ref={ref}></Input>
         </div>
     )
