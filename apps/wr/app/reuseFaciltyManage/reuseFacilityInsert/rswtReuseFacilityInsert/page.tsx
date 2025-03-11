@@ -1,7 +1,7 @@
 'use client'
 import { useWrStore } from "@/app/store";
-import type { TableUpperProps } from "@/app/store/rainReuseFacilityInsert"
-import { RainReuseFaciltyInsertForm } from "@/components/ui/rainReuseInsertForm";
+import type { TableUpperProps } from "@/app/store/rainReuseFacilityInsert";
+import { RswtrReuseFaciltyInsertForm } from "@/components/ui/rswtrReuseInsetForm";
 import { ScrollArea, SearchDiv, SearchInput, UiTable } from "@common/business_components";
 import { Button, TableHead, TableRow } from "@common/components";
 
@@ -22,8 +22,9 @@ const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
 
 
 export default function Home() {
-  const { rain } = useWrStore((state) => state);
-  const nodeList = headMakeColSpan(rain.upHeadList);
+  const {rswt} = useWrStore((state) => state);
+  const nodeList = headMakeColSpan(rswt.upHeadList);
+  const total = 100;
 
 
   const headName = () => {
@@ -31,15 +32,16 @@ export default function Home() {
       <h1 className="pl-3 text-xl">○건축물 목록</h1>
     )
   }
+
   return (
     <>
-    <div className="grid grid-cols-2 gap-4 ">
+       <div className="grid grid-cols-2 gap-4 ">
        <div className='col-span-2'>
-        <h1 className="pl-3 text-2xl" >빗물이용시설 등록 </h1>
+        <h1 className="pl-3 text-2xl" >중수도시설 등록 </h1>
         <div className="m-8">
         <SearchDiv   >
-          <div className='w-4/5 grid grid-cols-12 gap-1 mx-4'>
-            <SearchInput className='col-span-3 my-7' label="건물명" />
+          <div className='w-4/5 grid grid-cols-6 gap-1 mx-4'>
+            <SearchInput className='col-span-1 my-7 text-2xl' label="건물명:" />
           </div>
           <div className='w-1/5 flex items-center justify-end'>
             <Button className='mr-4 rounded-lg'>조회</Button>
@@ -51,13 +53,13 @@ export default function Home() {
       </div>
 
         <div className="colsapn-1 pl-11">
-          <UiTable tableData={rain.rainOfObject} headlist={rain.upHeadList} pageSize={100} total={10} headName={headName()}>
+          <UiTable tableData={rswt.rswtOfObject} headlist={rswt.upHeadList} pageSize={100} total={10} headName={headName()}>
             {nodeList}
           </UiTable>
         </div>
-        <div className="colsapn-1 pr-11   max-h-full ovreflow-y-scroll">
+        <div className="colsapn-1 pr-11 max-h-full ovreflow-y-scroll">
         <ScrollArea>
-          <RainReuseFaciltyInsertForm></RainReuseFaciltyInsertForm>
+          <RswtrReuseFaciltyInsertForm></RswtrReuseFaciltyInsertForm>
           </ScrollArea>
         </div>
 
