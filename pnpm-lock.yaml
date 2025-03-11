@@ -42,6 +42,9 @@ importers:
       '@common/components':
         specifier: workspace:*
         version: link:../../packages/common/components
+      '@tanstack/react-query':
+        specifier: ^5.67.1
+        version: 5.67.1(react@18.3.1)
       '@tanstack/react-table':
         specifier: ^8.21.2
         version: 8.21.2(react-dom@18.3.1)(react@18.3.1)

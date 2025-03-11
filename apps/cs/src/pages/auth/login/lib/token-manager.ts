@@ -1,6 +1,5 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import { CLAIM_NAME, REFRESH_TOKEN, TOKEN_ID } from "@/shared/config";
+import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config";
+import { setToken, removeToken } from "@/shared/lib/cookie";
 
 export class TokenManager {
   private static instance: TokenManager;
@@ -16,19 +15,10 @@ export class TokenManager {
   }
 
   public setToken(key: string, value: string): void {
-    axios.defaults.headers.common[key] = value;
-  }
-
-  public setRefreshToken(token: string): void {
-    Cookies.set(REFRESH_TOKEN, token, {
-      httpOnly: true,
-      secure: true,
+    setToken(key, value, {
+      secure: window.location.protocol === "https:",
       sameSite: "lax",
     });
-  }
-
-  public getRefreshToken(): string | undefined {
-    return Cookies.get(REFRESH_TOKEN);
   }
 
   public setupRefreshTimer(
@@ -52,9 +42,9 @@ export class TokenManager {
       clearTimeout(this.refreshTimer);
       this.refreshTimer = null;
     }
-    Cookies.remove(REFRESH_TOKEN);
-    delete axios.defaults.headers.common[CLAIM_NAME];
-    delete axios.defaults.headers.common[TOKEN_ID];
+
+    removeToken(CLAIM_NAME);
+    removeToken(AUTH_USER_ID);
   }
 }
 
