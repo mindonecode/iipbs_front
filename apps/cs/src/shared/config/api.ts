@@ -8,6 +8,9 @@ export const ENDPOINT = {
     USERS: "/user-service/api/v1/users",
     SILENT_REFRESH: "/user-service/api/v1/users/token/refresh",
   },
+  CMS_SERVICE: {
+    SITES: "/cms-service/api/v1/sites",
+  },
 };
 
 export const JWT_EXPIRATION_TIME = 1800000;

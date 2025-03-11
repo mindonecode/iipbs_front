@@ -1,10 +1,10 @@
-import { client } from "@/shared/api";
-import { ENDPOINT } from "@/shared/config";
+import { client } from "@/shared/api/client";
+import { ENDPOINT } from "@/shared/config/api";
 import type { IUser, IUserInfo, UserService } from "../model/user-interface";
 
 export class UsersApiService implements UserService {
-  public async userInfo(payload: IUserInfo): Promise<IUser> {
-    const response = await client.get<IUser>(
+  public async userInfo(payload: IUser): Promise<IUserInfo> {
+    const response = await client.get<IUserInfo>(
       `${ENDPOINT.USER_SERVICE.USERS}/${payload.userUniqId}`,
     );
 

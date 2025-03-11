@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { UserApi } from "../api/user-service";
 import { useCookie } from "@/shared/providers";
-import { AUTH_USER_ID, ENDPOINT } from "@/shared/config";
+import { ENDPOINT } from "@/shared/config/api";
+import { AUTH_USER_ID } from "@/shared/config/env";
 
 const useUser = () => {
   const { getToken } = useCookie();

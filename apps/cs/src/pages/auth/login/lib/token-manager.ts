@@ -1,4 +1,4 @@
-import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config";
+import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config/env";
 import { setToken, removeToken } from "@/shared/lib/cookie";
 
 export class TokenManager {

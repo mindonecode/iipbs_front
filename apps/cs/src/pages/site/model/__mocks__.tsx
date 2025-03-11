@@ -1,59 +1,43 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { fakerKO as faker } from "@faker-js/faker";
+import type { ISite } from "@/entities/site/model/site-interface";
 
-type Site = {
-  id: number;
-  사이트코드: string;
-  사이트명: string;
-  대표_URL: string;
-  기본_사이트_여부: boolean;
-  사용_여부: boolean;
-  등록자: string;
-  등록일: string;
-};
-
-faker.seed(123);
-
-const data: Site[] = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  사이트코드: faker.string.alpha(2).toUpperCase(),
-  사이트명: faker.lorem.word(),
-  대표_URL: faker.internet.url(),
-  기본_사이트_여부: faker.datatype.boolean(),
-  사용_여부: faker.datatype.boolean(),
-  등록자: faker.person.fullName(),
-  등록일: faker.date.recent().toISOString().split("T")[0] as string,
-}));
-
-const columnHelper = createColumnHelper<Site>();
+const columnHelper = createColumnHelper<ISite>();
 
 const columns = [
-  columnHelper.accessor("id", {
+  columnHelper.accessor((_, index) => index + 1, {
+    id: "no",
     header: "NO",
   }),
-  columnHelper.accessor("사이트코드", {
+  columnHelper.accessor("siteId", {
+    id: "siteId",
     header: "사이트코드",
   }),
-  columnHelper.accessor("사이트명", {
+  columnHelper.accessor("siteNm", {
+    id: "siteNm",
     header: "사이트명",
   }),
-  columnHelper.accessor("대표_URL", {
+  columnHelper.accessor("siteKindCode", {
+    id: "unknown1",
     header: "대표 URL",
   }),
-  columnHelper.accessor("기본_사이트_여부", {
+  columnHelper.accessor("bscSiteYn", {
+    id: "bscSiteYn",
     header: "기본 사이트 여부",
     cell: (info) => (info.getValue() ? "Y" : "N"),
   }),
-  columnHelper.accessor("사용_여부", {
+  columnHelper.accessor("useYn", {
+    id: "useYn",
     header: "사용 여부",
     cell: (info) => (info.getValue() ? "Y" : "N"),
   }),
-  columnHelper.accessor("등록자", {
+  columnHelper.accessor("siteId", {
+    id: "unknown2",
     header: "등록자",
   }),
-  columnHelper.accessor("등록일", {
+  columnHelper.accessor("siteId", {
+    id: "ununknown3",
     header: "등록일",
   }),
 ];
 
-export { data, columns };
+export { columns };

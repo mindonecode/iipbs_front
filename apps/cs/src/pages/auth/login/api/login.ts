@@ -1,11 +1,6 @@
 import { AxiosError } from "axios";
-import {
-  ACCESS_TOKEN,
-  AUTH_USER_ID,
-  CLAIM_NAME,
-  ENDPOINT,
-  JWT_EXPIRATION_TIME,
-} from "@/shared/config";
+import { ENDPOINT, JWT_EXPIRATION_TIME } from "@/shared/config/api";
+import { ACCESS_TOKEN, AUTH_USER_ID, CLAIM_NAME } from "@/shared/config/env";
 import { tokenManager } from "../lib/token-manager";
 import type { LoginService, ILogin } from "../model/login";
 

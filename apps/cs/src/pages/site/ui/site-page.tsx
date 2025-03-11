@@ -3,30 +3,67 @@
 import "@common/assets/styles/grid.css";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Button, Input, DataTable } from "@common/components";
-import { data, columns } from "../model/__mocks__";
+import { SiteApi } from "@/entities/site/api/site-service";
+import { ENDPOINT } from "@/shared/config/api";
+import { columns } from "../model/__mocks__";
 import { SitePageLayout } from "./layout";
+import type { ISiteQuery } from "@/entities/site/model/site-interface";
 
 function SitePage() {
+  const [siteQuery, setSiteQuery] = useState<ISiteQuery>({
+    siteNm: "",
+    siteKndCd: "",
+    useYn: "",
+    page: 0,
+    size: 0,
+    sort: [],
+  });
+
+  const { data: siteInfo, refetch } = useQuery({
+    queryKey: [ENDPOINT.CMS_SERVICE.SITES],
+    queryFn: () => SiteApi.siteInfo(siteQuery),
+    enabled: false,
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    refetch();
+  };
+
   const router = useRouter();
   const table = useReactTable({
-    data,
+    data: siteInfo?.content ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <SitePageLayout>
       <div className="card card-border !mt-6">
         <div className="card card-border !border-[#dbe2e6] !bg-[#eef7ff]">
-          <div className="flex items-center gap-2 p-2">
+          <form onSubmit={handleSubmit} className="flex items-center gap-2 p-2">
             <label htmlFor="" className="mr-2 text-[#657481]">
               사이트명
             </label>
-            <Input className="h-[3.2rem] w-[24rem] rounded-sm !text-[1.3rem]" />
-            <Button className="h-[3.2rem]">조회</Button>
-          </div>
+            <Input
+              className="h-[3.2rem] w-[24rem] rounded-sm !text-[1.3rem]"
+              value={siteQuery.siteNm}
+              onChange={(e) =>
+                setSiteQuery({ ...siteQuery, siteNm: e.target.value })
+              }
+            />
+            <Button className="h-[3.2rem]" type="submit">
+              조회
+            </Button>
+          </form>
         </div>
         <div className="card card-border">
           <div className="card-header">
