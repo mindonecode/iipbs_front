@@ -1,11 +1,18 @@
 import { useWrStore } from "@/app/store";
-import { FormField, FormItem, FormLabel, FormUi, SelectBox } from "@common/business_components";
-import { DatePicker, Input } from "@common/components";
+import { DatePicker, FormField, FormItem, FormLabel, FormUi, SelectBox } from "@common/business_components";
+import {  Input } from "@common/components";
+import { useState } from "react";
 
 export function BaseForm(form:any){
     
   const { dmd } = useWrStore((state) => state);
 
+  const [dmdDate, setDmdDate] = useState(new Date())
+
+
+  const onChangeDate=(val:Date|undefined)=>{
+    if(val)setDmdDate(val);
+  }
     return(
 
         <>
@@ -104,7 +111,7 @@ export function BaseForm(form:any){
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>요구시기</FormLabel>
-         <DatePicker mode={"single"} {...field} />
+         <DatePicker mode={"single"} field={{ value: dmdDate, onChange: onChangeDate }} />
         </FormItem>
       )}
     />
