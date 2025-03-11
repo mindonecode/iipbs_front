@@ -114,7 +114,7 @@ export default function ProcessFacilitySearch() {
             </SelectBox>
             <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue}>
             </SelectBox>
-            <SearchInput className="col-span-3" label={topLabelArray[4] as string} ref={inputRef}/>
+            <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} ref={inputRef}/>
           </div>
           <div style={styles.rightDiv}>
             <Button style={styles.searchBtn} size="sm">
