@@ -1,9 +1,9 @@
 "use client";
 
 import { SelectBox } from "@common/business_components";
-import { FileUpload, FormUi, UiTable } from "@common/business_components/ui";
+import { DatePicker, FileUpload, FormUi, UiTable } from "@common/business_components/ui";
 import { Form, FormField } from "@common/business_components/ui/form";
-import { Button, DatePicker, Input } from "@common/components";
+import { Button, Input } from "@common/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -62,8 +62,7 @@ export function PublicReuseFaciltyFormInsert() {
     { text: "자쳬+연계", val: "3" },
   ];
 
-
-
+  const [datePick, setDatePick] = useState(new Date())
   const [files, setFiles] = useState(null);
 
   return (
@@ -256,7 +255,12 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_2450741594"
                   render={({ field }) => (
                     <FormUi label="설치승인인가일">
-                      <DatePicker mode="single" {...field} />
+                      <DatePicker field={{
+                        value: datePick,
+                        onChange: (date: Date | undefined): void =>{
+                          if (date) setDatePick(date)
+                        }
+                      }} mode="single" {...field}/>
                     </FormUi>
                   )}
                 />
@@ -267,7 +271,12 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_2450741594"
                   render={({ field }) => (
                     <FormUi label="사업준공일">
-                        <DatePicker mode="single" {...field} />
+                        <DatePicker field={{
+                        value: datePick,
+                        onChange: function (date: Date | undefined): void {
+                          if (date) setDatePick(date)
+                        }
+                      }} mode="single" {...field} />
                     </FormUi>
                   )}
                 />
