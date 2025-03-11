@@ -3,7 +3,7 @@ import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
 import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProcessFacilitySearch() {
   const {FlowRateSearch, FlowRateList} = useFoStore((state) => state);
@@ -26,8 +26,11 @@ export default function ProcessFacilitySearch() {
   } = FlowRateList;
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const inputSelectRef = useRef<HTMLInputElement>(null);
-
+  const [initValue, setInputValue] = useState('500');
+  useEffect(()=>{
+    console.log(initValue);
+  }, [initValue]);
+  
   const onSelectValue= (value: string) => {
     console.log(value);
   }
@@ -38,7 +41,7 @@ export default function ProcessFacilitySearch() {
               <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}/>
               <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}/>
               <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}/>
-              <SearchInputSelect className="col-span-3" label={flowRateSearchLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
+              <SearchInputSelect className="col-span-3" label={flowRateSearchLabelArray[3] as string} selectData={selectUpdownData} textValue={initValue} setText={setInputValue} onSelectValue={onSelectValue}/>
               <SearchInput className="col-span-3" label={flowRateSearchLabelArray[4] as string} ref={inputRef}/>
               <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue}/>
               <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
