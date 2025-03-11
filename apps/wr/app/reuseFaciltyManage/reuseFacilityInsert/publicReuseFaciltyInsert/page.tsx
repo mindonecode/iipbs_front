@@ -11,8 +11,8 @@ import { useWrStore } from '../../../store';
   const {pubFac} = useWrStore((state) => state);
   const {  pubFacHeadList, publicReuseFacilityData, selectLabel} = pubFac;
   console.log(pubFacHeadList)
-  const searchDiv = '시군구'
-  const selectBox = [{ text: '한양', val: "1" }, { text: '서울', val: "2" }, { text: '부산', val: "3" }]
+  const searchDiv = '하수재이용시설 '
+  const selectBox = [{ text: '서울하수처리시설', val: "1" }, { text: '서울1하수처리시설', val: "2" }, { text: '서울2하수처리시설', val: "3" }]
   const headName = () => {
     return (
       <h1 className="pl-3 text-xl">○공공 허수처리시설 등록</h1>

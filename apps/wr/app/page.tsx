@@ -11,9 +11,11 @@ export default function Home() {
         <Link href="reuseFaciltyManage/reuseFacilityInsert/publicReuseFaciltyInsert"> 하수재이용 시설 등록</Link>
       </Button>
       <Button className='place-self-auto'> 
-        <Link href="reuseFaciltyManage/reuseFacilityInsert/rainReuseFaciltyInsert"> 물재이용 시설 등록</Link>
+        <Link href="reuseFaciltyManage/reuseFacilityInsert/rainReuseFaciltyInsert"> 빗물재이용 시설 등록</Link>
       </Button>
-      
+      <Button className='place-self-auto'> 
+        <Link href="reuseFaciltyManage/reuseFacilityInsert/rswtReuseFacilityInsert"> 중수도시설  등록</Link>
+      </Button>
       </div>
       </>  
   );
