@@ -1,22 +1,38 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage, SelectBox } from "@common/business_components";
+import { FileUpload, FormControl, FormField, FormItem, FormLabel, FormMessage, SelectBox } from "@common/business_components";
+import { DatePicker } from "@common/components";
 import { Input } from "@common/components";
 
 
-type typeOfForm ={
+export type typeOfForm ={
   labelName: string;
   type: string;
-  selectvlaue?: { text: string; val: string }[];
-  placeholder:any
+  placeholder:any;
   formName: string;
+  selectValue:selectValue|undefined;
+}
+type onSelectValue = (val:string) => void;
+export type selectValue ={
+  label:string,
+  value:{ text: string; val: string }[],
+  fun:onSelectValue 
 }
 
-type onSelectValue = (val:string) => void;
 
+export function IteraterFrom(formData:typeOfForm[],form:any , formClass:string   ){
 
-
-export function IteraterFrom(formData:typeOfForm[],form:any , formClass:string , onSelectValue:onSelectValue ){
-
-    return (
+  const formItem =(data:typeOfForm,field:any)=>{
+    let tag
+    if(data.type==='select'){
+      tag= (data.selectValue ? <SelectBox className='' label={data.selectValue.label} selectArray={data.selectValue.value} onSelectValue={data.selectValue.fun}   >{...form}</SelectBox> : null)
+    }else if(data.type==='date'){
+      tag =(<DatePicker mode="single" {...field} />)
+    }else{
+      tag=(<Input className ='w-64'placeholder= {data.placeholder} type="" {...field} />)
+    }
+    return tag;
+  } 
+  
+  return (
         <>
           {formData.map((data: typeOfForm, index) => (
               <FormField key={`${index}+key`}
@@ -26,11 +42,7 @@ export function IteraterFrom(formData:typeOfForm[],form:any , formClass:string ,
                   <FormItem className={formClass} >
                     <FormLabel>{data.labelName}</FormLabel>
                     <FormControl>
-                      {data.selectvlaue == undefined ? (
-                        <Input className ='w-64'placeholder= {data.placeholder} type="" {...field} />
-                      ) : (
-                        <SelectBox className='' label='' selectArray={data.selectvlaue} onSelectValue={onSelectValue}   ></SelectBox>
-                      )}
+                      {formItem(data,field)} 
                     </FormControl>
                     <FormMessage />
                   </FormItem>

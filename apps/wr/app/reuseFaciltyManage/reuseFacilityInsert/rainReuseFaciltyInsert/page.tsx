@@ -22,8 +22,8 @@ const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
 
 
 export default function Home() {
-  const { building } = useWrStore((state) => state);
-  const nodeList = headMakeColSpan(building.upHeadList);
+  const { rain } = useWrStore((state) => state);
+  const nodeList = headMakeColSpan(rain.upHeadList);
   const total = 100;
 
 
@@ -50,7 +50,7 @@ export default function Home() {
       <div className="grid grid-cols-2 gap-4">
 
         <div className="colsapn-1 ">
-          <UiTable tableData={building.buildingObject} headlist={building.upHeadList} pageSize={100} total={10} headName={headName()}>
+          <UiTable tableData={rain.rainOfObject} headlist={rain.upHeadList} pageSize={100} total={10} headName={headName()}>
             {nodeList}
           </UiTable>
         </div>
