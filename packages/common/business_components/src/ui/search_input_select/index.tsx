@@ -17,7 +17,7 @@ export type SelectDataType = {
 const SearchInputSelect = React.forwardRef<HTMLInputElement, {className:string, label:string, selectData: SelectDataType[], onSelectValue:(val:string)=>void}>(({className, label, selectData, onSelectValue}, refs) => {
     return (
         <div className={className+" flex items-center"} >
-            {label && <Label className="m-4 text-lg w-1/4">{label}</Label>}
+            {label && <Label className="m-4 text-2xl w-1/4">{label}</Label>}
             <div className="flex w-full items-center">
                 <Input className="w-2/3 text-lg" ref={refs}/>
                 <Select onValueChange={onSelectValue}>
