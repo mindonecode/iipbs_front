@@ -8,7 +8,7 @@ import type { DayPickerSingleProps } from "react-day-picker";
 
 import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from "@common/components/ui";
 import { cn } from "../../lib/utils";
-import { FormControl } from "../form/form";
+import { FormControl } from "../form";
 
 type DatePickerProps = DayPickerSingleProps & { field: { value: Date; onChange: (date: Date | undefined) => void } };
 
