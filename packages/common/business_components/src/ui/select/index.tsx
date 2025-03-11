@@ -17,9 +17,9 @@ const SelectBox = React.forwardRef<
 
   return (
     <div className={className+" flex items-center"} ref={ref}>
-      {label && <Label className="m-4 text-lg w-1/4">{label}</Label>}
+      {label && <Label className="m-4 text-2xl w-1/4">{label}</Label>}
       <Select onValueChange={onSelectValue}>
-        <SelectTrigger className="ml-8 w-3/4 text-lg">
+        <SelectTrigger className="ml-8 w-3/4 text-2xl">
           <SelectValue placeholder={placeHolder} />
         </SelectTrigger>
         <SelectContent>

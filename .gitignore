@@ -6,3 +6,5 @@ node_modules
 
 # misc
 .DS_Store
+apps/wr/.next/**/*
+apps/fo/.next/**/*
