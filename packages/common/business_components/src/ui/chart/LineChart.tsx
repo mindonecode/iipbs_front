@@ -12,11 +12,11 @@ import {
 } from "./lib/chart";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
-export default function Linechart(props: { chartStyle: CSSProperties | undefined; chartConfig: ChartConfig; chartData: any[] | undefined; }) {
+export default function Linechart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; }) {
   return (
     <Card>
       <CardContent>
-        <ChartContainer style={props.chartStyle} config={props.chartConfig}>
+        <ChartContainer config={props.chartConfig}>
           <LineChart
             accessibilityLayer
             data={props.chartData}
