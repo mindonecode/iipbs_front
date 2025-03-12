@@ -17,6 +17,7 @@ export default function Chart(props: { chartConfig: ChartConfig; chartData: any[
     <Card>
         {props.chartTitle && props.chartTitle !== "" && props.chartTitle !== "undefined" ? (
         <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
+          {props.chartTitle}
         </div>): null}
         <CardContent>
             <ChartContainer config={props.chartConfig}>

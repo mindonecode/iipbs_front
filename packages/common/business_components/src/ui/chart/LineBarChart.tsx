@@ -81,6 +81,7 @@ export default function LineBarchart(props: { chartConfig: ChartConfig; chartDat
       <CardContent>
         {props.chartTitle && props.chartTitle !== "" && props.chartTitle !== "undefined" ? (
         <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
+          {props.chartTitle}
         </div>): null}
         <ChartContainer config={props.chartConfig}>
           <ComposedChart data={props.chartData}>
@@ -96,7 +97,7 @@ export default function LineBarchart(props: { chartConfig: ChartConfig; chartDat
             <Bar yAxisId="right" dataKey="barVal" fill="#8884d8" name="강수량(mm/일)"/>
             {/* 라인 차트 (왼쪽 Y축 사용) */}
             <Line yAxisId="left" type="monotone" dataKey="lineVal" stroke="orange" strokeWidth={2} dot={{r: 0}} name="BOD(mg/L)"/>
-         </ComposedChart>
+          </ComposedChart>
         </ChartContainer>
       </CardContent>
     </Card>
