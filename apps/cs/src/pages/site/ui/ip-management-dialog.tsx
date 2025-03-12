@@ -26,7 +26,11 @@ type IP = {
   allowed: boolean;
 };
 
-function IPManagementDialog() {
+type IPManagementDialogProps = {
+  triggerDisabled?: boolean;
+};
+
+function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
   const [rows, setRows] = useState<IP[]>([]);
   const [rowSelection, setRowSelection] = useState<IP["id"][]>([]);
 
@@ -72,7 +76,7 @@ function IPManagementDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>IP 관리</Button>
+        <Button disabled={triggerDisabled}>IP 관리</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>

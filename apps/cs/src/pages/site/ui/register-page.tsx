@@ -1,11 +1,10 @@
 "use client";
 
+import { useState } from "react";
+import { SiteApi } from "@/entities/site";
+import { ENDPOINT } from "@/shared/config/api";
 import {
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
   Input,
   Label,
   RadioGroup,
@@ -16,10 +15,24 @@ import {
   TableHead,
   TableRow,
 } from "@common/components";
+import { useQuery } from "@tanstack/react-query";
+import { CodeSelect } from "@/entities/code";
 import { SitePageLayout } from "./layout";
 import { IPManagementDialog } from "./ip-management-dialog";
 
-function RegisterPage() {
+function RegisterPage({ siteId }: { siteId: string }) {
+  const { data: siteDetail } = useQuery({
+    queryKey: [ENDPOINT.CMS_SERVICE.SITES, siteId],
+    queryFn: () => SiteApi.siteDetail(siteId),
+    select: (data) => {
+      setSiteKndCd(data.siteKndCd);
+      return data;
+    },
+    enabled: !!siteId,
+  });
+  const [siteKndCd, setSiteKndCd] = useState<string>("");
+  const [, setSiteSkinCd] = useState<string>("");
+
   return (
     <SitePageLayout>
       <div className="card card-border !mt-6">
@@ -36,54 +49,38 @@ function RegisterPage() {
               <TableRow>
                 <TableHead>사이트 코드</TableHead>
                 <TableCell className="border">
-                  <Input className="w-[12rem] !text-[1.3rem]" />
+                  <Input
+                    className="w-[12rem] !text-[1.3rem]"
+                    defaultValue={siteDetail?.siteId}
+                    disabled={!!siteId}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableHead>사이트 구분</TableHead>
                 <TableCell className="border">
                   <div className="flex gap-2">
-                    <DropdownMenu>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            color="white"
-                            className="group w-[12rem] justify-between px-4"
-                          >
-                            선택
-                            <i className="diveicon di-chevron-down translate-y-0.5 transition-transform group-data-[state=open]:translate-y-0 group-data-[state=open]:rotate-180" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-[12rem]">
-                          <DropdownMenuItem>내부</DropdownMenuItem>
-                          <DropdownMenuItem>외부</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </DropdownMenu>
-                    <IPManagementDialog />
+                    <CodeSelect
+                      upCd="SITEKNDCD"
+                      defaultValue={siteDetail?.siteKndCd}
+                      onValueChange={(value) => {
+                        setSiteKndCd(value);
+                      }}
+                    />
+                    <IPManagementDialog triggerDisabled={siteKndCd === "O"} />
                   </div>
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableHead>사이트 디자인</TableHead>
                 <TableCell className="border">
-                  <DropdownMenu>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          color="white"
-                          className="group w-[12rem] justify-between px-4"
-                        >
-                          선택
-                          <i className="diveicon di-chevron-down translate-y-0.5 transition-transform group-data-[state=open]:translate-y-0 group-data-[state=open]:rotate-180" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-[12rem]">
-                        <DropdownMenuItem>라이트</DropdownMenuItem>
-                        <DropdownMenuItem>다크</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </DropdownMenu>
+                  <CodeSelect
+                    upCd="SITESKINCD"
+                    defaultValue={siteDetail?.siteSkn}
+                    onValueChange={(value) => {
+                      setSiteSkinCd(value);
+                    }}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -92,6 +89,7 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="사이트명을 입력하십시오."
+                    defaultValue={siteDetail?.siteNm}
                   />
                 </TableCell>
               </TableRow>
@@ -101,6 +99,7 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="사이트 설명을 입력하십시오."
+                    defaultValue={siteDetail?.siteExpln}
                   />
                 </TableCell>
               </TableRow>
@@ -110,6 +109,7 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="사이트 하단 주소를 입력하십시오."
+                    defaultValue={siteDetail?.siteAddr}
                   />
                 </TableCell>
               </TableRow>
@@ -119,6 +119,7 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="사이트 하단 전화번호를 입력하십시오."
+                    defaultValue={siteDetail?.telNo}
                   />
                 </TableCell>
               </TableRow>
@@ -128,6 +129,7 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="사이트 하단 팩스번호를 입력하십시오."
+                    defaultValue={siteDetail?.faxNumber}
                   />
                 </TableCell>
               </TableRow>
@@ -137,6 +139,7 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="사이트 표기 내용을 입력하십시오. (ex. COPYRIGHT c 2013 KECO. ALL RIGHTS RESERVED.)"
+                    defaultValue={siteDetail?.lwndCn}
                   />
                 </TableCell>
               </TableRow>
@@ -146,13 +149,19 @@ function RegisterPage() {
                   <Input
                     className="!text-[1.3rem]"
                     placeholder="아이콘 파일 경로 및 파일명을 입력하여 주십시오."
+                    defaultValue={siteDetail?.bkmkIcon}
                   />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableHead>기본 사이트 여부</TableHead>
                 <TableCell className="border">
-                  <RadioGroup defaultValue="comfortable">
+                  <RadioGroup
+                    defaultValue={siteDetail?.basicSiteYn}
+                    onValueChange={(value) => {
+                      console.log(value);
+                    }}
+                  >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="default" id="r1" />
                       <Label htmlFor="r1">예</Label>
@@ -167,7 +176,12 @@ function RegisterPage() {
               <TableRow>
                 <TableHead>사용 여부</TableHead>
                 <TableCell className="border">
-                  <RadioGroup defaultValue="comfortable">
+                  <RadioGroup
+                    defaultValue={siteDetail?.useYn}
+                    onValueChange={(value) => {
+                      console.log(value);
+                    }}
+                  >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="default" id="r1" />
                       <Label htmlFor="r1">사용</Label>

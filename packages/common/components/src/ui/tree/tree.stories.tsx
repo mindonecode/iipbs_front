@@ -19,7 +19,7 @@ const meta: Meta<typeof Tree> = {
       description: {
         component: `
 - [Docs](https://github.com/minop1205/react-dnd-treeview/blob/next/README.md)
-        `,
+`,
       },
     },
   },

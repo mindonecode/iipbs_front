@@ -4,6 +4,7 @@ import type {
   ISiteQuery,
   ISiteInfo,
   SiteService,
+  ISiteDetail,
 } from "../model/site-interface";
 
 export class SiteApiService implements SiteService {
@@ -12,7 +13,13 @@ export class SiteApiService implements SiteService {
       `${ENDPOINT.CMS_SERVICE.SITES}`,
       { params: query },
     );
+    return response.data;
+  }
 
+  public async siteDetail(siteId: string): Promise<ISiteDetail> {
+    const response = await client.get<ISiteDetail>(
+      `${ENDPOINT.CMS_SERVICE.SITES}/${siteId}`,
+    );
     return response.data;
   }
 }
