@@ -75,10 +75,13 @@ const CustomLegend = (props: any) => {
   );
 };
 
-export default function LineBarchart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; }) {
+export default function LineBarchart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; chartTitle:string }) {
   return (
     <Card>
       <CardContent>
+        {props.chartTitle && props.chartTitle !== "" && props.chartTitle !== "undefined" ? (
+        <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
+        </div>): null}
         <ChartContainer config={props.chartConfig}>
           <ComposedChart data={props.chartData}>
             <CartesianGrid strokeDasharray="3 3" />
