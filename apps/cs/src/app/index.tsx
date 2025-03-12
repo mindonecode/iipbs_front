@@ -1,6 +1,6 @@
 import "./styles/base.css";
 import "./styles/components.css";
-import { CookieProvider, QueryProvider } from "@/shared/providers";
+import { CookieProvider, QueryProvider } from "@/shared/provider";
 
 const App = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (

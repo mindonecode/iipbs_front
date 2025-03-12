@@ -17,7 +17,7 @@ export async function POST(
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    "X-Site-Id": SITE_ID ?? "",
+    "X-Site-Id": SITE_ID,
   };
 
   const cookieStore = await cookies();

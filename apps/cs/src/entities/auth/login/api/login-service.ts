@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { ENDPOINT, JWT_EXPIRATION_TIME } from "@/shared/config/api";
 import { ACCESS_TOKEN, AUTH_USER_ID, CLAIM_NAME } from "@/shared/config/env";
+import type { LoginService, ILogin } from "../model/login-interface";
 import { tokenManager } from "../lib/token-manager";
-import type { LoginService, ILogin } from "../model/login";
 
 export class LoginApiService implements LoginService {
   private static instance: LoginApiService;
