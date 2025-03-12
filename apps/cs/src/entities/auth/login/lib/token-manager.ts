@@ -1,5 +1,5 @@
-import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config";
-import { setToken, removeToken } from "@/shared/lib/cookie";
+import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config/env";
+import { getCookie, setCookie, removeCookie } from "@/shared/lib/cookie";
 
 export class TokenManager {
   private static instance: TokenManager;
@@ -14,11 +14,19 @@ export class TokenManager {
     return TokenManager.instance;
   }
 
+  public getToken(key: string): string | undefined {
+    return getCookie(key);
+  }
+
   public setToken(key: string, value: string): void {
-    setToken(key, value, {
+    setCookie(key, value, {
       secure: window.location.protocol === "https:",
       sameSite: "lax",
     });
+  }
+
+  public removeToken(key: string): void {
+    removeCookie(key);
   }
 
   public setupRefreshTimer(
@@ -32,19 +40,19 @@ export class TokenManager {
     this.refreshTimer = setTimeout(() => {
       callback().catch((error) => {
         console.error("Silent refresh failed:", error);
-        this.clearAuth();
+        this.clearAuthToken();
       });
     }, expirationTime - 60000);
   }
 
-  public clearAuth(): void {
+  public clearAuthToken(): void {
     if (this.refreshTimer) {
       clearTimeout(this.refreshTimer);
       this.refreshTimer = null;
     }
 
-    removeToken(CLAIM_NAME);
-    removeToken(AUTH_USER_ID);
+    this.removeToken(CLAIM_NAME);
+    this.removeToken(AUTH_USER_ID);
   }
 }
 

@@ -1,24 +1,9 @@
 "use client";
 
-import {
-  getCookie,
-  setCookie,
-  removeCookie,
-  getToken,
-  setToken,
-  removeToken,
-} from "../../lib/cookie";
-
 import { createContext, useContext } from "react";
+import { getCookie, setCookie, removeCookie } from "../lib/cookie";
 
 export interface CookieContextType {
-  getToken: (key: string) => string | undefined;
-  setToken: (
-    key: string,
-    token: string,
-    options: Cookies.CookieAttributes,
-  ) => void;
-  removeToken: (key: string) => void;
   getCookie: (name: string) => string | undefined;
   setCookie: (
     name: string,
@@ -32,9 +17,6 @@ export const CookieContext = createContext<CookieContextType | null>(null);
 
 export function CookieProvider({ children }: { children: React.ReactNode }) {
   const cookieContextValue: CookieContextType = {
-    getToken,
-    setToken,
-    removeToken,
     getCookie,
     setCookie,
     removeCookie,

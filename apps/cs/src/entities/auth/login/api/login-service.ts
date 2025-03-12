@@ -1,13 +1,8 @@
 import { AxiosError } from "axios";
-import {
-  ACCESS_TOKEN,
-  AUTH_USER_ID,
-  CLAIM_NAME,
-  ENDPOINT,
-  JWT_EXPIRATION_TIME,
-} from "@/shared/config";
+import { ENDPOINT, JWT_EXPIRATION_TIME } from "@/shared/config/api";
+import { ACCESS_TOKEN, AUTH_USER_ID, CLAIM_NAME } from "@/shared/config/env";
+import type { LoginService, ILogin } from "../model/login-interface";
 import { tokenManager } from "../lib/token-manager";
-import type { LoginService, ILogin } from "../model/login";
 
 export class LoginApiService implements LoginService {
   private static instance: LoginApiService;
@@ -36,7 +31,7 @@ export class LoginApiService implements LoginService {
       const tokenId = data[AUTH_USER_ID];
 
       if (!accessToken || !tokenId) {
-        throw new Error("Missing required authentication tokens");
+        throw new Error("[login] Missing required authentication tokens");
       }
 
       tokenManager.setToken(CLAIM_NAME, accessToken);
@@ -67,13 +62,16 @@ export class LoginApiService implements LoginService {
       const tokenId = data[AUTH_USER_ID];
 
       if (!accessToken || !tokenId) {
-        throw new Error("Missing required authentication tokens");
+        throw new Error(
+          "[silentRefresh] Missing required authentication tokens",
+        );
       }
 
       tokenManager.setToken(CLAIM_NAME, accessToken);
       tokenManager.setToken(AUTH_USER_ID, tokenId);
     } catch (error) {
       console.warn("Token has expired, logging out.");
+      tokenManager.clearAuthToken();
       if (error instanceof AxiosError) {
         throw new Error(
           `Silent refresh failed: ${error.response?.data?.message || error.message}`,

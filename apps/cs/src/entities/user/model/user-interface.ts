@@ -1,8 +1,8 @@
-export interface IUserInfo {
+export interface IUser {
   userUniqId: string;
 }
 
-export interface IUser {
+export interface IUserInfo {
   regDt: string;
   mdfcnDt: string;
   rgtr: string;
@@ -37,5 +37,5 @@ export interface IUser {
 }
 
 export interface UserService {
-  userInfo: (payload: IUserInfo) => Promise<IUser>;
+  userInfo: (payload: IUser) => Promise<IUserInfo>;
 }

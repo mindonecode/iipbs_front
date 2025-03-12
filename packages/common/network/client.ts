@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { AUTH_USER_ID, CLAIM_NAME } from "./env";
@@ -27,7 +27,19 @@ class Client {
       const userId = Cookies.get(AUTH_USER_ID);
 
       if (!token || !userId) {
-        throw new Error("Missing required authentication tokens");
+        throw new AxiosError(
+          "[Client] Missing required authentication tokens",
+          "UNAUTHORIZED",
+          config,
+          null,
+          {
+            data: { message: "Missing required authentication tokens" },
+            status: 401,
+            statusText: "Unauthorized",
+            headers: this.axiosInstance.defaults.headers,
+            config: config,
+          } as AxiosResponse
+        );
       }
 
       config.headers[CLAIM_NAME] = token;

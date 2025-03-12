@@ -9,21 +9,21 @@ import {
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST(
+async function handler(
   request: Request,
-  props: { params: Promise<{ url: string[] }> },
+  params: { url: string[] },
+  method: "GET" | "POST" | "PUT" | "DELETE",
 ) {
-  const params = await props.params;
-
+  const cookieStore = await cookies();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    "X-Site-Id": SITE_ID ?? "",
+    "X-Site-Id": SITE_ID,
   };
-
-  const cookieStore = await cookies();
+  let body = {};
+  const isRefreshHandler = params.url.includes("refresh");
 
   // silent refresh
-  if (params.url.includes("refresh")) {
+  if (isRefreshHandler) {
     const refreshToken = cookieStore.get(REFRESH_TOKEN);
     headers[CLAIM_NAME] = refreshToken?.value ?? "";
 
@@ -33,9 +33,12 @@ export async function POST(
   }
 
   try {
-    const body = await request.json();
+    if (!isRefreshHandler) {
+      body = await request.json();
+    }
+
     const result = await fetch(`${SERVER_API_URL}/${params.url.join("/")}`, {
-      method: "POST",
+      method,
       headers,
       body: JSON.stringify(body),
     });
@@ -78,4 +81,20 @@ export async function POST(
       { status: 500 },
     );
   }
+}
+
+export async function POST(
+  request: Request,
+  props: { params: Promise<{ url: string[] }> },
+) {
+  const params = await props.params;
+  return handler(request, params, "POST");
+}
+
+export async function PUT(
+  request: Request,
+  props: { params: Promise<{ url: string[] }> },
+) {
+  const params = await props.params;
+  return handler(request, params, "PUT");
 }
