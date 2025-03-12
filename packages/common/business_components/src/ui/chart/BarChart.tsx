@@ -12,11 +12,11 @@ import {
 } from "./lib/chart";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
-export default function Chart(props: { chartStyle: CSSProperties | undefined; chartConfig: ChartConfig; chartData: any[] | undefined; }) {
+export default function Chart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; }) {
   return (
     <Card>
         <CardContent>
-            <ChartContainer style={props.chartStyle} config={props.chartConfig}>
+            <ChartContainer config={props.chartConfig}>
                 <BarChart accessibilityLayer data={props.chartData}>
                     <CartesianGrid vertical={false} />
                     <XAxis

@@ -15,14 +15,13 @@ import {
 import type { CSSProperties } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export default (props: { chartConfig: ChartConfig; chartStyle: CSSProperties | undefined; chartData: never[] | undefined; }) =>{
+export default (props: { chartConfig: ChartConfig; chartData: never[] | undefined; }) =>{
   return (
     <Card className="flex flex-col">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={props.chartConfig}
           className="mx-auto aspect-square max-h-[300px]"
-          style={props.chartStyle}
         >
           <PieChart>
             <ChartTooltip
