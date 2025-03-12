@@ -99,7 +99,6 @@ export default function ProcessFacilitySearch() {
     operationalStatusList
   } = OperationStatus;
 
-
   const upChangeRePlanFclty = headMakeColSpanPlanFclty(upHeadListPlanFclty);
   const upChangeHeadListOperationStatus = headMakeColSpanOperationStatus(upHeadListOperationStatus);
   return (
