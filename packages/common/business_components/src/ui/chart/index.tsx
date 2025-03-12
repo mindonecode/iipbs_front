@@ -21,31 +21,23 @@ const CHART_FORM = {
 function MainChart(props: { chartForm: string; chartConfig: any; chartData: any; chartTitle:string; }) {
   if( props.chartForm == CHART_FORM.BAR ){
     return (
-      <div>
-        <BarChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
-        </BarChart>
-      </div>
+      <BarChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </BarChart>
     );
   } else if( props.chartForm == CHART_FORM.LINE ){
     return (
-      <div>
-        <LineChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
-        </LineChart>
-      </div>
+      <LineChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </LineChart>
     );
   } else if( props.chartForm == CHART_FORM.DN ){
     return (
-      <div>
-        <DoughnutChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
-        </DoughnutChart>
-      </div>
+      <DoughnutChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </DoughnutChart>
     );
   } else if (props.chartForm == CHART_FORM.LINEBAR){
     return (
-      <div className='w-100'>
-        <LineBarchart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
-        </LineBarchart>
-      </div>
+      <LineBarchart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </LineBarchart>
     );
   }
 }
