@@ -18,7 +18,7 @@ export default function Home() {
       </Button>
 
       <Button className='place-self-auto'> 
-        <Link href="matMng/matDmd">수요처 등록</Link>
+        <Link href="matMng/matDmd/coReg">수요처 등록</Link>
       </Button>
       </div>
       </>  

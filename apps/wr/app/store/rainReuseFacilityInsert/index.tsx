@@ -85,6 +85,8 @@ export type selectArray ={
     val:string
     
 }
+
+export const selectClass ="w-full h-full text-2xl";
 const selectHomeWater = [
     { text: '집수면', val: "1" },
     { text: "종류", val: "2" },

@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormUi } from "@common/business_components";
 import { useWrStore } from "@/app/store";
+import { selectClass } from "@/app/store/rainReuseFacilityInsert";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -39,7 +40,6 @@ export function RainReuseFaciltyInsertForm() {
       console.log(val)
 
   }
-  const selectClass ="w-full h-full text-2xl";
   return (
     <div className="">
       <Form  {...form}>

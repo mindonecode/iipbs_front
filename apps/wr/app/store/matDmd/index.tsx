@@ -5,12 +5,12 @@ import type { selectArray } from "../rainReuseFacilityInsert";
 const selectSido = [
     { text: '서울', val: "1" },
     { text: "인천", val: "2" },
-    { text: "부산", val: "2" },
+    { text: "부산", val: "3" },
   ];
 const selectSgg = [
     { text: '종로구', val: "1" },
     { text: "성북구", val: "2" },
-    { text: "강남구", val: "2" },
+    { text: "강남구", val: "3" },
   ];
   const selectUsg = [
     { text: '민간', val: "1" },

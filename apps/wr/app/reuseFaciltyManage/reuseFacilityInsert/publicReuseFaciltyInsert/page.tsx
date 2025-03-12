@@ -10,7 +10,6 @@ import { useWrStore } from '../../../store';
   export  default function PublicReuseFaciltyInsert() {
   const {pubFac} = useWrStore((state) => state);
   const {  pubFacHeadList, publicReuseFacilityData, selectLabel} = pubFac;
-  console.log(pubFacHeadList)
   const searchDiv = '하수재이용시설 '
   const selectBox = [{ text: '서울하수처리시설', val: "1" }, { text: '서울1하수처리시설', val: "2" }, { text: '서울2하수처리시설', val: "3" }]
   const headName = () => {

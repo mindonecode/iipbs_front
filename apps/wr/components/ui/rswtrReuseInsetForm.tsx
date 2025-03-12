@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useWrStore } from "@/app/store";
+import  { selectClass } from "@/app/store/rainReuseFacilityInsert";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -44,7 +45,6 @@ export function RswtrReuseFaciltyInsertForm() {
         console.log(val)
   
     }
-    const selectClass ="w-full h-full text-2xl";
   return (
     <div className="">
       <Form  {...form}>
