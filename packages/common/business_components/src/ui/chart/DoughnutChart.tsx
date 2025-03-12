@@ -12,7 +12,6 @@ import {
   ChartTooltipContent,
   type ChartConfig
 } from "./lib/chart";
-import type { CSSProperties } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default (props: { chartConfig: ChartConfig; chartData: never[] | undefined; chartTitle:string}) =>{
