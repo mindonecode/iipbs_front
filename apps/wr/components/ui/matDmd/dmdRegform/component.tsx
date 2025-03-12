@@ -1,7 +1,7 @@
 import { useWrStore } from "@/app/store";
 import { selectClass } from "@/app/store/rainReuseFacilityInsert";
 import { DatePicker, FormField, FormItem, FormLabel, FormUi, SelectBox } from "@common/business_components";
-import {  Input } from "@common/components";
+import {  Button, Input } from "@common/components";
 import { useState } from "react";
 
 export function DmdRegForm(form: any) {
@@ -82,8 +82,8 @@ export function DmdRegForm(form: any) {
           )}
         />
         
-       <div className="grid grid-cols-5">
-        <h1 className="	col-start-3 col-span-1  pl-5 text-2xl">
+       <div className="grid grid-cols-4">
+        <h1 className="	col-span-2  pl-5 text-2xl underline">
             요구수질
           </h1>
         </div>
@@ -243,34 +243,74 @@ export function DmdRegForm(form: any) {
           />
         </div>
       </div>
-
-
+      <div className="grid grid-cols-4">
+        <h1 className="	 col-span-1  pl-2 text-2xl underline">
+            공급후보지 선택
+        </h1>
+        <div className="	col-start-3 col-span-1  ">
+        <Button >
+            후보지 조회 
+        </Button>
+          </div>
+          <div className="	col-start-4 col-span-1    ">
+         <Button  >
+           유사사례조회
+        </Button>
+          </div>
+                
+        </div>
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-6">
+      <div className="col-span-4">
           <FormField
             control={form.control}
-            name="crmty"
+            name="sply1"
             render={({ field }) => (
-              <FormUi label="색도">
+              <FormUi label="후보지_1">
+                <Input placeholder="후보지1" type="text" {...field} />
+              </FormUi>
+            )}
+          />
+        </div>
+        <div className="col-span-4">
+          <FormField
+            control={form.control}
+            name="sply2"
+            render={({ field }) => (
+              <FormUi label="후보지_2">
+                <Input placeholder="후보지2" type="text" {...field} />
+              </FormUi>
+            )}
+          />
+        </div>
+        <div className="col-span-4">
+          <FormField
+            control={form.control}
+            name="sply3"
+            render={({ field }) => (
+              <FormUi label="후보지_3">
+                <Input placeholder="후보지3" type="text" {...field} />
+              </FormUi>
+            )}
+          />
+        </div>
+        </div>
+        <div className="grid grid-cols-4">
+        <h1 className="	 col-span-2  pl-2 text-2xl underline">
+            수요신청 비밀번호
+        </h1>
+    
+        <div className="col-start-3 col-span-2">
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormUi label="">
                 <Input placeholder="10" type="text" {...field} />
               </FormUi>
             )}
           />
         </div>
-
-        <div className="col-span-6">
-          <FormField
-            control={form.control}
-            name="rmrk"
-            render={({ field }) => (
-              <FormUi label="비고">
-                <Input placeholder="10" type="text" {...field} />
-              </FormUi>
-            )}
-          />
-        </div>
-      </div>
-
+     </div>
     </>
   );
 }

@@ -11,9 +11,8 @@ import {
 } from "@common/business_components/ui";
 import { Button } from "@common/components/ui";
 import {  CoRegForm } from "@/components/ui/matDmd/coRegForm/component";
-import toast from "react-hot-toast";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import { ToastFormUi } from "@/components/toastFromUi";
 
 const formSchema = z.object({
   ctpv: z.string(),
@@ -28,7 +27,6 @@ const formSchema = z.object({
 export default function MyForm() {
 
 
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,17 +40,12 @@ export default function MyForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
-     router.push('./dmdReg')
-  //  <Link href='matMng/matDmd/dmdReg'></Link>
+      toast.dismiss();
+      ToastFormUi("수요신청 화면으로 이동하시겠습니까?", "수요처 등록 완료", "./dmdReg", "이동")
+    
     } catch (error) {
       console.error("Form submission error", error);
-       toast.error("Failed to submit the form. Please try again.");
+       toast.error("수요처 등록이 실패하였습니다.");
     }
   }
 
@@ -75,14 +68,15 @@ export default function MyForm() {
             >
                <CoRegForm>{form}</CoRegForm> 
 
-                {/* <WqForm> {form}</WqForm> */}
 
                 <Button  type="submit">수요처등록</Button>
             </form>
           </Form>
           </div>
         </div>
-        <div className="col-span-1 " />
+        <div className="col-span-1 " >
+        <Toaster position="top-center" />
+          </div>
       </div>
     </>
   );
