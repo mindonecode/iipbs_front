@@ -31,7 +31,7 @@ export default function ProcessFacilitySearch() {
           <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData} chartTitle="유입하수량-강수량"></MainChart>
         </div>
         <div className="col-span-6">
-          <MainChart chartForm={CHART_FORM.LINEBAR} chartConfig={chartConfig} chartData={chart_inflowRain}></MainChart>
+          <MainChart chartForm={CHART_FORM.LINEBAR} chartConfig={chartConfig} chartData={chart_inflowRain} chartTitle="유입BOD-강수량"></MainChart>
         </div>
         <div className="col-span-6">
           <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData} chartTitle="총인유입T-P-방류T-P"></MainChart>
