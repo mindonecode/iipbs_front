@@ -1,13 +1,15 @@
 import "./styles/base.css";
 import "./styles/components.css";
-import { CookieProvider, QueryProvider } from "@/shared/provider";
+import { AuthProvider, CookieProvider, QueryProvider } from "@/shared/provider";
 
 const App = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="ko">
       <body>
         <QueryProvider>
-          <CookieProvider>{children}</CookieProvider>
+          <CookieProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </CookieProvider>
         </QueryProvider>
       </body>
     </html>

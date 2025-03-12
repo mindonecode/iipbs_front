@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { getCookie, setCookie, removeCookie } from "../../lib/cookie";
+import { getCookie, setCookie, removeCookie } from "../lib/cookie";
 
 export interface CookieContextType {
   getCookie: (name: string) => string | undefined;

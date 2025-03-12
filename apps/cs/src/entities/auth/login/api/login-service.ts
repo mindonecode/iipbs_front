@@ -31,7 +31,7 @@ export class LoginApiService implements LoginService {
       const tokenId = data[AUTH_USER_ID];
 
       if (!accessToken || !tokenId) {
-        throw new Error("Missing required authentication tokens");
+        throw new Error("[login] Missing required authentication tokens");
       }
 
       tokenManager.setToken(CLAIM_NAME, accessToken);
@@ -62,13 +62,16 @@ export class LoginApiService implements LoginService {
       const tokenId = data[AUTH_USER_ID];
 
       if (!accessToken || !tokenId) {
-        throw new Error("Missing required authentication tokens");
+        throw new Error(
+          "[silentRefresh] Missing required authentication tokens",
+        );
       }
 
       tokenManager.setToken(CLAIM_NAME, accessToken);
       tokenManager.setToken(AUTH_USER_ID, tokenId);
     } catch (error) {
       console.warn("Token has expired, logging out.");
+      tokenManager.clearAuthToken();
       if (error instanceof AxiosError) {
         throw new Error(
           `Silent refresh failed: ${error.response?.data?.message || error.message}`,

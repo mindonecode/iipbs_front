@@ -40,12 +40,12 @@ export class TokenManager {
     this.refreshTimer = setTimeout(() => {
       callback().catch((error) => {
         console.error("Silent refresh failed:", error);
-        this.clearAuth();
+        this.clearAuthToken();
       });
     }, expirationTime - 60000);
   }
 
-  public clearAuth(): void {
+  public clearAuthToken(): void {
     if (this.refreshTimer) {
       clearTimeout(this.refreshTimer);
       this.refreshTimer = null;
