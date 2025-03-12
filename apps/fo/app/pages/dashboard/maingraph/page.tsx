@@ -28,16 +28,16 @@ export default function ProcessFacilitySearch() {
   return (
       <div className="grid grid-cols-12 gap-1">
         <div className="col-span-6">
+          <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData} chartTitle="유입하수량-강수량"></MainChart>
+        </div>
+        <div className="col-span-6">
           <MainChart chartForm={CHART_FORM.LINEBAR} chartConfig={chartConfig} chartData={chart_inflowRain}></MainChart>
         </div>
         <div className="col-span-6">
-          <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData}></MainChart>
+          <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData} chartTitle="총인유입T-P-방류T-P"></MainChart>
         </div>
         <div className="col-span-6">
-          <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData}></MainChart>
-        </div>
-        <div className="col-span-6">
-          <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData}></MainChart>
+          <MainChart chartForm={CHART_FORM.LINE} chartConfig={chartConfig} chartData={chartData} chartTitle="유입T-N-방류T-N"></MainChart>
         </div>
       </div>
   );
