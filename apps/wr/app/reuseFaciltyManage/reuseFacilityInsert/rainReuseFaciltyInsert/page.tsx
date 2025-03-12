@@ -6,7 +6,7 @@ import { ScrollArea, SearchDiv, SearchInput, UiTable } from "@common/business_co
 import { Button, TableHead, TableRow } from "@common/components";
 
 
-const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
+export const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
   return (<>
     <TableRow>{
       upHeadList.map((head: TableUpperProps) =>

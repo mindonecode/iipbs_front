@@ -3,12 +3,13 @@
 import { SelectBox } from "@common/business_components";
 import { DatePicker, FileUpload, FormUi, UiTable } from "@common/business_components/ui";
 import { Form, FormField } from "@common/business_components/ui/form";
-import { Button, Input } from "@common/components";
+import { Button, Input, TableHead, TableRow } from "@common/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useWrStore } from "../../app/store/index";
+import { selectClass, type TableUpperProps } from "@/app/store/rainReuseFacilityInsert";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -16,15 +17,24 @@ const formSchema = z.object({
 });
 
 
-// type typeOfForm = {
-//   labelName: string;
-//   type: string;
-//   selectvlaue?: { text: string; val: string }[];
-// }
+ const headMakeColSpan = (upHeadList: TableUpperProps[]) => {
+  return (<>
+    <TableRow>{
+      upHeadList.map((head: TableUpperProps) =>
+      (!head.upSequnce ? <TableHead  rowSpan={2} key={head.id}>{head.title}</TableHead> :
+        head.upName === 'upChangeRe' && head.upSequnce === 1 ? <TableHead key={head.id} rowSpan={1} colSpan={2}>{'운영대행기간'}</TableHead> : null))}
+    </TableRow>
+    <TableRow>
+      {upHeadList.map((head: TableUpperProps) =>
+        (head.upName === 'upChangeRe' ? <TableHead key={head.id}>{head.title}</TableHead> : null))}
+    </TableRow>
+  </>)
+}
 export function PublicReuseFaciltyFormInsert() {
   const { pubFac } = useWrStore((state) => state);
-  const { pubFacHeadList, publicReuseFacilityData} = pubFac;
-  const total = 100;
+  const { pubMngUpHeadList, pubMngFacData,erctUswtrCd,cyclCd,seCd,buseCd,rprcsCd,buseMet,rprcLoCd} = pubFac;
+const nodeList = headMakeColSpan(pubMngUpHeadList);
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,34 +49,16 @@ export function PublicReuseFaciltyFormInsert() {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+  const onSelectValue=(val:string)=>{
+    console.log(val)
 
-  const selectboxValue = [
-    { text: "1치", val: "1" },
-    { text: "2차", val: "2" },
-  ];
-  const selectboxDivValue = [
-    { text: "신규", val: "1" },
-    { text: "진행", val: "2" },
-  ];
-  const selectboxBuisValue = [
-    { text: "재정", val: "1" },
-    { text: "만루", val: "2" },
-  ];
-  const selectboxReuseMethodValue = [
-    { text: "물리적처리", val: "1" },
-    { text: "생물학적처리", val: "2" },
-  ];
-  const selectboxMethodValue = [
-    { text: "처리장연계", val: "1" },
-    { text: "자쳬처리", val: "2" },
-    { text: "자쳬+연계", val: "3" },
-  ];
+}
 
   const [datePick, setDatePick] = useState(new Date())
   const [files, setFiles] = useState(null);
 
   return (
-    <div>
+    <div  className="pl-3">
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -76,7 +68,7 @@ export function PublicReuseFaciltyFormInsert() {
                 <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
               </div>
 
-              <div className="col-span-6 ">
+              <div className="col-span-3 ">
                 <FormField
                   control={form.control}
                   name="facilityName"
@@ -87,8 +79,8 @@ export function PublicReuseFaciltyFormInsert() {
                   )}
                 />
               </div>
-              <div className="col-span-2 col-end-13">
-                <Button className="mr-3 rounded-lg" type="submit">
+              <div className="col-span-1 col-start-11 pl-10 ">
+                <Button className=" rounded-lg" type="submit">
                   신규등록
                 </Button>
               </div>
@@ -121,17 +113,16 @@ export function PublicReuseFaciltyFormInsert() {
 
             <div className="flex justify-between items-center mx-3 mb-3">
               <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
-              <Button className="mr-3 rounded-lg" >추가등록</Button>
+              <Button className=" rounded-lg" >추가등록</Button>
             </div>
             <div>
               <UiTable
-                tableData={publicReuseFacilityData}
-                headlist={pubFacHeadList}
+                tableData={pubMngFacData}
+                headlist={pubMngUpHeadList}
                 pageSize={100}
-                total={total}
+                total={-1}
                 headName={""}
-                children={undefined}
-              ></UiTable>
+              >{nodeList}</UiTable>
             </div>
             <div>
               <h1 className="pl-3 text-xl mb-3">○ 재이용수 공급 가능량</h1>
@@ -194,23 +185,23 @@ export function PublicReuseFaciltyFormInsert() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8  mx-auto w-full mt-7">
             <div className="grid grid-cols-12">
-              <div className="col-span-6">
+              <div className="col-span-5">
                 <h1 className="pl-3 text-xl">
                   ○ 차수별 하수처리수 재이용 시설 현황
                 </h1>
               </div>
-              <div className="col-span-4">
+              <div className="col-span-5 ">
                 <FormField
                   control={form.control}
                   name="name_1486273033"
                   render={({ field }) => (
                     <FormUi label="">
-                      <SelectBox label ='등록차수'selectArray={selectboxValue}></SelectBox>
+                      <SelectBox label='등록차수' selectArray={cyclCd} className={""} selectClass={selectClass} onSelectValue={onSelectValue }></SelectBox>
                     </FormUi>
                   )}
                 />
               </div>
-              <div className="col-span-2 flex items-center mx-3">
+              <div className="col-span-1 flex items-center mx-3">
                 <Button className="rounded-lg">
                   신규등록
                 </Button>
@@ -231,7 +222,7 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_8928357542"
                   render={({ field }) => (
                     <FormUi label="구분">
-                      <SelectBox selectArray={selectboxDivValue} />
+                      <SelectBox selectArray={seCd} className={""} label={""} selectClass={selectClass} onSelectValue={onSelectValue} />
                     </FormUi>
                   )}
                 />
@@ -243,7 +234,7 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_9484942814"
                   render={({ field }) => (
                     <FormUi label="사업방식">
-                      <SelectBox selectArray={selectboxBuisValue}/>
+                      <SelectBox selectArray={buseMet} className={""} label={""} selectClass={selectClass} onSelectValue={onSelectValue}/>
                     </FormUi>
                   )}
                 />
@@ -401,7 +392,7 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_5139286452"
                   render={({ field }) => (
                     <FormUi label="재처리방식">
-                      <SelectBox selectArray={selectboxReuseMethodValue}/>
+                      <SelectBox selectArray={rprcsCd} className={""} label={""} selectClass={selectClass} onSelectValue={onSelectValue }/>
                     </FormUi>
                   )}
                 />
@@ -413,7 +404,7 @@ export function PublicReuseFaciltyFormInsert() {
                   name="name_7233630277"
                   render={({ field }) => (
                     <FormUi label="위치(처리장 내외)">
-                      <Input placeholder="" type="" {...field} />
+                         <SelectBox selectArray={rprcLoCd} className={""} label={""} selectClass={selectClass} onSelectValue={onSelectValue}/>
                     </FormUi>
                   )}
                 />
@@ -435,7 +426,70 @@ export function PublicReuseFaciltyFormInsert() {
          <h1 className="bg-gray-400 text-xl text-center border-2 p-2 ">
               농축수관리{" "}
             </h1>
-            
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-4">
+                <FormField
+                  control={form.control}
+                  name="name_7678668236"
+                  render={({ field }) => (
+                    <FormUi label="눙축수 발생량(m³/일)">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
+                  )}
+                />
+              </div>
+
+              <div className="col-span-4">
+                <FormField
+                  control={form.control}
+                  name="name_7913744238"
+                  render={({ field }) => (
+                    <FormUi label="눙축수연계지점">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
+                  )}
+                />
+              </div>
+
+              <div className="col-span-4">
+                <FormField
+                  control={form.control}
+                  name="name_1368081408"
+                  render={({ field }) => (
+                    <FormUi label="시설용량(m³/일)">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-4 ">
+                <FormField
+                  control={form.control}
+                  name="name_5139286452"
+                  render={({ field }) => (
+                    <FormUi label="눙축수처리방식">
+                      <SelectBox selectArray={erctUswtrCd} className={""} label={""} selectClass={selectClass} onSelectValue={onSelectValue}/>
+                    </FormUi>
+                  )}
+                />
+              </div>
+
+              <div className="col-span-4">
+                <FormField
+                  control={form.control}
+                  name="name_7233630277"
+                  render={({ field }) => (
+                    <FormUi label="눙축수처리공법">
+                      <Input placeholder="" type="" {...field} />
+                    </FormUi>
+                  )}
+                />
+              </div>
+
+            </div>
           </form>
         </Form>
       </div>
