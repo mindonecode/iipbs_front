@@ -4,23 +4,6 @@ import { CHART_FORM, type ChartConfig, MainChart, SearchDiv, SearchInput, Select
 import { Button } from "@common/components/ui";
 import { useRef } from "react";
 
-/** 기본 스타일 */
-const styles = {
-    leftDiv : {
-    width : '90%',
-    margin : '1rem 0rem 1rem 0rem',
-  } as React.CSSProperties,
-  rightDiv : {
-    width : '10%',
-    margin : '1rem 2rem 1rem 0rem',
-  } as React.CSSProperties,
-  searchBtn : {
-    float : 'right',
-    fontSize : '14px',
-    marginRight : '0.8rem'
-  } as React.CSSProperties,
-}
-
 const chartData = [
   {label : 'a', val : 123},
   {label : 'b', val : 14},
@@ -66,7 +49,7 @@ export default function ProcessFacilitySearch() {
   return (
     <div className="m-8">
       <SearchDiv>
-        <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
+        <div style={{width:"90%"}} className="grid grid-cols-12 gap-1">
           <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}>
           </SelectBox>
           <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}>
@@ -77,17 +60,17 @@ export default function ProcessFacilitySearch() {
           </SelectBox>
           <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} ref={inputRef}/>
         </div>
-        <div style={styles.rightDiv}>
-          <Button style={styles.searchBtn} size="sm">
+        <div style={{width:"10%"}} className="flex items-center">
+          <Button className="mr-2" size="sm">
             초기화
           </Button>
-          <Button style={styles.searchBtn} size="sm">
+          <Button className="mr-2" size="sm">
             조회
           </Button>
         </div>
       </SearchDiv>
 
-      <div className="grid grid-cols-12 gap-1 auto-rows-[400px]">
+      <div className="grid grid-cols-12 gap-1 auto-rows-[350px]">
         <div className="col-span-6" >
           <MainChart chartForm={CHART_FORM.DN} chartConfig={chartConfig} chartData={chartData} chartTitle="유입하수량-강수량"></MainChart>
         </div>

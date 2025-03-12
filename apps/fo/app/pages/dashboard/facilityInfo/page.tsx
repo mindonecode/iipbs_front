@@ -6,23 +6,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@common/components/ui";
 import { useRef } from "react";
 
-/** 기본 스타일 */
-const styles = {
-  leftDiv : {
-    width : '90%',
-    margin : '1rem 0rem 1rem 0rem',
-  } as React.CSSProperties,
-  rightDiv : {
-    width : '10%',
-    margin : '1rem 2rem 1rem 0rem',
-  } as React.CSSProperties,
-  searchBtn : {
-    float : 'right',
-    fontSize : '14px',
-    marginRight : '0.8rem'
-  } as React.CSSProperties,
-}
-
 const onSelectValue=(val:string)=>{
   console.log(val);
 }  
@@ -104,7 +87,7 @@ export default function ProcessFacilitySearch() {
   return (
       <div className="m-8">
         <SearchDiv>
-          <div style={styles.leftDiv} className="grid grid-cols-12 gap-1">
+          <div style={{width:"90%"}} className="grid grid-cols-12 gap-1">
             <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}>
             </SelectBox>
             <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}>
@@ -115,11 +98,11 @@ export default function ProcessFacilitySearch() {
             </SelectBox>
             <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} ref={inputRef}/>
           </div>
-          <div style={styles.rightDiv}>
-            <Button style={styles.searchBtn} size="sm">
+          <div style={{width:"10%"}} className="flex items-center">
+            <Button className="mr-2" size="sm">
               초기화
             </Button>
-            <Button style={styles.searchBtn} size="sm">
+            <Button className="mr-2" size="sm">
               조회
             </Button>
           </div>
