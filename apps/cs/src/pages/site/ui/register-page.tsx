@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { SiteApi } from "@/entities/site";
 import { ENDPOINT } from "@/shared/config/api";
 import {
@@ -19,25 +20,45 @@ import { useQuery } from "@tanstack/react-query";
 import { CodeSelect } from "@/entities/code";
 import { SitePageLayout } from "./layout";
 import { IPManagementDialog } from "./ip-management-dialog";
+import {
+  DomainManagementDialog,
+  type Domain,
+} from "./domain-management-dialog";
+import type { ISiteDetail } from "@/entities/site/model/site-interface";
+
+type ViewState = Partial<ISiteDetail>;
 
 function RegisterPage({ siteId }: { siteId: string }) {
+  const router = useRouter();
   const { data: siteDetail } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.SITES, siteId],
     queryFn: () => SiteApi.siteDetail(siteId),
     select: (data) => {
-      setSiteKndCd(data.siteKndCd);
+      handleViewStateChange("siteKndCd")(data.siteKndCd);
+      handleViewStateChange("siteSkn")(data.siteSkn);
       return data;
     },
     enabled: !!siteId,
   });
-  const [siteKndCd, setSiteKndCd] = useState<string>("");
-  const [, setSiteSkinCd] = useState<string>("");
+
+  const [viewState, setViewState] = useState<ViewState>({});
+  const [representativeDomain, setRepresentativeDomain] = useState<string>("");
+
+  const handleViewStateChange = (key: keyof ISiteDetail) => (value: string) => {
+    setViewState({ ...viewState, [key]: value });
+  };
+
+  const handleDomainSave = (rows: Domain[]) => {
+    setRepresentativeDomain(
+      rows.find((row) => row.isRepresentative)?.domainUrl || "",
+    );
+  };
 
   return (
     <SitePageLayout>
       <div className="card card-border !mt-6">
         <div className="card-header">
-          <h3 className="text-2xl font-medium text-[#666]">사이트 등록/수정</h3>
+          <h3 className="text-2xl font-medium text-label">사이트 등록/수정</h3>
         </div>
         <div className="card">
           <Table variant="secondary">
@@ -53,6 +74,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="w-[12rem] !text-[1.3rem]"
                     defaultValue={siteDetail?.siteId}
                     disabled={!!siteId}
+                    onChange={(e) =>
+                      handleViewStateChange("siteId")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -63,11 +87,13 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     <CodeSelect
                       upCd="SITEKNDCD"
                       defaultValue={siteDetail?.siteKndCd}
-                      onValueChange={(value) => {
-                        setSiteKndCd(value);
-                      }}
+                      onValueChange={handleViewStateChange("siteKndCd")}
                     />
-                    <IPManagementDialog triggerDisabled={siteKndCd === "O"} />
+                    {siteId && (
+                      <IPManagementDialog
+                        triggerDisabled={viewState.siteKndCd === "O"}
+                      />
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
@@ -77,9 +103,7 @@ function RegisterPage({ siteId }: { siteId: string }) {
                   <CodeSelect
                     upCd="SITESKINCD"
                     defaultValue={siteDetail?.siteSkn}
-                    onValueChange={(value) => {
-                      setSiteSkinCd(value);
-                    }}
+                    onValueChange={handleViewStateChange("siteSkn")}
                   />
                 </TableCell>
               </TableRow>
@@ -90,6 +114,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="사이트명을 입력하십시오."
                     defaultValue={siteDetail?.siteNm}
+                    onChange={(e) =>
+                      handleViewStateChange("siteNm")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -100,7 +127,21 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="사이트 설명을 입력하십시오."
                     defaultValue={siteDetail?.siteExpln}
+                    onChange={(e) =>
+                      handleViewStateChange("siteExpln")(e.target.value)
+                    }
                   />
+                </TableCell>
+              </TableRow>
+              <TableRow className={`${!siteId ? "hidden" : ""}`}>
+                <TableHead>사이트 도메인</TableHead>
+                <TableCell className="border">
+                  <div className="flex gap-2">
+                    <div className="bg-form h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input px-3 py-2 text-[1.3rem] opacity-50">
+                      {representativeDomain}
+                    </div>
+                    <DomainManagementDialog handleSave={handleDomainSave} />
+                  </div>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -110,6 +151,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="사이트 하단 주소를 입력하십시오."
                     defaultValue={siteDetail?.siteAddr}
+                    onChange={(e) =>
+                      handleViewStateChange("siteAddr")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -120,6 +164,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="사이트 하단 전화번호를 입력하십시오."
                     defaultValue={siteDetail?.telNo}
+                    onChange={(e) =>
+                      handleViewStateChange("telNo")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -130,6 +177,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="사이트 하단 팩스번호를 입력하십시오."
                     defaultValue={siteDetail?.faxNumber}
+                    onChange={(e) =>
+                      handleViewStateChange("faxNumber")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -140,6 +190,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="사이트 표기 내용을 입력하십시오. (ex. COPYRIGHT c 2013 KECO. ALL RIGHTS RESERVED.)"
                     defaultValue={siteDetail?.lwndCn}
+                    onChange={(e) =>
+                      handleViewStateChange("lwndCn")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -150,6 +203,9 @@ function RegisterPage({ siteId }: { siteId: string }) {
                     className="!text-[1.3rem]"
                     placeholder="아이콘 파일 경로 및 파일명을 입력하여 주십시오."
                     defaultValue={siteDetail?.bkmkIcon}
+                    onChange={(e) =>
+                      handleViewStateChange("bkmkIcon")(e.target.value)
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -157,18 +213,17 @@ function RegisterPage({ siteId }: { siteId: string }) {
                 <TableHead>기본 사이트 여부</TableHead>
                 <TableCell className="border">
                   <RadioGroup
+                    name="basicSiteYn"
                     defaultValue={siteDetail?.basicSiteYn}
-                    onValueChange={(value) => {
-                      console.log(value);
-                    }}
+                    onValueChange={handleViewStateChange("basicSiteYn")}
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="default" id="r1" />
-                      <Label htmlFor="r1">예</Label>
+                      <RadioGroupItem value="Y" id="basicSiteY" />
+                      <Label htmlFor="basicSiteY">예</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="comfortable" id="r2" />
-                      <Label htmlFor="r2">아니오</Label>
+                      <RadioGroupItem value="N" id="basicSiteN" />
+                      <Label htmlFor="basicSiteN">아니오</Label>
                     </div>
                   </RadioGroup>
                 </TableCell>
@@ -177,18 +232,17 @@ function RegisterPage({ siteId }: { siteId: string }) {
                 <TableHead>사용 여부</TableHead>
                 <TableCell className="border">
                   <RadioGroup
+                    name="useYn"
                     defaultValue={siteDetail?.useYn}
-                    onValueChange={(value) => {
-                      console.log(value);
-                    }}
+                    onValueChange={handleViewStateChange("useYn")}
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="default" id="r1" />
-                      <Label htmlFor="r1">사용</Label>
+                      <RadioGroupItem value="Y" id="useY" />
+                      <Label htmlFor="useY">사용</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="comfortable" id="r2" />
-                      <Label htmlFor="r2">사용안함</Label>
+                      <RadioGroupItem value="N" id="useN" />
+                      <Label htmlFor="useN">사용안함</Label>
                     </div>
                   </RadioGroup>
                 </TableCell>
@@ -199,7 +253,7 @@ function RegisterPage({ siteId }: { siteId: string }) {
       </div>
       <div className="flex justify-center gap-4 pb-12 pt-10">
         <Button size="lg">저장</Button>
-        <Button size="lg" color="white">
+        <Button size="lg" color="white" onClick={() => router.back()}>
           취소
         </Button>
         <Button size="lg" color="red">

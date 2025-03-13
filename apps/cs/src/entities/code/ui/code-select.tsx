@@ -28,7 +28,7 @@ function CodeSelect({ upCd, defaultValue, ...props }: CodeSelectProps) {
 
   return (
     <Select {...props}>
-      <SelectTrigger className="w-[12rem] text-[1.3rem] text-label">
+      <SelectTrigger className="w-[12rem]">
         <SelectValue placeholder={defaultValueText} />
       </SelectTrigger>
       <SelectContent>

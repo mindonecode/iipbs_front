@@ -18,6 +18,8 @@ import {
   RadioGroup,
   RadioGroupItem,
   Checkbox,
+  DialogFooter,
+  DialogClose,
 } from "@common/components";
 
 type IP = {
@@ -34,7 +36,7 @@ function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
   const [rows, setRows] = useState<IP[]>([]);
   const [rowSelection, setRowSelection] = useState<IP["id"][]>([]);
 
-  const handleSave = () => {};
+  const onSave = () => {};
 
   const handleAddIP = () => {
     const newIP: IP = {
@@ -86,9 +88,6 @@ function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
           <Button size="sm" color="green">
             엑셀 업로드
           </Button>
-          <Button size="sm" onClick={handleSave}>
-            저장
-          </Button>
           <Button size="sm" color="white" onClick={handleAddIP}>
             항목 추가
           </Button>
@@ -102,7 +101,7 @@ function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
           </Button>
         </div>
         <div className="card card-border">
-          <Table>
+          <Table variant="secondary">
             <colgroup>
               <col width="10%" />
               <col width="10%" />
@@ -160,6 +159,18 @@ function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
             </TableBody>
           </Table>
         </div>
+        <DialogFooter className="!justify-center">
+          <DialogClose asChild>
+            <Button size="lg" onClick={onSave}>
+              저장
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button size="lg" color="white">
+              취소
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
