@@ -1,22 +1,38 @@
-th {
-  @apply bg-[#5987bf] px-4 py-[1.2rem] text-[1.3rem] font-medium leading-[1.2] text-[#fff];
-}
-td {
-  @apply border-b border-b-[#e0e6ea] px-2 py-[1.2rem] text-[1.3rem] font-normal leading-[1.2] text-[#666];
-}
+@tailwind components;
 
-.secondary th {
-  @apply border border-[#e0e6ea] bg-[#eaf3fb] text-[#647784];
-}
+@layer components {
+  th {
+    @apply bg-[#5987bf] px-4 py-[1.2rem] text-[1.3rem] font-medium leading-[1.2] text-[#fff];
+  }
+  td {
+    @apply border-b border-b-border px-2 py-[1.2rem] text-[1.3rem] font-normal leading-[1.2] text-[#666];
+  }
 
-.secondary td {
-  @apply border border-[#e0e6ea];
-}
+  .secondary th {
+    @apply border border-border bg-[#eaf3fb] text-[#647784];
+  }
 
-.line th {
-  @apply border-0 border-b-2 border-t border-b-[#d4e0ea] border-t-[#d4e0ea] bg-[#fff] text-[#555];
-}
+  .secondary td {
+    @apply border border-border;
+  }
 
-.line td {
-  @apply border-b border-b-[#e0e6ea];
+  .line th {
+    @apply border-0 border-b-2 border-t border-b-[#d4e0ea] border-t-[#d4e0ea] bg-[#fff] text-[#555];
+  }
+
+  .line td {
+    @apply border-b border-b-border;
+  }
+
+  [data-mode="dark"] {
+    th {
+      @apply bg-[#5e7b9c] text-[#fff];
+    }
+    .secondary th {
+      @apply bg-[#1a1c1d];
+    }
+    .line th {
+      @apply bg-[#0a0a0a];
+    }
+  }
 }

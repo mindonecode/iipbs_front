@@ -18,14 +18,16 @@ export function Header() {
   });
 
   return (
-    <header className="sticky top-0 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border">
+    <header className="sticky top-0 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border bg-background">
       <div className="flex items-center">
         <div className="MobMenuBtn">
           <img src={images.menuBtn} />
         </div>
         <h1 className="flex items-center gap-4">
           <img src={images.logo} className="h-[3rem]" alt="logo" />
-          <span className="text-[1.8rem] font-semibold">통합플랫폼관리</span>
+          <span className="text-[1.8rem] font-semibold text-foreground">
+            통합플랫폼관리
+          </span>
         </h1>
       </div>
       <DropdownMenu>

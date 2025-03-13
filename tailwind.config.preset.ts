@@ -50,6 +50,10 @@ export default {
           4: "var(--chart-4)",
           5: "var(--chart-5)",
         },
+        field: "var(--field)",
+        form: "var(--form)",
+        container: "var(--container)",
+        title: "var(--title)",
       },
       keyframes: {
         "accordion-down": {
