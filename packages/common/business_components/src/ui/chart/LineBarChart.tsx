@@ -1,17 +1,17 @@
-"use client"
+﻿"use client"
 import type { CSSProperties } from "react";
+import { Bar, CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent
 } from "./lib/card";
 import {
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   type ChartConfig
 } from "./lib/chart";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import React from "react";
 
+// 툴팁 커스텀 css
 /** 차트 기본 스타일 */
 const styles = {
   tooltipDiv: {
@@ -76,24 +76,30 @@ const CustomLegend = (props: any) => {
   );
 };
 
-export default function Linechart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; chartTitle:string}) {
+export default function LineBarchart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; chartTitle:string }) {
   return (
     <Card className="h-full">
       <CardContent className="h-full">
-      {props.chartTitle && props.chartTitle !== "" && props.chartTitle !== "undefined" ? (
+        {props.chartTitle && props.chartTitle !== "" && props.chartTitle !== "undefined" ? (
         <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
           {props.chartTitle}
         </div>): null}
         <div className="h-[calc(100%-42px)] flex justify-center">
-          <ChartContainer config={props.chartConfig} className="h-full w-full">
-            <LineChart data={props.chartData} className="h-full">
-              <CartesianGrid vertical={false} />
+          <ChartContainer config={props.chartConfig} className="h-full w-full" >
+            <ComposedChart data={props.chartData} className="h-full ">
+              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="label" fontSize="8px" fontWeight="bold"/>
+              {/* 왼쪽 Y축: lineVal (정상) */}
               <YAxis yAxisId="left" orientation="left" />
+              {/* 오른쪽 Y축: barVal (위에서 아래로 반전) */}
+              <YAxis yAxisId="right" orientation="right" reversed />
               <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
               <Legend content={CustomLegend}/>
-              <Line yAxisId="left" dataKey="val" type="linear" strokeWidth={2} dot={false} name="값"/>
-            </LineChart>
+              {/* 바 차트 (오른쪽 Y축 사용, 위에서 아래로) */}
+              <Bar yAxisId="right" dataKey="barVal" fill="#8884d8" name="강수량(mm/일)"/>
+              {/* 라인 차트 (왼쪽 Y축 사용) */}
+              <Line yAxisId="left" type="monotone" dataKey="lineVal" stroke="orange" strokeWidth={2} dot={{r: 0}} name="BOD(mg/L)"/>
+            </ComposedChart>
           </ChartContainer>
         </div>
       </CardContent>

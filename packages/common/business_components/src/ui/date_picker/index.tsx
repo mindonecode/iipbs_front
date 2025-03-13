@@ -10,26 +10,28 @@ import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from "@comm
 import { cn } from "../../lib/utils";
 import { FormControl } from "../form";
 
-type DatePickerProps = DayPickerSingleProps & { field: { value: Date; onChange: (date: Date | undefined) => void } };
+type DatePickerProps = DayPickerSingleProps & { field: { value: Date; onChange: (date: Date | undefined) => void  } ,selectClass:string|undefined   };
 
-export function DatePicker({ field }: DatePickerProps) {
+export function DatePicker({ field, selectClass }: DatePickerProps) {
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <FormControl>
                     <Button
+                        color="white"
                         variant={"outline"}
-                        className={cn(
+                        className={!selectClass? cn(
                             "w-[240px] pl-3 text-left font-normal",
-                            !field?.value && "text-muted-foreground"
-                        )}
+                            !field?.value && "text-muted-foreground",
+                            
+                        ):selectClass}
                     >
                         {field?.value ? (
                             format(field?.value, "PPP")
                         ) : (
                             <span>Pick a date</span>
                         )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        <CalendarIcon className="h-4" />
                     </Button>
                 </FormControl>
             </PopoverTrigger>

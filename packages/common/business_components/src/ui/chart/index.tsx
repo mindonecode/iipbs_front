@@ -1,17 +1,10 @@
  
-import React from 'react'
+import React from 'react';
 import BarChart from './BarChart';
-import LineChart from './LineChart';
 import DoughnutChart from './DoughnutChart';
-import {type ChartConfig } from './lib/chart';
-
-/** 차트 기본 스타일 */
-const styles = {
-    divHeight : {
-        height: '400px',
-        width : '500px'
-    } as React.CSSProperties
-}
+import { type ChartConfig } from './lib/chart';
+import LineChart from './LineChart';
+import LineBarchart from './LineBarChart';
 
 /**차트 FORM */
 const CHART_FORM = {
@@ -20,35 +13,36 @@ const CHART_FORM = {
   /**라인 차트 형태*/
   LINE:'line',
   /**도넛 차트 형태*/
-  DN :'daughnut'
+  DN :'daughnut',
+  /**LINE,BAR차트 */
+  LINEBAR : 'linebar'
 };
 
-function MainChart(props: { chartForm: string; chartConfig: any; chartData: any; }) {
+function MainChart(props: { chartForm: string; chartConfig: any; chartData: any; chartTitle:string; }) {
   if( props.chartForm == CHART_FORM.BAR ){
     return (
-      <div>
-        <BarChart chartConfig={props.chartConfig} chartStyle={styles.divHeight} chartData={props.chartData}>
-        </BarChart>
-      </div>
+      <BarChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </BarChart>
     );
   } else if( props.chartForm == CHART_FORM.LINE ){
     return (
-      <div>
-        <LineChart chartConfig={props.chartConfig} chartStyle={styles.divHeight} chartData={props.chartData}>
-        </LineChart>
-      </div>
+      <LineChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </LineChart>
     );
   } else if( props.chartForm == CHART_FORM.DN ){
     return (
-      <div>
-        <DoughnutChart chartConfig={props.chartConfig} chartStyle={styles.divHeight} chartData={props.chartData}>
-        </DoughnutChart>
-      </div>
+      <DoughnutChart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </DoughnutChart>
+    );
+  } else if (props.chartForm == CHART_FORM.LINEBAR){
+    return (
+      <LineBarchart chartConfig={props.chartConfig} chartData={props.chartData} chartTitle={props.chartTitle}>
+      </LineBarchart>
     );
   }
 }
 
-export {MainChart};
+export { MainChart };
 // eslint-disable-next-line react-refresh/only-export-components
-export {CHART_FORM};
-export type {ChartConfig};
+  export { CHART_FORM };
+  export type { ChartConfig };
