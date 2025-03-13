@@ -1,4 +1,4 @@
-export interface ISiteQuery {
+export interface ISiteParams {
   siteNm: string;
   siteKndCd: string;
   useYn: string;
@@ -47,20 +47,25 @@ export interface ISiteInfo {
   empty: boolean;
 }
 
-export interface ISiteDetail {
-  siteId: string;
+export interface ISiteData {
   siteNm: string;
   siteExpln: string;
   siteKndCd: string;
-  siteKindNm: string;
   siteAddr: string;
-  faxNumber: string;
+  faxNo: string;
   telNo: string;
   lwndCn: string;
-  basicSiteYn: string;
+  bscSiteYn: string;
   bkmkIcon: string;
   useYn: string;
   siteSkn: string;
+}
+
+export interface ISiteDetail extends ISiteData {
+  siteId: string;
+  siteKindNm: string;
+  basicSiteYn: string;
+  faxNumber: string;
   regDt: string;
   rgTr: string;
   mdfcnDt: string;
@@ -70,6 +75,7 @@ export interface ISiteDetail {
 }
 
 export interface SiteService {
-  siteInfo(query: ISiteQuery): Promise<ISiteInfo>;
+  siteInfo(query: ISiteParams): Promise<ISiteInfo>;
   siteDetail(siteId: string): Promise<ISiteDetail>;
+  modifySite(siteId: string, data: ISiteData): Promise<void>;
 }

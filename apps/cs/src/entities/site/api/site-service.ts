@@ -1,17 +1,18 @@
 import { client } from "@/shared/api/client";
 import { ENDPOINT } from "@/shared/config/api";
 import type {
-  ISiteQuery,
   ISiteInfo,
   SiteService,
   ISiteDetail,
+  ISiteParams,
+  ISiteData,
 } from "../model/site-interface";
 
 export class SiteApiService implements SiteService {
-  public async siteInfo(query: ISiteQuery): Promise<ISiteInfo> {
+  public async siteInfo(params: ISiteParams): Promise<ISiteInfo> {
     const response = await client.get<ISiteInfo>(
       `${ENDPOINT.CMS_SERVICE.SITES}`,
-      { params: query },
+      { params },
     );
     return response.data;
   }
@@ -19,6 +20,14 @@ export class SiteApiService implements SiteService {
   public async siteDetail(siteId: string): Promise<ISiteDetail> {
     const response = await client.get<ISiteDetail>(
       `${ENDPOINT.CMS_SERVICE.SITES}/${siteId}`,
+    );
+    return response.data;
+  }
+
+  public async modifySite(siteId: string, data: ISiteData): Promise<void> {
+    const response = await client.put<void>(
+      `${ENDPOINT.CMS_SERVICE.SITES}/${siteId}`,
+      data,
     );
     return response.data;
   }

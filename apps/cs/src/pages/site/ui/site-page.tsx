@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Button, Input, DataTable } from "@common/components";
-import { SiteApi } from "@/entities/site/api/site-service";
-import type { ISite, ISiteQuery } from "@/entities/site/model/site-interface";
+import { SiteApi, type ISite, type ISiteParams } from "@/entities/site";
 import { ENDPOINT } from "@/shared/config/api";
 import { columns } from "../model/table-columns";
 import { SitePageLayout } from "./layout";
@@ -21,7 +20,7 @@ function SitePage() {
     enabled: false,
   });
 
-  const [siteQuery, setSiteQuery] = useState<ISiteQuery>({
+  const [siteQuery, setSiteQuery] = useState<ISiteParams>({
     siteNm: "",
     siteKndCd: "",
     useYn: "",
