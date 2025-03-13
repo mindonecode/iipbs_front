@@ -29,7 +29,8 @@ const styles = {
     paddingBottom: "3px",
   } as React.CSSProperties,
   tooltipText: {
-    fontSize: "10px",
+    fontSize: "11px",
+    fontWeight:"bold",
   } as React.CSSProperties,
   legendContainer: {
     display: "flex",
@@ -87,7 +88,7 @@ export default function LineBarchart(props: { chartConfig: ChartConfig; chartDat
           <ChartContainer config={props.chartConfig} className="h-full w-full" >
             <ComposedChart data={props.chartData} className="h-full ">
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="label" />
+              <XAxis dataKey="label" fontSize="8px" fontWeight="bold"/>
               {/* 왼쪽 Y축: lineVal (정상) */}
               <YAxis yAxisId="left" orientation="left" />
               {/* 오른쪽 Y축: barVal (위에서 아래로 반전) */}
