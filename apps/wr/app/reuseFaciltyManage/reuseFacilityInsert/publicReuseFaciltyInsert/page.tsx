@@ -11,10 +11,10 @@ import { useWrStore } from '../../../store';
   const {pubFac} = useWrStore((state) => state);
   const {  pubFacHeadList, publicReuseFacilityData} = pubFac;
   const searchDiv = '하수재이용시설 '
-  const selectBox = [{ text: '서울하수처리시설', val: "1" }, { text: '서울1하수처리시설', val: "2" }, { text: '서울2하수처리시설', val: "3" }]
+  const selectBox = [{ text: '서울하수처리시설', val: "1_hasu" }, { text: '서울1하수처리시설', val: "2_hasu" }, { text: '서울2하수처리시설', val: "3_hasu" }]
   const headName = () => {
     return (
-      <h1 className="pl-3 text-xl">○공공 허수처리시설 등록</h1>
+      <h1 className="pl-3 text-xl">○공공 하수처리시설 등록</h1>
     )
   }
   const onSelectValue = (val: string) => {

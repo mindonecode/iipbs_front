@@ -96,39 +96,35 @@ const pubFacHeadList:TableProps[] = [
 
 
 const erctUswtrCd:selectLabel[]=[
-    {text:'처리장연계',val:'1'},
-    {text:'자체/연계',val:'2'},
-    {text:'자체처리',val:'3'},
+    {text:'처리장연계',val:'1_erct'},
+    {text:'자체/연계',val:'2_erct'},
+    {text:'자체처리',val:'3_erct'},
 ]
 
 const cyclCd :selectLabel[]= [
-    { text: "1치", val: "1" },
-    { text: "2차", val: "2" },
+    { text: "1차", val: "1_cyc" },
+    { text: "2차", val: "2_cyc" },
   ];
   const seCd :selectLabel[] = [
-    { text: "신규", val: "1" },
-    { text: "진행", val: "2" },
+    { text: "신규", val: "1_Se" },
+    { text: "진행", val: "2_Se" },
   ];
   const buseCd  :selectLabel[]= [
-    { text: "재정", val: "1" },
-    { text: "만루", val: "2" },
+    { text: "재정", val: "1_bus" },
+    { text: "만루", val: "2_bus" },
   ];
   const rprcsCd :selectLabel[] = [
-    { text: "물리적처리", val: "1" },
-    { text: "생물학적처리", val: "2" },
+    { text: "물리적처리", val: "1_rprc" },
+    { text: "생물학적처리", val: "2_rprc" },
   ];
   const buseMet :selectLabel[] = [
-    { text: "재정", val: "1" },
-    { text: "민간투자", val: "2" },
-    { text: "자체", val: "2" },
+    { text: "재정", val: "1_busemet" },
+    { text: "민간투자", val: "2_busemet" },
+    { text: "자체", val: "3_busemet" },
   ];
   const rprcLoCd :selectLabel[] = [
-    { text: "내부", val: "1" },
-    { text: "외부", val: "2" },
-  ];
-  const rprcLoCd :selectLabel[] = [
-    { text: "내부", val: "1" },
-    { text: "외부", val: "2" },
+    { text: "내부", val: "1_rprc" },
+    { text: "외부", val: "2_rprc" },
   ];
 
 export type pubFacState = {pubFac:{
@@ -165,7 +161,7 @@ export const pubFacStateExport:pubFacState= {pubFac:{
     buseCd:buseCd,
     rprcsCd:rprcsCd,
     buseMet:buseMet,
-    rprcLoCd:
+    rprcLoCd:rprcLoCd
 }}
 export const pubFacActionsExport:(set:any)=>pubFacActions=(set: any) => {
     return {

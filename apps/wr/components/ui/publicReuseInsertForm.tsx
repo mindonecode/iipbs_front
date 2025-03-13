@@ -54,7 +54,8 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
 
 }
 
-  const [datePick, setDatePick] = useState(new Date())
+  const [instlAprvDate, setInstlAprvDate] = useState(new Date())
+  const [bizCmcnDate, setBizCmcnDate] = useState(new Date())
   const [files, setFiles] = useState(null);
 
   return (
@@ -62,30 +63,24 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {/* <div className="flex justify-between items-center mx-3"> */}
-            <div className="grid grid-cols-12 gap-4">
+            <div className="flex justify-between items-center mx-3 mb-3">
               <div className="col-span-2 flex items-top">
-                <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
-              </div>
-
-              <div className="col-span-3 ">
+                <h1 className="pl-3  pr-3 text-xl">○ 재이용시설 운영정보</h1>
                 <FormField
                   control={form.control}
                   name="facilityName"
                   render={({ field }) => (
                     <FormUi label="">
-                      <Input  placeholder="하수처리장-1" type="" {...field} />
+                      <Input  readOnly className="h-10 text-center text-xl" placeholder="난지" type="" {...field} />
                     </FormUi>
                   )}
                 />
-              </div>
-              <div className="col-span-1 col-start-11 pl-10 ">
+                  </div>
+
                 <Button className=" rounded-lg" type="submit">
                   신규등록
                 </Button>
-              </div>
-            </div>
-
+          </div>
             <div className="grid grid-cols-12 gap-4 my-4">
               <div className="col-span-6">
                 <FormField
@@ -110,6 +105,7 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
                 />
               </div>
             </div>
+
 
             <div className="flex justify-between items-center mx-3 mb-3">
               <h1 className="pl-3 text-xl">○ 재이용시설 운영정보</h1>
@@ -150,7 +146,7 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
                     )}
                   />
                 </div>
-
+                  
                 <div className="col-span-3">
                   <FormField
                     control={form.control}
@@ -184,28 +180,27 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8  mx-auto w-full mt-7">
-            <div className="grid grid-cols-12">
-              <div className="col-span-5">
-                <h1 className="pl-3 text-xl">
+            <div className="flex justify-between items-center mx-3 mb-3">
+                <h1 className=" text-xl">
                   ○ 차수별 하수처리수 재이용 시설 현황
                 </h1>
-              </div>
-              <div className="col-span-5 ">
+                <div className="flex items-center gap-2 mx-3">
+                <h1 className=" text-xl">
+                    등록차수
+                </h1>
                 <FormField
                   control={form.control}
                   name="name_1486273033"
                   render={({ field }) => (
-                    <FormUi label="">
-                      <SelectBox label='등록차수' selectArray={cyclCd} className={""} selectClass={selectClass} onSelectValue={onSelectValue }></SelectBox>
+                    <FormUi label=''>
+                      <SelectBox label='' selectArray={cyclCd} className={""} selectClass={selectClass} onSelectValue={onSelectValue } {...field}></SelectBox>
                     </FormUi>
                   )}
                 />
-              </div>
-              <div className="col-span-1 flex items-center mx-3">
                 <Button className="rounded-lg">
                   신규등록
                 </Button>
-              </div>
+                </div>
             </div>
             <div>
               <h1 className="pl-3 text-xl">♦︎하수처리수 재이용 시설 현황</h1>
@@ -246,12 +241,14 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
                   name="name_2450741594"
                   render={({ field }) => (
                     <FormUi label="설치승인인가일">
-                      <DatePicker field={{
-                        value: datePick,
-                        onChange: (date: Date | undefined): void =>{
-                          if (date) setDatePick(date)
-                        }
-                      }} mode="single" {...field}/>
+                      <DatePicker
+                       
+                        selectClass={'rounded-lg w-full bg-white'} field={{
+                          value: instlAprvDate,
+                          onChange: (date: Date | undefined): void => {
+                            if (date) setInstlAprvDate(date);
+                          }
+                        }} mode="single" {...field}/>
                     </FormUi>
                   )}
                 />
@@ -262,12 +259,14 @@ const nodeList = headMakeColSpan(pubMngUpHeadList);
                   name="name_2450741594"
                   render={({ field }) => (
                     <FormUi label="사업준공일">
-                        <DatePicker field={{
-                        value: datePick,
-                        onChange: function (date: Date | undefined): void {
-                          if (date) setDatePick(date)
-                        }
-                      }} mode="single" {...field} />
+                        <DatePicker 
+                        selectClass={'rounded-lg w-full'} 
+                        field={{
+                          value: bizCmcnDate,
+                          onChange: function (date: Date | undefined): void {
+                            if (date) setBizCmcnDate(date);
+                          }
+                        }} mode="single" {...field} />
                     </FormUi>
                   )}
                 />
