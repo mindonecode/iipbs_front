@@ -47,13 +47,13 @@ export default function ProcessFacilitySearch() {
               <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
             </div>
             <div className="w-1/5 mx-5 flex items-center justify-end">
-              <Button className="mr-3">
+              <Button className="mr-3" size="sm">
                 엑셀다운로드
               </Button>
-              <Button className="mr-3">
+              <Button className="mr-3" size="sm">
                 초기화
               </Button>
-              <Button className="mr-3">
+              <Button className="mr-3" size="sm">
                 조회
               </Button>
             </div>

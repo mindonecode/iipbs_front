@@ -87,7 +87,7 @@ export default function ProcessFacilitySearch() {
   return (
       <div className="m-8">
         <SearchDiv>
-          <div style={{width:"90%"}} className="grid grid-cols-12 gap-1">
+          <div style={{width:"90%"}} className="grid grid-cols-12 gap-1 mx-4 w-4/5">
             <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}>
             </SelectBox>
             <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}>
