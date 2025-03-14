@@ -63,17 +63,17 @@ export interface ISiteDetail extends SiteFormData {
 }
 
 export const siteFormSchema = z.object({
-  siteId: z.string().max(2),
-  siteNm: z.string().max(100),
+  siteId: z.string().max(2).nonempty(),
+  siteNm: z.string().max(100).nonempty(),
   siteExpln: z.string().max(1000).optional(),
-  siteKndCd: z.string().max(10),
+  siteKndCd: z.string().max(10).nonempty(),
   siteAddr: z.string().max(2000).optional(),
   faxNo: z.string().max(100).optional(),
   telNo: z.string().max(1000).optional(),
   lwndCn: z.string().max(2000).optional(),
-  bscSiteYn: z.string().optional(),
+  bscSiteYn: z.string(),
   bkmkIcon: z.string().max(100).optional(),
-  useYn: z.string().optional(),
+  useYn: z.string(),
   siteSkn: z.string().max(10).optional(),
 });
 
@@ -83,4 +83,5 @@ export interface SiteService {
   siteInfo(query: ISiteParams): Promise<ISiteInfo>;
   siteDetail(siteId: string): Promise<ISiteDetail>;
   modifySite(siteId: string, data: SiteFormData): Promise<void>;
+  createSite(data: SiteFormData): Promise<void>;
 }

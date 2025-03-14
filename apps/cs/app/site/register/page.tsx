@@ -1,2 +1,2 @@
-import { RegisterPage } from "@/pages/site";
-export default RegisterPage;
+import { CreatePage } from "@/pages/site";
+export default CreatePage;

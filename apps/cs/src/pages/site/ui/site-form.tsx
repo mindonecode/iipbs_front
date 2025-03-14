@@ -187,17 +187,19 @@ function SiteForm({ form, siteId, handleSave }: SiteFormProps) {
                     />
                   </TableCell>
                 </TableRow>
-                <TableRow className={`${!isModifyMode ? "hidden" : ""}`}>
-                  <TableHead>사이트 도메인</TableHead>
-                  <TableCell className="border">
-                    <div className="flex gap-2">
-                      <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
-                        {representativeDomain}
+                {isModifyMode && (
+                  <TableRow>
+                    <TableHead>사이트 도메인</TableHead>
+                    <TableCell className="border">
+                      <div className="flex gap-2">
+                        <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
+                          {representativeDomain}
+                        </div>
+                        <DomainManagementDialog handleSave={handleDomainSave} />
                       </div>
-                      <DomainManagementDialog handleSave={handleDomainSave} />
-                    </div>
-                  </TableCell>
-                </TableRow>
+                    </TableCell>
+                  </TableRow>
+                )}
                 <TableRow>
                   <TableHead>사이트 하단 표기 주소</TableHead>
                   <TableCell className="border">
@@ -368,15 +370,17 @@ function SiteForm({ form, siteId, handleSave }: SiteFormProps) {
           </div>
         </div>
         <div className="flex justify-center gap-4 pb-12 pt-10">
+          <Button size="lg" color="white" onClick={() => router.back()}>
+            목록
+          </Button>
           <Button size="lg" type="submit">
             저장
           </Button>
-          <Button size="lg" color="white" onClick={() => router.back()}>
-            취소
-          </Button>
-          <Button size="lg" color="red">
-            삭제
-          </Button>
+          {isModifyMode && (
+            <Button size="lg" color="red">
+              삭제
+            </Button>
+          )}
         </div>
       </form>
     </Form>

@@ -1,11 +1,12 @@
 import { client } from "@/shared/api/client";
 import { ENDPOINT } from "@/shared/config/api";
-import type {
-  ISiteInfo,
-  SiteService,
-  ISiteDetail,
-  ISiteParams,
-  SiteFormData,
+import {
+  siteFormSchema,
+  type ISiteInfo,
+  type SiteService,
+  type ISiteDetail,
+  type ISiteParams,
+  type SiteFormData,
 } from "../model/site-interface";
 
 export class SiteApiService implements SiteService {
@@ -25,9 +26,19 @@ export class SiteApiService implements SiteService {
   }
 
   public async modifySite(siteId: string, data: SiteFormData): Promise<void> {
+    const validatedData = siteFormSchema.parse(data);
     const response = await client.put<void>(
       `${ENDPOINT.CMS_SERVICE.SITES}/${siteId}`,
-      data,
+      validatedData,
+    );
+    return response.data;
+  }
+
+  public async createSite(data: SiteFormData): Promise<void> {
+    const validatedData = siteFormSchema.parse(data);
+    const response = await client.post<void>(
+      `${ENDPOINT.CMS_SERVICE.SITES}`,
+      validatedData,
     );
     return response.data;
   }
