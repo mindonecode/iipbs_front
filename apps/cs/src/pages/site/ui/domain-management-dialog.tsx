@@ -107,7 +107,7 @@ function DomainManagementDialog({
       <DialogTrigger asChild>
         <Button disabled={triggerDisabled}>도메인 관리</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[60rem]">
         <DialogHeader>
           <DialogTitle>도메인 관리</DialogTitle>
         </DialogHeader>
@@ -176,7 +176,7 @@ function DomainManagementDialog({
                         handleActiveChange(row.id, value)
                       }
                     >
-                      <SelectTrigger className="mx-auto w-[100px]">
+                      <SelectTrigger className="mx-auto w-[10rem]">
                         <SelectValue placeholder="선택" />
                       </SelectTrigger>
                       <SelectContent>

@@ -78,7 +78,7 @@ function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
       <DialogTrigger asChild>
         <Button disabled={triggerDisabled}>IP 관리</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[60rem]">
         <DialogHeader>
           <DialogTitle>IP 관리</DialogTitle>
         </DialogHeader>

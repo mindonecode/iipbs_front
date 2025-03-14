@@ -26,7 +26,7 @@ export const Default: Story = {
       <DialogTrigger asChild>
         <Button>다이얼로그 열기</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[42.5rem]">
         <DialogHeader>
           <DialogTitle>다이얼로그 제목</DialogTitle>
         </DialogHeader>

@@ -28,7 +28,7 @@ type Story = StoryObj<typeof Select>;
 export const Default: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[18rem]">
         <SelectValue placeholder="선택하세요" />
       </SelectTrigger>
       <SelectContent>
