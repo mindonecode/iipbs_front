@@ -33,7 +33,7 @@
 
 ## 새로운 프로젝트 설치 및 실행
 
-### 1. 프로젝트 생성(Next.js)
+### 1. 프로젝트 생성(Next.js 기준)
 
 ```bash
 npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
@@ -83,7 +83,61 @@ export default {
 } satisfies Config;
 ```
 
-### 5. globals.css(또는 전역 css) 수정
+### 5. next.config.ts 수정
+```json
+import type { NextConfig } from "next";
+import webpack from "webpack";
+
+const serverApiUrl =
+  process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:3000";
+
+const nextConfig: NextConfig = {
+  webpack: (config) => {
+    config.plugins.push(
+      // common/components의 vite 환경 변수를 next 환경 변수로 정의
+      new webpack.DefinePlugin({
+        "import.meta.env.VITE_PORT": JSON.stringify(
+          process.env.NEXT_PUBLIC_PORT,
+        ),
+        "import.meta.env.VITE_PROXY_HOST": JSON.stringify(
+          process.env.NEXT_PUBLIC_PROXY_HOST,
+        ),
+        "import.meta.env.VITE_SERVER_API_URL": JSON.stringify(
+          process.env.NEXT_PUBLIC_SERVER_API_URL,
+        ),
+        "import.meta.env.VITE_SITE_ID": JSON.stringify(process.env.SITE_ID),
+        "import.meta.env.VITE_CLAIM_NAME": JSON.stringify(
+          process.env.NEXT_PUBLIC_CLAIM_NAME,
+        ),
+        "import.meta.env.VITE_ACCESS_TOKEN": JSON.stringify(
+          process.env.NEXT_PUBLIC_ACCESS_TOKEN,
+        ),
+        "import.meta.env.VITE_REFRESH_TOKEN": JSON.stringify(
+          process.env.NEXT_PUBLIC_REFRESH_TOKEN,
+        ),
+        "import.meta.env.VITE_AUTH_USER_ID": JSON.stringify(
+          process.env.NEXT_PUBLIC_AUTH_USER_ID,
+        ),
+        "process.env.SITE_ID": JSON.stringify(process.env.NEXT_PUBLIC_SITE_ID),
+      }),
+    );
+
+    return config;
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/server/:path*",
+        destination: `${serverApiUrl}/:path*`,
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
+
+### 6. globals.css(또는 전역 css) 수정
 
 ```css
 @import "@common/assets/index.css";
@@ -95,7 +149,7 @@ export default {
 /* 기타 스타일 */
 ```
 
-### 6. 패키지 의존성 재설치
+### 7. 패키지 의존성 재설치
 
 ```bash
 rm -rf node_modules pnpm-lock.yaml
@@ -109,7 +163,7 @@ pnpm install
 - Next.js(^15)
 - Tailwind CSS(^3)
 - react-dnd-treeview(^3)
-- ~~TUI Grid(^4)~~ -> TanStack Table (v8)
+- TanStack Table (v8)
 - Chart.js(^4)
 - Storybook(^8)
 - tus-js-client(^4)
