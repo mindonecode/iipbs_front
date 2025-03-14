@@ -1,5 +1,6 @@
 "use client";
 
+import { ConfirmProvider } from "@frontend-opensource/use-react-hooks";
 import { BaseLayout } from "@common/components/ui";
 import { AuthProvider } from "./auth-provider";
 import { CookieProvider } from "./cookie-provider";
@@ -10,7 +11,9 @@ const AppProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <QueryProvider>
       <CookieProvider>
         <AuthProvider>
-          <BaseLayout>{children}</BaseLayout>
+          <ConfirmProvider>
+            <BaseLayout>{children}</BaseLayout>
+          </ConfirmProvider>
         </AuthProvider>
       </CookieProvider>
     </QueryProvider>
