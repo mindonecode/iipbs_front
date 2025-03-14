@@ -1,5 +1,3 @@
-"use client";
-
 import { images } from "@common/assets";
 import { useUsersQuery } from "../../api";
 import { AUTH_USER_ID } from "../../config";

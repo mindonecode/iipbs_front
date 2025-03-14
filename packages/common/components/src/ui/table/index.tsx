@@ -13,7 +13,11 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
     <div className="relative w-full">
       <table
         ref={ref}
-        className={cn("w-full caption-bottom text-sm", className, variant)}
+        className={cn(
+          "table-ui w-full caption-bottom text-sm",
+          className,
+          variant,
+        )}
         {...props}
       />
     </div>
