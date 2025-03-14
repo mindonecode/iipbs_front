@@ -348,7 +348,7 @@ function IPManagementDialog() {
       <DialogTrigger asChild>
         <Button>IP 관리</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[60rem]">
         <DialogHeader>
           <DialogTitle>IP 관리</DialogTitle>
         </DialogHeader>
