@@ -5,7 +5,7 @@ import type {
   SiteService,
   ISiteDetail,
   ISiteParams,
-  ISiteData,
+  SiteFormData,
 } from "../model/site-interface";
 
 export class SiteApiService implements SiteService {
@@ -24,7 +24,7 @@ export class SiteApiService implements SiteService {
     return response.data;
   }
 
-  public async modifySite(siteId: string, data: ISiteData): Promise<void> {
+  public async modifySite(siteId: string, data: SiteFormData): Promise<void> {
     const response = await client.put<void>(
       `${ENDPOINT.CMS_SERVICE.SITES}/${siteId}`,
       data,

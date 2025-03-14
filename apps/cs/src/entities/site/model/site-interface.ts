@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface ISiteParams {
   siteNm: string;
   siteKndCd: string;
@@ -47,21 +49,7 @@ export interface ISiteInfo {
   empty: boolean;
 }
 
-export interface ISiteData {
-  siteNm: string;
-  siteExpln: string;
-  siteKndCd: string;
-  siteAddr: string;
-  faxNo: string;
-  telNo: string;
-  lwndCn: string;
-  bscSiteYn: string;
-  bkmkIcon: string;
-  useYn: string;
-  siteSkn: string;
-}
-
-export interface ISiteDetail extends ISiteData {
+export interface ISiteDetail extends SiteFormData {
   siteId: string;
   siteKindNm: string;
   basicSiteYn: string;
@@ -74,8 +62,25 @@ export interface ISiteDetail extends ISiteData {
   mdFrNm: string;
 }
 
+export const siteFormSchema = z.object({
+  siteId: z.string().max(2),
+  siteNm: z.string().max(100),
+  siteExpln: z.string().max(1000).optional(),
+  siteKndCd: z.string().max(10),
+  siteAddr: z.string().max(2000).optional(),
+  faxNo: z.string().max(100).optional(),
+  telNo: z.string().max(1000).optional(),
+  lwndCn: z.string().max(2000).optional(),
+  bscSiteYn: z.string().optional(),
+  bkmkIcon: z.string().max(100).optional(),
+  useYn: z.string().optional(),
+  siteSkn: z.string().max(10).optional(),
+});
+
+export type SiteFormData = z.infer<typeof siteFormSchema>;
+
 export interface SiteService {
   siteInfo(query: ISiteParams): Promise<ISiteInfo>;
   siteDetail(siteId: string): Promise<ISiteDetail>;
-  modifySite(siteId: string, data: ISiteData): Promise<void>;
+  modifySite(siteId: string, data: SiteFormData): Promise<void>;
 }

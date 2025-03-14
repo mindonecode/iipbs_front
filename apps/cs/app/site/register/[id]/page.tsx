@@ -1,10 +1,10 @@
-import { RegisterPage as ViewRegisterPage } from "@/pages/site";
+import { ModifyPage as VModifyPage } from "@/pages/site";
 
-export default async function RegisterPage({
+export default async function ModifyPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  return <ViewRegisterPage siteId={id} />;
+  return <VModifyPage siteId={id} />;
 }
