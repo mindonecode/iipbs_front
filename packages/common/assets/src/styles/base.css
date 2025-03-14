@@ -24,11 +24,12 @@
     --input: #e5e5e5;
     --label: #666666;
     --ring: #0a0a0a;
-    --chart-1: #d95b43;
-    --chart-2: #299392;
-    --chart-3: #263e4d;
-    --chart-4: #dfb938;
-    --chart-5: #f08634;
+    --chart-1: #2094fa;
+    --chart-2: #00dfe5;
+    --chart-3: #02e587;
+    --chart-4: #ffd841;
+    --chart-5: #ff7865;
+    --chart-6: #e65db5;
     --radius: 1rem;
   }
   [data-mode="dark"] {
@@ -52,10 +53,12 @@
     --input: #262626;
     --label: #f1f1f1;
     --ring: #d4d4d4;
-    --chart-1: #3399ff;
-    --chart-2: #339966;
-    --chart-3: #ff9933;
-    --chart-4: #cc66ff;
-    --chart-5: #ff3399;
+    --chart-1: #66b3ff;
+    --chart-2: #66f0f2;
+    --chart-3: #66f9b8;
+    --chart-4: #ffeb99;
+    --chart-5: #ffbcad;
+    --chart-6: #f4a0d3;
+    --radius: 1rem;
   }
 }
