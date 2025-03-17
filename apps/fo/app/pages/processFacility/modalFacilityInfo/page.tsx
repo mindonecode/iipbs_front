@@ -1,25 +1,37 @@
 ﻿"use client"
-import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
-import { Button } from "@common/components/ui";
+import type { TableUpperProps } from "@/app/store/dashboard";
+import { UiTable } from "@common/business_components";
+import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
 import { useRef } from "react";
 
-export default function ProcessFacilitySearch() {
-  const {ProcessFacility} = useFoStore((state) => state);
-  
-  const {
-    processFacilityLabelArray, 
-    selectPartData,
-    selectUpdownData,
-    selectOperationData,
-    selectFacilityPartData,
-    selectSidoData,
-    selectSigunData,
-  } = ProcessFacility;
+// 시설계획 table header 변경
+const headMakeList = (upHeadList: TableUpperProps[], gridNum:number) => {
+  if(gridNum===1){
+    return  ( <>
+      <TableRow>{
+      upHeadList.map((head: TableUpperProps) => 
+        (!head.upSequnce?<TableHead rowSpan={2}key={head.id}>{head.title}</TableHead>:
+          head.upName === 'upChangeRe'&& head.upSequnce=== 1?<TableHead key={head.id} rowSpan={1} colSpan={5} style={{ whiteSpace: 'pre-line' }}>{'증설계획(m³/일)'}</TableHead>:null))}
+      </TableRow>
+      <TableRow>
+        {upHeadList.map((head: TableUpperProps) =>
+          (head.upName === 'upChangeRe'?<TableHead className="w-100" key={head.id}>{head.title}</TableHead>:null))}
+      </TableRow>
+      </> )
+  }
+}
 
+export default function ProcessFacilityInfoModal() {
   // 그리드 관련
-  const {upHeadList, processFacilityList} = useFoStore((state) => state);
+  const {ProcessFacilityDetail} = useFoStore((state) => state);
+
+  const {
+    upHeadListExplainPlan,
+    gridListExplainPlan
+  } = ProcessFacilityDetail
+
+  const upHeadListExplainPlanChange = headMakeList(upHeadListExplainPlan, 1);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputSelectRef=useRef<HTMLInputElement>(null);
@@ -32,39 +44,30 @@ export default function ProcessFacilitySearch() {
     console.log(inputRef?.current?.value);
     console.log(inputSelectRef?.current?.value);
   }
+
   const initVal = () => {
     if(inputRef.current?.value)
       inputRef.current.value = ""
     console.log(inputRef?.current?.value);
     console.log(inputSelectRef);
   }
+
   return (
-      <div className="m-8">
-        <SearchDiv>
-            <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}/>
-              <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
-              <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
-              <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue}/>
-            </div>
-            <div className="w-1/5 mx-5 flex items-center justify-end">
-              <Button className="mr-3" size="sm">
-                엑셀다운로드
-              </Button>
-              <Button className="mr-3" size="sm" onClick={initVal}>
-                초기화
-              </Button>
-              <Button className="mr-3" size="sm" onClick={chkVal}>
-                조회
-              </Button>
-            </div>
-        </SearchDiv>
-        <UiTable headName={""} tableData={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
-          <HeadMakeColSpan upHeadList={upHeadList}/>
-        </UiTable>
+    <div className="m-8">
+      <Table>
+        <TableRow className="">
+          <TableHead className="w-1/6">{'시설명'}</TableHead>
+          <TableCell ></TableCell>
+          <TableHead className="w-1/6">{'시설코드'}</TableHead>
+          <TableCell ></TableCell>
+        </TableRow>
+      </Table>
+      <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
+        {'시설증설 계획'}
       </div>
+      <UiTable headName={"시설증설 계획"} tableData={gridListExplainPlan} headlist={upHeadListExplainPlan} pageSize={0} total={0}>
+        {upHeadListExplainPlanChange}
+      </UiTable>
+    </div>
   );
 }

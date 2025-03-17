@@ -1,110 +1,14 @@
 import type { SelectDataType } from "@common/business_components/ui";
 import type { TableUpperProps } from "../dashboard";
 
-export type ProcessFacilityType = {
-    ProcessFacility: {
-        isInit: boolean;
-        processFacilityLabelArray:string[];
-        selectPartData:SelectDataType[];
-        selectUpdownData:SelectDataType[];
-        selectOperationData:SelectDataType[];
-        selectFacilityPartData:SelectDataType[];
-        selectSidoData:SelectDataType[];
-        selectSigunData:SelectDataType[];
-    }
-}
-const ProcessFacilityLabelArray:string[] = ['구분', '시도', '시군구','용량별', '시설명', '시설상태','시설구분'];
+/**====================================
+ * Store - 타입
+ ====================================*/
 
-const selectPartData:SelectDataType[] = [
-    { text: "행정별", val: '00'},
-    { text: "유역별", val: '01'},
-    { text: "환경청별", val: '02'},
-];
-const selectUpdownData:SelectDataType[] = [
-    { text: "이상", val: '00'},
-    { text: "이하", val: '01'},
-];
-const selectOperationData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "가동중", val: '01'},
-    { text: "가동중지", val: '02'},
-    { text: "시설폐쇄", val: '03'},
-];
-const selectFacilityPartData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "공공하수처리시설", val: '01'},
-    { text: "오수처리장", val: '02'},
-    { text: "개인하수처리시설", val: '03'},
-    { text: "분뇨처리장", val: '04'},
-    { text: "폐수처리장", val: '05'},
-    { text: "침출수처리장", val: '06'},
-    { text: "기타기초시설설", val: '07'},
-];
-const selectSidoData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "서울특별시", val: '01'},
-    { text: "인천광역시", val: '02'},
-    { text: "경기도", val: '03'},
-    { text: "강원도", val: '04'},
-    { text: "충청남도", val: '05'},
-    { text: "충청북도", val: '06'},
-    { text: "경상남도", val: '07'},
-    { text: "경상북도", val: '08'},
-    { text: "전라남도", val: '09'},
-    { text: "전라북도", val: '10'},
-    { text: "제주도", val: '11'},
-];
-const selectSigunData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "동대문구", val: '01'},
-    { text: "여의도", val: '02'},
-    { text: "강남구", val: '03'},
-    { text: "노원구", val: '04'},
-    { text: "영등포구", val: '05'},
-    { text: "관악구", val: '06'},
-    { text: "광진구", val: '07'},
-    { text: "망원동", val: '08'},
-];
-
-export type ProcessFacilityActions = {
-    ProcessFacilityActions: {
-        labelChange:()=>void;
-    }
-}
-export type ProcessFacilityStore = ProcessFacilityType & ProcessFacilityActions;
-
-export const processFacilityInitState:ProcessFacilityType = {
-    ProcessFacility: {
-        isInit: false,
-        processFacilityLabelArray: ProcessFacilityLabelArray,
-        selectPartData : selectPartData,
-        selectUpdownData : selectUpdownData,
-        selectOperationData : selectOperationData,
-        selectFacilityPartData : selectFacilityPartData,
-        selectSidoData : selectSidoData,
-        selectSigunData: selectSigunData,
-    }
-}
-
-export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any) => {
-
-    console.log("tableActionsExport");
-    return {
-        ProcessFacilityActions: {
-            labelChange:()=>set(
-                (state:ProcessFacilityType) => {
-                    state.ProcessFacility.processFacilityLabelArray[0] = "구분 변경";
-                return (
-                { 
-                    ProcessFacility: {
-                        ...state.ProcessFacility,
-                        processFacilitylabelArray: state.ProcessFacility.processFacilityLabelArray
-                }})}
-            )
-        }
-    }
-}
-
+/**
+ * (1) 메인페이지
+ */
+// 처리시설 리스트
 export type facilityListProps = {
     facilityCd : string,
     sido : string,
@@ -119,6 +23,84 @@ export type facilityListProps = {
     openDay : string,
     manageUpchae : string,
 }
+
+// (2) 처리시설 팝업
+export type explainPlanProps = {
+    plan : string,
+    now : string,
+    firstStep : string,
+    secondStep : string,
+    thirdStep : string,
+    fourthStep : string,
+}
+
+/**====================================
+ * Store - data
+ ====================================*/
+
+/**
+ * (1) 메인페이지 
+ */ 
+// 검색단
+const ProcessFacilityLabelArray:string[] = ['구분', '시도', '시군구','용량별', '시설명', '시설상태','시설구분'];
+
+const selectPartData:SelectDataType[] = [
+    { text: "행정별", val: '00'},
+    { text: "유역별", val: '01'},
+    { text: "환경청별", val: '02'},
+];
+
+const selectUpdownData:SelectDataType[] = [
+    { text: "이상", val: '00'},
+    { text: "이하", val: '01'},
+];
+
+const selectOperationData:SelectDataType[] = [
+    { text: "전체", val: '00'},
+    { text: "가동중", val: '01'},
+    { text: "가동중지", val: '02'},
+    { text: "시설폐쇄", val: '03'},
+];
+
+const selectFacilityPartData:SelectDataType[] = [
+    { text: "전체", val: '00'},
+    { text: "공공하수처리시설", val: '01'},
+    { text: "오수처리장", val: '02'},
+    { text: "개인하수처리시설", val: '03'},
+    { text: "분뇨처리장", val: '04'},
+    { text: "폐수처리장", val: '05'},
+    { text: "침출수처리장", val: '06'},
+    { text: "기타기초시설설", val: '07'},
+];
+
+const selectSidoData:SelectDataType[] = [
+    { text: "전체", val: '00'},
+    { text: "서울특별시", val: '01'},
+    { text: "인천광역시", val: '02'},
+    { text: "경기도", val: '03'},
+    { text: "강원도", val: '04'},
+    { text: "충청남도", val: '05'},
+    { text: "충청북도", val: '06'},
+    { text: "경상남도", val: '07'},
+    { text: "경상북도", val: '08'},
+    { text: "전라남도", val: '09'},
+    { text: "전라북도", val: '10'},
+    { text: "제주도", val: '11'},
+];
+
+const selectSigunData:SelectDataType[] = [
+    { text: "전체", val: '00'},
+    { text: "동대문구", val: '01'},
+    { text: "여의도", val: '02'},
+    { text: "강남구", val: '03'},
+    { text: "노원구", val: '04'},
+    { text: "영등포구", val: '05'},
+    { text: "관악구", val: '06'},
+    { text: "광진구", val: '07'},
+    { text: "망원동", val: '08'},
+];
+
+// 리스트 헤더
 const upHeadList:TableUpperProps[] = [
     { id: "facilityCd", title: "시설코드"},
     { id: "sido", title: "시도", upName:"upChangeRe", upSequnce:1 },
@@ -133,6 +115,7 @@ const upHeadList:TableUpperProps[] = [
     { id: "openDay", title: '준공일' },
     { id: "manageUpchae", title: '관리대행업자'}
 ];
+
 const processFacilityList:facilityListProps[] = [
     {
         facilityCd : "11000SW001R",
@@ -192,36 +175,105 @@ const processFacilityList:facilityListProps[] = [
     },
 ]
 
-export type tableStateProcessFacility = {
-    isInit: boolean;
-    upHeadList: TableUpperProps[];
-    processFacilityList: facilityListProps[];
-}
-type tableActionsProcessFacility = {
-    decrementList: () => void
+/**
+ * 처리시설 상세팝업
+ */ 
+// 그리드
+const upHeadListExplainPlan:TableUpperProps[] = [
+    { id: "plan", title: "기존계획\n(m³/일)" },
+    { id: "now", title: "현재", upName:"upChangeRe", upSequnce:1 },
+    { id: "firstStep", title: "1단계", upName:"upChangeRe",upSequnce:2 },
+    { id: "secondStep", title: "2단계", upName:"upChangeRe",upSequnce:3 },
+    { id: "thirdStep", title: "3단계", upName:"upChangeRe",upSequnce:4 },
+    { id: "fourthStep", title: "4단계", upName:"upChangeRe",upSequnce:5 }
+];
+
+const gridListExplainPlan:explainPlanProps[] = [
+    {
+        plan : "6,797",
+        now : "5,794",
+        firstStep : "6,957",
+        secondStep : "7,680",
+        thirdStep : "7,894",
+        fourthStep : "7,768"
+    }
+];
+
+export type ProcessFacilityType = {
+    ProcessFacility: {
+        isInit: boolean;
+        processFacilityLabelArray:string[];
+        selectPartData:SelectDataType[];
+        selectUpdownData:SelectDataType[];
+        selectOperationData:SelectDataType[];
+        selectFacilityPartData:SelectDataType[];
+        selectSidoData:SelectDataType[];
+        selectSigunData:SelectDataType[];
+    },
+
+    ProcessFacilityList : {
+        isInit: boolean;
+        upHeadList:TableUpperProps[];
+        processFacilityList:facilityListProps[];
+    },
+
+    ProcessFacilityDetail : {
+        isInit : boolean;
+        upHeadListExplainPlan : TableUpperProps[];
+        gridListExplainPlan : explainPlanProps[];
+    }
 }
 
-export type tableTypeProcessFacility = tableStateProcessFacility & tableActionsProcessFacility;
-
-export const tableStateExportProcessFacility:tableStateProcessFacility= {
-    isInit:false,
-    upHeadList: upHeadList,
-    processFacilityList: processFacilityList,
+/**====================================
+ * Store - expaort
+ ====================================*/
+export type ProcessFacilityActions = {
+    ProcessFacilityActions: {
+        labelChange:()=>void;
+    }
 }
-export const tableActionsExportProcessFacility:(set:any)=>tableActionsProcessFacility=(set: any) => {
+export type ProcessFacilityStore = ProcessFacilityType & ProcessFacilityActions;
+
+export const processFacilityInitState:ProcessFacilityType = {
+    ProcessFacility: {
+        isInit: false,
+        processFacilityLabelArray: ProcessFacilityLabelArray,
+        selectPartData : selectPartData,
+        selectUpdownData : selectUpdownData,
+        selectOperationData : selectOperationData,
+        selectFacilityPartData : selectFacilityPartData,
+        selectSidoData : selectSidoData,
+        selectSigunData: selectSigunData,
+    },
+
+    ProcessFacilityList : {
+        isInit : false,
+        upHeadList : upHeadList,
+        processFacilityList : processFacilityList
+    },
+
+    ProcessFacilityDetail : {
+        isInit : false,
+        upHeadListExplainPlan : upHeadListExplainPlan,
+        gridListExplainPlan : gridListExplainPlan,
+    }
+}
+
+export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any) => {
 
     console.log("tableActionsExport");
     return {
-        decrementList:()=>set(
-            (state:tableStateProcessFacility) => {
-
-            console.log("tableActionsExport", state);
-            return (
-            { 
-                upHeadList: state.upHeadList, 
-                processFacilityList: 
-                state.processFacilityList.slice(0, state.processFacilityList.length - 1)
-            })}
-        )
+        ProcessFacilityActions: {
+            labelChange:()=>set(
+                (state:ProcessFacilityType) => {
+                    state.ProcessFacility.processFacilityLabelArray[0] = "구분 변경";
+                return (
+                { 
+                    ProcessFacility: {
+                        ...state.ProcessFacility,
+                        processFacilitylabelArray: state.ProcessFacility.processFacilityLabelArray
+                }})}
+            )
+        }
     }
 }

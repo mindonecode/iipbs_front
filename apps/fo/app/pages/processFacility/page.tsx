@@ -6,7 +6,7 @@ import { Button } from "@common/components/ui";
 import { useRef } from "react";
 
 export default function ProcessFacilitySearch() {
-  const {ProcessFacility} = useFoStore((state) => state);
+  const {ProcessFacility, ProcessFacilityList} = useFoStore((state) => state);
   
   const {
     processFacilityLabelArray, 
@@ -18,8 +18,12 @@ export default function ProcessFacilitySearch() {
     selectSigunData,
   } = ProcessFacility;
 
+  const {
+    upHeadList,
+    processFacilityList
+  } = ProcessFacilityList;
+
   // 그리드 관련
-  const {upHeadList, processFacilityList} = useFoStore((state) => state);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputSelectRef=useRef<HTMLInputElement>(null);

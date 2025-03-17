@@ -1,10 +1,10 @@
 import { createStore } from 'zustand/vanilla';
 import { dashBoardReducer, dashInitState, type DashBoardStore } from './dashboard';
-import { processFacilityReducer, processFacilityInitState, type ProcessFacilityStore, tableActionsExportProcessFacility, tableStateExportProcessFacility, type tableTypeProcessFacility
+import { processFacilityReducer, processFacilityInitState, type ProcessFacilityStore
 } from './processFacility';
 import { flowRateSearchReducer, flowRateSearchInitState, type FlowRateSearchStore} from './flowRate';
 import { tableActionsExport, tableStateExport, type tableState, type tableType } from './publicReuseFaciltyInsert/index';
-export type FoStore = tableType & DashBoardStore & ProcessFacilityStore & tableTypeProcessFacility & FlowRateSearchStore;
+export type FoStore = tableType & DashBoardStore & ProcessFacilityStore & FlowRateSearchStore;
 export const StoreZus = (initState: tableState = tableStateExport) => {
   return createStore<FoStore>()((set) => {
     return {
@@ -14,8 +14,6 @@ export const StoreZus = (initState: tableState = tableStateExport) => {
       ...dashBoardReducer(set),
       ...processFacilityInitState,
       ...processFacilityReducer(set),
-      ...tableStateExportProcessFacility,
-      ...tableActionsExportProcessFacility(set),
       ...flowRateSearchReducer(set),
       ...flowRateSearchInitState,
     }
