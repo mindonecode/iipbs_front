@@ -4,12 +4,30 @@ import { CHART_FORM, type ChartConfig, MainChart, SearchDiv, SearchInput, Select
 import { Button } from "@common/components/ui";
 import { useRef } from "react";
 
-const chartData = [
+const chartData1 = [
   {label : 'a', val : 123},
   {label : 'b', val : 14},
   {label : 'c', val : 16},
   {label : 'd', val : 163},
 ];
+const chartData2 = [
+  {label : 'a', val : 11},
+  {label : 'b', val : 34},
+  {label : 'c', val : 112},
+  {label : 'd', val : 83},
+];
+const chartData3 = [
+  {label : 'a', val : 23},
+  {label : 'b', val : 21},
+  {label : 'c', val : 87},
+  {label : 'd', val : 102},
+];
+
+const chartData = {
+  chartData1 : chartData1,
+  chartData2 : chartData2,
+  chartData3 : chartData3
+}
 
 /**
  * 차트 Config
