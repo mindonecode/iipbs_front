@@ -76,7 +76,24 @@ const CustomLegend = (props: any) => {
   );
 };
 
-export default function Linechart(props: { chartConfig: ChartConfig; chartData: any[] | undefined; chartTitle:string}) {
+type DataType = {label : string; val:number};
+type ChartDataType = {
+  chartData1: DataType[];
+  chartData2: DataType[];
+};
+
+export default function Linechart(props: { chartConfig: ChartConfig; chartData: ChartDataType; chartTitle:string}) {
+  const mergedData = Object.values(props.chartData).reduce((acc, dataset) => {
+    dataset.forEach((entry, index) => {
+      if (!acc[index]) {
+        acc[index] = { label: entry.label }; // label 추가
+      }
+      const key = Object.keys(props.chartData).find(k => props.chartData[k] === dataset);
+      if (key) acc[index][key] = entry.val;
+    });
+    return acc;
+  }, [] as any[]);
+
   return (
     <Card className="h-full">
       <CardContent className="h-full">
@@ -86,13 +103,15 @@ export default function Linechart(props: { chartConfig: ChartConfig; chartData: 
         </div>): null}
         <div className="h-[calc(100%-42px)] flex justify-center">
           <ChartContainer config={props.chartConfig} className="h-full w-full">
-            <LineChart data={props.chartData} className="h-full">
-              <CartesianGrid vertical={false} />
+            <LineChart data={mergedData} className="h-full">
+            <CartesianGrid vertical={false} />
               <XAxis dataKey="label" fontSize="8px" fontWeight="bold"/>
               <YAxis yAxisId="left" orientation="left" />
               <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
               <Legend content={CustomLegend}/>
-              <Line yAxisId="left" dataKey="val" type="linear" strokeWidth={2} dot={false} name="값"/>
+              {Object.keys(props.chartData).map((key, index) => (
+                <Line key={key} yAxisId="left" dataKey={key} type="linear" strokeWidth={2} dot={false} name={key} />
+              ))}
             </LineChart>
           </ChartContainer>
         </div>
