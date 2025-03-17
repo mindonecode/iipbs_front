@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 import webpack from "webpack";
 
-const serverApiUrl =
-  process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:3000";
-
 const nextConfig: NextConfig = {
   webpack: (config) => {
     config.plugins.push(
@@ -30,19 +27,10 @@ const nextConfig: NextConfig = {
         "import.meta.env.VITE_AUTH_USER_ID": JSON.stringify(
           process.env.NEXT_PUBLIC_AUTH_USER_ID,
         ),
-        "process.env.SITE_ID": JSON.stringify(process.env.NEXT_PUBLIC_SITE_ID),
       }),
     );
 
     return config;
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/server/:path*",
-        destination: `${serverApiUrl}/:path*`,
-      },
-    ];
   },
 };
 

@@ -5,7 +5,7 @@ import {
   REFRESH_TOKEN,
   SERVER_API_URL,
   SITE_ID,
-} from "@/shared/config/env";
+} from "@/shared/config";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

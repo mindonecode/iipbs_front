@@ -1,5 +1,3 @@
-"use client";
-
 import "./date-picker.css";
 
 import { format } from "date-fns";
