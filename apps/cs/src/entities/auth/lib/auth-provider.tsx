@@ -2,12 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext, useState } from "react";
-import { client } from "../api/client";
-import { ENDPOINT } from "../config/api";
-import { AUTH_USER_ID } from "../config/env";
-import { getCookie } from "../lib/cookie";
-import { LoginApi } from "@/entities/auth/login";
+import { createContext, useState } from "react";
+import { client } from "@/shared/api";
+import { ENDPOINT, AUTH_USER_ID } from "@/shared/config";
+import { getCookie } from "@/shared/lib";
+import { LoginApi } from "../api/login-service";
 
 interface IUserInfo {
   regDt: string;
@@ -90,12 +89,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
 };

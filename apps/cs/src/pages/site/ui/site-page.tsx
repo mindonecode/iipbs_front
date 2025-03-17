@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Button, Input, DataTable } from "@common/components";
-import { SiteApi, type ISite, type ISiteParams } from "@/entities/site";
-import { ENDPOINT } from "@/shared/config/api";
+import { ENDPOINT } from "@/shared/config";
+import { SiteApi } from "../api/site-service";
+import { type ISite, type ISiteParams } from "../model/site-interface";
 import { columns } from "../model/table-columns";
 import { SitePageLayout } from "./layout";
 

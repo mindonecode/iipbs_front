@@ -1,5 +1,5 @@
-import { client } from "@/shared/api/client";
-import { ENDPOINT } from "@/shared/config/api";
+import { client } from "@/shared/api";
+import { ENDPOINT } from "@/shared/config";
 import {
   siteFormSchema,
   type ISiteInfo,

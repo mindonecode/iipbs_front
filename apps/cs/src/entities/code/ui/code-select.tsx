@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@common/components";
-import { ENDPOINT } from "@/shared/config/api";
+import { ENDPOINT } from "@/shared/config";
 import { CodeApi } from "../api/code-service";
 
 type CodeSelectProps = {

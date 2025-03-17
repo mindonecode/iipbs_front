@@ -1,6 +1,6 @@
 import "./styles/base.css";
 import "./styles/components.css";
-import { AppProvider } from "@/shared/provider";
+import { AppProvider } from "./providers";
 
 const App = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (

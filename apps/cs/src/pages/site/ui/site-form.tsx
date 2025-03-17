@@ -19,7 +19,6 @@ import {
   TableRow,
 } from "@common/components";
 import { CodeSelect } from "@/entities/code";
-import { type ISiteDetail, type SiteFormData } from "@/entities/site";
 import {
   FormItem,
   FormControl,
@@ -27,6 +26,7 @@ import {
   Form,
   FormMessage,
 } from "@/shared/ui/form";
+import { type ISiteDetail, type SiteFormData } from "../model/site-interface";
 import { IPManagementDialog } from "./ip-management-dialog";
 import {
   DomainManagementDialog,
@@ -37,7 +37,7 @@ type SiteFormProps = {
   form: UseFormReturn<SiteFormData>;
   siteId?: string;
   handleSave: (data: SiteFormData) => void;
-  handleDelete: () => void;
+  handleDelete?: () => void;
 };
 
 function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
@@ -65,7 +65,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
 
   const onDelete = async () => {
     if (await confirm("정말 삭제하시겠습니까?")) {
-      handleDelete();
+      handleDelete?.();
     }
   };
 

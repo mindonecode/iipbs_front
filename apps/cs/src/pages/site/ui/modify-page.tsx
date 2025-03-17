@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ENDPOINT } from "@/shared/config";
+import { SiteApi } from "../api/site-service";
 import {
-  SiteApi,
   siteFormSchema,
   type ISiteDetail,
   type SiteFormData,
-} from "@/entities/site";
-import { ENDPOINT } from "@/shared/config/api";
+} from "../model/site-interface";
 import { SitePageLayout } from "./layout";
 import { SiteForm } from "./site-form";
 import {

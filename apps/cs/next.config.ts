@@ -27,7 +27,6 @@ const nextConfig: NextConfig = {
         "import.meta.env.VITE_AUTH_USER_ID": JSON.stringify(
           process.env.NEXT_PUBLIC_AUTH_USER_ID,
         ),
-        "process.env.SITE_ID": JSON.stringify(process.env.NEXT_PUBLIC_SITE_ID),
       }),
     );
 
