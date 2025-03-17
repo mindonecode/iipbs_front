@@ -41,6 +41,7 @@ export default {
         border: "var(--border)",
         input: "var(--input)",
         label: "var(--label)",
+        placeholder: "var(--placeholder)",
         ring: "var(--ring)",
         chart: {
           1: "var(--chart-1)",
@@ -49,6 +50,10 @@ export default {
           4: "var(--chart-4)",
           5: "var(--chart-5)",
         },
+        field: "var(--field)",
+        form: "var(--form)",
+        container: "var(--container)",
+        title: "var(--title)",
       },
       keyframes: {
         "accordion-down": {

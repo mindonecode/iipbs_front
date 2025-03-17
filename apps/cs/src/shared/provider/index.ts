@@ -1,3 +1,3 @@
-export { AuthProvider, useAuth } from "./auth-provider";
-export { CookieProvider, useCookie } from "./cookie-provider";
-export { QueryProvider } from "./query-provider";
+export { AppProvider } from "./app-provider";
+export { useAuth } from "./auth-provider";
+export { useCookie } from "./cookie-provider";

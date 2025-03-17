@@ -62,7 +62,10 @@ npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
 {
   // 기타 설정 ...
   "paths": {
-    "@common/components": ["../../packages/common/components/src"], // 추가
+    "@common/components/*": ["../../../packages/common/components/src/*"],
+    "@common/components": ["../../../packages/common/components/src"],
+    "@common/network/*": ["../../../packages/common/network/*"],
+    "@common/network": ["../../../packages/common/network/"]
   }
 }
 ```
@@ -174,3 +177,10 @@ pnpm install
 ## 링크
 
 - 컴포넌트 가이드(스토리북): http://www.onasys.co.kr/design/template
+
+
+## API 서버 
+http://dev.onasys.co.kr:8000
+
+## Swagger
+http://dev.onasys.co.kr:8000/webjars/swagger-ui/index.html?urls.primaryName=attach-service

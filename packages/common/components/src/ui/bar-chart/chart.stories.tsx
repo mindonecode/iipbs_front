@@ -22,7 +22,7 @@ const meta: Meta<typeof Bar> = {
       description: {
         component: `
 - [Docs](https://react-chartjs-2.js.org/)
-        `,
+`,
       },
       source: {
         code: `

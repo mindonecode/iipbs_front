@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import {
   Dialog,
@@ -18,6 +16,8 @@ import {
   RadioGroup,
   RadioGroupItem,
   Checkbox,
+  DialogFooter,
+  DialogClose,
 } from "@common/components";
 
 type IP = {
@@ -26,11 +26,15 @@ type IP = {
   allowed: boolean;
 };
 
-function IPManagementDialog() {
+type IPManagementDialogProps = {
+  triggerDisabled?: boolean;
+};
+
+function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
   const [rows, setRows] = useState<IP[]>([]);
   const [rowSelection, setRowSelection] = useState<IP["id"][]>([]);
 
-  const handleSave = () => {};
+  const onSave = () => {};
 
   const handleAddIP = () => {
     const newIP: IP = {
@@ -72,18 +76,15 @@ function IPManagementDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>IP 관리</Button>
+        <Button disabled={triggerDisabled}>IP 관리</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[60rem]">
         <DialogHeader>
           <DialogTitle>IP 관리</DialogTitle>
         </DialogHeader>
         <div className="mb-4 flex justify-end gap-2">
           <Button size="sm" color="green">
             엑셀 업로드
-          </Button>
-          <Button size="sm" onClick={handleSave}>
-            저장
           </Button>
           <Button size="sm" color="white" onClick={handleAddIP}>
             항목 추가
@@ -98,7 +99,7 @@ function IPManagementDialog() {
           </Button>
         </div>
         <div className="card card-border">
-          <Table>
+          <Table variant="secondary">
             <colgroup>
               <col width="10%" />
               <col width="10%" />
@@ -156,6 +157,18 @@ function IPManagementDialog() {
             </TableBody>
           </Table>
         </div>
+        <DialogFooter className="!justify-center">
+          <DialogClose asChild>
+            <Button size="lg" onClick={onSave}>
+              저장
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button size="lg" color="white">
+              취소
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
