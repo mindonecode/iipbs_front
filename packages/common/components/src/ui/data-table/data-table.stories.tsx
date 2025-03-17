@@ -14,7 +14,7 @@ const meta: Meta<typeof DataTable> = {
       description: {
         component: `
 - [Docs](https://tanstack.com/table/v8/docs/introduction)
-        `,
+`,
       },
       source: {
         code: `

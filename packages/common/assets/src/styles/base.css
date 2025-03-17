@@ -23,6 +23,7 @@
     --border: #e5e5e5;
     --input: #e5e5e5;
     --label: #666666;
+    --placeholder: #a2a2a2;
     --ring: #0a0a0a;
     --chart-1: #2094fa;
     --chart-2: #00dfe5;
@@ -31,6 +32,18 @@
     --chart-5: #ff7865;
     --chart-6: #e65db5;
     --radius: 1rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --field: #fff;
+    --form: #fff;
+    --container: #f1f6f9;
+    --title: #4c5e6f;
   }
   [data-mode="dark"] {
     --background: #0a0a0a;
@@ -52,6 +65,7 @@
     --border: #262626;
     --input: #262626;
     --label: #f1f1f1;
+    --placeholder: #737373;
     --ring: #d4d4d4;
     --chart-1: #66b3ff;
     --chart-2: #66f0f2;
@@ -60,5 +74,17 @@
     --chart-5: #ffbcad;
     --chart-6: #f4a0d3;
     --radius: 1rem;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --field: #5b6269;
+    --form: #1a1a1a;
+    --container: #0a0a0a;
+    --title: #fff;
   }
 }

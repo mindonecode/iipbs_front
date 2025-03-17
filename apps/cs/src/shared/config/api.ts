@@ -10,6 +10,7 @@ export const ENDPOINT = {
   },
   CMS_SERVICE: {
     SITES: "/cms-service/api/v1/sites",
+    CODE: "/cms-service/api/v1/code/cache",
   },
 };
 

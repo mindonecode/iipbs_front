@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { ko } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
