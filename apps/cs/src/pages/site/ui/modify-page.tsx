@@ -40,11 +40,17 @@ function ModifyPage({ siteId }: { siteId: string }) {
   const { mutateAsync: modifySite } = useMutation({
     mutationFn: (data: SiteFormData) => SiteApi.modifySite(siteId, data),
     onSuccess: () => {
-      setIsModifySuccess(true);
+      setMessage("수정되었습니다.");
     },
   });
 
-  const [isModifySuccess, setIsModifySuccess] = useState(false);
+  const { mutateAsync: deleteSite } = useMutation({
+    mutationFn: () => SiteApi.deleteSite(siteId),
+    onSuccess: () => {
+      setMessage("삭제되었습니다.");
+    },
+  });
+  const [message, setMessage] = useState("");
 
   const form = useForm<SiteFormData>({
     resolver: zodResolver(siteFormSchema),
@@ -64,11 +70,16 @@ function ModifyPage({ siteId }: { siteId: string }) {
 
   return (
     <SitePageLayout>
-      <SiteForm form={form} siteId={siteId} handleSave={modifySite} />
-      <Dialog open={isModifySuccess} onOpenChange={() => router.back()}>
+      <SiteForm
+        form={form}
+        siteId={siteId}
+        handleSave={modifySite}
+        handleDelete={deleteSite}
+      />
+      <Dialog open={!!message} onOpenChange={() => router.back()}>
         <DialogContent aria-describedby={undefined}>
           <div className="py-10">
-            <p className="text-center text-[1.4rem]">수정되었습니다.</p>
+            <p className="text-center text-[1.4rem]">{message}</p>
           </div>
           <DialogFooter className="!justify-center">
             <DialogClose asChild>

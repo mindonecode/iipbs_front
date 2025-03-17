@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { images } from "@common/assets";
 import { LoginApi } from "@/entities/auth/login";
