@@ -1,0 +1,12 @@
+export const PORT = import.meta.env.VITE_PORT || "3000";
+export const PROXY_HOST =
+  import.meta.env.VITE_PROXY_HOST || `http://localhost:${PORT}`;
+
+export const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
+export const SITE_ID = import.meta.env.VITE_SITE_ID || "CS";
+
+export const CLAIM_NAME = import.meta.env.VITE_CLAIM_NAME || "Authorization";
+export const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN || "access-token";
+export const REFRESH_TOKEN =
+  import.meta.env.VITE_REFRESH_TOKEN || "refresh-token";
+export const AUTH_USER_ID = import.meta.env.VITE_AUTH_USER_ID || "token-id";

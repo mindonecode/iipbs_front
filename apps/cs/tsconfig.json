@@ -25,7 +25,10 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
-      "@common/components": ["../../../packages/common/components/src"]
+      "@common/components/*": ["../../../packages/common/components/src/*"],
+      "@common/components": ["../../../packages/common/components/src"],
+      "@common/network/*": ["../../../packages/common/network/*"],
+      "@common/network": ["../../../packages/common/network/"]
     }
   },
   "include": [

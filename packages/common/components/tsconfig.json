@@ -14,7 +14,9 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@common/network/*": ["../network/*"],
+      "@common/network": ["../network/"]
     }
   },
   "exclude": ["**/node_modules", "**/.*/*", "dist"],
@@ -26,6 +28,7 @@
     "**/*.cjs",
     "**/*.mjs",
     "**/*.jsx",
-    "**/*.json"
+    "**/*.json",
+    ".storybook/env.ts"
   ]
 }
