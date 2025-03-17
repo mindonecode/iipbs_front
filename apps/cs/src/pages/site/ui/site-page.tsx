@@ -2,19 +2,26 @@
 
 import "@common/assets/styles/grid.css";
 
+import { type ISite, type ISiteParams } from "@/entities/site";
 import { SiteApi } from "@/entities/site/api/site-service";
-import type { ISiteQuery } from "@/entities/site/model/site-interface";
 import { ENDPOINT } from "@/shared/config/api";
 import { Button, DataTable, Input } from "@common/components";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { columns } from "../model/__mocks__";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { columns } from "../model/table-columns";
 import { SitePageLayout } from "./layout";
 
 function SitePage() {
-  const [siteQuery, setSiteQuery] = useState<ISiteQuery>({
+  const router = useRouter();
+  const { data: siteInfo, refetch } = useQuery({
+    queryKey: [ENDPOINT.CMS_SERVICE.SITES],
+    queryFn: () => SiteApi.siteInfo(siteQuery),
+    enabled: false,
+  });
+
+  const [siteQuery, setSiteQuery] = useState<ISiteParams>({
     siteNm: "",
     siteKndCd: "",
     useYn: "",
@@ -23,10 +30,10 @@ function SitePage() {
     sort: [],
   });
 
-  const { data: siteInfo, refetch } = useQuery({
-    queryKey: [ENDPOINT.CMS_SERVICE.SITES],
-    queryFn: () => SiteApi.siteInfo(siteQuery),
-    enabled: false,
+  const table = useReactTable({
+    data: siteInfo?.content ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,15 +41,13 @@ function SitePage() {
     refetch();
   };
 
-  const router = useRouter();
-  const table = useReactTable({
-    data: siteInfo?.content ?? [],
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  const handleRowClick = (row: ISite) => {
+    router.push(`/site/register/${row.siteId}`);
+  };
 
   useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -71,7 +76,7 @@ function SitePage() {
             <Button onClick={() => router.push("/site/register")}>등록</Button>
           </div>
           <div className="card !m-[1.2rem] h-[49rem] overflow-auto !p-0">
-            <DataTable table={table} />
+            <DataTable table={table} onRowClick={handleRowClick} />
           </div>
         </div>
       </div>

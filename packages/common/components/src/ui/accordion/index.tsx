@@ -1,5 +1,3 @@
-"use client";
-
 import "./accordion.css";
 
 import * as React from "react";

@@ -1,12 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useState } from "react";
 import { client } from "../api/client";
 import { ENDPOINT } from "../config/api";
 import { AUTH_USER_ID } from "../config/env";
 import { getCookie } from "../lib/cookie";
-import { AxiosError } from "axios";
 import { LoginApi } from "@/entities/auth/login";
 
 interface IUserInfo {
@@ -50,28 +50,32 @@ export interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
 
   useQuery({
     queryKey: [ENDPOINT.USER_SERVICE.USERS],
     queryFn: async () => {
       try {
+        const userId = getCookie(AUTH_USER_ID);
+
+        if (!userId) {
+          throw new Error("Missing required authentication tokens");
+        }
+
         const response = await client.get<IUserInfo>(
-          `${ENDPOINT.USER_SERVICE.USERS}/${getCookie(AUTH_USER_ID)}`,
+          `${ENDPOINT.USER_SERVICE.USERS}/${userId}`,
         );
         setUserInfo(response.data);
         return response;
       } catch (error) {
         console.error(error);
-        if (error instanceof AxiosError) {
-          if (error.response?.status === 401) {
-            try {
-              await LoginApi.silentRefresh();
-            } catch (refreshError) {
-              console.error("Token refresh failed:", refreshError);
-              setUserInfo(null);
-            }
-          }
+        try {
+          await LoginApi.silentRefresh();
+        } catch (refreshError) {
+          console.error("Token refresh failed:", refreshError);
+          setUserInfo(null);
+          router.push("/auth/login");
         }
       }
     },

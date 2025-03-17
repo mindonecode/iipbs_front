@@ -15,6 +15,7 @@ export * from "./layout";
 export * from "./loading";
 export * from "./popover";
 export * from "./radio-group";
+export * from "./select";
 export * from "./slider";
 export * from "./switch";
 export * from "./table";

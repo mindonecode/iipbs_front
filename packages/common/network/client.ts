@@ -28,12 +28,12 @@ class Client {
 
       if (!token || !userId) {
         throw new AxiosError(
-          "[Client] Missing required authentication tokens",
+          "The authentication token is invalid.",
           "UNAUTHORIZED",
           config,
           null,
           {
-            data: { message: "Missing required authentication tokens" },
+            data: { message: "The authentication token is invalid." },
             status: 401,
             statusText: "Unauthorized",
             headers: this.axiosInstance.defaults.headers,

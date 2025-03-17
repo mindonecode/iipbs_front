@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { ISite } from "@/entities/site/model/site-interface";
 
@@ -16,8 +17,8 @@ const columns = [
     id: "siteNm",
     header: "사이트명",
   }),
-  columnHelper.accessor("siteKindCode", {
-    id: "unknown1",
+  columnHelper.accessor("siteAddr", {
+    id: "siteAddr",
     header: "대표 URL",
   }),
   columnHelper.accessor("bscSiteYn", {
@@ -30,13 +31,17 @@ const columns = [
     header: "사용 여부",
     cell: (info) => (info.getValue() ? "Y" : "N"),
   }),
-  columnHelper.accessor("siteId", {
-    id: "unknown2",
+  columnHelper.accessor("rgTrNm", {
+    id: "rgTrNm",
     header: "등록자",
   }),
-  columnHelper.accessor("siteId", {
-    id: "ununknown3",
+  columnHelper.accessor("regDt", {
+    id: "regDt",
     header: "등록일",
+    cell: (info) => {
+      const date = dayjs(info.getValue());
+      return date.format("YYYY-MM-DD");
+    },
   }),
 ];
 

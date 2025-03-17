@@ -36,15 +36,22 @@ function THead<T>({ table }: { table: TableType<T> }) {
   );
 }
 
-type TableProps<T> = { table: TableType<T> };
+type TableProps<T> = {
+  table: TableType<T>;
+  onRowClick?: (row: T) => void;
+};
 
-function DataTable<T>({ table }: TableProps<T>) {
+function DataTable<T>({ table, onRowClick }: TableProps<T>) {
   return (
     <Table className="w-full">
       <THead table={table} />
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <TableRow key={row.id}>
+          <TableRow
+            key={row.id}
+            onClick={() => onRowClick?.(row.original)}
+            className={onRowClick ? "cursor-pointer hover:bg-muted" : ""}
+          >
             {row.getVisibleCells().map((cell) => {
               const { meta } = cell.column.columnDef;
               return (
