@@ -1,19 +1,18 @@
 "use client";
 
 import { ConfirmProvider } from "@frontend-opensource/use-react-hooks";
-import { AuthProvider } from "@/entities/auth";
-import { CookieProvider } from "@/shared/lib";
-import { QueryProvider } from "./query-provider";
+import { AuthWrapper } from "@/entities/auth";
+import { QueryProvider, StoreProvider } from "@/shared/providers";
 
 const AppProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <QueryProvider>
-      <CookieProvider>
-        <AuthProvider>
-          <ConfirmProvider>{children}</ConfirmProvider>
-        </AuthProvider>
-      </CookieProvider>
-    </QueryProvider>
+    <StoreProvider>
+      <QueryProvider>
+        <ConfirmProvider>
+          <AuthWrapper>{children}</AuthWrapper>
+        </ConfirmProvider>
+      </QueryProvider>
+    </StoreProvider>
   );
 };
 
