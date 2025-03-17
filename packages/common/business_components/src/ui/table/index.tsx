@@ -1,7 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
 import UiPageNations from "./uiPageNations";
 
-
 type UiTableProps = {
   headName: React.ReactNode | undefined;
   tableData: { [key: string]: string | number | boolean }[];
@@ -9,14 +8,15 @@ type UiTableProps = {
   pageSize: number;
   total: number;
   children: React.ReactNode | undefined;
+  cellClick : (index:number)=>void | undefined;
 }
 
 type UiHeadProps = {
   id: string;
   title: string;
-
 }
-export function UiTable({ tableData, headlist, pageSize, total, children, headName }: UiTableProps) {
+
+export function UiTable({ tableData, headlist, pageSize, total, children, headName, cellClick }: UiTableProps) {
   const cur = 1;
 
   return (
@@ -35,13 +35,11 @@ export function UiTable({ tableData, headlist, pageSize, total, children, headNa
           {tableData?.map((el: { [key: string]: string | number | boolean }, index) => (
             <TableRow key={index + "row"} >
               {headlist.map((head) => (
-                <TableCell key={head.id + index}>{el[head.id]}</TableCell>
+                <TableCell onClick={()=>cellClick(index)} key={head.id + index}>{el[head.id]}</TableCell>
               ))}
-
             </TableRow>
           ))}
         </TableBody>
-
       </Table>
       {total <= 0 ? <></> : <UiPageNations total={total} cur={cur} pageSize={pageSize} />}
     </>
