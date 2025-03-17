@@ -54,7 +54,7 @@ export default function ProcessFacilityInfoModal() {
 
   return (
     <div className="m-8">
-      <Table>
+      <Table >
         <TableRow className="">
           <TableHead className="w-1/6">{'시설명'}</TableHead>
           <TableCell ></TableCell>
