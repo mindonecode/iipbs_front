@@ -1,6 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { images } from "@common/assets";
-import { useUsersQuery } from "../../api";
-import { AUTH_USER_ID } from "../../config";
+import { getUserInfo } from "../../api";
+import { AUTH_USER_ID, ENDPOINT } from "../../config";
 import { getToken } from "../../lib";
 import {
   DropdownMenu,
@@ -10,9 +11,12 @@ import {
 } from "../dropdown-menu";
 import { Button } from "../button";
 
-export function Header() {
-  const { data: userInfo } = useUsersQuery({
-    userUniqId: getToken(AUTH_USER_ID) ?? "",
+export function Header({ viewOnly }: { viewOnly?: boolean }) {
+  const userUniqId = getToken(AUTH_USER_ID) ?? "";
+  const { data: userInfo } = useQuery({
+    queryKey: [ENDPOINT.USER_SERVICE.USERS],
+    queryFn: () => getUserInfo(userUniqId),
+    enabled: !viewOnly,
   });
 
   return (
@@ -32,7 +36,7 @@ export function Header() {
         <DropdownMenuTrigger asChild>
           <Button className="group m-0 flex h-[3rem] items-center !bg-background px-4 py-0 text-label">
             <i className="diveicon di-account-circle static translate-y-0.5 pr-2 text-3xl" />
-            {userInfo?.data.userName}
+            {userInfo?.userName}
             <i className="diveicon di-chevron-down static p-0 transition-transform group-data-[state=open]:rotate-180" />
           </Button>
         </DropdownMenuTrigger>
@@ -40,7 +44,7 @@ export function Header() {
           <DropdownMenuItem>프로필 설정</DropdownMenuItem>
           <div className="flex flex-col items-start gap-0 px-4 py-3">
             <p className="text-base text-label">최종접속일</p>
-            <p>{userInfo?.data.lastLoginDate}</p>
+            <p>{userInfo?.lastLoginDate}</p>
           </div>
           <div className="flex flex-col items-start gap-0 px-4 py-3">
             <p className="text-base text-label">접속 IP</p>
