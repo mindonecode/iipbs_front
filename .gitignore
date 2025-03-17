@@ -1,8 +1,12 @@
 # turbo
-.turbo
+.turbo/
 
 # dependencies
-node_modules
+node_modules/
+
+# build
+.next/
+dist/
 
 # build
 .next
@@ -10,3 +14,6 @@ dist
 
 # misc
 .DS_Store
+
+# env
+.env*
