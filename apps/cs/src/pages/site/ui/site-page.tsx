@@ -2,15 +2,15 @@
 
 import "@common/assets/styles/grid.css";
 
-import { type ISite, type ISiteParams } from "@/entities/site";
-import { SiteApi } from "@/entities/site/api/site-service";
-import { ENDPOINT } from "@/shared/config/api";
-import { Button, DataTable, Input } from "@common/components";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { Button, DataTable, Input } from "@common/components";
+import { ENDPOINT } from "@/shared/config/api";
+import { SiteApi } from "../api/site-service";
 import { columns } from "../model/table-columns";
+import { type ISite, type ISiteParams } from "../model/site-interface";
 import { SitePageLayout } from "./layout";
 
 function SitePage() {

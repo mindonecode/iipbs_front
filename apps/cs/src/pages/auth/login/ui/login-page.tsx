@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { images } from "@common/assets";
-import { LoginApi } from "@/entities/auth/login";
+import { LoginApi } from "@/entities/auth";
 import "./login.css";
 
 function LoginPage() {

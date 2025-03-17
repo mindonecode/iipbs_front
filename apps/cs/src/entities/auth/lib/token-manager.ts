@@ -1,5 +1,5 @@
-import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config/env";
-import { getCookie, setCookie, removeCookie } from "@/shared/lib/cookie";
+import { AUTH_USER_ID, CLAIM_NAME } from "@/shared/config";
+import { getCookie, setCookie, removeCookie } from "@/shared/lib";
 
 export class TokenManager {
   private static instance: TokenManager;

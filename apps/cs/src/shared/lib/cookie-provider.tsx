@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext } from "react";
-import { getCookie, setCookie, removeCookie } from "../lib/cookie";
+import { createContext } from "react";
+import { getCookie, setCookie, removeCookie } from "./cookie";
 
 export interface CookieContextType {
   getCookie: (name: string) => string | undefined;
@@ -27,12 +27,4 @@ export function CookieProvider({ children }: { children: React.ReactNode }) {
       {children}
     </CookieContext.Provider>
   );
-}
-
-export function useCookie(): CookieContextType {
-  const context = useContext(CookieContext);
-  if (!context) {
-    throw new Error("useCookie must be used within a CookieProvider");
-  }
-  return context;
 }

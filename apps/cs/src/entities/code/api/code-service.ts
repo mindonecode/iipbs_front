@@ -1,5 +1,5 @@
-import { client } from "@/shared/api/client";
-import { ENDPOINT } from "@/shared/config/api";
+import { client } from "@/shared/api";
+import { ENDPOINT } from "@/shared/config";
 import type { CodeService, ICode } from "../model/code-interface";
 
 export class CodeApiService implements CodeService {

@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SiteApi, siteFormSchema, type SiteFormData } from "@/entities/site";
+import { SiteApi } from "../api/site-service";
+import { siteFormSchema, type SiteFormData } from "../model/site-interface";
 import { SitePageLayout } from "./layout";
 import { SiteForm } from "./site-form";
 import {
