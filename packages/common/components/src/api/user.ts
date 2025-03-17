@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { ENDPOINT } from "../config";
 import { client } from "./client";
 
@@ -36,10 +35,9 @@ export interface IUser {
   hasPassword: boolean;
 }
 
-export const useUsersQuery = ({ userUniqId }: { userUniqId: string }) => {
-  return useQuery({
-    queryKey: [ENDPOINT.USER_SERVICE.USERS],
-    queryFn: () =>
-      client.get<IUser>(`${ENDPOINT.USER_SERVICE.USERS}/${userUniqId}`),
-  });
+export const getUserInfo = async (userUniqId: string) => {
+  const response = await client.get<IUser>(
+    `${ENDPOINT.USER_SERVICE.USERS}/${userUniqId}`,
+  );
+  return response.data;
 };

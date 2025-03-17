@@ -25,6 +25,15 @@ export class SiteApiService implements SiteService {
     return response.data;
   }
 
+  public async createSite(data: SiteFormData): Promise<void> {
+    const validatedData = siteFormSchema.parse(data);
+    const response = await client.post<void>(
+      `${ENDPOINT.CMS_SERVICE.SITES}`,
+      validatedData,
+    );
+    return response.data;
+  }
+
   public async modifySite(siteId: string, data: SiteFormData): Promise<void> {
     const validatedData = siteFormSchema.parse(data);
     const response = await client.put<void>(
@@ -34,11 +43,9 @@ export class SiteApiService implements SiteService {
     return response.data;
   }
 
-  public async createSite(data: SiteFormData): Promise<void> {
-    const validatedData = siteFormSchema.parse(data);
-    const response = await client.post<void>(
-      `${ENDPOINT.CMS_SERVICE.SITES}`,
-      validatedData,
+  public async deleteSite(siteId: string): Promise<void> {
+    const response = await client.delete<void>(
+      `${ENDPOINT.CMS_SERVICE.SITES}/${siteId}`,
     );
     return response.data;
   }
