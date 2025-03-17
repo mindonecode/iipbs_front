@@ -4,5 +4,9 @@
 # dependencies
 node_modules
 
+# build
+.next
+dist
+
 # misc
 .DS_Store
