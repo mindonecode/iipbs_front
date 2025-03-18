@@ -8,7 +8,7 @@ type UiTableProps = {
   pageSize: number;
   total: number;
   children: React.ReactNode | undefined;
-  cellClick : (index:number|undefined)=>void | (undefined);
+  cellClick : ((index:number|undefined)=>void) | undefined;
 }
 
 type UiHeadProps = {
