@@ -103,7 +103,7 @@ export default function ProcessFacilitySearch() {
             </Button>
           </div>
         </SearchDiv>
-        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} cellClick={function (index: number): void | undefined{} } children={undefined}/>
+        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} cellClick={()=>{} } children={()}/>
         <div className="grid grid-cols-12 gap-1">
           <div className="col-span-5">
              <Table>
