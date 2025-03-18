@@ -1,27 +1,27 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import UIForm from "."
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./form"
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./lib/form"
 import { Input } from "@common/components/ui"
+import { UiForm } from "."
 
 
 
 export default function Test (){
     
-    const formSchema2= z.object({
+    const formSchema= z.object({
         username: z.string().min(2).max(50),
     })
     
-    const form = useForm<z.infer<typeof formSchema2>>({
-      resolver: zodResolver(formSchema2),
+    const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
       defaultValues: {
         username: "",
       },
     })
     
       // 2. Define a submit handler.
-      function onSubmit(values: z.infer<typeof formSchema2>) {
+      function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values)
@@ -50,7 +50,7 @@ export default function Test (){
 
     return (
         <div>
-            <UIForm form={form} onSubmit ={onSubmit} formField={makeFromField} ></UIForm>
+            <UiForm form={form} onSubmit ={onSubmit} formField={makeFromField} ></UIForm>
          </div>
     )
 }
