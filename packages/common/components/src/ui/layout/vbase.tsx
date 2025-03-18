@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { LNB } from "./lnb";
+import { LNB } from "../lnb";
 import { Header } from "../header";
 import { Footer } from "./footer";
 
@@ -14,7 +14,7 @@ export function VBaseLayout({ children }: { children: React.ReactNode }) {
       <div>
         <Header viewOnly />
         <div className="flex h-[calc(100vh-50px)]">
-          <LNB />
+          <LNB viewOnly />
           <div className="flex flex-1 flex-col">
             <div className="max-h-[calc(100%-50px)] flex-1 overflow-auto">
               {children}
