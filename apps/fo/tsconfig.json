@@ -25,8 +25,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@common/network/*": ["../../packages/common/network/src/*"],
-      "@common/network": ["../../packages/common/network/src/index"],
+      "@common/network": ["../../packages/common/network/"],
       "@common/components/*": ["../../packages/common/components/src/*"],
       "@common/components": ["../../packages/common/components/src/index"],
       "@common/business_components/*": ["../../packages/common/business_components/src/*"],

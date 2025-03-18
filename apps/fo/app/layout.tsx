@@ -1,5 +1,4 @@
-'use client'
-
+"use client"
 import { BaseLayout } from "@common/components/ui";
 import "./globals.css";
 import { StoreProvider } from "./store";
