@@ -26,12 +26,15 @@ export type facilityListProps = {
 
 // (2) 처리시설 팝업
 export type explainPlanProps = {
-    plan : string,
-    now : string,
-    firstStep : string,
-    secondStep : string,
-    thirdStep : string,
-    fourthStep : string,
+    facilityName : string,
+    facilityCapacity : string,
+    sido : string,
+    sigungo : string,
+    startDay : string,
+    location : string,
+    openDay : string,
+    publicMethod : string,
+    manageUpchae : string,
 }
 
 /**====================================
@@ -180,22 +183,28 @@ const processFacilityList:facilityListProps[] = [
  */ 
 // 그리드
 const upHeadListExplainPlan:TableUpperProps[] = [
-    { id: "plan", title: "기존계획\n(m³/일)" },
-    { id: "now", title: "현재", upName:"upChangeRe", upSequnce:1 },
-    { id: "firstStep", title: "1단계", upName:"upChangeRe",upSequnce:2 },
-    { id: "secondStep", title: "2단계", upName:"upChangeRe",upSequnce:3 },
-    { id: "thirdStep", title: "3단계", upName:"upChangeRe",upSequnce:4 },
-    { id: "fourthStep", title: "4단계", upName:"upChangeRe",upSequnce:5 }
+    { id: "facilityName", title: "시설명" },
+    { id: "facilityCapacity", title: "시설용량n(m³/일)"},
+    { id: "sido", title: "시도"},
+    { id: "sigungo", title: "시군구"},
+    { id: "startDay", title: "가동개시일"},
+    { id: "location", title: "주소"},
+    { id: "openDay", title: "준공일"},
+    { id: "publicMethod", title: "공법"},
+    { id: "manageUpchae", title: "관리대행업자"},
 ];
 
 const gridListExplainPlan:explainPlanProps[] = [
     {
-        plan : "6,797",
-        now : "5,794",
-        firstStep : "6,957",
-        secondStep : "7,680",
-        thirdStep : "7,894",
-        fourthStep : "7,768"
+        facilityName : "난지",
+        facilityCapacity : "860,000",
+        sido : "서울특별시",
+        sigungo : "",
+        startDay : "1987-06-30",
+        location : "경기도 고양시 덕양구 대덕로 426 (현천동)",
+        openDay : "2013-04-30",
+        publicMethod : "MLE, A2O",
+        manageUpchae : "자체",
     }
 ];
 

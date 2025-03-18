@@ -4,6 +4,12 @@ import type { TableUpperProps } from "@/app/store/dashboard";
 import { UiTable } from "@common/business_components";
 import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
 import { useRef } from "react";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@common/components";
 
 // 시설계획 table header 변경
 const headMakeList = (upHeadList: TableUpperProps[], gridNum:number) => {
@@ -16,13 +22,13 @@ const headMakeList = (upHeadList: TableUpperProps[], gridNum:number) => {
       </TableRow>
       <TableRow>
         {upHeadList.map((head: TableUpperProps) =>
-          (head.upName === 'upChangeRe'?<TableHead className="w-100" key={head.id}>{head.title}</TableHead>:null))}
+          (head.upName === 'upChangeRe'?<TableHead className="w-150" key={head.id}>{head.title}</TableHead>:null))}
       </TableRow>
       </> )
   }
 }
 
-export default function ProcessFacilityInfoModal() {
+export default function ProcessFacilityInfoModal(props: { fcltyName: string; facilityCd : string;}) {
   // 그리드 관련
   const {ProcessFacilityDetail} = useFoStore((state) => state);
 
@@ -54,20 +60,39 @@ export default function ProcessFacilityInfoModal() {
 
   return (
     <div className="m-8">
-      <Table >
+      <Table>
         <TableRow className="">
           <TableHead className="w-1/6">{'시설명'}</TableHead>
-          <TableCell ></TableCell>
+          <TableCell className="w-1/3">{props.fcltyName}</TableCell>
           <TableHead className="w-1/6">{'시설코드'}</TableHead>
-          <TableCell ></TableCell>
+          <TableCell className="w-1/3">{props.facilityCd}</TableCell>
         </TableRow>
       </Table>
-      <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
-        {'시설증설 계획'}
-      </div>
-      <UiTable headName={"시설증설 계획"} tableData={gridListExplainPlan} headlist={upHeadListExplainPlan} pageSize={0} total={0}>
-        {upHeadListExplainPlanChange}
-      </UiTable>
+      <Tabs defaultValue="common_info" className="w-full">
+        <TabsList className="grid grid-cols-2">
+          <TabsTrigger value="common_info">기본정보</TabsTrigger>
+          <TabsTrigger value="history_info">이력정보</TabsTrigger>
+        </TabsList>
+        <TabsContent value="common_info">
+          <Table>
+            <TableRow className="">
+              <TableHead className="w-1/6">{'시설명'}</TableHead>
+              <TableCell className="w-1/3">{gridListExplainPlan[0]?.facilityName}</TableCell>
+              <TableHead className="w-1/6">{'시설용량'}</TableHead>
+              <TableCell className="w-1/3">{gridListExplainPlan[0]?.facilityCapacity}</TableCell>
+            </TableRow>
+            <TableRow className="">
+              <TableHead className="w-1/6">{'시도'}</TableHead>
+              <TableCell className="w-1/3">{gridListExplainPlan[0]?.sido}</TableCell>
+              <TableHead className="w-1/6">{'시설용량'}</TableHead>
+              <TableCell className="w-1/3">{gridListExplainPlan[0]?.facilityCapacity}</TableCell>
+            </TableRow>
+          </Table>
+        </TabsContent>
+        <TabsContent value="history_info">
+          
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
