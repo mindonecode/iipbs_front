@@ -6,24 +6,8 @@ import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modalFacilityInfo/page";
 
-type facilityListProps = {
-  facilityCd : string,
-  sido : string,
-  sigungo : string,
-  facilityName : string,
-  location : string,
-  facilityCapacity : string,
-  planInputWaterQlty : string,
-  designInputWaterQlty : string,
-  publicMethod : string,
-  operationDay : string,
-  openDay : string,
-  manageUpchae : string,
-}
-
 export default function ProcessFacilitySearch() {
-  const {ProcessFacility, ProcessFacilityList} = useFoStore((state) => state);
-
+  const {ProcessFacility, ProcessFacilityList} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
   const {
     processFacilityLabelArray, 
     selectPartData,
@@ -35,9 +19,10 @@ export default function ProcessFacilitySearch() {
   } = ProcessFacility;
 
   const {
-    upHeadList,
-    processFacilityList
+    upHeadList
   } = ProcessFacilityList;
+
+  const processFacilityList = ProcessFacilityList?.processFacilityList || [];
 
   // 그리드 관련
   const inputRef = useRef<HTMLInputElement>(null);
@@ -63,10 +48,10 @@ export default function ProcessFacilitySearch() {
     console.log(inputSelectRef);
   }
 
-   // 셀 클릭 시 모달 표시
+  // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
-    setFcltyNm(processFacilityList[index].facilityName.toString());
-    setFcltyCd(processFacilityList[index].facilityCd.toString());
+    setFcltyNm(processFacilityList[index].facilityName);
+    setFcltyCd(processFacilityList[index].facilityCd);
     setSelectedRow(index); // 클릭한 행의 index 저장
   };
 
@@ -79,13 +64,13 @@ export default function ProcessFacilitySearch() {
     <div className="m-8">
       <SearchDiv>
         <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}/>
-          <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue} textValue={""} setText={()=>{}}/>
           <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
         </div>
         <div className="w-1/5 mx-5 flex items-center justify-end">
           <Button className="mr-3" size="sm">

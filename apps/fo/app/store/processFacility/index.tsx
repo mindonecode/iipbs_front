@@ -1,6 +1,6 @@
 import type { SelectDataType } from "@common/business_components/ui";
 import type { TableUpperProps } from "../dashboard";
-
+export type {TableUpperProps};
 /**====================================
  * Store - 타입
  ====================================*/
@@ -9,7 +9,7 @@ import type { TableUpperProps } from "../dashboard";
  * (1) 메인페이지
  */
 // 처리시설 리스트
-export type facilityListProps = {
+type facilityListProps = {
     facilityCd : string,
     sido : string,
     sigungo : string,
@@ -269,7 +269,6 @@ export const processFacilityInitState:ProcessFacilityType = {
 }
 
 export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any) => {
-
     console.log("tableActionsExport");
     return {
         ProcessFacilityActions: {

@@ -38,13 +38,13 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
             <div className="grid grid-cols-12 gap-1 mx-4 w-4/5">
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}/>
               <SearchInputSelect className="col-span-3" label={flowRateSearchLabelArray[3] as string} selectData={selectUpdownData} textValue={initValue} setText={setInputValue} onSelectValue={onSelectValue}/>
               <SearchInput className="col-span-3" label={flowRateSearchLabelArray[4] as string} ref={inputRef}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={onSelectValue}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={onSelectValue} selectClass={undefined}/>
             </div>
             <div className="w-1/5 mx-5 flex items-center justify-end">
               <Button className="mr-3" size="sm">
@@ -58,7 +58,7 @@ export default function ProcessFacilitySearch() {
               </Button>
             </div>
         </SearchDiv>
-        <UiTable headName={""} tableData={flowRateList} headlist={upHeadList} pageSize={8} total={16}>
+        <UiTable headName={""} tableData={flowRateList} headlist={upHeadList} pageSize={8} total={16} cellClick={undefined}>
           <HeadMakeColSpan upHeadList={upHeadList}/>
         </UiTable>
       </div>

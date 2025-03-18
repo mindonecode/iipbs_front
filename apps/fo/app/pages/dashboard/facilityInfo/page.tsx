@@ -88,14 +88,10 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
           <div style={{width:"90%"}} className="grid grid-cols-12 gap-1 mx-4 w-4/5">
-            <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue}>
-            </SelectBox>
-            <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue}>
-            </SelectBox>
-            <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue}>
-            </SelectBox>
-            <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue}>
-            </SelectBox>
+            <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
+            <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}/>
+            <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}/>
+            <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue} selectClass={undefined}/>
             <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} ref={inputRef}/>
           </div>
           <div style={{width:"10%"}} className="flex items-center">
@@ -107,7 +103,9 @@ export default function ProcessFacilitySearch() {
             </Button>
           </div>
         </SearchDiv>
-        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} children={undefined}/>
+        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} children={undefined} cellClick={function (index: number): void | undefined {
+        throw new Error("Function not implemented.");
+      } }/>
         <div className="grid grid-cols-12 gap-1">
           <div className="col-span-5">
              <Table>

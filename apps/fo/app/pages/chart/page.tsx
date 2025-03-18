@@ -75,7 +75,7 @@ const labelArray = ['구분', '시도', '시군구'];
 export default function Home() {
   return (
       <div>
-        <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData}></MainChart>
+        <MainChart chartConfig={chartConfig} chartForm={chartForm} chartData={chartData} chartTitle={""}></MainChart>
 
         <SearchDiv>
             <div style={styles.leftDiv}>
