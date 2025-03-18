@@ -5,17 +5,17 @@ export type TableUpperProps = {
     upSequnce?: number;
 }
 type PublicReuseFacility = {
-        sido: string,
-        sigungo: string,
-        facilityName: string,
-        location: string,
-        locationgubun: string,
-        facilityCapacity: string,
-        yn?: string,
-        authoDay?: string,
-        area?: string,
-        reuse?: string,
-        register?: string
+    sido: string,
+    sigungo: string,
+    facilityName: string,
+    location: string,
+    locationgubun: string,
+    facilityCapacity: string,
+    yn?: string,
+    authoDay?: string,
+    area?: string,
+    reuse?: string,
+    register?: string
 }
 const upHeadList:TableUpperProps[] = [
     { id: "sido", title: "시도"},

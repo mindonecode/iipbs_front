@@ -16,13 +16,13 @@ const headMakeList = (upHeadList: TableUpperProps[], gridNum:number) => {
       </TableRow>
       <TableRow>
         {upHeadList.map((head: TableUpperProps) =>
-          (head.upName === 'upChangeRe'?<TableHead className="w-100" key={head.id}>{head.title}</TableHead>:null))}
+          (head.upName === 'upChangeRe'?<TableHead className="w-150" key={head.id}>{head.title}</TableHead>:null))}
       </TableRow>
       </> )
   }
 }
 
-export default function ProcessFacilityInfoModal() {
+export default function ProcessFacilityInfoModal(props: { fcltyName: string;}) {
   // 그리드 관련
   const {ProcessFacilityDetail} = useFoStore((state) => state);
 
@@ -54,12 +54,12 @@ export default function ProcessFacilityInfoModal() {
 
   return (
     <div className="m-8">
-      <Table >
+      <Table>
         <TableRow className="">
           <TableHead className="w-1/6">{'시설명'}</TableHead>
-          <TableCell ></TableCell>
+          <TableCell className="w-1/3">{props.fcltyName}</TableCell>
           <TableHead className="w-1/6">{'시설코드'}</TableHead>
-          <TableCell ></TableCell>
+          <TableCell className="w-1/3">{props.fcltyName}</TableCell>
         </TableRow>
       </Table>
       <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
