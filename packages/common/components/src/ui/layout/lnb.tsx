@@ -2,7 +2,7 @@ export function LNB() {
   return (
     <div
       id="lnb"
-      className="!w-[22rem] overflow-auto border-r border-solid border-border"
+      className="!w-[22rem] overflow-auto border-r border-solid border-border bg-background"
     >
       <ul>
         <li id="m_dashboard">

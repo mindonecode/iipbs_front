@@ -5,12 +5,21 @@
     @apply relative m-[0.6rem] box-border min-h-[2rem] rounded-[0.5rem] p-[0.6rem] text-[1.3rem] text-[#666];
   }
   .card-border {
-    @apply shadow-blur border border-[#dbe2e6] bg-[rgba(255,255,255,0.6)];
+    @apply border border-[#dbe2e6] bg-[rgba(255,255,255,0.6)] shadow-blur;
   }
   .card-header {
     @apply -mx-[0.6rem] flex items-center justify-between border-b border-b-[#e1e7eb] p-4;
   }
   .card-footer {
     @apply -mx-[0.6rem] mt-2 flex items-center justify-center border-t border-t-[#e1e7eb] py-4;
+  }
+
+  [data-mode="dark"] {
+    .card-border {
+      @apply border-[#3f4042] bg-[rgba(255,255,255,0.065)];
+    }
+    .card-header {
+      @apply border-b-[#3f4042];
+    }
   }
 }
