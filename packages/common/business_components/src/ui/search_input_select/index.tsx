@@ -14,7 +14,7 @@ export type SelectDataType = {
  * @param refs - React.forwardRef<HTMLInputElement> | null 입력값 ref
  * @returns React.FC
  */
-const SearchInputSelect = React.forwardRef<HTMLInputElement, {className:string, label:string, selectData: SelectDataType[], onSelectValue:(val:string)=>void, textValue:string, setText:(val:string)=>void}>(({className, label, selectData, onSelectValue, textValue, setText}) => {
+const SearchInputSelect = React.forwardRef<HTMLInputElement, {className:string, label:string, selectData: SelectDataType[], onSelectValue:(val:string)=>void, textValue:string, setText:(val:string)=>void}>(({className, label, selectData, onSelectValue, textValue, setText}, ref) => {
     const changeText=(e:React.ChangeEvent<HTMLInputElement>)=>{
         if(e?.target?.value) setText(e.target.value)
     }
