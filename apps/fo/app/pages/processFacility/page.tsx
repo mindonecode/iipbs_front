@@ -45,7 +45,8 @@ export default function ProcessFacilitySearch() {
 
    // 모달 상태 추가
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
-  const [fcltyNm, setFcltyNm] = useState<string>();
+  const [fcltyNm, setFcltyNm] = useState<string>("");
+  const [fcltyCd, setFcltyCd] = useState<string>("");
 
   const onSelectValue=(val:string)=>{
     console.log(val);
@@ -64,7 +65,8 @@ export default function ProcessFacilitySearch() {
 
    // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
-    setFcltyNm(processFacilityList[index].facilityName.toString() );
+    setFcltyNm(processFacilityList[index].facilityName.toString());
+    setFcltyCd(processFacilityList[index].facilityCd.toString());
     setSelectedRow(index); // 클릭한 행의 index 저장
   };
 
@@ -103,7 +105,7 @@ export default function ProcessFacilitySearch() {
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[1200px] h-[800px]">
-            <ProcessFacilityInfoModal fcltyName={fcltyNm}/>
+            <ProcessFacilityInfoModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
             <Button onClick={closeModal} className="mt-4">
               닫기
             </Button>

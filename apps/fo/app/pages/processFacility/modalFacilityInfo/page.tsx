@@ -22,7 +22,7 @@ const headMakeList = (upHeadList: TableUpperProps[], gridNum:number) => {
   }
 }
 
-export default function ProcessFacilityInfoModal(props: { fcltyName: string;}) {
+export default function ProcessFacilityInfoModal(props: { fcltyName: string; facilityCd : string;}) {
   // 그리드 관련
   const {ProcessFacilityDetail} = useFoStore((state) => state);
 
@@ -59,13 +59,16 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string;}) {
           <TableHead className="w-1/6">{'시설명'}</TableHead>
           <TableCell className="w-1/3">{props.fcltyName}</TableCell>
           <TableHead className="w-1/6">{'시설코드'}</TableHead>
-          <TableCell className="w-1/3">{props.fcltyName}</TableCell>
+          <TableCell className="w-1/3">{props.facilityCd}</TableCell>
         </TableRow>
       </Table>
       <div style={{ textAlign: "left", fontSize: "13px", fontWeight: "bold", marginTop:"13px", marginBottom: "10px" }}>
         {'시설증설 계획'}
       </div>
-      <UiTable headName={"시설증설 계획"} tableData={gridListExplainPlan} headlist={upHeadListExplainPlan} pageSize={0} total={0}>
+      <UiTable headName={undefined} tableData={gridListExplainPlan} headlist={upHeadListExplainPlan} pageSize={0} total={0}>
+        {upHeadListExplainPlanChange}
+      </UiTable>
+      <UiTable headName={undefined} tableData={gridListExplainPlan} headlist={upHeadListExplainPlan} pageSize={0} total={0}>
         {upHeadListExplainPlanChange}
       </UiTable>
     </div>
