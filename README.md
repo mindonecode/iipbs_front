@@ -44,6 +44,12 @@ npx create-next-app@latest ./apps/as --typescript --eslint --tailwind --app
 ```json
 {
   // 기타 설정 ...
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
     "@common/components": "workspace:*", // 추가
     "react": "^19.0.0", // 제거

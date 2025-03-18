@@ -1,8 +1,12 @@
 # turbo
-.turbo
+.turbo/
 
 # dependencies
-node_modules
+node_modules/
+
+# build
+.next/
+dist/
 
 # build
 .next
