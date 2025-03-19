@@ -21,7 +21,9 @@ export function UiTable({ tableData, headlist, pageSize, total, children, headNa
 
   return (
     <>
-      {headName ? headName : <></>}
+      {headName ? <div className="font-bold m-3">
+          {headName}
+        </div> : <></>}
       <Table>
         <TableHeader>
           {children ? <>{children}</> : <TableRow>
