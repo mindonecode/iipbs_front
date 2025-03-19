@@ -50,10 +50,9 @@ export default function ProcessFacilitySearch() {
 
   // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
-    const facility = processFacilityList[index];
-    if (facility) {
-      setFcltyNm(facility.facilityName);
-      setFcltyCd(facility.facilityCd);
+    if (processFacilityList[index]) {
+      setFcltyNm(processFacilityList[index].facilityName);
+      setFcltyCd(processFacilityList[index].facilityCd);
       setSelectedRow(index); // 클릭한 행의 index 저장
     }
   };
@@ -87,7 +86,7 @@ export default function ProcessFacilitySearch() {
           </Button>
         </div>
       </SearchDiv>
-      <UiTable cellClick={(index: number | undefined) => index !== undefined && cellClick(index)} headName={""} tableData={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
+      <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
         <HeadMakeColSpan upHeadList={upHeadList}/>
       </UiTable>
       {selectedRow !== null && (
