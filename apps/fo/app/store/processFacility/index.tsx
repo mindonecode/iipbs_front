@@ -40,16 +40,16 @@ export type BasicInfoProps = {
 
 // 시설 계획정보
 export type PlanInfoProps = {
-    bodPlan : string,
-    tocPlan : string,
-    ssPlan : string,
-    tnPlan : string,
-    tpPlan : string,
-    bodDesign : string,
-    tocDesign : string,
-    ssDesign : string,
-    tnDesign : string,
-    tpDesign : string,
+    bodPlanInput : string,
+    tocPlanInput : string,
+    ssPlanInput : string,
+    tnPlanInput : string,
+    tpPlanInput : string,
+    bodDesignInput : string,
+    tocDesignInput : string,
+    ssDesignInput : string,
+    tnDesignInput : string,
+    tpDesignInput : string,
     siteAreaSize : string,
     processAreaSize : string,
     sewageTreatmentPopulation : string
@@ -62,6 +62,38 @@ export type fcltyAreaInfoProps = {
     unitWaterArea : string,
     areaUnit : string,
     environmentalAgency : string,
+}
+
+// 시설 이력관리
+export type fcltyHistInfoProps = {
+    step : string,
+    unit : string,
+    businessStartDate : string,
+    businessEndDate : string,
+    installDate : string,
+    openDate : string,
+    commissioningDate : string,
+    operationDate : string
+}
+
+// 시설 수질정보
+export type fcltyWaterQltyInfoProps = {
+    step : string,
+    bodPlanInput : string,
+    tocPlanInput : string,
+    ssPlanInput : string,
+    tnPlanInput : string,
+    tpPlanInput : string,
+    bodDesignInput : string,
+    tocDesignInput : string,
+    ssDesignInput : string,
+    tnDesignInput : string,
+    tpDesignInput : string,
+    bodPlanOutput : string,
+    tocPlanOutput : string,
+    ssPlanOutput : string,
+    tnPlanOutput : string,
+    tpPlanOutput : string,
 }
 
 /**====================================
@@ -238,16 +270,16 @@ const gridListBasicInfo:BasicInfoProps[] = [
 
 // 시설 계획정보 (헤더)
 const upHeadListPlanInfo:TableUpperProps[] = [
-    { id: "bodPlan", title: "BOD", upName:"upChangeRe1", upSequnce:1 },
-    { id: "tocPlan", title: "TOC\n(COD)", upName:"upChangeRe1", upSequnce:2 },
-    { id: "ssPlan", title: "SS", upName:"upChangeRe1", upSequnce:3 },
-    { id: "tnPlan", title: "T-N", upName:"upChangeRe1", upSequnce:4 },
-    { id: "tpPlan", title: "T-P", upName:"upChangeRe1", upSequnce:5 },
-    { id: "bodDesign", title: "BOD", upName:"upChangeRe2", upSequnce:1 },
-    { id: "tocDesign", title: "TOC\n(COD)", upName:"upChangeRe2", upSequnce:2 },
-    { id: "ssDesign", title: "SS", upName:"upChangeRe2", upSequnce:3 },
-    { id: "tnDesign", title: "T-N", upName:"upChangeRe2", upSequnce:4 },
-    { id: "tpDesign", title: "T-P", upName:"upChangeRe2", upSequnce:5 },
+    { id: "bodPlanInput", title: "BOD", upName:"upChangeRe1", upSequnce:1 },
+    { id: "tocPlanInput", title: "TOC\n(COD)", upName:"upChangeRe1", upSequnce:2 },
+    { id: "ssPlanInput", title: "SS", upName:"upChangeRe1", upSequnce:3 },
+    { id: "tnPlanInput", title: "T-N", upName:"upChangeRe1", upSequnce:4 },
+    { id: "tpPlanInput", title: "T-P", upName:"upChangeRe1", upSequnce:5 },
+    { id: "bodDesignInput", title: "BOD", upName:"upChangeRe2", upSequnce:1 },
+    { id: "tocDesignInput", title: "TOC\n(COD)", upName:"upChangeRe2", upSequnce:2 },
+    { id: "ssDesignInput", title: "SS", upName:"upChangeRe2", upSequnce:3 },
+    { id: "tnDesignInput", title: "T-N", upName:"upChangeRe2", upSequnce:4 },
+    { id: "tpDesignInput", title: "T-P", upName:"upChangeRe2", upSequnce:5 },
     { id: "siteAreaSize", title: "관리대행업자\n(m²)"},
     { id: "processAreaSize", title: "처리구역면적\n(ha)"},
     { id: "sewageTreatmentPopulation", title: "하수처리인구\n(인)"},
@@ -256,16 +288,16 @@ const upHeadListPlanInfo:TableUpperProps[] = [
 // 시설 계획정보 (리스트)
 const gridListPlanInfo:PlanInfoProps[] = [
     {
-        bodPlan : "179.0",
-        tocPlan : "(90.0)",
-        ssPlan : "132.0",
-        tnPlan : "38.000",
-        tpPlan : "4.300",
-        bodDesign : "178.0",
-        tocDesign : "91.0",
-        ssDesign : "131.0",
-        tnDesign : "40.200",
-        tpDesign : "4.500",
+        bodPlanInput : "179.0",
+        tocPlanInput : "(90.0)",
+        ssPlanInput : "132.0",
+        tnPlanInput : "38.000",
+        tpPlanInput : "4.300",
+        bodDesignInput : "178.0",
+        tocDesignInput : "91.0",
+        ssDesignInput : "131.0",
+        tnDesignInput : "40.200",
+        tpDesignInput : "4.500",
         siteAreaSize : "928,574",
         processAreaSize : "7,994.0",
         sewageTreatmentPopulation : "1,573,277",
@@ -289,6 +321,138 @@ const gridListFcltyAreaInfo:fcltyAreaInfoProps[] = [
         unitWaterArea : "한강본류",
         areaUnit : "500톤 이상\n(Ⅲ지역)",
         environmentalAgency : "한강유역환경청"
+    }
+];
+
+// 시설 이력관리 (헤더)
+const upHeadListFcltyHistInfo:TableUpperProps[] = [
+    { id: "step", title: "차수" },
+    { id: "unit", title: "구분"},
+    { id: "businessStartDate", title: "사업기간", upName:"upChangeRe1", upSequnce:1},
+    { id: "businessEndDate", title: "사업기간", upName:"upChangeRe1", upSequnce:2},
+    { id: "installDate", title: "설치인가일"},
+    { id: "openDate", title: "준공일"},
+    { id: "commissioningDate", title: "시운전완료일"},
+    { id: "operationDate", title: "가동개시일"},
+];
+
+// 시설 이력관리 (리스트)
+const gridListFcltyHistInfo:fcltyHistInfoProps[] = [
+    {
+        step : "최초",
+        unit : "최초",
+        businessStartDate : "1984.12.01",
+        businessEndDate : "1987.06.01",
+        installDate : "1985.09.13",
+        openDate : "1987.06.30",
+        commissioningDate : "1987.06.30",
+        operationDate : "1987.06.30",
+    },
+    {
+        step : "1차",
+        unit : "증설",
+        businessStartDate : "1988.12.01",
+        businessEndDate : "1994.12.01",
+        installDate : "1987.07.31",
+        openDate : "1994.12.20",
+        commissioningDate : "1994.12.20",
+        operationDate : "1994.12.20",
+    },
+];
+
+// 시설 수질정보 (헤더)
+const upHeadListFcltyWaterQltyInfo:TableUpperProps[] = [
+    { id: "step", title: "차수" },
+    { id: "bodPlanInput", title: "BOD", upName:"upChangeRe1", upSequnce:1 },
+    { id: "tocPlanInput", title: "TOC\n(COD)", upName:"upChangeRe1", upSequnce:2 },
+    { id: "ssPlanInput", title: "SS", upName:"upChangeRe1", upSequnce:3 },
+    { id: "tnPlanInput", title: "T-N", upName:"upChangeRe1", upSequnce:4 },
+    { id: "tpPlanInput", title: "T-P", upName:"upChangeRe1", upSequnce:5 },
+    { id: "bodDesignInput", title: "BOD", upName:"upChangeRe2", upSequnce:1 },
+    { id: "tocDesignInput", title: "TOC\n(COD)", upName:"upChangeRe2", upSequnce:2 },
+    { id: "ssDesignInput", title: "SS", upName:"upChangeRe2", upSequnce:3 },
+    { id: "tnDesignInput", title: "T-N", upName:"upChangeRe2", upSequnce:4 },
+    { id: "tpDesignInput", title: "T-P", upName:"upChangeRe2", upSequnce:5 },
+    { id: "bodPlanOutput", title: "BOD", upName:"upChangeRe3", upSequnce:1 },
+    { id: "tocPlanOutput", title: "TOC\n(COD)", upName:"upChangeRe3", upSequnce:2 },
+    { id: "ssPlanOutput", title: "SS", upName:"upChangeRe3", upSequnce:3 },
+    { id: "tnPlanOutput", title: "T-N", upName:"upChangeRe3", upSequnce:4 },
+    { id: "tpPlanOutput", title: "T-P", upName:"upChangeRe3", upSequnce:5 },
+];
+
+// 시설 수질정보 (리스트)
+const gridListFcltyWaterQltyInfo:fcltyWaterQltyInfoProps[] = [
+    {
+        step : "최초",
+        bodPlanInput : "111.0",
+        tocPlanInput : "(0.0)",
+        ssPlanInput : "122.0",
+        tnPlanInput : "0.000",
+        tpPlanInput : "0.000",
+        bodDesignInput : "111.0",
+        tocDesignInput : "(0.0)",
+        ssDesignInput : "122.0",
+        tnDesignInput : "0.000",
+        tpDesignInput : "0.000",
+        bodPlanOutput : "20.0",
+        tocPlanOutput : "(0.0)",
+        ssPlanOutput : "12.0",
+        tnPlanOutput : "0.000",
+        tpPlanOutput : "0.000",
+    },
+    {
+        step : "1차",
+        bodPlanInput : "111.0",
+        tocPlanInput : "(0.0)",
+        ssPlanInput : "122.0",
+        tnPlanInput : "0.000",
+        tpPlanInput : "0.000",
+        bodDesignInput : "111.0",
+        tocDesignInput : "(0.0)",
+        ssDesignInput : "122.0",
+        tnDesignInput : "0.000",
+        tpDesignInput : "0.000",
+        bodPlanOutput : "20.0",
+        tocPlanOutput : "(0.0)",
+        ssPlanOutput : "12.0",
+        tnPlanOutput : "0.000",
+        tpPlanOutput : "0.000",
+    },
+    {
+        step : "2차",
+        bodPlanInput : "111.0",
+        tocPlanInput : "(0.0)",
+        ssPlanInput : "122.0",
+        tnPlanInput : "0.000",
+        tpPlanInput : "0.000",
+        bodDesignInput : "111.0",
+        tocDesignInput : "(0.0)",
+        ssDesignInput : "122.0",
+        tnDesignInput : "0.000",
+        tpDesignInput : "0.000",
+        bodPlanOutput : "20.0",
+        tocPlanOutput : "(0.0)",
+        ssPlanOutput : "12.0",
+        tnPlanOutput : "0.000",
+        tpPlanOutput : "0.000",
+    },
+    {
+        step : "3차",
+        bodPlanInput : "179.0",
+        tocPlanInput : "(90.0)",
+        ssPlanInput : "132.0",
+        tnPlanInput : "38.000",
+        tpPlanInput : "4.300",
+        bodDesignInput : "178.0",
+        tocDesignInput : "91.0",
+        ssDesignInput : "131.0",
+        tnDesignInput : "40.200",
+        tpDesignInput : "4.500",
+        bodPlanOutput : "10.0",
+        tocPlanOutput : "(40.0)",
+        ssPlanOutput : "10.0",
+        tnPlanOutput : "17.4",
+        tpPlanOutput : "2.0",
     }
 ];
 
@@ -327,6 +491,11 @@ export type ProcessFacilityType = {
         gridListPlanInfo : PlanInfoProps[];
         upHeadListFcltyAreaInfo : TableUpperProps[];
         gridListFcltyAreaInfo : fcltyAreaInfoProps[];
+        
+        upHeadListFcltyHistInfo : TableUpperProps[];
+        gridListFcltyHistInfo : fcltyHistInfoProps[];
+        upHeadListFcltyWaterQltyInfo : TableUpperProps[];
+        gridListFcltyWaterQltyInfo : fcltyWaterQltyInfoProps[];
     },
 }
 
@@ -356,6 +525,11 @@ export const processFacilityInitState:ProcessFacilityType = {
         gridListPlanInfo : gridListPlanInfo,
         upHeadListFcltyAreaInfo : upHeadListFcltyAreaInfo,
         gridListFcltyAreaInfo : gridListFcltyAreaInfo,
+
+        upHeadListFcltyHistInfo : upHeadListFcltyHistInfo,
+        gridListFcltyHistInfo : gridListFcltyHistInfo,
+        upHeadListFcltyWaterQltyInfo : upHeadListFcltyWaterQltyInfo,
+        gridListFcltyWaterQltyInfo : gridListFcltyWaterQltyInfo,
     }
 }
 
