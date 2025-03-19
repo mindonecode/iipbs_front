@@ -46,33 +46,14 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string; fac
   const {ProcessFacilityDetail} = useFoStore((state) => state);
 
   const {
-    upHeadListBasicInfo,
     gridListBasicInfo,
     upHeadListPlanInfo,
     gridListPlanInfo,
+    upHeadListFcltyAreaInfo,
+    gridListFcltyAreaInfo,
   } = ProcessFacilityDetail
 
-  const upHeadListExplainPlanChange = headMakeList(upHeadListBasicInfo, 1);
   const upHeadListPlanInfoChange = headMakeList(upHeadListPlanInfo, 2);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const inputSelectRef=useRef<HTMLInputElement>(null);
-  
-  const onSelectValue=(val:string)=>{
-    console.log(val);
-  }
-  
-  const chkVal = () => {
-    console.log(inputRef?.current?.value);
-    console.log(inputSelectRef?.current?.value);
-  }
-
-  const initVal = () => {
-    if(inputRef.current?.value)
-      inputRef.current.value = ""
-    console.log(inputRef?.current?.value);
-    console.log(inputSelectRef);
-  }
 
   return (
     <div className="m-8">
@@ -94,7 +75,7 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string; fac
           <Table>
             <TableRow className="">
               <TableHead className="w-1/6">{'시설명'}</TableHead>
-              <TableCell className="w-1/6" colSpan={3}>{gridListBasicInfo[0]?.facilityName}</TableCell>
+              <TableCell className="w-1/6" colSpan={3}>{props.fcltyName}</TableCell>
               <TableHead className="w-1/6">{'시설용량(m³/일)'}</TableHead>
               <TableCell className="w-1/6">{gridListBasicInfo[0]?.facilityCapacity}</TableCell>
             </TableRow>
@@ -122,6 +103,7 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string; fac
           <UiTable headName={"시설 계획정보"} tableData={gridListPlanInfo} headlist={upHeadListPlanInfo} pageSize={0} total={0} cellClick={undefined}>
             {upHeadListPlanInfoChange}
           </UiTable>
+          <UiTable headName={"시설 수역 및 구역정보"} tableData={gridListFcltyAreaInfo} headlist={upHeadListFcltyAreaInfo} pageSize={0} total={0} cellClick={undefined} children={undefined}/>
         </TabsContent>
         <TabsContent value="history_info">
           

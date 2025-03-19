@@ -25,6 +25,7 @@ type facilityListProps = {
 }
 
 // (2) 처리시설 팝업
+// 시설 기본정보
 export type BasicInfoProps = {
     facilityName : string,
     facilityCapacity : string,
@@ -37,6 +38,7 @@ export type BasicInfoProps = {
     manageUpchae : string,
 }
 
+// 시설 계획정보
 export type PlanInfoProps = {
     bodPlan : string,
     tocPlan : string,
@@ -51,6 +53,15 @@ export type PlanInfoProps = {
     siteAreaSize : string,
     processAreaSize : string,
     sewageTreatmentPopulation : string
+}
+
+// 시설 수역 및 구역정보
+export type fcltyAreaInfoProps = {
+    riverName : string,
+    waterDischargedArea : string,
+    unitWaterArea : string,
+    areaUnit : string,
+    environmentalAgency : string,
 }
 
 /**====================================
@@ -261,6 +272,35 @@ const gridListPlanInfo:PlanInfoProps[] = [
     }
 ];
 
+// 시설 수역 및 구역정보 (헤더)
+const upHeadListFcltyAreaInfo:TableUpperProps[] = [
+    { id: "riverName", title: "하천명" },
+    { id: "waterDischargedArea", title: "방류수역"},
+    { id: "unitWaterArea", title: "단위유역"},
+    { id: "areaUnit", title: "지역구분"},
+    { id: "environmentalAgency", title: "관할 유역(지방) 환경청"}
+];
+
+// 시설 수역 및 구역정보 (리스트)
+const gridListFcltyAreaInfo:fcltyAreaInfoProps[] = [
+    {
+        riverName : "한강",
+        waterDischargedArea : "한강수계",
+        unitWaterArea : "한강본류",
+        areaUnit : "500톤 이상\n(Ⅲ지역)",
+        environmentalAgency : "한강유역환경청"
+    }
+];
+
+/**====================================
+ * Store - expaort
+ ====================================*/
+export type ProcessFacilityActions = {
+    ProcessFacilityActions: {
+        labelChange:()=>void;
+    }
+}
+
 export type ProcessFacilityType = {
     ProcessFacility: {
         isInit: boolean;
@@ -285,18 +325,10 @@ export type ProcessFacilityType = {
         gridListBasicInfo : BasicInfoProps[];
         upHeadListPlanInfo : TableUpperProps[];
         gridListPlanInfo : PlanInfoProps[];
+        upHeadListFcltyAreaInfo : TableUpperProps[];
+        gridListFcltyAreaInfo : fcltyAreaInfoProps[];
     },
 }
-
-/**====================================
- * Store - expaort
- ====================================*/
-export type ProcessFacilityActions = {
-    ProcessFacilityActions: {
-        labelChange:()=>void;
-    }
-}
-export type ProcessFacilityStore = ProcessFacilityType & ProcessFacilityActions;
 
 export const processFacilityInitState:ProcessFacilityType = {
     ProcessFacility: {
@@ -321,9 +353,13 @@ export const processFacilityInitState:ProcessFacilityType = {
         upHeadListBasicInfo : upHeadListBasicInfo,
         gridListBasicInfo : gridListBasicInfo,
         upHeadListPlanInfo : upHeadListPlanInfo,
-        gridListPlanInfo : gridListPlanInfo
+        gridListPlanInfo : gridListPlanInfo,
+        upHeadListFcltyAreaInfo : upHeadListFcltyAreaInfo,
+        gridListFcltyAreaInfo : gridListFcltyAreaInfo,
     }
 }
+
+export type ProcessFacilityStore = ProcessFacilityType & ProcessFacilityActions;
 
 export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any) => {
     console.log("tableActionsExport");
