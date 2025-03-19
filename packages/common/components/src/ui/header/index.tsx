@@ -20,7 +20,7 @@ export function Header({ viewOnly }: { viewOnly?: boolean }) {
   });
 
   return (
-    <header className="sticky top-0 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border bg-background">
+    <header className="sticky top-0 z-30 box-border flex h-[5rem] w-full items-center justify-between border-b border-solid border-border bg-background">
       <div className="flex items-center">
         <div className="MobMenuBtn">
           <img src={images.menuBtn} />

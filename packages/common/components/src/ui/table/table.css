@@ -5,7 +5,7 @@
     @apply bg-[#5987bf] px-4 py-[1.2rem] text-[1.3rem] font-medium leading-[1.2] text-[#fff];
   }
   .table-ui td {
-    @apply border-b border-b-border px-2 py-[1.2rem] text-[1.3rem] font-normal leading-[1.2] text-[#666];
+    @apply border-b border-b-border px-2 py-[1.2rem] text-[1.3rem] font-normal leading-[1.2] text-label;
   }
 
   .table-ui.secondary th {
