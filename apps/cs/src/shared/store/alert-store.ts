@@ -1,22 +1,25 @@
 import { createStore } from "zustand/vanilla";
 
 export type AlertState = {
-  alertMessage: string;
+  message: string;
+  callback?: () => void;
 };
 
 export type AlertActions = {
-  setAlertMessage: (message: string) => void;
+  setMessage: (message: string, callback?: () => void) => void;
 };
 
 export type AlertStore = AlertState & AlertActions;
 
 export const defaultInitState: AlertState = {
-  alertMessage: "",
+  message: "",
+  callback: undefined,
 };
 
 export const createAlertStore = (initState: AlertState = defaultInitState) => {
   return createStore<AlertStore>()((set) => ({
     ...initState,
-    setAlertMessage: (alertMessage: string) => set(() => ({ alertMessage })),
+    setMessage: (message: string, callback?: () => void) =>
+      set(() => ({ message, callback })),
   }));
 };

@@ -47,7 +47,7 @@ function IPManagementDialog({
   ...props
 }: IPManagementDialogProps) {
   const { confirm } = useConfirm();
-  const { setAlertMessage } = useAlertStore((state) => state);
+  const { setMessage: alert } = useAlertStore((state) => state);
 
   useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.IPS, props.open],
@@ -74,20 +74,15 @@ function IPManagementDialog({
     name: "ips",
   });
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
   const onSubmit = async (data: IPFormData) => {
     setIsOpen(true);
     if (await confirm("저장하시겠습니까?")) {
       setIsOpen(false);
-      try {
-        await mutateAsync(data.ips);
-        setAlertMessage("저장되었습니다.");
-      } catch (error) {
-        console.error(error);
-        setAlertMessage("저장에 실패했습니다.");
-      }
+      await mutateAsync(data.ips);
+      alert("저장되었습니다.");
     }
   };
 

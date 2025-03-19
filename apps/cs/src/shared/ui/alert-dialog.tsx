@@ -8,12 +8,16 @@ import {
 import { useAlertStore } from "../lib/use-alert-store";
 
 function AlertDialog() {
-  const { alertMessage, setAlertMessage } = useAlertStore((state) => state);
+  const { message, callback, setMessage } = useAlertStore((state) => state);
+  const handleOpenChange = () => {
+    setMessage("");
+    callback?.();
+  };
   return (
-    <Dialog open={!!alertMessage} onOpenChange={() => setAlertMessage("")}>
+    <Dialog open={!!message} onOpenChange={handleOpenChange}>
       <DialogContent aria-describedby={undefined}>
         <div className="py-10">
-          <p className="text-center text-[1.4rem]">{alertMessage}</p>
+          <p className="text-center text-[1.4rem]">{message}</p>
         </div>
         <DialogFooter className="!justify-center">
           <DialogClose asChild>

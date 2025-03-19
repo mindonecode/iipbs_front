@@ -4,10 +4,6 @@ import { useConfirm } from "@frontend-opensource/use-react-hooks";
 import { type UseFormReturn } from "react-hook-form";
 import {
   Button,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
   Input,
   Label,
   RadioGroup,
@@ -26,7 +22,8 @@ import {
   Form,
   FormMessage,
 } from "@/shared/ui/form";
-import { type ISiteDetail, type SiteFormData } from "../model/site-interface";
+import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { type SiteFormData } from "../model/site-interface";
 import { IPManagementDialog } from "./ip-management-dialog";
 import {
   DomainManagementDialog,
@@ -36,22 +33,17 @@ import {
 type SiteFormProps = {
   form: UseFormReturn<SiteFormData>;
   siteId?: string;
-  handleSave: (data: SiteFormData) => void;
-  handleDelete?: () => void;
+  handleSave: (data: SiteFormData) => Promise<void>;
+  handleDelete?: () => Promise<void>;
 };
 
 function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
-  const router = useRouter();
-  const { message, confirm, onConfirm, onCancel } = useConfirm();
-
-  const [viewState, setViewState] = useState<Partial<ISiteDetail>>({});
-  const [representativeDomain, setRepresentativeDomain] = useState<string>("");
-
   const isModifyMode = !!siteId;
 
-  const handleViewStateChange = (key: keyof ISiteDetail) => (value: string) => {
-    setViewState({ ...viewState, [key]: value });
-  };
+  const router = useRouter();
+  const { confirm } = useConfirm();
+  const [representativeDomain, setRepresentativeDomain] = useState("");
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const handleDomainSave = (rows: Domain[]) => {
     setRepresentativeDomain(
@@ -59,12 +51,22 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
     );
   };
 
-  const onSubmit = (data: SiteFormData) => {
-    handleSave(data);
+  const onSubmit = async (data: SiteFormData) => {
+    const confirmMessage = isModifyMode
+      ? "수정하시겠습니까?"
+      : "저장하시겠습니까?";
+
+    setIsConfirmOpen(true);
+    if (await confirm(confirmMessage)) {
+      setIsConfirmOpen(false);
+      handleSave(data);
+    }
   };
 
   const onDelete = async () => {
-    if (await confirm("정말 삭제하시겠습니까?")) {
+    setIsConfirmOpen(true);
+    if (await confirm("삭제하시겠습니까?")) {
+      setIsConfirmOpen(false);
       handleDelete?.();
     }
   };
@@ -120,10 +122,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                                 <CodeSelect
                                   {...field}
                                   upCd="SITEKNDCD"
-                                  onValueChange={(value) => {
-                                    handleViewStateChange("siteKndCd")(value);
-                                    field.onChange(value);
-                                  }}
+                                  onValueChange={field.onChange}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -132,7 +131,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                         />
                         {isModifyMode && (
                           <IPManagementDialog
-                            triggerDisabled={viewState.siteKndCd === "O"}
+                            triggerDisabled={form.watch("siteKndCd") === "O"}
                           />
                         )}
                       </div>
@@ -405,25 +404,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
           </div>
         </form>
       </Form>
-      <Dialog open={!!message} onOpenChange={onCancel}>
-        <DialogContent aria-describedby={undefined}>
-          <div className="py-10">
-            <p className="text-center text-[1.4rem]">{message}</p>
-          </div>
-          <DialogFooter className="!justify-center">
-            <DialogClose asChild>
-              <Button color="red" onClick={onConfirm}>
-                삭제
-              </Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button color="white" onClick={onCancel}>
-                취소
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmDialog open={isConfirmOpen} />
     </>
   );
 }
