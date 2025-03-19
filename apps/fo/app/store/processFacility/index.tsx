@@ -25,7 +25,7 @@ type facilityListProps = {
 }
 
 // (2) 처리시설 팝업
-export type explainPlanProps = {
+export type BasicInfoProps = {
     facilityName : string,
     facilityCapacity : string,
     sido : string,
@@ -35,6 +35,22 @@ export type explainPlanProps = {
     openDay : string,
     publicMethod : string,
     manageUpchae : string,
+}
+
+export type PlanInfoProps = {
+    bodPlan : string,
+    tocPlan : string,
+    ssPlan : string,
+    tnPlan : string,
+    tpPlan : string,
+    bodDesign : string,
+    tocDesign : string,
+    ssDesign : string,
+    tnDesign : string,
+    tpDesign : string,
+    siteAreaSize : string,
+    processAreaSize : string,
+    sewageTreatmentPopulation : string
 }
 
 /**====================================
@@ -181,8 +197,8 @@ const processFacilityList:facilityListProps[] = [
 /**
  * 처리시설 상세팝업
  */ 
-// 그리드
-const upHeadListExplainPlan:TableUpperProps[] = [
+// 시설 기본정보 (헤더)
+const upHeadListBasicInfo:TableUpperProps[] = [
     { id: "facilityName", title: "시설명" },
     { id: "facilityCapacity", title: "시설용량n(m³/일)"},
     { id: "sido", title: "시도"},
@@ -194,7 +210,8 @@ const upHeadListExplainPlan:TableUpperProps[] = [
     { id: "manageUpchae", title: "관리대행업자"},
 ];
 
-const gridListExplainPlan:explainPlanProps[] = [
+// 시설 기본정보 (리스트)
+const gridListBasicInfo:BasicInfoProps[] = [
     {
         facilityName : "난지",
         facilityCapacity : "860,000",
@@ -205,6 +222,42 @@ const gridListExplainPlan:explainPlanProps[] = [
         openDay : "2013-04-30",
         publicMethod : "MLE, A2O",
         manageUpchae : "자체",
+    }
+];
+
+// 시설 계획정보 (헤더)
+const upHeadListPlanInfo:TableUpperProps[] = [
+    { id: "bodPlan", title: "BOD", upName:"upChangeRe1", upSequnce:1 },
+    { id: "tocPlan", title: "TOC\n(COD)", upName:"upChangeRe1", upSequnce:2 },
+    { id: "ssPlan", title: "SS", upName:"upChangeRe1", upSequnce:3 },
+    { id: "tnPlan", title: "T-N", upName:"upChangeRe1", upSequnce:4 },
+    { id: "tpPlan", title: "T-P", upName:"upChangeRe1", upSequnce:5 },
+    { id: "bodDesign", title: "BOD", upName:"upChangeRe2", upSequnce:1 },
+    { id: "tocDesign", title: "TOC\n(COD)", upName:"upChangeRe2", upSequnce:2 },
+    { id: "ssDesign", title: "SS", upName:"upChangeRe2", upSequnce:3 },
+    { id: "tnDesign", title: "T-N", upName:"upChangeRe2", upSequnce:4 },
+    { id: "tpDesign", title: "T-P", upName:"upChangeRe2", upSequnce:5 },
+    { id: "siteAreaSize", title: "관리대행업자\n(m²)"},
+    { id: "processAreaSize", title: "처리구역면적\n(ha)"},
+    { id: "sewageTreatmentPopulation", title: "하수처리인구\n(인)"},
+];
+
+// 시설 계획정보 (리스트)
+const gridListPlanInfo:PlanInfoProps[] = [
+    {
+        bodPlan : "179.0",
+        tocPlan : "(90.0)",
+        ssPlan : "132.0",
+        tnPlan : "38.000",
+        tpPlan : "4.300",
+        bodDesign : "178.0",
+        tocDesign : "91.0",
+        ssDesign : "131.0",
+        tnDesign : "40.200",
+        tpDesign : "4.500",
+        siteAreaSize : "928,574",
+        processAreaSize : "7,994.0",
+        sewageTreatmentPopulation : "1,573,277",
     }
 ];
 
@@ -228,9 +281,11 @@ export type ProcessFacilityType = {
 
     ProcessFacilityDetail : {
         isInit : boolean;
-        upHeadListExplainPlan : TableUpperProps[];
-        gridListExplainPlan : explainPlanProps[];
-    }
+        upHeadListBasicInfo : TableUpperProps[];
+        gridListBasicInfo : BasicInfoProps[];
+        upHeadListPlanInfo : TableUpperProps[];
+        gridListPlanInfo : PlanInfoProps[];
+    },
 }
 
 /**====================================
@@ -263,8 +318,10 @@ export const processFacilityInitState:ProcessFacilityType = {
 
     ProcessFacilityDetail : {
         isInit : false,
-        upHeadListExplainPlan : upHeadListExplainPlan,
-        gridListExplainPlan : gridListExplainPlan,
+        upHeadListBasicInfo : upHeadListBasicInfo,
+        gridListBasicInfo : gridListBasicInfo,
+        upHeadListPlanInfo : upHeadListPlanInfo,
+        gridListPlanInfo : gridListPlanInfo
     }
 }
 
