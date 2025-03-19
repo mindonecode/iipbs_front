@@ -90,10 +90,10 @@ export default function ProcessFacilitySearch() {
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[1200px] h-[800px]">
-            <ProcessFacilityInfoModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
-            <Button onClick={closeModal} className="mt-4">
-              닫기
+            <Button onClick={closeModal} className="mt-1 mb-10 float-end w-5 h-10">
+              X
             </Button>
+            <ProcessFacilityInfoModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
           </div>
         </div>
       )}

@@ -93,7 +93,7 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string; fac
           <TableCell className="w-1/3">{props.facilityCd}</TableCell>
         </TableRow>
       </Table>
-      <Tabs defaultValue="common_info" className="w-full">
+      <Tabs defaultValue="common_info" className="w-full mt-10">
         <TabsList className="grid grid-cols-2">
           <TabsTrigger value="common_info">기본정보</TabsTrigger>
           <TabsTrigger value="history_info">이력정보</TabsTrigger>
