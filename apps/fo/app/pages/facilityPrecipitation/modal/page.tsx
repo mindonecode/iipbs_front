@@ -22,7 +22,7 @@ export default function PrecipitationModal(props: { fcltyName: string; facilityC
           <TableCell className="w-1/3">{props.facilityCd}</TableCell>
         </TableRow>
       </Table>
-      <UiTable headName={"강수현황"} tableData={gridListPrecipitationDetail} headlist={upHeadListPrecipitationDetail} pageSize={0} total={0} cellClick={undefined}/>
+      <UiTable headName={"강수현황"} tableData={gridListPrecipitationDetail} headlist={upHeadListPrecipitationDetail} pageSize={0} total={0} cellClick={undefined} children={undefined}/>
     </div>
   );
 }
