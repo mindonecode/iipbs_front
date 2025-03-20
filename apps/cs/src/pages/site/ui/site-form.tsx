@@ -59,6 +59,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
       setOnConfirm(false);
       handleSave(data);
     }
+    setOnConfirm(false);
   };
 
   const onDelete = async () => {
@@ -67,6 +68,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
       setOnConfirm(false);
       handleDelete?.();
     }
+    setOnConfirm(false);
   };
 
   return (
