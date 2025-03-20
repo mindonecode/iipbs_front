@@ -26,8 +26,8 @@ function ModifyPage({ siteId }: { siteId: string }) {
       );
       return {
         ...filteredData,
-        faxNo: filteredData.faxNumber,
-        bscSiteYn: filteredData.basicSiteYn,
+        faxNo: data.faxNumber,
+        bscSiteYn: data.basicSiteYn,
       };
     },
     enabled: isModifyMode,
@@ -36,7 +36,7 @@ function ModifyPage({ siteId }: { siteId: string }) {
   const { mutateAsync: modifySite } = useMutation({
     mutationFn: (data: SiteFormData) => SiteApi.modifySite(siteId, data),
     onSuccess: () => {
-      alert("수정되었습니다.", router.back);
+      alert("수정되었습니다.");
     },
   });
 
