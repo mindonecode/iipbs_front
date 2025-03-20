@@ -2,12 +2,6 @@
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/dashboard";
 import { UiTable } from "@common/business_components/ui";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@common/components";
 import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
 
 // 시설계획 table header 변경
