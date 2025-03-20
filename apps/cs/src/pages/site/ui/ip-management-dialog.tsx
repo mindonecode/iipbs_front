@@ -57,6 +57,8 @@ function IPManagementDialog({
         ...item,
         mode: "U",
       }));
+
+      form.reset();
       replace(ips);
       return data;
     },
@@ -74,13 +76,13 @@ function IPManagementDialog({
     name: "ips",
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [onConfirm, setOnConfirm] = useState(false);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
   const onSubmit = async (data: IPFormData) => {
-    setIsOpen(true);
+    setOnConfirm(true);
     if (await confirm("저장하시겠습니까?")) {
-      setIsOpen(false);
+      setOnConfirm(false);
       await mutateAsync(data.ips);
       alert("저장되었습니다.");
     }
@@ -247,7 +249,7 @@ function IPManagementDialog({
           </Form>
         </DialogContent>
       </Dialog>
-      <ConfirmDialog open={isOpen} />
+      <ConfirmDialog open={onConfirm} />
     </>
   );
 }

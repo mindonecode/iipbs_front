@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -8,11 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ENDPOINT } from "@/shared/config";
 import { useAlertStore } from "@/shared/lib/use-alert-store";
 import { SiteApi } from "../api/site-service";
-import {
-  siteFormSchema,
-  type ISiteDetail,
-  type SiteFormData,
-} from "../model/site-interface";
+import { siteFormSchema, type SiteFormData } from "../model/site-interface";
 import { SitePageLayout } from "./layout";
 import { SiteForm } from "./site-form";
 
@@ -24,11 +19,17 @@ function ModifyPage({ siteId }: { siteId: string }) {
   const { data: siteDetail } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.SITES, siteId],
     queryFn: () => SiteApi.siteDetail(siteId),
-    select: (data) => ({
-      ...data,
-      faxNo: data.faxNumber,
-      bscSiteYn: data.basicSiteYn,
-    }),
+    select: (data) => {
+      const keys = Object.keys(siteFormSchema.shape);
+      const filteredData = Object.fromEntries(
+        Object.entries(data).filter(([key]) => keys.includes(key)),
+      );
+      return {
+        ...filteredData,
+        faxNo: filteredData.faxNumber,
+        bscSiteYn: filteredData.basicSiteYn,
+      };
+    },
     enabled: isModifyMode,
   });
 
@@ -48,19 +49,8 @@ function ModifyPage({ siteId }: { siteId: string }) {
 
   const form = useForm<SiteFormData>({
     resolver: zodResolver(siteFormSchema),
+    values: siteDetail as SiteFormData,
   });
-
-  useEffect(() => {
-    if (!siteDetail) return;
-
-    const keys = Object.keys(siteFormSchema.shape);
-    for (const key of keys) {
-      form.setValue(
-        key as keyof SiteFormData,
-        siteDetail[key as keyof ISiteDetail] ?? "",
-      );
-    }
-  }, [siteDetail]);
 
   return (
     <SitePageLayout>

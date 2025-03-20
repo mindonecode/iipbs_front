@@ -42,8 +42,9 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
 
   const router = useRouter();
   const { confirm } = useConfirm();
+  const [onConfirm, setOnConfirm] = useState(false);
+  const [isIpManagementOpen, setIsIpManagementOpen] = useState(false);
   const [representativeDomain, setRepresentativeDomain] = useState("");
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const handleDomainSave = (rows: Domain[]) => {
     setRepresentativeDomain(
@@ -56,17 +57,17 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
       ? "수정하시겠습니까?"
       : "저장하시겠습니까?";
 
-    setIsConfirmOpen(true);
+    setOnConfirm(true);
     if (await confirm(confirmMessage)) {
-      setIsConfirmOpen(false);
+      setOnConfirm(false);
       handleSave(data);
     }
   };
 
   const onDelete = async () => {
-    setIsConfirmOpen(true);
+    setOnConfirm(true);
     if (await confirm("삭제하시겠습니까?")) {
-      setIsConfirmOpen(false);
+      setOnConfirm(false);
       handleDelete?.();
     }
   };
@@ -132,6 +133,8 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                         {isModifyMode && (
                           <IPManagementDialog
                             triggerDisabled={form.watch("siteKndCd") === "O"}
+                            open={isIpManagementOpen}
+                            onOpenChange={setIsIpManagementOpen}
                           />
                         )}
                       </div>
@@ -404,7 +407,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
           </div>
         </form>
       </Form>
-      <ConfirmDialog open={isConfirmOpen} />
+      <ConfirmDialog open={onConfirm} />
     </>
   );
 }
