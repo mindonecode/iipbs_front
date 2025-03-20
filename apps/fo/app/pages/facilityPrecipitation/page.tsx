@@ -153,7 +153,8 @@ export default function FacilityPrecipitation() {
           <SearchInput 
             className={"col-span-3"} 
             label={labelArray[4] as string}
-            ref={searchInputRef}
+            textValue={searchInputValue}
+            setText={setSearchInputValue}
           />
           <SelectBox className="col-span-3" label={labelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} selectClass={undefined}/>
