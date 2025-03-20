@@ -39,6 +39,7 @@ export default function FacilityPrecipitation() {
   const [partValue, setPartValue] = useState<string>("");
   const [sidoValue, setSidoValue] = useState<string>("");
   const [sigunValue, setSigunValue] = useState<string>("");
+  const [capaValue, setCapaValue] = useState<string>("");
   const [updownValue, setUpdownValue] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [operationValue, setOperationValue] = useState<string>("");
@@ -75,6 +76,7 @@ export default function FacilityPrecipitation() {
     console.log('Part:', partValue);
     console.log('Sido:', sidoValue);
     console.log('Sigun:', sigunValue);
+    console.log('Capa:', capaValue);
     console.log('Updown:', updownValue);
     console.log('Search Input:', searchInputValue);
     console.log('Operation:', operationValue);
@@ -108,7 +110,7 @@ export default function FacilityPrecipitation() {
     onSelectValue(selectFacilityPartData[0]?.val || "00", 'facilityPart');
     
     // SearchInputSelect 초기화
-    setUpdownValue("");
+    setCapaValue("");
     setSearchInputValue("");
     
     // ref를 사용하여 input 값 초기화
@@ -147,7 +149,7 @@ export default function FacilityPrecipitation() {
           <SelectBox className="col-span-3" label={labelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} selectClass={undefined}/>
-          <SearchInputSelect className="col-span-3" label={labelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={(val) => onSelectValue(val, 'updown')} textValue={updownValue} setText={setUpdownValue}/>
+          <SearchInputSelect className="col-span-3" label={labelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={(val) => onSelectValue(val, 'updown')} textValue={capaValue} setText={setCapaValue}/>
           <SearchInput 
             className={"col-span-3"} 
             label={labelArray[4] as string}
