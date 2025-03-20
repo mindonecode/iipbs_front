@@ -8,8 +8,8 @@ export type {TableUpperProps};
 /**
  * (1) 메인페이지
  */
-// 처리시설 리스트
-type facilityAreaProps = {
+// 처리구역 리스트
+type ProcessAreaProps = {
     facilityCd : string,
     sido : string,
     sigungo : string,
@@ -24,76 +24,26 @@ type facilityAreaProps = {
     stepFourth : string,
 }
 
-// (2) 처리시설 팝업
-// 시설 기본정보
-export type BasicInfoProps = {
-    facilityName : string,
-    facilityCapacity : string,
-    sido : string,
-    sigungo : string,
-    startDay : string,
-    location : string,
-    openDay : string,
-    publicMethod : string,
-    manageUpchae : string,
+// (2) 처리구역 팝업
+// 시설증설 계획
+export type FcltyImproveInfoProps = {
+    basicPlan : string,
+    now : string,
+    stepFirst : string,
+    stepSecond : string,
+    stepThird : string,
+    stepFourth : string,
 }
 
-// 시설 계획정보
-export type PlanInfoProps = {
-    bodPlanInput : string,
-    tocPlanInput : string,
-    ssPlanInput : string,
-    tnPlanInput : string,
-    tpPlanInput : string,
-    bodDesignInput : string,
-    tocDesignInput : string,
-    ssDesignInput : string,
-    tnDesignInput : string,
-    tpDesignInput : string,
-    siteAreaSize : string,
-    processAreaSize : string,
-    sewageTreatmentPopulation : string
-}
-
-// 시설 수역 및 구역정보
-export type fcltyAreaInfoProps = {
-    riverName : string,
-    waterDischargedArea : string,
-    unitWaterArea : string,
-    areaUnit : string,
-    environmentalAgency : string,
-}
-
-// 시설 이력관리
-export type fcltyHistInfoProps = {
-    step : string,
-    unit : string,
-    businessStartDate : string,
-    businessEndDate : string,
-    installDate : string,
-    openDate : string,
-    commissioningDate : string,
-    operationDate : string
-}
-
-// 시설 수질정보
-export type fcltyWaterQltyInfoProps = {
-    step : string,
-    bodPlanInput : string,
-    tocPlanInput : string,
-    ssPlanInput : string,
-    tnPlanInput : string,
-    tpPlanInput : string,
-    bodDesignInput : string,
-    tocDesignInput : string,
-    ssDesignInput : string,
-    tnDesignInput : string,
-    tpDesignInput : string,
-    bodPlanOutput : string,
-    tocPlanOutput : string,
-    ssPlanOutput : string,
-    tnPlanOutput : string,
-    tpPlanOutput : string,
+// 처리구역 계획
+export type ProcessAreaPlanProps = {
+    basicPlan : string,
+    now : string,
+    stepFirst : string,
+    stepSecond : string,
+    stepThird : string,
+    stepFourth : string,
+    processArea : string,
 }
 
 /**====================================
@@ -178,7 +128,7 @@ const upHeadList:TableUpperProps[] = [
     { id: "stepFourth", title: "4단계\n(2040년)"}
 ];
 
-const processFacilityList:facilityAreaProps[] = [
+const processAreaList:ProcessAreaProps[] = [
     {
         facilityCd : "11000SW001R",
         sido: "서울특별시",
@@ -186,12 +136,12 @@ const processFacilityList:facilityAreaProps[] = [
         facilityName: "난지",
         location: "경기도 고양시 덕양구 대차로 4가",
         facilityCapacity: "860,000",
-        approval : "179.0",
-        designInputWaterQlty : "860,000",
-        publicMethod : "MLE, A20",
-        operationDay: "1987-06-30",
-        openDay: "2013-04-30",
-        manageUpchae: "자체"
+        approval : "860,000",
+        now : "860,000",
+        stepFirst: "880,000",
+        stepSecond: "910,000",
+        stepThird: "950,000",
+        stepFourth: "990,00"
     },
     {
         facilityCd : "11200PB001R",
@@ -200,273 +150,96 @@ const processFacilityList:facilityAreaProps[] = [
         facilityName: "중량물재생센터",
         location: "서울특별시 성동구 자동차시장3길 64 (용답동, 중랑물재생센터)",
         facilityCapacity: "1,590,000",
-        planInputWaterQlty : "172.0",
-        designInputWaterQlty : "172.0",
-        publicMethod : "표준활성슬러지법, A2O, MLE, SBAF",
-        operationDay: "1976-09-21",
-        openDay: "2021-06-30",
-        manageUpchae: "자체"
-    },
-    {
-        facilityCd : "11500PB001R",
-        sido: "서울특별시시",
-        sigungo: "강서구",
-        facilityName: "서남",
-        location: "서울특별시 강서구 마곡동 74",
-        facilityCapacity: "1,630,000",
-        planInputWaterQlty : "174.0",
-        designInputWaterQlty : "174.0",
-        publicMethod : "기타, 표준활성슬러지법, MLE, 4 stage-BNR",
-        operationDay: "1987-03-01",
-        openDay: "2021-04-30",
-        manageUpchae: "공기업"
-    },
-    {
-        facilityCd : "11680PB001R",
-        sido: "서울특별시",
-        sigungo: "강남구",
-        facilityName: "탄천",
-        location: "서울특별시 강남구 일원동 580",
-        facilityCapacity: "900,000",
-        planInputWaterQlty : "170.0",
-        designInputWaterQlty : "170.0",
-        publicMethod : "MLE",
-        operationDay: "1987-12-09",
-        openDay: "2021-07-31",
-        manageUpchae: "공기업"
+        approval: "1,590,000",
+        now: "1,590,000", 
+        stepFirst: "1,600,000",
+        stepSecond: "1,620,000",
+        stepThird: "1,650,000",
+        stepFourth: "1,680,000"
     },
 ]
 
 /**
- * 처리시설 상세팝업
+ * 처리구역정보 상세팝업
  */ 
-// 시설 기본정보 (헤더)
-const upHeadListBasicInfo:TableUpperProps[] = [
-    { id: "facilityName", title: "시설명" },
-    { id: "facilityCapacity", title: "시설용량n(m³/일)"},
-    { id: "sido", title: "시도"},
-    { id: "sigungo", title: "시군구"},
-    { id: "startDay", title: "가동개시일"},
-    { id: "location", title: "주소"},
-    { id: "openDay", title: "준공일"},
-    { id: "publicMethod", title: "공법"},
-    { id: "manageUpchae", title: "관리대행업자"},
+// 시설증설 계획 (헤더)
+const upHeadListFcltyImproveInfo:TableUpperProps[] = [
+    { id: "basicPlan", title: "기존계획\n(m³/일)" },
+    { id: "now", title: "현재"},
+    { id: "stepFirst", title: "1단계", upName:"upChangeRe", upSequnce:1},
+    { id: "stepSecond", title: "2단계", upName:"upChangeRe", upSequnce:2},
+    { id: "stepThird", title: "3단계", upName:"upChangeRe", upSequnce:3},
+    { id: "stepFourth", title: "4단계", upName:"upChangeRe", upSequnce:4},
 ];
 
-// 시설 기본정보 (리스트)
-const gridListBasicInfo:BasicInfoProps[] = [
+// 시설증설 계획 (리스트)
+const gridListFcltyImproveInfo:FcltyImproveInfoProps[] = [
     {
-        facilityName : "난지",
-        facilityCapacity : "860,000",
-        sido : "서울특별시",
-        sigungo : "",
-        startDay : "1987-06-30",
-        location : "경기도 고양시 덕양구 대덕로 426 (현천동)",
-        openDay : "2013-04-30",
-        publicMethod : "MLE, A2O",
-        manageUpchae : "자체",
+        basicPlan : "6,797",
+        now : "5,794",
+        stepFirst : "6,957",
+        stepSecond : "7,680",
+        stepThird : "7,894",
+        stepFourth : "7,768"
     }
 ];
 
-// 시설 계획정보 (헤더)
-const upHeadListPlanInfo:TableUpperProps[] = [
-    { id: "bodPlanInput", title: "BOD", upName:"upChangeRe1", upSequnce:1 },
-    { id: "tocPlanInput", title: "TOC\n(COD)", upName:"upChangeRe1", upSequnce:2 },
-    { id: "ssPlanInput", title: "SS", upName:"upChangeRe1", upSequnce:3 },
-    { id: "tnPlanInput", title: "T-N", upName:"upChangeRe1", upSequnce:4 },
-    { id: "tpPlanInput", title: "T-P", upName:"upChangeRe1", upSequnce:5 },
-    { id: "bodDesignInput", title: "BOD", upName:"upChangeRe2", upSequnce:1 },
-    { id: "tocDesignInput", title: "TOC\n(COD)", upName:"upChangeRe2", upSequnce:2 },
-    { id: "ssDesignInput", title: "SS", upName:"upChangeRe2", upSequnce:3 },
-    { id: "tnDesignInput", title: "T-N", upName:"upChangeRe2", upSequnce:4 },
-    { id: "tpDesignInput", title: "T-P", upName:"upChangeRe2", upSequnce:5 },
-    { id: "siteAreaSize", title: "관리대행업자\n(m²)"},
-    { id: "processAreaSize", title: "처리구역면적\n(ha)"},
-    { id: "sewageTreatmentPopulation", title: "하수처리인구\n(인)"},
+// 처리인구 계획 (헤더)
+const upHeadListProcessPopulation:TableUpperProps[] = [
+    { id: "basicPlan", title: "기존계획\n(인)" },
+    { id: "now", title: "현재"},
+    { id: "stepFirst", title: "1단계", upName:"upChangeRe", upSequnce:1},
+    { id: "stepSecond", title: "2단계", upName:"upChangeRe", upSequnce:2},
+    { id: "stepThird", title: "3단계", upName:"upChangeRe", upSequnce:3},
+    { id: "stepFourth", title: "4단계", upName:"upChangeRe", upSequnce:4},
 ];
 
-// 시설 계획정보 (리스트)
-const gridListPlanInfo:PlanInfoProps[] = [
+// 처리인구 계획 (리스트)
+const gridListProcessPopulation:FcltyImproveInfoProps[] = [
     {
-        bodPlanInput : "179.0",
-        tocPlanInput : "(90.0)",
-        ssPlanInput : "132.0",
-        tnPlanInput : "38.000",
-        tpPlanInput : "4.300",
-        bodDesignInput : "178.0",
-        tocDesignInput : "91.0",
-        ssDesignInput : "131.0",
-        tnDesignInput : "40.200",
-        tpDesignInput : "4.500",
-        siteAreaSize : "928,574",
-        processAreaSize : "7,994.0",
-        sewageTreatmentPopulation : "1,573,277",
+        basicPlan : "6,797",
+        now : "5,794",
+        stepFirst : "6,957",
+        stepSecond : "7,680",
+        stepThird : "7,894",
+        stepFourth : "7,768"
     }
 ];
-
-// 시설 수역 및 구역정보 (헤더)
-const upHeadListFcltyAreaInfo:TableUpperProps[] = [
-    { id: "riverName", title: "하천명" },
-    { id: "waterDischargedArea", title: "방류수역"},
-    { id: "unitWaterArea", title: "단위유역"},
-    { id: "areaUnit", title: "지역구분"},
-    { id: "environmentalAgency", title: "관할 유역(지방) 환경청"}
+// 처리구역 계획 (헤더)
+const upHeadListProcessAreaPlan:TableUpperProps[] = [
+    { id: "basicPlan", title: "기존계획\n(km²)" },
+    { id: "now", title: "현재", upName:"upChangeRe", upSequnce:1},
+    { id: "stepFirst", title: "1단계", upName:"upChangeRe", upSequnce:2},
+    { id: "stepSecond", title: "2단계", upName:"upChangeRe", upSequnce:3},
+    { id: "stepThird", title: "3단계", upName:"upChangeRe", upSequnce:4},
+    { id: "stepFourth", title: "4단계", upName:"upChangeRe", upSequnce:5},
+    { id: "processArea", title: "처리구역"}
 ];
 
-// 시설 수역 및 구역정보 (리스트)
-const gridListFcltyAreaInfo:fcltyAreaInfoProps[] = [
+// 시설증설 계획 (리스트)
+const gridListProcessAreaPlan:ProcessAreaPlanProps[] = [
     {
-        riverName : "한강",
-        waterDischargedArea : "한강수계",
-        unitWaterArea : "한강본류",
-        areaUnit : "500톤 이상\n(Ⅲ지역)",
-        environmentalAgency : "한강유역환경청"
-    }
-];
-
-// 시설 이력관리 (헤더)
-const upHeadListFcltyHistInfo:TableUpperProps[] = [
-    { id: "step", title: "차수" },
-    { id: "unit", title: "구분"},
-    { id: "businessStartDate", title: "사업기간", upName:"upChangeRe1", upSequnce:1},
-    { id: "businessEndDate", title: "사업기간", upName:"upChangeRe1", upSequnce:2},
-    { id: "installDate", title: "설치인가일"},
-    { id: "openDate", title: "준공일"},
-    { id: "commissioningDate", title: "시운전완료일"},
-    { id: "operationDate", title: "가동개시일"},
-];
-
-// 시설 이력관리 (리스트)
-const gridListFcltyHistInfo:fcltyHistInfoProps[] = [
-    {
-        step : "최초",
-        unit : "최초",
-        businessStartDate : "1984.12.01",
-        businessEndDate : "1987.06.01",
-        installDate : "1985.09.13",
-        openDate : "1987.06.30",
-        commissioningDate : "1987.06.30",
-        operationDate : "1987.06.30",
-    },
-    {
-        step : "1차",
-        unit : "증설",
-        businessStartDate : "1988.12.01",
-        businessEndDate : "1994.12.01",
-        installDate : "1987.07.31",
-        openDate : "1994.12.20",
-        commissioningDate : "1994.12.20",
-        operationDate : "1994.12.20",
-    },
-];
-
-// 시설 수질정보 (헤더)
-const upHeadListFcltyWaterQltyInfo:TableUpperProps[] = [
-    { id: "step", title: "차수" },
-    { id: "bodPlanInput", title: "BOD", upName:"upChangeRe1", upSequnce:1 },
-    { id: "tocPlanInput", title: "TOC\n(COD)", upName:"upChangeRe1", upSequnce:2 },
-    { id: "ssPlanInput", title: "SS", upName:"upChangeRe1", upSequnce:3 },
-    { id: "tnPlanInput", title: "T-N", upName:"upChangeRe1", upSequnce:4 },
-    { id: "tpPlanInput", title: "T-P", upName:"upChangeRe1", upSequnce:5 },
-    { id: "bodDesignInput", title: "BOD", upName:"upChangeRe2", upSequnce:1 },
-    { id: "tocDesignInput", title: "TOC\n(COD)", upName:"upChangeRe2", upSequnce:2 },
-    { id: "ssDesignInput", title: "SS", upName:"upChangeRe2", upSequnce:3 },
-    { id: "tnDesignInput", title: "T-N", upName:"upChangeRe2", upSequnce:4 },
-    { id: "tpDesignInput", title: "T-P", upName:"upChangeRe2", upSequnce:5 },
-    { id: "bodPlanOutput", title: "BOD", upName:"upChangeRe3", upSequnce:1 },
-    { id: "tocPlanOutput", title: "TOC\n(COD)", upName:"upChangeRe3", upSequnce:2 },
-    { id: "ssPlanOutput", title: "SS", upName:"upChangeRe3", upSequnce:3 },
-    { id: "tnPlanOutput", title: "T-N", upName:"upChangeRe3", upSequnce:4 },
-    { id: "tpPlanOutput", title: "T-P", upName:"upChangeRe3", upSequnce:5 },
-];
-
-// 시설 수질정보 (리스트)
-const gridListFcltyWaterQltyInfo:fcltyWaterQltyInfoProps[] = [
-    {
-        step : "최초",
-        bodPlanInput : "111.0",
-        tocPlanInput : "(0.0)",
-        ssPlanInput : "122.0",
-        tnPlanInput : "0.000",
-        tpPlanInput : "0.000",
-        bodDesignInput : "111.0",
-        tocDesignInput : "(0.0)",
-        ssDesignInput : "122.0",
-        tnDesignInput : "0.000",
-        tpDesignInput : "0.000",
-        bodPlanOutput : "20.0",
-        tocPlanOutput : "(0.0)",
-        ssPlanOutput : "12.0",
-        tnPlanOutput : "0.000",
-        tpPlanOutput : "0.000",
-    },
-    {
-        step : "1차",
-        bodPlanInput : "111.0",
-        tocPlanInput : "(0.0)",
-        ssPlanInput : "122.0",
-        tnPlanInput : "0.000",
-        tpPlanInput : "0.000",
-        bodDesignInput : "111.0",
-        tocDesignInput : "(0.0)",
-        ssDesignInput : "122.0",
-        tnDesignInput : "0.000",
-        tpDesignInput : "0.000",
-        bodPlanOutput : "20.0",
-        tocPlanOutput : "(0.0)",
-        ssPlanOutput : "12.0",
-        tnPlanOutput : "0.000",
-        tpPlanOutput : "0.000",
-    },
-    {
-        step : "2차",
-        bodPlanInput : "111.0",
-        tocPlanInput : "(0.0)",
-        ssPlanInput : "122.0",
-        tnPlanInput : "0.000",
-        tpPlanInput : "0.000",
-        bodDesignInput : "111.0",
-        tocDesignInput : "(0.0)",
-        ssDesignInput : "122.0",
-        tnDesignInput : "0.000",
-        tpDesignInput : "0.000",
-        bodPlanOutput : "20.0",
-        tocPlanOutput : "(0.0)",
-        ssPlanOutput : "12.0",
-        tnPlanOutput : "0.000",
-        tpPlanOutput : "0.000",
-    },
-    {
-        step : "3차",
-        bodPlanInput : "179.0",
-        tocPlanInput : "(90.0)",
-        ssPlanInput : "132.0",
-        tnPlanInput : "38.000",
-        tpPlanInput : "4.300",
-        bodDesignInput : "178.0",
-        tocDesignInput : "91.0",
-        ssDesignInput : "131.0",
-        tnDesignInput : "40.200",
-        tpDesignInput : "4.500",
-        bodPlanOutput : "10.0",
-        tocPlanOutput : "(40.0)",
-        ssPlanOutput : "10.0",
-        tnPlanOutput : "17.4",
-        tpPlanOutput : "2.0",
+        basicPlan : "6,797",
+        now : "5,794",
+        stepFirst : "6,957",
+        stepSecond : "7,680",
+        stepThird : "7,894",
+        stepFourth : "7,768",
+        processArea : "용산, 은평, 서대문, 마포 전역 및 종로, 중구, 성동, 고양시 일부"
     }
 ];
 
 /**====================================
  * Store - expaort
  ====================================*/
-export type ProcessFacilityActions = {
-    ProcessFacilityActions: {
+export type ProcessAreaActions = {
+    ProcessAreaActions: {
         labelChange:()=>void;
     }
 }
 
-export type ProcessFacilityType = {
-    ProcessFacility: {
+export type ProcessAreaType = {
+    ProcessAreaSearch: {
         isInit: boolean;
         processFacilityLabelArray:string[];
         selectPartData:SelectDataType[];
@@ -477,30 +250,25 @@ export type ProcessFacilityType = {
         selectSigunData:SelectDataType[];
     },
 
-    ProcessFacilityList : {
+    ProcessArea : {
         isInit: boolean;
-        upHeadList:TableUpperProps[];
-        processFacilityList:facilityAreaProps[];
-    },
+        upHeadList: TableUpperProps[];
+        processAreaList: ProcessAreaProps[]; // Changed from facilityAreaProps to ProcessAreaProps
+    },  
 
-    ProcessFacilityDetail : {
-        isInit : boolean;
-        upHeadListBasicInfo : TableUpperProps[];
-        gridListBasicInfo : BasicInfoProps[];
-        upHeadListPlanInfo : TableUpperProps[];
-        gridListPlanInfo : PlanInfoProps[];
-        upHeadListFcltyAreaInfo : TableUpperProps[];
-        gridListFcltyAreaInfo : fcltyAreaInfoProps[];
-        
-        upHeadListFcltyHistInfo : TableUpperProps[];
-        gridListFcltyHistInfo : fcltyHistInfoProps[];
-        upHeadListFcltyWaterQltyInfo : TableUpperProps[];
-        gridListFcltyWaterQltyInfo : fcltyWaterQltyInfoProps[];
+    ProcessAreaDetail : {
+        isInit: boolean;
+        upHeadListFcltyImproveInfo: TableUpperProps[];
+        gridListFcltyImproveInfo: FcltyImproveInfoProps[]; // Changed from facilityAreaProps to ProcessAreaProps
+        upHeadListProcessPopulation: TableUpperProps[];
+        gridListProcessPopulation: FcltyImproveInfoProps[]; // Changed from facilityAreaProps to ProcessAreaProps
+        upHeadListProcessAreaPlan: TableUpperProps[];
+        gridListProcessAreaPlan: ProcessAreaPlanProps[]; // Changed from facilityAreaProps to ProcessAreaProps
     },
 }
 
-export const processFacilityInitState:ProcessFacilityType = {
-    ProcessFacility: {
+export const processAreaInitState: ProcessAreaType = {
+    ProcessAreaSearch: {
         isInit: false,
         processFacilityLabelArray: ProcessFacilityLabelArray,
         selectPartData : selectPartData,
@@ -511,43 +279,39 @@ export const processFacilityInitState:ProcessFacilityType = {
         selectSigunData: selectSigunData,
     },
 
-    ProcessFacilityList : {
+    ProcessArea : {
         isInit : false,
         upHeadList : upHeadList,
-        processFacilityList : processFacilityList
+        processAreaList : processAreaList
     },
 
-    ProcessFacilityDetail : {
+    ProcessAreaDetail : {
         isInit : false,
-        upHeadListBasicInfo : upHeadListBasicInfo,
-        gridListBasicInfo : gridListBasicInfo,
-        upHeadListPlanInfo : upHeadListPlanInfo,
-        gridListPlanInfo : gridListPlanInfo,
-        upHeadListFcltyAreaInfo : upHeadListFcltyAreaInfo,
-        gridListFcltyAreaInfo : gridListFcltyAreaInfo,
-
-        upHeadListFcltyHistInfo : upHeadListFcltyHistInfo,
-        gridListFcltyHistInfo : gridListFcltyHistInfo,
-        upHeadListFcltyWaterQltyInfo : upHeadListFcltyWaterQltyInfo,
-        gridListFcltyWaterQltyInfo : gridListFcltyWaterQltyInfo,
-    }
+        upHeadListFcltyImproveInfo : upHeadListFcltyImproveInfo,
+        gridListFcltyImproveInfo : gridListFcltyImproveInfo,
+        upHeadListProcessPopulation : upHeadListProcessPopulation,
+        gridListProcessPopulation : gridListProcessPopulation,
+        upHeadListProcessAreaPlan : upHeadListProcessAreaPlan,
+        gridListProcessAreaPlan : gridListProcessAreaPlan,
+    },
 }
 
-export type ProcessFacilityStore = ProcessFacilityType & ProcessFacilityActions;
+export type ProcessAreaStore = ProcessAreaType & ProcessAreaActions;
 
-export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any) => {
+export const processAreaReducer:(set:any)=>ProcessAreaActions=(set: any) => {
     console.log("tableActionsExport");
     return {
-        ProcessFacilityActions: {
+        ProcessAreaActions: {
             labelChange:()=>set(
-                (state:ProcessFacilityType) => {
-                    state.ProcessFacility.processFacilityLabelArray[0] = "구분 변경";
+                (state:ProcessAreaType) => {
+                    state.ProcessAreaSearch.processFacilityLabelArray[0] = "구분 변경";
                 return (
                 { 
-                    ProcessFacility: {
-                        ...state.ProcessFacility,
-                        processFacilitylabelArray: state.ProcessFacility.processFacilityLabelArray
-                }})}
+                    ProcessAreaSearch: {
+                        ...state.ProcessAreaSearch,
+                        processFacilityLabelArray: state.ProcessAreaSearch.processFacilityLabelArray
+                    }
+                })}
             )
         }
     }

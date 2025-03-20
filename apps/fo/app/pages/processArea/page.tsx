@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modalFacilityInfo/page";
 
 export default function ProcessFacilitySearch() {
-  const {ProcessFacility, ProcessFacilityList} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
+  const {ProcessArea, ProcessAreaSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
   const {
     processFacilityLabelArray, 
     selectPartData,
@@ -16,13 +16,13 @@ export default function ProcessFacilitySearch() {
     selectFacilityPartData,
     selectSidoData,
     selectSigunData,
-  } = ProcessFacility;
+  } = ProcessAreaSearch;
 
   const {
     upHeadList
-  } = ProcessFacilityList;
+  } = ProcessArea;
 
-  const processFacilityList = ProcessFacilityList?.processFacilityList || [];
+  const processAreaList = ProcessArea?.processAreaList || [];
 
   // 그리드 관련
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,9 +50,9 @@ export default function ProcessFacilitySearch() {
 
   // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
-    if (processFacilityList[index]) {
-      setFcltyNm(processFacilityList[index].facilityName);
-      setFcltyCd(processFacilityList[index].facilityCd);
+    if (processAreaList[index]) {
+      setFcltyNm(processAreaList[index].facilityName);
+      setFcltyCd(processAreaList[index].facilityCd);
       setSelectedRow(index); // 클릭한 행의 index 저장
     }
   };
@@ -86,12 +86,12 @@ export default function ProcessFacilitySearch() {
           </Button>
         </div>
       </SearchDiv>
-      <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
+      <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={processAreaList} headlist={upHeadList} pageSize={8} total={16}>
         <HeadMakeColSpan upHeadList={upHeadList}/>
       </UiTable>
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-[1200px] h-[800px]">
+          <div className="bg-white p-6 rounded-lg w-[1000px] h-[600px]">
             <Button onClick={closeModal} className="mt-1 mb-10 float-end w-5 h-10">
               X
             </Button>

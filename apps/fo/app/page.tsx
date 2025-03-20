@@ -16,6 +16,9 @@ export default function Home() {
       <div className="col-span-2">
         <Link href={"./pages/dashboard/maingraph"}><Button>대시보드(그래프)</Button></Link>
       </div>
+      <div className="col-span-2">
+        <Link href={"./pages/processArea"}><Button>처리구역정보</Button></Link>
+      </div>
     </div>
   );
 }
