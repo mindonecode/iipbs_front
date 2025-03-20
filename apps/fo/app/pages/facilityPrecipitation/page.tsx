@@ -4,25 +4,25 @@ import { useFoStore } from "@/app/store";
 import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
-import ProcessFacilityInfoModal from "./modalFacilityInfo/page";
+import Precipitation from "./modal/page";
 
-export default function ProcessArea() {
-  const {ProcessArea, ProcessAreaSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
+export default function FacilityPrecipitation() {
+  const {FacilityPrecipitation, FacilityPrecipitationSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
   const {
-    processFacilityLabelArray, 
+    labelArray, 
     selectPartData,
     selectUpdownData,
     selectOperationData,
     selectFacilityPartData,
     selectSidoData,
     selectSigunData,
-  } = ProcessAreaSearch;
+  } = FacilityPrecipitationSearch;
 
   const {
     upHeadList
-  } = ProcessArea;
+  } = FacilityPrecipitation;
 
-  const processAreaList = ProcessArea?.processAreaList || [];
+  const facilityPrecipitation = FacilityPrecipitation?.facilityPrecipitation || [];
 
   // 그리드 관련
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,9 +50,9 @@ export default function ProcessArea() {
 
   // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
-    if (processAreaList[index]) {
-      setFcltyNm(processAreaList[index].facilityName);
-      setFcltyCd(processAreaList[index].facilityCd);
+    if (facilityPrecipitation[index]) {
+      setFcltyNm(facilityPrecipitation[index].facilityName);
+      setFcltyCd(facilityPrecipitation[index].facilityCd);
       setSelectedRow(index); // 클릭한 행의 index 저장
     }
   };
@@ -66,13 +66,13 @@ export default function ProcessArea() {
     <div className="m-8">
       <SearchDiv>
         <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue} textValue={""} setText={()=>{}}/>
-          <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SearchInputSelect className="col-span-3" label={labelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue} textValue={""} setText={()=>{}}/>
+          <SearchInput className="col-span-3" label={labelArray[4] as string} ref={inputRef}/>
+          <SelectBox className="col-span-3" label={labelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
         </div>
         <div className="w-1/5 mx-5 flex items-center justify-end">
           <Button className="mr-3" size="sm">
@@ -86,7 +86,7 @@ export default function ProcessArea() {
           </Button>
         </div>
       </SearchDiv>
-      <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={processAreaList} headlist={upHeadList} pageSize={8} total={16}>
+      <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={facilityPrecipitation} headlist={upHeadList} pageSize={8} total={16}>
         <HeadMakeColSpan upHeadList={upHeadList}/>
       </UiTable>
       {selectedRow !== null && (
@@ -95,7 +95,7 @@ export default function ProcessArea() {
             <Button onClick={closeModal} className="mt-1 mb-10 float-end w-5 h-10">
               X
             </Button>
-            <ProcessFacilityInfoModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
+            <Precipitation facilityCd={fcltyCd} fcltyName={fcltyNm}/>
           </div>
         </div>
       )}

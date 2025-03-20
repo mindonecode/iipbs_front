@@ -19,6 +19,9 @@ export default function Home() {
       <div className="col-span-2">
         <Link href={"./pages/processArea"}><Button>처리구역정보</Button></Link>
       </div>
+      <div className="col-span-2">
+        <Link href={"./pages/facilityPrecipitation"}><Button>시설별 강수현황</Button></Link>
+      </div>
     </div>
   );
 }
