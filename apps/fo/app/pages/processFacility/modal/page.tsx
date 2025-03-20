@@ -9,7 +9,6 @@ import {
   TabsTrigger,
 } from "@common/components";
 import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
-import { useRef } from "react";
 
 // 시설계획 table header 변경
 const headMakeList = (upHeadList: TableUpperProps[], gridNum:number) => {

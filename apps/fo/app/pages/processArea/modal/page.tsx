@@ -3,7 +3,6 @@ import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/dashboard";
 import { UiTable } from "@common/business_components/ui";
 import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
-import React from "react";
 
 // 시설계획 table header 변경
 const headMakeList = (upHeadList: TableUpperProps[], item: number) => {

@@ -4,7 +4,7 @@ import { useFoStore } from "@/app/store";
 import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
-import Precipitation from "./modal/page";
+import PrecipitationModal from "./modal/page";
 
 export default function FacilityPrecipitation() {
   const {FacilityPrecipitation, FacilityPrecipitationSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
@@ -95,7 +95,7 @@ export default function FacilityPrecipitation() {
             <Button onClick={closeModal} className="mt-1 mb-10 float-end w-5 h-10">
               X
             </Button>
-            <Precipitation facilityCd={fcltyCd} fcltyName={fcltyNm}/>
+            <PrecipitationModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
           </div>
         </div>
       )}
