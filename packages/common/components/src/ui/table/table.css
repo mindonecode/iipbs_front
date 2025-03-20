@@ -24,7 +24,7 @@
     @apply border-b border-b-border;
   }
 
-  [data-mode="dark"] {
+  [data-mode="black"] {
     .table-ui th {
       @apply bg-[#5e7b9c] text-[#fff];
     }
