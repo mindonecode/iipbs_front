@@ -22,6 +22,20 @@ function CreatePage() {
 
   const form = useForm<SiteFormData>({
     resolver: zodResolver(siteFormSchema),
+    defaultValues: {
+      siteId: "",
+      siteNm: "",
+      siteExpln: "",
+      siteKndCd: "",
+      siteAddr: "",
+      faxNo: "",
+      telNo: "",
+      lwndCn: "",
+      bscSiteYn: "",
+      bkmkIcon: "",
+      useYn: "",
+      siteSkn: "",
+    },
   });
 
   return (

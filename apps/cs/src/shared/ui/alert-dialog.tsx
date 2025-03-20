@@ -17,7 +17,7 @@ function AlertDialog() {
     <Dialog open={!!message} onOpenChange={handleOpenChange}>
       <DialogContent aria-describedby={undefined}>
         <div className="py-10">
-          <p className="text-center text-[1.4rem]">{message}</p>
+          <p className="text-center text-[1.4rem] text-foreground">{message}</p>
         </div>
         <DialogFooter className="!justify-center">
           <DialogClose asChild>
