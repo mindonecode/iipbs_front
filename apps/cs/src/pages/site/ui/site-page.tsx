@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Button, DataTable, Input } from "@common/components";
-import { ENDPOINT } from "@/shared/config/api";
+import { ENDPOINT } from "@/shared/config";
 import { SiteApi } from "../api/site-service";
 import { columns } from "../model/table-columns";
 import { type ISite, type ISiteParams } from "../model/site-interface";
@@ -15,23 +15,18 @@ import { SitePageLayout } from "./layout";
 
 function SitePage() {
   const router = useRouter();
-  const { data: siteInfo, refetch } = useQuery({
+  const { data: siteList, refetch } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.SITES],
-    queryFn: () => SiteApi.siteInfo(siteQuery),
+    queryFn: () => SiteApi.getSiteList(siteQuery),
     enabled: false,
   });
 
   const [siteQuery, setSiteQuery] = useState<ISiteParams>({
     siteNm: "",
-    siteKndCd: "",
-    useYn: "",
-    page: 0,
-    size: 0,
-    sort: [],
   });
 
   const table = useReactTable({
-    data: siteInfo?.content ?? [],
+    data: siteList?.content ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -61,9 +56,7 @@ function SitePage() {
             <Input
               className="h-[3.2rem] w-[24rem] rounded-sm !text-[1.3rem]"
               value={siteQuery.siteNm}
-              onChange={(e) =>
-                setSiteQuery({ ...siteQuery, siteNm: e.target.value })
-              }
+              onChange={(e) => setSiteQuery({ siteNm: e.target.value })}
             />
             <Button className="h-[3.2rem]" type="submit">
               조회

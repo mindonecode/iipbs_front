@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useConfirm } from "@frontend-opensource/use-react-hooks";
-import { useForm, useFieldArray, type FieldArrayWithId } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import {
   Dialog,
   DialogTrigger,
@@ -30,37 +30,38 @@ import {
   FormItem,
   FormMessage,
 } from "@/shared/ui/form";
-import { ENDPOINT, SITE_ID } from "@/shared/config";
+import { ENDPOINT } from "@/shared/config";
 import { IpApi } from "../api/ip-service";
 import { ipFormSchema, type IP, type IPFormData } from "../model/ip-interface";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
 import { useAlertStore } from "@/shared/lib/use-alert-store";
 
 type IPManagementDialogProps = {
+  siteId: string;
   triggerDisabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 };
 
 function IPManagementDialog({
+  siteId,
   triggerDisabled,
   ...props
 }: IPManagementDialogProps) {
   const { confirm } = useConfirm();
   const { setMessage: alert } = useAlertStore((state) => state);
 
-  useQuery({
+  const { data: ipList } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.IPS, props.open],
-    queryFn: () => IpApi.getIpList(),
+    queryFn: () => IpApi.getIpList({ siteId, sort: [] }),
     select: (data) => {
       const ips = data.content.map((item) => ({
         ...item,
         mode: "U",
       }));
 
-      form.reset();
-      replace(ips);
-      return data;
+      initialForm();
+      return ips;
     },
   });
 
@@ -70,14 +71,22 @@ function IPManagementDialog({
 
   const form = useForm<IPFormData>({
     resolver: zodResolver(ipFormSchema),
+    values: {
+      ips: ipList ?? [],
+    },
   });
-  const { fields, append, remove, update, replace } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control: form.control,
     name: "ips",
   });
 
   const [onConfirm, setOnConfirm] = useState(false);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  const initialForm = () => {
+    form.reset();
+    setSelectedRows([]);
+  };
 
   const onSubmit = async (data: IPFormData) => {
     setOnConfirm(true);
@@ -91,11 +100,19 @@ function IPManagementDialog({
   const handleAddIP = () => {
     append({
       mngNo: null,
-      siteId: SITE_ID,
+      siteId,
       ipAddr: "",
       prmYn: "Y",
       mode: "C",
     });
+  };
+
+  const handleSelectAll = () => {
+    if (selectedRows.length === fields.length) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(fields.map((_, index) => index));
+    }
   };
 
   const handleSelectRow = (i: number) => {
@@ -104,11 +121,13 @@ function IPManagementDialog({
     );
   };
 
-  const handleDeleteIP = () => {
-    selectedRows.forEach((i) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { id, ...field } = fields[i] as FieldArrayWithId<IPFormData>;
-      if (field.mngNo) {
+  const handleDeleteIP = async () => {
+    if (selectedRows.length === 0) return;
+
+    const sortedIndices = [...selectedRows].sort((a, b) => b - a);
+    sortedIndices.forEach((i) => {
+      const field = fields[i];
+      if (field?.mngNo) {
         update(i, {
           ...field,
           mode: "D",
@@ -117,8 +136,12 @@ function IPManagementDialog({
         remove(i);
       }
     });
+
     setSelectedRows([]);
   };
+
+  const isAllSelected =
+    fields.length > 0 && selectedRows.length === fields.length;
 
   return (
     <>
@@ -161,7 +184,12 @@ function IPManagementDialog({
                   </colgroup>
                   <TableHeader className="sticky -top-[0.6rem]">
                     <TableRow>
-                      <TableHead>선택</TableHead>
+                      <TableHead className="!px-0">
+                        <Checkbox
+                          checked={isAllSelected}
+                          onCheckedChange={handleSelectAll}
+                        />
+                      </TableHead>
                       <TableHead>IP 주소</TableHead>
                       <TableHead>허용여부</TableHead>
                     </TableRow>

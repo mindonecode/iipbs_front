@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useConfirm } from "@frontend-opensource/use-react-hooks";
+import { useForm, useFieldArray } from "react-hook-form";
 import {
   Dialog,
   DialogTrigger,
@@ -13,197 +17,304 @@ import {
   TableHeader,
   TableRow,
   Input,
-  Checkbox,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  RadioGroup,
+  RadioGroupItem,
   DialogFooter,
   DialogClose,
+  Checkbox,
 } from "@common/components";
-
-export type Domain = {
-  id: number;
-  domainUrl: string;
-  isRepresentative: boolean;
-  isActive: "true" | "false";
-};
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/shared/ui/form";
+import { ENDPOINT } from "@/shared/config";
+import { DomainApi } from "../api/domain-service";
+import {
+  domainFormSchema,
+  type Domain,
+  type DomainFormData,
+} from "../model/domain-interface";
+import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { useAlertStore } from "@/shared/lib/use-alert-store";
 
 type DomainManagementDialogProps = {
-  triggerDisabled?: boolean;
-  handleSave: (rows: Domain[]) => void;
+  siteId: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  handleSaveDomain?: (rows: Domain[]) => void;
 };
 
 function DomainManagementDialog({
-  triggerDisabled,
-  handleSave,
+  siteId,
+  handleSaveDomain,
+  ...props
 }: DomainManagementDialogProps) {
-  const [rows, setRows] = useState<Domain[]>([]);
-  const [rowSelection, setRowSelection] = useState<Domain["id"][]>([]);
+  const { confirm } = useConfirm();
+  const { setMessage: alert } = useAlertStore((state) => state);
 
-  const onSave = () => {
-    handleSave(rows);
+  const { data: domainList } = useQuery({
+    queryKey: [ENDPOINT.CMS_SERVICE.DOMAINS, props.open],
+    queryFn: () => DomainApi.getDomainList({ siteId }),
+    select: (data) => {
+      const domains = data.content.map((item) => ({
+        ...item,
+        mode: "U",
+      }));
+
+      initialForm();
+      return domains;
+    },
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: (body: Domain[]) => DomainApi.saveDomainList(body),
+  });
+
+  const form = useForm<DomainFormData>({
+    resolver: zodResolver(domainFormSchema),
+    values: {
+      domains: domainList ?? [],
+    },
+  });
+  const { fields, append, remove, update } = useFieldArray({
+    control: form.control,
+    name: "domains",
+  });
+
+  const [onConfirm, setOnConfirm] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  const initialForm = () => {
+    form.reset();
+    setSelectedRows([]);
+  };
+
+  const onSubmit = async (data: DomainFormData) => {
+    setOnConfirm(true);
+    if (await confirm("저장하시겠습니까?")) {
+      setOnConfirm(false);
+      await mutateAsync(data.domains);
+      handleSaveDomain?.(data.domains);
+      alert("저장되었습니다.");
+    }
+    setOnConfirm(false);
   };
 
   const handleAddDomain = () => {
-    const newDomain: Domain = {
-      id: Date.now(),
-      domainUrl: "",
-      isRepresentative: rows.length === 0,
-      isActive: "true",
-    };
-    setRows([...rows, newDomain]);
-  };
-
-  const handleDeleteDomain = () => {
-    const filteredRows = rows.filter((row) => !rowSelection.includes(row.id));
-    const hasRepresentative = filteredRows.some((row) => row.isRepresentative);
-
-    let updatedRows = filteredRows;
-    if (!hasRepresentative && filteredRows.length > 0) {
-      updatedRows = filteredRows.map((row, index) =>
-        index === 0 ? { ...row, isRepresentative: true } : row,
-      );
-    }
-
-    setRows(updatedRows);
-    setRowSelection([]);
-  };
-
-  const handleDomainUrlChange = (id: number, value: string) => {
-    setRows(
-      rows.map((row) => (row.id === id ? { ...row, domainUrl: value } : row)),
-    );
-  };
-
-  const handleRepresentativeChange = (id: number) => {
-    setRows(
-      rows.map((row) => ({
-        ...row,
-        isRepresentative: row.id === id,
-      })),
-    );
-  };
-
-  const handleActiveChange = (id: number, value: "true" | "false") => {
-    setRows(
-      rows.map((row) => (row.id === id ? { ...row, isActive: value } : row)),
-    );
-  };
-
-  const toggleRowSelection = (id: number) => {
-    setRowSelection((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      } else {
-        return [...prev, id];
-      }
+    append({
+      siteDmnNo: null,
+      siteId,
+      dmnAddr: "",
+      useYn: "Y",
+      rprsDmnYn: "N",
+      mode: "C",
     });
   };
 
+  const handleSelectAll = () => {
+    if (selectedRows.length === fields.length) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(fields.map((_, index) => index));
+    }
+  };
+
+  const handleSelectRow = (i: number) => {
+    setSelectedRows((prev) =>
+      prev.includes(i) ? prev.filter((j) => j !== i) : [...prev, i],
+    );
+  };
+
+  const handleDeleteDomain = async () => {
+    if (selectedRows.length === 0) return;
+
+    const sortedIndices = [...selectedRows].sort((a, b) => b - a);
+    sortedIndices.forEach((i) => {
+      const field = fields[i];
+      if (field?.siteDmnNo) {
+        update(i, {
+          ...field,
+          mode: "D",
+        });
+      } else {
+        remove(i);
+      }
+    });
+
+    setSelectedRows([]);
+  };
+
+  const handleChangeRprsDmnYn = (i: number) => {
+    fields.forEach((_, j) => {
+      if (j === i) return;
+      form.setValue(`domains.${j}.rprsDmnYn`, "N");
+    });
+  };
+
+  const isAllSelected =
+    fields.length > 0 && selectedRows.length === fields.length;
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button disabled={triggerDisabled}>도메인 관리</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[60rem]">
-        <DialogHeader>
-          <DialogTitle>도메인 관리</DialogTitle>
-        </DialogHeader>
-        <div className="mb-4 flex justify-end gap-2">
-          <Button size="sm" color="white" onClick={handleAddDomain}>
-            항목 추가
-          </Button>
-          <Button
-            size="sm"
-            color="red"
-            onClick={handleDeleteDomain}
-            disabled={rowSelection.length === 0}
-          >
-            항목 삭제
-          </Button>
-        </div>
-        <div className="card card-border">
-          <Table variant="secondary">
-            <colgroup>
-              <col width="8%" />
-              <col width="12%" />
-              <col width="40%" />
-              <col width="20%" />
-              <col width="20%" />
-            </colgroup>
-            <TableHeader>
-              <TableRow>
-                <TableHead>NO</TableHead>
-                <TableHead>선택</TableHead>
-                <TableHead>도메인URL</TableHead>
-                <TableHead>대표URL</TableHead>
-                <TableHead>사용여부</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rows.map((row, idx) => (
-                <TableRow key={row.id}>
-                  <TableCell align="center">{idx + 1}</TableCell>
-                  <TableCell align="center">
-                    <Checkbox
-                      checked={rowSelection.includes(row.id)}
-                      onCheckedChange={() => toggleRowSelection(row.id)}
-                      className="cursor-pointer"
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Input
-                      value={row.domainUrl}
-                      onChange={(e) =>
-                        handleDomainUrlChange(row.id, e.target.value)
-                      }
-                      className="!text-[1.3rem]"
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Checkbox
-                      checked={row.isRepresentative}
-                      onCheckedChange={() => handleRepresentativeChange(row.id)}
-                      className="cursor-pointer"
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Select
-                      value={row.isActive}
-                      onValueChange={(value: "true" | "false") =>
-                        handleActiveChange(row.id, value)
-                      }
-                    >
-                      <SelectTrigger className="mx-auto w-[10rem]">
-                        <SelectValue placeholder="선택" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="true">예</SelectItem>
-                        <SelectItem value="false">아니오</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <DialogFooter className="!justify-center">
-          <DialogClose asChild>
-            <Button size="lg" onClick={onSave}>
-              저장
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
-            <Button size="lg" color="white">
-              취소
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog {...props}>
+        <DialogTrigger asChild>
+          <Button>도메인 관리</Button>
+        </DialogTrigger>
+        <DialogContent className="max-w-[60rem]" aria-describedby={undefined}>
+          <DialogHeader>
+            <DialogTitle>도메인 관리</DialogTitle>
+          </DialogHeader>
+          <Form {...form}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                form.handleSubmit(onSubmit)(e);
+              }}
+            >
+              <div className="mb-4 flex justify-end gap-2">
+                <Button type="button" size="sm" onClick={handleAddDomain}>
+                  항목 추가
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  color="red"
+                  onClick={handleDeleteDomain}
+                  disabled={selectedRows.length === 0}
+                >
+                  항목 삭제
+                </Button>
+              </div>
+              <div className="card card-border max-h-[28.5rem] overflow-auto">
+                <Table variant="secondary">
+                  <colgroup>
+                    <col width="10%" />
+                    <col width="auto" />
+                    <col width="15%" />
+                    <col width="25%" />
+                  </colgroup>
+                  <TableHeader className="sticky -top-[0.6rem]">
+                    <TableRow>
+                      <TableHead className="!px-0">
+                        <Checkbox
+                          checked={isAllSelected}
+                          onCheckedChange={handleSelectAll}
+                        />
+                      </TableHead>
+                      <TableHead>도메인 주소</TableHead>
+                      <TableHead>대표 URL</TableHead>
+                      <TableHead>사용여부</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {fields.map((field, i) => {
+                      if (field.mode === "D") return null;
+                      return (
+                        <TableRow key={field.id}>
+                          <TableCell align="center" className="!px-0">
+                            <Checkbox
+                              checked={selectedRows.includes(i)}
+                              onCheckedChange={() => handleSelectRow(i)}
+                            />
+                          </TableCell>
+                          <TableCell align="center">
+                            <FormField
+                              control={form.control}
+                              name={`domains.${i}.dmnAddr`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      className="!text-[1.3rem]"
+                                    />
+                                  </FormControl>
+                                  <FormMessage className="text-left" />
+                                </FormItem>
+                              )}
+                            />
+                          </TableCell>
+                          <TableCell align="center">
+                            <FormField
+                              control={form.control}
+                              name={`domains.${i}.rprsDmnYn`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value === "Y"}
+                                      onCheckedChange={(checked) => {
+                                        field.onChange(checked ? "Y" : "N");
+                                        handleChangeRprsDmnYn(i);
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </TableCell>
+                          <TableCell align="center">
+                            <FormField
+                              control={form.control}
+                              name={`domains.${i}.useYn`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <RadioGroup
+                                      value={field.value}
+                                      onValueChange={field.onChange}
+                                      className="flex justify-center"
+                                    >
+                                      <div className="flex items-center space-x-2">
+                                        <RadioGroupItem
+                                          value="Y"
+                                          id={`useY-${i}`}
+                                        />
+                                        <label htmlFor={`useY-${i}`}>예</label>
+                                      </div>
+                                      <div className="flex items-center space-x-2">
+                                        <RadioGroupItem
+                                          value="N"
+                                          id={`useN-${i}`}
+                                        />
+                                        <label htmlFor={`useN-${i}`}>
+                                          아니오
+                                        </label>
+                                      </div>
+                                    </RadioGroup>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+              <DialogFooter className="!justify-center">
+                <Button type="submit" size="lg">
+                  저장
+                </Button>
+                <DialogClose asChild>
+                  <Button type="button" size="lg" color="white">
+                    취소
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+      <ConfirmDialog open={onConfirm} />
+    </>
   );
 }
 

@@ -1,4 +1,11 @@
 import { z } from "zod";
+import type { IPageableParams, PageableList } from "@/shared/model";
+
+export interface IIpParams extends IPageableParams {
+  siteId: string;
+  ipAddr?: string;
+  prmYn?: string;
+}
 
 export const ipSchema = z.object({
   mngNo: z.number().nullish(),
@@ -14,37 +21,9 @@ export const ipFormSchema = z.object({
 
 export type IP = z.infer<typeof ipSchema>;
 export type IPFormData = z.infer<typeof ipFormSchema>;
-
-export interface IpList {
-  content: IP[];
-  pageable: {
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    offset: number;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
-  };
-  last: boolean;
-  totalPages: number;
-  totalElements: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  };
-  size: number;
-  first: boolean;
-  numberOfElements: number;
-  empty: boolean;
-}
+export type IpList = PageableList<IP[]>;
 
 export interface IpService {
-  getIpList(): Promise<IpList>;
+  getIpList(params: IIpParams): Promise<IpList>;
   saveIpList(body: IP[]): Promise<void>;
 }

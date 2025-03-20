@@ -23,12 +23,10 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
-import { type SiteFormData } from "../model/site-interface";
+import type { SiteFormData } from "../model/site-interface";
+import type { Domain } from "../model/domain-interface";
 import { IPManagementDialog } from "./ip-management-dialog";
-import {
-  DomainManagementDialog,
-  type Domain,
-} from "./domain-management-dialog";
+import { DomainManagementDialog } from "./domain-management-dialog";
 
 type SiteFormProps = {
   form: UseFormReturn<SiteFormData>;
@@ -44,12 +42,11 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
   const { confirm } = useConfirm();
   const [onConfirm, setOnConfirm] = useState(false);
   const [isIpManagementOpen, setIsIpManagementOpen] = useState(false);
-  const [representativeDomain, setRepresentativeDomain] = useState("");
+  const [isDomainManagementOpen, setIsDomainManagementOpen] = useState(false);
+  const [domainUrl, setDomainUrl] = useState("");
 
-  const handleDomainSave = (rows: Domain[]) => {
-    setRepresentativeDomain(
-      rows.find((row) => row.isRepresentative)?.domainUrl || "",
-    );
+  const handleSaveDomain = (rows: Domain[]) => {
+    setDomainUrl(rows.find((row) => row.rprsDmnYn === "Y")?.dmnAddr || "");
   };
 
   const onSubmit = async (data: SiteFormData) => {
@@ -132,6 +129,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                         />
                         {isModifyMode && (
                           <IPManagementDialog
+                            siteId={siteId}
                             triggerDisabled={form.watch("siteKndCd") === "O"}
                             open={isIpManagementOpen}
                             onOpenChange={setIsIpManagementOpen}
@@ -151,6 +149,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <CodeSelect
                                 {...field}
+                                value={field.value ?? ""}
                                 upCd="SITESKINCD"
                                 onValueChange={field.onChange}
                               />
@@ -193,6 +192,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트 설명을 입력하십시오."
                               />
@@ -209,10 +209,13 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                       <TableCell className="border">
                         <div className="flex gap-2">
                           <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
-                            {representativeDomain}
+                            {domainUrl}
                           </div>
                           <DomainManagementDialog
-                            handleSave={handleDomainSave}
+                            siteId={siteId}
+                            open={isDomainManagementOpen}
+                            onOpenChange={setIsDomainManagementOpen}
+                            handleSaveDomain={handleSaveDomain}
                           />
                         </div>
                       </TableCell>
@@ -229,6 +232,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트 하단 주소를 입력하십시오."
                               />
@@ -250,6 +254,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트 하단 전화번호를 입력하십시오."
                               />
@@ -271,6 +276,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트 하단 팩스번호를 입력하십시오."
                               />
@@ -292,6 +298,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트 표기 내용을 입력하십시오. (ex. COPYRIGHT c 2013 KECO. ALL RIGHTS RESERVED.)"
                               />
@@ -313,6 +320,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="아이콘 파일 경로 및 파일명을 입력하여 주십시오."
                               />

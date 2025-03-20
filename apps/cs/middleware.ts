@@ -5,10 +5,13 @@ const serverApiUrl =
 
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
+  const searchParams = req.nextUrl.searchParams;
+
   if (pathname.startsWith("/server")) {
-    return NextResponse.rewrite(
-      `${serverApiUrl}${pathname.replace("/server", "")}`,
+    const newUrl = new URL(
+      `${serverApiUrl}${pathname.replace("/server", "")}?${searchParams.toString() ?? ""}`,
     );
+    return NextResponse.rewrite(newUrl);
   }
 
   return NextResponse.next();

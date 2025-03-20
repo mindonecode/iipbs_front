@@ -1,10 +1,12 @@
 import { client } from "@/shared/api";
 import { ENDPOINT } from "@/shared/config";
-import type { IP, IpList, IpService } from "../model/ip-interface";
+import type { IIpParams, IP, IpList, IpService } from "../model/ip-interface";
 
 export class IpApiService implements IpService {
-  public async getIpList(): Promise<IpList> {
-    const response = await client.get<IpList>(`${ENDPOINT.CMS_SERVICE.IPS}`);
+  public async getIpList(params: IIpParams): Promise<IpList> {
+    const response = await client.get<IpList>(`${ENDPOINT.CMS_SERVICE.IPS}`, {
+      params,
+    });
     return response.data;
   }
 

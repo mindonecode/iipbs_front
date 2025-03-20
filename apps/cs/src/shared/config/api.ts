@@ -12,6 +12,7 @@ export const ENDPOINT = {
     SITES: "/cms-service/api/v1/sites",
     CODE: "/cms-service/api/v1/code/cache",
     IPS: "/cms-service/api/v1/site-ips",
+    DOMAINS: "/cms-service/api/v1/site-dmns",
   },
 };
 
