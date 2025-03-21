@@ -1,10 +1,11 @@
 ﻿"use client"
 import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
+import { MainContentDiv, SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
+import { Title } from "@common/business_components";
 
 export default function ProcessFacilitySearch() {
   const {ProcessFacility, ProcessFacilityList} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
@@ -121,9 +122,10 @@ export default function ProcessFacilitySearch() {
   };
 
   return (
-    <div className="m-8">
+    <MainContentDiv>
+      <Title title="처리시설 시설정보" />
       <SearchDiv>
-        <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
+        <div className="grid grid-cols-12 gap-4 w-4/5 mx-4">
           <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
@@ -132,21 +134,23 @@ export default function ProcessFacilitySearch() {
           <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} value={operationValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} value={facilityPartValue} selectClass={undefined}/>
         </div>
-        <div className="w-1/5 mx-5 flex items-center justify-end">
-          <Button className="mr-3" size="sm">
+        <div className="w-1/5 mx-5 flex items-center justify-end space-x-2">
+          <Button className="px-4 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium hover:bg-blue-700" size="sm">
             엑셀다운로드
           </Button>
-          <Button className="mr-3" size="sm" onClick={initVal}>
+          <Button className="px-4 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium hover:bg-blue-700" size="sm" onClick={initVal}>
             초기화
           </Button>
-          <Button className="mr-3" size="sm" onClick={chkVal}>
+          <Button className="px-4 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium hover:bg-blue-700" size="sm" onClick={chkVal}>
             조회
           </Button>
         </div>
       </SearchDiv>
-      <UiTable cellClick={(index: number | undefined) => index !== undefined && cellClick(index)} headName={""} tableData={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
-        <HeadMakeColSpan upHeadList={upHeadList}/>
-      </UiTable>
+      <div className="bg-white rounded-lg shadow-sm mb-6 p-6">
+        <UiTable cellClick={(index: number | undefined) => index !== undefined && cellClick(index)} headName={""} tableData={processFacilityList} headlist={upHeadList} pageSize={8} total={16}>
+          <HeadMakeColSpan upHeadList={upHeadList}/>
+        </UiTable>
+      </div>
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[1200px] h-[800px]">
@@ -157,6 +161,6 @@ export default function ProcessFacilitySearch() {
           </div>
         </div>
       )}
-    </div>
+    </MainContentDiv>
   );
 }

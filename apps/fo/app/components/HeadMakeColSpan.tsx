@@ -3,21 +3,21 @@ import type { TableUpperProps } from "../store/dashboard";
 
 const HeadMakeColSpan = ({ upHeadList }: { upHeadList: TableUpperProps[] }) => {
     return (<>
-        <TableRow>{
+        <TableRow className="bg-gray-50">{
             upHeadList.map((head: TableUpperProps) =>
             (head.id === 'publicMethod' ? <TableHead rowSpan={2} className="w-1/16" key={head.id}>{head.title}</TableHead> :
-                !head.upSequnce && head.id != 'facilityCapacity' && head.id != 'planInputWaterQlty' && head.id != 'designInputWaterQlty' ? <TableHead rowSpan={2} style={{ whiteSpace: 'pre-line' }} key={head.id}>{head.title}</TableHead> :
-                    head.id == 'facilityCapacity' || head.id == 'planInputWaterQlty' || head.id == 'designInputWaterQlty' ? <TableHead rowSpan={2} className="w-13" style={{ whiteSpace: 'pre-line' }} key={head.id}>{head.title}</TableHead> :
-                        head.upName === 'upChangeRe' && head.upSequnce === 1 ? <TableHead className="w-75" style={{ whiteSpace: 'pre-line' }} key={head.id} rowSpan={1} colSpan={2}>{'행정구역'}</TableHead> : null))}
+                !head.upSequnce && head.id != 'facilityCapacity' && head.id != 'planInputWaterQlty' && head.id != 'designInputWaterQlty' ? <TableHead className="bg-gray-50" rowSpan={2} style={{ whiteSpace: 'pre-line' }} key={head.id}>{head.title}</TableHead> :
+                    head.id == 'facilityCapacity' || head.id == 'planInputWaterQlty' || head.id == 'designInputWaterQlty' ? <TableHead rowSpan={2} className="w-13 bg-gray-50" style={{ whiteSpace: 'pre-line' }} key={head.id}>{head.title}</TableHead> :
+                        head.upName === 'upChangeRe' && head.upSequnce === 1 ? <TableHead className="w-75 bg-gray-50" style={{ whiteSpace: 'pre-line' }} key={head.id} rowSpan={1} colSpan={2}>{'행정구역'}</TableHead> : null))}
         </TableRow>
-        <TableRow>
+        <TableRow className="bg-gray-50">
             {upHeadList.map((head: TableUpperProps, idx) => {
                 if (head.upName === 'upChangeRe') {
                     if (idx == 1) {
-                        return <TableHead key={head.id} style={{ whiteSpace: 'pre-line' }} className="w-36">{head.title}</TableHead>;
+                        return <TableHead key={head.id} style={{ whiteSpace: 'pre-line' }} className="w-36 bg-gray-50">{head.title}</TableHead>;
                     }
                     else {
-                        return <TableHead key={head.id} style={{ whiteSpace: 'pre-line' }} className="w-40">{head.title}</TableHead>;
+                        return <TableHead key={head.id} style={{ whiteSpace: 'pre-line' }} className="w-40 bg-gray-50">{head.title}</TableHead>;
                     }
                 }
             })}

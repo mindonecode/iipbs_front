@@ -5,6 +5,7 @@ import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
+import Title from "@/app/components/Title";
 
 export default function ProcessArea() {
   const {ProcessArea, ProcessAreaSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
