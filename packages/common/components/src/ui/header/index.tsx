@@ -26,7 +26,7 @@ export function Header({ viewOnly }: { viewOnly?: boolean }) {
     select: (data) => {
       if (data.siteSkn) {
         const siteSkin = data.siteSkn.toLowerCase();
-        setCookie("data-theme", siteSkin);
+        setCookie("site-theme-key", siteSkin);
         document.documentElement.setAttribute("data-theme", siteSkin);
       }
       return data;
