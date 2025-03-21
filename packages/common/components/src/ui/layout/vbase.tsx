@@ -1,28 +1,35 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { QueryProvider } from "../../provider/query-provider";
+import { SidebarProvider } from "../sidebar";
 import { LNB } from "../lnb";
 import { Header } from "../header";
 import { Footer } from "./footer";
 
 import "./common.css";
+import type { QueryClient } from "@tanstack/react-query";
 
-const queryClient = new QueryClient();
-
-export function VBaseLayout({ children }: { children: React.ReactNode }) {
+export function BaseLayout({
+  children,
+  queryClient,
+}: {
+  children: React.ReactNode;
+  queryClient?: QueryClient;
+}) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div>
-        <Header viewOnly />
-        <div className="flex h-[calc(100vh-50px)]">
-          <LNB viewOnly />
-          <div className="flex flex-1 flex-col">
-            <div className="max-h-[calc(100%-50px)] flex-1 overflow-auto">
-              {children}
+    <QueryProvider client={queryClient}>
+      <SidebarProvider>
+        <div className="flex-1">
+          <Header viewOnly />
+          <div className="flex h-[calc(100vh-50px)]">
+            <LNB viewOnly />
+            <div className="flex flex-1 flex-col">
+              <div className="max-h-[calc(100%-50px)] flex-1 overflow-auto">
+                {children}
+              </div>
+              <Footer />
             </div>
-            <Footer />
           </div>
         </div>
-      </div>
-    </QueryClientProvider>
+      </SidebarProvider>
+    </QueryProvider>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ENDPOINT } from "@/shared/config";
 import { useAlertStore } from "@/shared/lib/use-alert-store";
@@ -15,6 +15,7 @@ function ModifyPage({ siteId }: { siteId: string }) {
   const isModifyMode = !!siteId;
 
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { setMessage: alert } = useAlertStore((state) => state);
   const { data: siteDetail } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.SITES, siteId],
@@ -36,14 +37,23 @@ function ModifyPage({ siteId }: { siteId: string }) {
   const { mutateAsync: modifySite } = useMutation({
     mutationFn: (data: SiteFormData) => SiteApi.modifySite(siteId, data),
     onSuccess: () => {
-      alert("수정되었습니다.");
+      alert("수정되었습니다.", () => {
+        queryClient.invalidateQueries({
+          queryKey: [ENDPOINT.CMS_SERVICE.SITES],
+        });
+      });
     },
   });
 
   const { mutateAsync: deleteSite } = useMutation({
     mutationFn: () => SiteApi.deleteSite(siteId),
     onSuccess: () => {
-      alert("삭제되었습니다.", router.back);
+      alert("삭제되었습니다.", () => {
+        queryClient.invalidateQueries({
+          queryKey: [ENDPOINT.CMS_SERVICE.SITES],
+        });
+        router.back();
+      });
     },
   });
 

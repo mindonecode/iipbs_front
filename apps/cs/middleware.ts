@@ -8,10 +8,12 @@ export function middleware(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
   if (pathname.startsWith("/server")) {
-    const newUrl = new URL(
-      `${serverApiUrl}${pathname.replace("/server", "")}?${searchParams.toString() ?? ""}`,
-    );
-    return NextResponse.rewrite(newUrl);
+    const queryParams = searchParams.toString();
+    const newUrl = `${serverApiUrl}${pathname.replace("/server", "")}${
+      queryParams ? `?${queryParams}` : ""
+    }`;
+    console.log("Rewriting to: ", newUrl);
+    return NextResponse.rewrite(new URL(newUrl));
   }
 
   return NextResponse.next();
