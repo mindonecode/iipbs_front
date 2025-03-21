@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@common/components";
 import { CodeSelect } from "@/entities/code";
+import type { SiteFormData } from "@/entities/site";
 import {
   FormItem,
   FormControl,
@@ -23,7 +24,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
-import type { SiteFormData } from "../model/site-interface";
 import type { Domain } from "../model/domain-interface";
 import { IPManagementDialog } from "./ip-management-dialog";
 import { DomainManagementDialog } from "./domain-management-dialog";

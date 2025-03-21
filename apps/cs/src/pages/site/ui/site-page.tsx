@@ -7,11 +7,10 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Button, DataTable, Input } from "@common/components";
+import { SiteApi, type ISite, type ISiteParams } from "@/entities/site";
 import { ENDPOINT } from "@/shared/config";
-import { SiteApi } from "../api/site-service";
+import { PageLayout } from "@/shared/ui/page-layout";
 import { columns } from "../model/table-columns";
-import { type ISite, type ISiteParams } from "../model/site-interface";
-import { SitePageLayout } from "./layout";
 
 function SitePage() {
   const router = useRouter();
@@ -46,7 +45,7 @@ function SitePage() {
   }, []);
 
   return (
-    <SitePageLayout>
+    <PageLayout pageTitle="사이트 관리">
       <div className="card card-border !mt-6">
         <div className="card card-border">
           <form onSubmit={handleSubmit} className="flex items-center gap-2 p-2">
@@ -73,7 +72,7 @@ function SitePage() {
           </div>
         </div>
       </div>
-    </SitePageLayout>
+    </PageLayout>
   );
 }
 

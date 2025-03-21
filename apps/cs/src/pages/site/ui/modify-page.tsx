@@ -2,13 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { SiteApi, siteFormSchema, type SiteFormData } from "@/entities/site";
 import { ENDPOINT } from "@/shared/config";
+import { PageLayout } from "@/shared/ui/page-layout";
 import { useAlertStore } from "@/shared/lib/use-alert-store";
-import { SiteApi } from "../api/site-service";
-import { siteFormSchema, type SiteFormData } from "../model/site-interface";
-import { SitePageLayout } from "./layout";
 import { SiteForm } from "./site-form";
 
 function ModifyPage({ siteId }: { siteId: string }) {
@@ -63,14 +62,14 @@ function ModifyPage({ siteId }: { siteId: string }) {
   });
 
   return (
-    <SitePageLayout>
+    <PageLayout pageTitle="사이트 관리">
       <SiteForm
         form={form}
         siteId={siteId}
         handleSave={modifySite}
         handleDelete={deleteSite}
       />
-    </SitePageLayout>
+    </PageLayout>
   );
 }
 

@@ -7,7 +7,7 @@ import { Footer } from "./footer";
 import "./common.css";
 import type { QueryClient } from "@tanstack/react-query";
 
-export function BaseLayout({
+export function VBaseLayout({
   children,
   queryClient,
 }: {
