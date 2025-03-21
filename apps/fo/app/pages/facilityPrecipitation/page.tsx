@@ -1,11 +1,10 @@
 ﻿"use client"
 import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { SearchDiv, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
+import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import PrecipitationModal from "./modal/page";
-import { SearchInput } from "@common/business_components";
 
 export default function FacilityPrecipitation() {
   const {FacilityPrecipitation, FacilityPrecipitationSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
@@ -129,13 +128,13 @@ export default function FacilityPrecipitation() {
     <div className="m-8">
       <SearchDiv>
         <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
-          <SelectBox className="col-span-3" label={labelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={labelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={labelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} selectClass={undefined}/>
-          <SearchInputSelect className="col-span-3" label={labelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={(val) => onSelectValue(val, 'updown')} textValue={capaValue} setText={setCapaValue}/>
+          <SelectBox className="col-span-3" label={labelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
+          <SearchInputSelect className="col-span-3" label={labelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={(val) => onSelectValue(val, 'updown')} textValue={capaValue} setText={setCapaValue} selectValue={updownValue}/>
           <SearchInput className={"col-span-3"} label={labelArray[4] as string} textValue={fcltyName} setText={setFcltyName} />
-          <SelectBox className="col-span-3" label={labelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={labelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} value={operationValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={labelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} value={facilityPartValue} selectClass={undefined}/>
         </div>
         <div className="w-1/5 mx-5 flex items-center justify-end">
           <Button className="mr-3" size="sm">

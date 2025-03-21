@@ -35,7 +35,7 @@ export default function ProcessFacilitySearch() {
   const [updownValue, setUpdownValue] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [operationValue, setOperationValue] = useState<string>("");
-  const [facilityPartValue, setFacilityPartValue] = useState<string>("");
+  const [searchYear, setSearchYear] = useState<string>("");
 
   const onSelectValue = (val: string, type: string) => {
     switch(type) {
@@ -54,10 +54,10 @@ export default function ProcessFacilitySearch() {
       case 'operation':
         setOperationValue(val);
         break;
-      case 'facilityPart':
-        setFacilityPartValue(val);
+      case 'searchYear':
+        setSearchYear(val);
         break;
-      case 'search':
+      case 'searchInput':
         setSearchInputValue(val);
         break;
     }
@@ -72,7 +72,7 @@ export default function ProcessFacilitySearch() {
     console.log('Updown:', updownValue);
     console.log('Search Input:', searchInputValue);
     console.log('Operation:', operationValue);
-    console.log('Facility Part:', facilityPartValue);
+    console.log('Search Year:', searchYear);
   }
 
   const initVal = () => {
@@ -84,7 +84,7 @@ export default function ProcessFacilitySearch() {
     onSelectValue(selectOperationData[0]?.val || "00", 'operation');
     onSelectValue(selectUpdownData[0]?.val || "00", 'updown');
     onSelectValue(selectSearchYear[0]?.val || "00", 'searchYear');
-    
+
     // SearchInputSelect 초기화
     setCapaValue("");
     setSearchInputValue("");
@@ -107,13 +107,13 @@ export default function ProcessFacilitySearch() {
       <div className="m-8">
         <SearchDiv>
             <div className="grid grid-cols-12 gap-1 mx-4 w-4/5">
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} selectClass={undefined}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} selectClass={undefined}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} selectClass={undefined}/>
-              <SearchInputSelect className="col-span-3" label={flowRateSearchLabelArray[3] as string} selectData={selectUpdownData} textValue={capaValue} setText={setCapaValue} onSelectValue={(val) => onSelectValue(val, 'updown')}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
+              <SearchInputSelect className="col-span-3" label={flowRateSearchLabelArray[3] as string} selectData={selectUpdownData} textValue={capaValue} setText={setCapaValue} onSelectValue={(val) => onSelectValue(val, 'updown')} selectValue={updownValue}/>
               <SearchInput className={"col-span-3"} label={flowRateSearchLabelArray[4] as string} textValue={searchInputValue} setText={setSearchInputValue}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear} onSelectValue={(val) => onSelectValue(val, 'searchYear')} selectClass={undefined}/>
-              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[5] as string} selectArray={selectSearchYear} onSelectValue={(val) => onSelectValue(val, 'searchYear')} value={searchYear} selectClass={undefined}/>
+              <SelectBox className="col-span-3" label={flowRateSearchLabelArray[6] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} value={operationValue} selectClass={undefined}/>
             </div>
             <div className="w-1/5 mx-5 flex items-center justify-end">
               <Button className="mr-3" size="sm">

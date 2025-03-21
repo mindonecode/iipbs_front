@@ -1,5 +1,4 @@
 ﻿"use client"
-import { useFoStore } from "@/app/store";
 import { SearchDiv } from "@common/business_components";
 import { Button } from "@common/components/ui";
 
