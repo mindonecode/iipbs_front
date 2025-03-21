@@ -1,7 +1,7 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/processFacility";
-import { SearchDiv, SearchInput, SelectBox, UiTable } from "@common/business_components";
+import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SelectBox, TableDiv, UiTable } from "@common/business_components";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
@@ -138,28 +138,31 @@ export default function ProcessFacilitySearch() {
   const upChangeRePlanFclty = headMakeColSpanPlanFclty(upHeadListPlanFclty);
   const upChangeHeadListOperationStatus = headMakeColSpanOperationStatus(upHeadListOperationStatus);
   return (
-      <div className="m-8">
-        <SearchDiv>
-          <div style={{width:"90%"}} className="grid grid-cols-12 gap-1 mx-4 w-4/5">
-            <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
-            <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
-            <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
-            <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={(val) => onSelectValue(val, 'searchYear')} value={searchYear} selectClass={undefined}/>
-            <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} textValue={fcltyName} setText={setFcltyName} />
-          </div>
-          <div style={{width:"10%"}} className="flex items-center">
-            <Button className="mr-2" size="sm" onClick={initVal}>
-              초기화
-            </Button>
-            <Button className="mr-2" size="sm" onClick={chkVal}>
-              조회
-            </Button>
-          </div>
-        </SearchDiv>
-        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} cellClick={()=>{} } children={undefined}/>
+    <MainContentDiv>
+      <SearchDiv>
+        <SearchFormLeft>
+          <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
+          <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
+          <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
+          <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={(val) => onSelectValue(val, 'searchYear')} value={searchYear} selectClass={undefined}/>
+          <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} textValue={fcltyName} setText={setFcltyName} />
+        </SearchFormLeft>
+        <SearchFormRight>
+          <Button className="mr-2" size="sm" onClick={initVal}>
+            초기화
+          </Button>
+          <Button className="mr-2" size="sm" onClick={chkVal}>
+            조회
+          </Button>
+        </SearchFormRight>
+      </SearchDiv>
+      <TableDiv>
+        <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} cellClick={()=>{} } children={undefined} />
+      </TableDiv>
+      <TableDiv>
         <div className="grid grid-cols-12 gap-1">
           <div className="col-span-5">
-             <Table>
+            <Table>
               <TableHeader>
                 {upChangeRePlanFclty}
               </TableHeader>
@@ -196,6 +199,7 @@ export default function ProcessFacilitySearch() {
             </Table>
           </div>
         </div>
-      </div>
+      </TableDiv>
+    </MainContentDiv>
   );
 }

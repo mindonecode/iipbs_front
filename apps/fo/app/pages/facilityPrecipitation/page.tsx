@@ -1,7 +1,7 @@
 ﻿"use client"
 import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
+import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, Title, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
 import PrecipitationModal from "./modal/page";
@@ -126,9 +126,10 @@ export default function FacilityPrecipitation() {
   };
 
   return (
-    <div className="m-8">
+    <MainContentDiv>
+      <Title title="시설별 강수현황" />
       <SearchDiv>
-        <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
+        <SearchFormLeft>
           <SelectBox className="col-span-3" label={labelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
@@ -136,8 +137,8 @@ export default function FacilityPrecipitation() {
           <SearchInput className={"col-span-3"} label={labelArray[4] as string} textValue={fcltyName} setText={setFcltyName} />
           <SelectBox className="col-span-3" label={labelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} value={operationValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} value={facilityPartValue} selectClass={undefined}/>
-        </div>
-        <div className="w-1/5 mx-5 flex items-center justify-end">
+        </SearchFormLeft>
+        <SearchFormRight>
           <Button className="mr-3" size="sm">
             엑셀다운로드
           </Button>
@@ -147,11 +148,13 @@ export default function FacilityPrecipitation() {
           <Button className="mr-3" size="sm" onClick={chkVal}>
             조회
           </Button>
-        </div>
+        </SearchFormRight>
       </SearchDiv>
-      <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={facilityPrecipitation} headlist={upHeadList} pageSize={8} total={16}>
-        <HeadMakeColSpan upHeadList={upHeadList}/>
-      </UiTable>
+      <TableDiv>
+        <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={facilityPrecipitation} headlist={upHeadList} pageSize={8} total={16}>
+          <HeadMakeColSpan upHeadList={upHeadList}/>
+        </UiTable>
+      </TableDiv>
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[1000px] h-[600px]">
@@ -162,6 +165,6 @@ export default function FacilityPrecipitation() {
           </div>
         </div>
       )}
-    </div>
+    </MainContentDiv>
   );
 }
