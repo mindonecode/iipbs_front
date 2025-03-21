@@ -11,7 +11,7 @@ type Story = StoryObj<typeof LoadingWithAnimation>;
 
 export const Primary: Story = {
   render: () => (
-    <div className="rounded-lg bg-secondary p-10 dark:bg-transparent">
+    <div className="[data-theme='black']:bg-transparent rounded-lg bg-secondary p-10">
       <div className="relative size-[5rem]">
         <LoadingWithAnimation color="primary" />
       </div>
@@ -21,7 +21,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   render: () => (
-    <div className="rounded-lg bg-secondary p-10 dark:bg-transparent">
+    <div className="[data-theme='black']:bg-transparent rounded-lg bg-secondary p-10">
       <div className="relative size-[5rem]">
         <LoadingWithAnimation color="secondary" />
       </div>
@@ -31,7 +31,7 @@ export const Secondary: Story = {
 
 export const PrimaryWithImage: Story = {
   render: () => (
-    <div className="rounded-lg bg-secondary p-10 dark:bg-transparent">
+    <div className="[data-theme='black']:bg-transparent rounded-lg bg-secondary p-10">
       <div className="relative size-[5rem]">
         <LoadingWithImage color="primary" />
       </div>
@@ -41,7 +41,7 @@ export const PrimaryWithImage: Story = {
 
 export const SecondaryWithImage: Story = {
   render: () => (
-    <div className="rounded-lg bg-secondary p-10 dark:bg-transparent">
+    <div className="[data-theme='black']:bg-transparent rounded-lg bg-secondary p-10">
       <div className="relative size-[5rem]">
         <LoadingWithImage color="secondary" />
       </div>

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { images } from "@common/assets";
-import { getUserInfo } from "../../api";
-import { AUTH_USER_ID, ENDPOINT } from "../../config";
-import { getToken } from "../../lib";
+import { getCookie, setCookie } from "../../lib";
+import { getSiteInfo, getUserInfo } from "../../api";
+import { AUTH_USER_ID, ENDPOINT, SITE_ID } from "../../config";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,10 +12,25 @@ import {
 import { Button } from "../button";
 
 export function Header({ viewOnly }: { viewOnly?: boolean }) {
-  const userUniqId = getToken(AUTH_USER_ID) ?? "";
+  const userUniqId = getCookie(AUTH_USER_ID) ?? "";
+
   const { data: userInfo } = useQuery({
     queryKey: [ENDPOINT.USER_SERVICE.USERS],
     queryFn: () => getUserInfo(userUniqId),
+    enabled: !viewOnly,
+  });
+
+  const { data: siteInfo } = useQuery({
+    queryKey: [ENDPOINT.CMS_SERVICE.SITES, SITE_ID],
+    queryFn: () => getSiteInfo(SITE_ID),
+    select: (data) => {
+      if (data.siteSkn) {
+        const siteSkin = data.siteSkn.toLowerCase();
+        setCookie("site-theme-key", siteSkin);
+        document.documentElement.setAttribute("data-theme", siteSkin);
+      }
+      return data;
+    },
     enabled: !viewOnly,
   });
 
@@ -28,7 +43,7 @@ export function Header({ viewOnly }: { viewOnly?: boolean }) {
         <h1 className="flex items-center gap-4">
           <img src={images.logo} className="h-[3rem]" alt="logo" />
           <span className="text-[1.8rem] font-semibold text-foreground">
-            통합플랫폼관리
+            {siteInfo?.siteNm}
           </span>
         </h1>
       </div>

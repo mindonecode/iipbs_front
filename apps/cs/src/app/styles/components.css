@@ -14,7 +14,7 @@
     @apply -mx-[0.6rem] mt-2 flex items-center justify-center border-t border-t-[#e1e7eb] py-4;
   }
 
-  [data-mode="dark"] {
+  [data-theme="black"] {
     .card-border {
       @apply border-[#3f4042] bg-[rgba(255,255,255,0.065)];
     }

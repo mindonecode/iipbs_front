@@ -1,17 +1,21 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { QueryProvider } from "../../provider/query-provider";
 import { SidebarProvider } from "../sidebar";
 import { LNB } from "../lnb";
 import { Header } from "../header";
 import { Footer } from "./footer";
 
 import "./common.css";
+import type { QueryClient } from "@tanstack/react-query";
 
-const queryClient = new QueryClient();
-
-export function BaseLayout({ children }: { children: React.ReactNode }) {
+export function BaseLayout({
+  children,
+  queryClient,
+}: {
+  children: React.ReactNode;
+  queryClient?: QueryClient;
+}) {
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryProvider client={queryClient}>
       <SidebarProvider>
         <div className="flex-1">
           <Header />
@@ -26,6 +30,6 @@ export function BaseLayout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </SidebarProvider>
-    </QueryClientProvider>
+    </QueryProvider>
   );
 }
