@@ -67,7 +67,7 @@ function MenuTree({ treeData }: { treeData: NodeModel<Menu>[] }) {
         )}
         onDrop={handleDrop}
         classes={{
-          root: "p-2",
+          root: "",
           container: "flex flex-col",
           listItem: "",
           dropTarget: "!bg-[rgba(32,148,250,0.5)] rounded-sm",
@@ -111,23 +111,19 @@ function MenuNode({
       )}
       onClick={handleSelect}
     >
-      {droppable && (
-        <button
-          className="inline-flex size-6 items-center justify-center rounded-sm text-label"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleToggle();
-          }}
-        >
+      <div className="flex items-center">
+        {droppable && (
           <i
             className={cn(
-              "diveicon di-arrow-forward text-sm",
+              "diveicon di-arrow-forward px-2 text-label",
               isOpen && "rotate-90",
             )}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggle();
+            }}
           />
-        </button>
-      )}
-      <div>
+        )}
         <span className="text-[1.4rem] font-medium text-label">{text}</span>
       </div>
     </div>
