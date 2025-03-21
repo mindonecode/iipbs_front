@@ -41,7 +41,7 @@ export default function FacilityPrecipitation() {
   const [sigunValue, setSigunValue] = useState<string>("");
   const [capaValue, setCapaValue] = useState<string>("");
   const [updownValue, setUpdownValue] = useState<string>("");
-  const [searchInputValue, setSearchInputValue] = useState<string>("");
+  const [fcltyName, setFcltyName] = useState<string>("");
   const [operationValue, setOperationValue] = useState<string>("");
   const [facilityPartValue, setFacilityPartValue] = useState<string>("");
 
@@ -65,8 +65,8 @@ export default function FacilityPrecipitation() {
       case 'facilityPart':
         setFacilityPartValue(val);
         break;
-      case 'search':
-        setSearchInputValue(val);
+      case 'fcltyName':
+        setFcltyName(val);
         break;
     }
   }
@@ -78,27 +78,10 @@ export default function FacilityPrecipitation() {
     console.log('Sigun:', sigunValue);
     console.log('Capa:', capaValue);
     console.log('Updown:', updownValue);
-    console.log('Search Input:', searchInputValue);
+    console.log('Fclty Name:', fcltyName);
     console.log('Operation:', operationValue);
     console.log('Facility Part:', facilityPartValue);
   }
-
-  useEffect(() => {
-    if (searchInputRef.current) {
-      const input = searchInputRef.current.querySelector('input');
-      if (input) {
-        const handleChange = (e: Event) => {
-          const target = e.target as HTMLInputElement;
-          onSelectValue(target.value, 'search');
-        };
-
-        input.addEventListener('input', handleChange);
-        return () => {
-          input.removeEventListener('input', handleChange);
-        };
-      }
-    }
-  }, []);
 
   const initVal = () => {
     console.log('=== 초기화 ===');
@@ -111,7 +94,7 @@ export default function FacilityPrecipitation() {
     
     // SearchInputSelect 초기화
     setCapaValue("");
-    setSearchInputValue("");
+    setFcltyName("");
     
     // ref를 사용하여 input 값 초기화
     if (inputRef.current) {
@@ -150,12 +133,7 @@ export default function FacilityPrecipitation() {
           <SelectBox className="col-span-3" label={labelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} selectClass={undefined}/>
           <SearchInputSelect className="col-span-3" label={labelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={(val) => onSelectValue(val, 'updown')} textValue={capaValue} setText={setCapaValue}/>
-          <SearchInput 
-            className={"col-span-3"} 
-            label={labelArray[4] as string}
-            textValue={searchInputValue}
-            setText={setSearchInputValue}
-          />
+          <SearchInput className={"col-span-3"} label={labelArray[4] as string} textValue={fcltyName} setText={setFcltyName} />
           <SelectBox className="col-span-3" label={labelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={labelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} selectClass={undefined}/>
         </div>

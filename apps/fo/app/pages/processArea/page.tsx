@@ -27,25 +27,82 @@ export default function ProcessArea() {
   // 그리드 관련
   const inputRef = useRef<HTMLInputElement>(null);
   const inputSelectRef=useRef<HTMLInputElement>(null);
+  const searchInputRef = useRef<HTMLDivElement & HTMLInputElement>(null);
 
    // 모달 상태 추가
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [fcltyNm, setFcltyNm] = useState<string>("");
   const [fcltyCd, setFcltyCd] = useState<string>("");
 
-  const onSelectValue=(val:string)=>{
-    console.log(val);
+  const [partValue, setPartValue] = useState<string>("");
+  const [sidoValue, setSidoValue] = useState<string>("");
+  const [sigunValue, setSigunValue] = useState<string>("");
+  const [updownValue, setUpdownValue] = useState<string>("");
+  const [capaValue, setCapaValue] = useState<string>("");
+  const [fcltyName, setFcltyName] = useState<string>("");
+  const [operationValue, setOperationValue] = useState<string>("");
+  const [facilityPartValue, setFacilityPartValue] = useState<string>("");
+  
+  const onSelectValue = (val: string, type: string) => {
+    switch(type) {
+      case 'part':
+        setPartValue(val);
+        break;
+      case 'sido':
+        setSidoValue(val);
+        break;
+      case 'sigun':
+        setSigunValue(val);
+        break;
+      case 'updown':
+        setUpdownValue(val);
+        break;
+      case 'operation':
+        setOperationValue(val);
+        break;
+      case 'facilityPart':
+        setFacilityPartValue(val);
+        break;
+    }
   }
   
   const chkVal = () => {
-    console.log(inputRef?.current?.value);
-    console.log(inputSelectRef?.current?.value);
+    console.log('=== 검색 조건 ===');
+    console.log('Part:', partValue);
+    console.log('Sido:', sidoValue);
+    console.log('Sigun:', sigunValue);
+    console.log('Updown:', updownValue);
+    console.log('Capa:', capaValue);
+    console.log('Fclty Name:', fcltyName);
+    console.log('Operation:', operationValue);
+    console.log('Facility Part:', facilityPartValue);
   }
+
   const initVal = () => {
-    if(inputRef.current?.value)
-      inputRef.current.value = ""
-    console.log(inputRef?.current?.value);
-    console.log(inputSelectRef);
+    console.log('=== 초기화 ===');
+    // SelectBox 초기화 - 각 selectArray의 첫 번째 옵션 값 사용
+    onSelectValue(selectPartData[0]?.val || "00", 'part');
+    onSelectValue(selectSidoData[0]?.val || "00", 'sido');
+    onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
+    onSelectValue(selectUpdownData[0]?.val || "00", 'updown');
+    onSelectValue(selectOperationData[0]?.val || "00", 'operation');
+    onSelectValue(selectFacilityPartData[0]?.val || "00", 'facilityPart');
+
+    // SearchInputSelect 초기화
+    setFcltyName("");
+    setCapaValue("");
+
+    // ref를 사용하여 input 값 초기화
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+
+    if (searchInputRef.current) {
+      const input = searchInputRef.current.querySelector('input');
+      if (input) {
+        input.value = "";
+      }
+    }
   }
 
   // 셀 클릭 시 모달 표시
@@ -66,13 +123,13 @@ export default function ProcessArea() {
     <div className="m-8">
       <SearchDiv>
         <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={onSelectValue} textValue={""} setText={()=>{}}/>
-          <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} ref={inputRef}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={onSelectValue} selectClass={undefined}/>
-          <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={onSelectValue} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} selectClass={undefined}/>
+          <SearchInputSelect className="col-span-3" label={processFacilityLabelArray[3] as string} selectData={selectUpdownData} ref={inputSelectRef} onSelectValue={(val) => onSelectValue(val, 'updown')} textValue={capaValue} setText={setCapaValue}/>
+          <SearchInput className="col-span-3" label={processFacilityLabelArray[4] as string} textValue={fcltyName} setText={setFcltyName}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[5] as string} selectArray={selectOperationData} onSelectValue={(val) => onSelectValue(val, 'operation')} selectClass={undefined}/>
+          <SelectBox className="col-span-3" label={processFacilityLabelArray[6] as string} selectArray={selectFacilityPartData} onSelectValue={(val) => onSelectValue(val, 'facilityPart')} selectClass={undefined}/>
         </div>
         <div className="w-1/5 mx-5 flex items-center justify-end">
           <Button className="mr-3" size="sm">

@@ -2,7 +2,7 @@
 import { useFoStore } from "@/app/store";
 import { CHART_FORM, type ChartConfig, MainChart, SearchDiv, SearchInput, SelectBox } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const chartData1 = [
   {label : 'a', val : 123},
@@ -45,13 +45,69 @@ const onSelectValue=(val:string)=>{
 
 export default function ProcessFacilitySearch() {
   const {MainGraph} = useFoStore((state) => state);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const {DashboardMain} = useFoStore((state) => state);
+  const searchInputRef = useRef<HTMLDivElement & HTMLInputElement>(null);
+
+  const [partValue, setPartValue] = useState<string>("");
+  const [sidoValue, setSidoValue] = useState<string>("");
+  const [sigunValue, setSigunValue] = useState<string>("");
+  const [searchYear, setSearchYear] = useState<string>("");
+  const [fcltyName, setFcltyName] = useState<string>("");
 
   const {
     chart_inflowRain
   } = MainGraph;
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const {DashboardMain, FcltyMain, PlanFclty, OperationStatus} = useFoStore((state) => state);
+  const onSelectValue = (val: string, type: string) => {
+    switch(type) {
+      case 'part':
+        setPartValue(val);
+        break;
+      case 'sido':
+        setSidoValue(val);
+        break;
+      case 'sigun':
+        setSigunValue(val);
+        break;
+      case 'searchYear':
+        setSearchYear(val);
+        break;
+    }
+  }
+
+  const chkVal = () => {
+    console.log('=== 검색 조건 ===');
+    console.log('Part:', partValue);
+    console.log('Sido:', sidoValue);
+    console.log('Sigun:', sigunValue);
+    console.log('Search Year:', searchYear);
+    console.log('Fclty Name:', fcltyName);
+  }
+
+  const initVal = () => {
+    console.log('=== 초기화 ===');
+    // SelectBox 초기화 - 각 selectArray의 첫 번째 옵션 값 사용
+    onSelectValue(selectPartData[0]?.val || "00", 'part');
+    onSelectValue(selectSidoData[0]?.val || "00", 'sido');
+    onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
+    onSelectValue(selectSearchYear[0]?.val || "00", 'searchYear');
+
+    // SearchInputSelect 초기화
+    setFcltyName("");
+    
+    // ref를 사용하여 input 값 초기화
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+
+    if (searchInputRef.current) {
+      const input = searchInputRef.current.querySelector('input');
+      if (input) {
+        input.value = "";
+      }
+    }
+  }
 
   /**
    * 상단바 관련
@@ -68,21 +124,21 @@ export default function ProcessFacilitySearch() {
     <div className="m-8">
       <SearchDiv>
         <div style={{width:"90%"}} className="grid grid-cols-12 gap-1">
-          <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={onSelectValue} selectClass={undefined}>
+          <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} selectClass={undefined}>
           </SelectBox>
-          <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={onSelectValue} selectClass={undefined}>
+          <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} selectClass={undefined}>
           </SelectBox>
-          <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={onSelectValue} selectClass={undefined}>
+          <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} selectClass={undefined}>
           </SelectBox>
-          <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={onSelectValue} selectClass={undefined}>
+          <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={(val) => onSelectValue(val, 'searchYear')} selectClass={undefined}>
           </SelectBox>
-          <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} ref={inputRef}/>
+          <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} textValue={fcltyName} setText={setFcltyName}/>
         </div>
         <div style={{width:"10%"}} className="flex items-center">
-          <Button className="mr-2" size="sm">
+          <Button className="mr-2" size="sm" onClick={initVal}>
             초기화
           </Button>
-          <Button className="mr-2" size="sm">
+          <Button className="mr-2" size="sm" onClick={chkVal}>
             조회
           </Button>
         </div>
