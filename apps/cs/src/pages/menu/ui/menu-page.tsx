@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   Select,
@@ -10,11 +12,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@common/components/ui";
-import { PageLayout } from "@/shared/ui/page-layout";
-import { ENDPOINT } from "@/shared/config";
 import { SiteApi } from "@/entities/site";
+import { ENDPOINT } from "@/shared/config";
+import { PageLayout } from "@/shared/ui/page-layout";
 import { MenuApi } from "../api/menu-service";
+import { menuFormSchema, type MenuFormData } from "../model/menu-interface";
 import { MenuTree } from "./menu-tree";
+import { MenuForm } from "./menu-form";
 
 function MenuPage() {
   const [siteId, setSiteId] = useState("");
@@ -22,15 +26,14 @@ function MenuPage() {
   const { data: treeData } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.MENUS, siteId],
     queryFn: () => MenuApi.getMenuList(siteId),
-    select: (data) => {
-      return data.map((menu) => ({
+    select: (data) =>
+      data.map((menu) => ({
         id: menu.menuCd,
         parent: menu.parentId ?? 0,
         text: menu.menuKornNm,
         droppable: true,
         data: menu,
-      }));
-    },
+      })),
     enabled: !!siteId,
   });
 
@@ -44,9 +47,19 @@ function MenuPage() {
       })),
   });
 
+  const form = useForm<MenuFormData>({
+    resolver: zodResolver(menuFormSchema),
+  });
+
+  const handleSave = async (data: MenuFormData) => {
+    console.log(data);
+  };
+
+  const handleDelete = async () => {};
+
   return (
     <PageLayout pageTitle="메뉴 관리">
-      <div className="flex gap-4">
+      <div className="card flex gap-2">
         <div className="card card-border">
           <Select value={siteId} onValueChange={setSiteId}>
             <SelectTrigger className="w-[18rem]">
@@ -76,7 +89,13 @@ function MenuPage() {
             </>
           )}
         </div>
-        <div className="card card-border"></div>
+        <div className="card card-border flex-1">
+          <MenuForm
+            form={form}
+            handleSave={handleSave}
+            handleDelete={handleDelete}
+          />
+        </div>
       </div>
     </PageLayout>
   );

@@ -1,0 +1,198 @@
+import { type UseFormReturn } from "react-hook-form";
+import {
+  Input,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@common/components";
+import {
+  FormItem,
+  FormControl,
+  FormField,
+  FormMessage,
+} from "@/shared/ui/form";
+import type { MenuFormData } from "../model/menu-interface";
+
+export function ContentMenuForm({
+  form,
+}: {
+  form: UseFormReturn<MenuFormData>;
+}) {
+  return (
+    <Table variant="secondary">
+      <colgroup>
+        <col width="20%" />
+        <col width="80%" />
+      </colgroup>
+      <TableBody>
+        <TableRow>
+          <TableHead>콘텐츠</TableHead>
+          <TableCell className="border">
+            <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
+              {form.watch("menuLnkgSn")}
+            </div>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>메뉴 평가 사용 여부</TableHead>
+          <TableCell className="border">
+            <FormField
+              control={form.control}
+              name="evlUseYn"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <RadioGroup
+                      value={field.value ?? ""}
+                      onValueChange={field.onChange}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Y" id="evlUseY" />
+                          <Label htmlFor="evlUseY">사용</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="N" id="evlUseN" />
+                          <Label htmlFor="evlUseN">사용안함</Label>
+                        </div>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>메뉴 서브명</TableHead>
+          <TableCell className="border">
+            <FormField
+              control={form.control}
+              name="menuSubKornNm"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value ?? ""}
+                      className="!text-[1.3rem]"
+                      placeholder="메뉴 서브명을 입력하십시오."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>메뉴 아이콘</TableHead>
+          <TableCell className="border">
+            <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
+              {form.watch("iconNm")}
+            </div>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>출력 여부</TableHead>
+          <TableCell className="border">
+            <FormField
+              control={form.control}
+              name="otptYn"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <RadioGroup
+                      value={field.value ?? ""}
+                      onValueChange={field.onChange}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Y" id="otptY" />
+                          <Label htmlFor="otptY">출력</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="N" id="otptN" />
+                          <Label htmlFor="otptN">출력안함</Label>
+                        </div>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>사용 여부</TableHead>
+          <TableCell className="border">
+            <FormField
+              control={form.control}
+              name="useYn"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <RadioGroup
+                      value={field.value ?? ""}
+                      onValueChange={field.onChange}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Y" id="useY" />
+                          <Label htmlFor="useY">사용</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="N" id="useN" />
+                          <Label htmlFor="useN">사용안함</Label>
+                        </div>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableHead>QR코드</TableHead>
+          <TableCell className="border">
+            <FormField
+              control={form.control}
+              name="qrcd"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <RadioGroup
+                      value={field.value ?? ""}
+                      onValueChange={field.onChange}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Y" id="qrcdY" />
+                          <Label htmlFor="qrcdY">사용</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="N" id="qrcdN" />
+                          <Label htmlFor="qrcdN">사용안함</Label>
+                        </div>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
