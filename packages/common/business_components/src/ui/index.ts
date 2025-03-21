@@ -11,3 +11,6 @@ export * from "./select";
 export * from "./table";
 export * from "./main_content_div";
 export * from "./title";
+export * from "./search_form_left";
+export * from "./search_form_right";
+export * from "./table_div";
