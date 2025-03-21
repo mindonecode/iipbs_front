@@ -24,20 +24,19 @@ export function UiTable({ tableData, headlist, pageSize, total, children, headNa
       {headName ? <div className="font-bold m-3">
           {headName}
         </div> : <></>}
-      <Table>
+      <Table className="w-full">
         <TableHeader>
           {children ? <>{children}</> : <TableRow>
             {headlist?.map((head) => (
               <TableHead key={head.id}>{head.title}</TableHead>
             ))}
           </TableRow>}
-
         </TableHeader>
         <TableBody className='text-center'>
           {tableData?.map((el: { [key: string]: string | number | boolean }, index) => (
             <TableRow key={index + "row"} >
               {headlist.map((head) => (
-                <TableCell onClick={()=>cellClick(index)} key={head.id + index}>{el[head.id]}</TableCell>
+                <TableCell className="cursor-pointer" onClick={()=>cellClick(index)} key={head.id + index}>{el[head.id]}</TableCell>
               ))}
             </TableRow>
           ))}

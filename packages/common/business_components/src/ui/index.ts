@@ -9,4 +9,5 @@ export * from "./search_input";
 export * from "./search_input_select";
 export * from "./select";
 export * from "./table";
-
+export * from "./main_content_div";
+export * from "./title";
