@@ -1,11 +1,10 @@
 ﻿"use client"
 import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable } from "@common/business_components";
+import { MainContentDiv, SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable, Title } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
-import Title from "@/app/components/Title";
 
 export default function ProcessArea() {
   const {ProcessArea, ProcessAreaSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
@@ -121,9 +120,10 @@ export default function ProcessArea() {
   };
 
   return (
-    <div className="m-8">
-      <SearchDiv>
-        <div className="grid grid-cols-12 gap-1 w-4/5 mx-4">
+    <MainContentDiv>
+      <Title title="처리구역정보" />
+        <SearchDiv>
+          <div className="grid grid-cols-12 gap-4 w-4/5 mx-4">
           <SelectBox className="col-span-3" label={processFacilityLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={processFacilityLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
           <SelectBox className="col-span-3" label={processFacilityLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
@@ -144,9 +144,11 @@ export default function ProcessArea() {
           </Button>
         </div>
       </SearchDiv>
+      <div className="bg-white rounded-lg shadow-sm mb-6 p-6">
       <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={processAreaList} headlist={upHeadList} pageSize={8} total={16}>
         <HeadMakeColSpan upHeadList={upHeadList}/>
       </UiTable>
+      </div>
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[1000px] h-[600px]">
@@ -157,6 +159,6 @@ export default function ProcessArea() {
           </div>
         </div>
       )}
-    </div>
+    </MainContentDiv>
   );
 }
