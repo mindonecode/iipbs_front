@@ -24,9 +24,9 @@ const SearchInputSelect = React.forwardRef<HTMLInputElement, {className:string, 
 
     return (
         <div className={className+" flex items-center"} >
-            {label && <Label className="m-4 text-2xl w-1/4">{label}</Label>}
+            {label && <Label className="w-20 text-base text-gray-600">{label}</Label>}
             <div className="flex w-full items-center">
-                <Input className="w-2/3 text-lg" value={textValue} onChange={changeText} />
+                <Input className="w-2/3 text-lg h-10 p-2 border rounded" value={textValue} onChange={changeText} />
                 <Select onValueChange={onSelectValue} value={selectValue}>
                     <SelectTrigger className="ml-2 w-1/3 text-lg" >
                     <SelectValue placeholder={selectData?.[0]?.text ?? ""} />

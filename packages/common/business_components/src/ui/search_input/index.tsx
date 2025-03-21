@@ -7,9 +7,9 @@ const SearchInput = React.forwardRef<HTMLInputElement, {className:string, label:
     }
 
     return (
-        <div className={className+" flex"} >
-            {label && <Label className="m-4 text-2xl w-1/4">{label}</Label>}
-            <Input className="ml-8 w-3/4 text-lg" value={textValue} onChange={changeText}></Input>
+        <div className={className+" flex items-center"} >
+            {label && <Label className="w-20 text-base text-gray-600">{label}</Label>}
+            <Input className="flex-1 h-10 p-2 border rounded" value={textValue} onChange={changeText}></Input>
         </div>
     )
 });
