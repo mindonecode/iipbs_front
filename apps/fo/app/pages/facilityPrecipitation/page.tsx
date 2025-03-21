@@ -90,6 +90,7 @@ export default function FacilityPrecipitation() {
     onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
     onSelectValue(selectOperationData[0]?.val || "00", 'operation');
     onSelectValue(selectFacilityPartData[0]?.val || "00", 'facilityPart');
+    onSelectValue(selectUpdownData[0]?.val || "00", 'updown');
     
     // SearchInputSelect 초기화
     setCapaValue("");
