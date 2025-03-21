@@ -36,7 +36,7 @@ export function UiTable({ tableData, headlist, pageSize, total, children, headNa
           {tableData?.map((el: { [key: string]: string | number | boolean }, index) => (
             <TableRow key={index + "row"} >
               {headlist.map((head) => (
-                <TableCell className="cursor-pointer" onClick={()=>cellClick(index)} key={head.id + index}>{el[head.id]}</TableCell>
+                <TableCell className="cursor-pointer" onClick={()=>cellClick && cellClick(index)} key={head.id + index}>{el[head.id]}</TableCell>
               ))}
             </TableRow>
           ))}
