@@ -11,10 +11,7 @@ export default function Home() {
         <Link href={"./pages/flowRate"}><Button>시설별 유량현황</Button></Link>
       </div>
       <div className="col-span-2">
-        <Link href={"./pages/dashboard/facilityInfo"}><Button>대시보드(메인)</Button></Link>
-      </div>
-      <div className="col-span-2">
-        <Link href={"./pages/dashboard/maingraph"}><Button>대시보드(그래프)</Button></Link>
+        <Link href={"./pages/dashboard/"}><Button>대시보드</Button></Link>
       </div>
       <div className="col-span-2">
         <Link href={"./pages/processArea"}><Button>처리구역정보</Button></Link>

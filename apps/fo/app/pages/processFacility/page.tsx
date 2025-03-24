@@ -119,7 +119,7 @@ export default function ProcessFacilitySearch() {
   const closeModal = () => {
     setSelectedRow(null);
   };
-
+  
   return (
     <MainContentDiv>
       <Title title="처리시설 시설정보" />

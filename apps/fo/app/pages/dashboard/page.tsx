@@ -1,9 +1,10 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SelectBox, UITab } from "@common/business_components";
-import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from "@common/components/ui";
+import { Button, TabsContent } from "@common/components/ui";
 import { useRef, useState } from "react";
 import ProcessFacilitySearch from "./facilityInfo/page";
+import DashBoardChart from "./maingraph/page";
 
 const tabList = [
   { value: 'facilityInfo', label: '시설정보 및 운영현황' },
@@ -106,6 +107,7 @@ export default function DashBoard() {
           <ProcessFacilitySearch/>
         </TabsContent>
         <TabsContent value="mainGraph">
+          <DashBoardChart/>
         </TabsContent>
         <TabsContent value="rainManage">
         </TabsContent>

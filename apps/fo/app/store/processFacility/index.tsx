@@ -1,6 +1,31 @@
 import type { SelectDataType } from "@common/business_components/ui";
 import type { TableUpperProps } from "../dashboard";
 export type {TableUpperProps};
+
+type sidoDataType = {
+    fid: number,
+    mctpvCd: number,
+    mctpvEngNm: string,
+    mctpvKornNm: string
+}
+
+// API 호출 함수 추가
+const fetchSidoData = async (): Promise<sidoDataType[]> => {
+    try {
+        const response = await fetch('http://192.168.1.129:8881/api/v1/addr/city');
+        const data = await response.json();
+        console.log(data);
+        // API 응답 데이터를 SelectDataType 형식으로 변환
+        return data.data.map((item: any) => ({
+            text: item.mctpvKornNm || '',
+            val: item.mctpvCd || ''
+        }));
+    } catch (error) {
+        console.error('시도 데이터를 가져오는데 실패했습니다:', error);
+        return [];
+    }
+};
+
 /**====================================
  * Store - 타입
  ====================================*/
@@ -135,20 +160,22 @@ const selectFacilityPartData:SelectDataType[] = [
     { text: "기타기초시설설", val: '07'},
 ];
 
-const selectSidoData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "서울특별시", val: '01'},
-    { text: "인천광역시", val: '02'},
-    { text: "경기도", val: '03'},
-    { text: "강원도", val: '04'},
-    { text: "충청남도", val: '05'},
-    { text: "충청북도", val: '06'},
-    { text: "경상남도", val: '07'},
-    { text: "경상북도", val: '08'},
-    { text: "전라남도", val: '09'},
-    { text: "전라북도", val: '10'},
-    { text: "제주도", val: '11'},
-];
+// selectSidoData를 동적으로 설정하도록 수정
+let selectSidoData: SelectDataType[] = [];
+
+// 초기 데이터 로드
+fetchSidoData().then(data => {
+    selectSidoData = [
+        { text: "전체", val: '00'},  // 기본 "전체" 옵션 유지
+        ...data
+    ];
+}).catch(error => {
+    console.error('시도 데이터 초기화 실패:', error);
+    // 에러 발생 시 기본 데이터 사용
+    selectSidoData = [
+        { text: "전체", val: '00'}
+    ];
+});
 
 const selectSigunData:SelectDataType[] = [
     { text: "전체", val: '00'},
