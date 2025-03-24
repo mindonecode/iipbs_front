@@ -23,6 +23,7 @@ import {
 } from "../model/menu-interface";
 import { MenuTree } from "./menu-tree";
 import { MenuForm } from "./menu-form";
+import { generateTreeData } from "../lib/utils";
 
 function MenuPage() {
   const [siteId, setSiteId] = useState("");
@@ -30,14 +31,7 @@ function MenuPage() {
   const { data: treeData } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.MENUS, siteId],
     queryFn: () => MenuApi.getMenuList(siteId),
-    select: (data) =>
-      data.map((menu) => ({
-        id: menu.menuCd,
-        parent: menu.parentId ?? 0,
-        text: menu.menuKornNm,
-        droppable: true,
-        data: menu,
-      })),
+    select: (data) => generateTreeData(data),
     enabled: !!siteId,
   });
 
@@ -91,7 +85,7 @@ function MenuPage() {
                 </Button>
               </div>
               <div className="card card-border !mx-0">
-                <MenuTree treeData={treeData ?? []} />
+                <MenuTree treeData={treeData ?? []} siteId={siteId} />
               </div>
             </>
           )}

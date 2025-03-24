@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { DndProvider } from "react-dnd";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Tree,
   MultiBackend,
@@ -12,16 +12,26 @@ import {
 } from "@minoru/react-dnd-treeview";
 import { cn } from "@common/components/lib";
 import { MenuApi } from "../api/menu-service";
-import {
-  menuFormSchema,
-  type Menu,
-  type MenuFormData,
-} from "../model/menu-interface";
+import type { Menu, TreeMenu } from "../model/menu-interface";
+import { generateNewTreeData } from "../lib/utils";
+import { ENDPOINT } from "@/shared/config";
 
-function MenuTree({ treeData }: { treeData: NodeModel<Menu>[] }) {
+type MenuTreeProps = {
+  treeData: NodeModel<Menu>[];
+  siteId: string;
+};
+
+function MenuTree({ treeData, siteId }: MenuTreeProps) {
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
-    mutationFn: ({ menuCd, data }: { menuCd: number; data: MenuFormData }) =>
-      MenuApi.modifyMenu(menuCd, data),
+    mutationFn: ({ data }: { data: TreeMenu[] }) =>
+      MenuApi.modifyMenu(siteId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [ENDPOINT.CMS_SERVICE.MENUS],
+      });
+    },
   });
 
   const [selectedNode, setSelectedNode] = useState<NodeModel<Menu> | null>(
@@ -34,20 +44,9 @@ function MenuTree({ treeData }: { treeData: NodeModel<Menu>[] }) {
     newTree: NodeModel<Menu>[],
     options: DropOptions<Menu>,
   ) => {
-    let saveData: MenuFormData | null = null;
-    const dragSourceNode = findNode(options.dragSourceId) ?? options.dragSource;
-    const dropTargetNode = findNode(options.dropTargetId) ?? options.dropTarget;
-
-    if (!dropTargetNode) return;
-
-    saveData = menuFormSchema.parse({
-      ...dragSourceNode?.data,
-    });
-    console.log(saveData);
-  };
-
-  const findNode = (id?: NodeModel["id"]) => {
-    return id ? treeData.find((node) => node.id === id) : null;
+    const newTreeData = generateNewTreeData(newTree, options);
+    if (!newTreeData) return;
+    mutate({ data: [newTreeData] });
   };
 
   return (
@@ -67,7 +66,7 @@ function MenuTree({ treeData }: { treeData: NodeModel<Menu>[] }) {
         )}
         onDrop={handleDrop}
         classes={{
-          root: "",
+          root: "p-4",
           container: "flex flex-col",
           listItem: "",
           dropTarget: "!bg-[rgba(32,148,250,0.5)] rounded-sm",
@@ -96,8 +95,8 @@ function MenuNode({
   onToggle,
   onSelect,
 }: MenuNodeProps) {
-  const { droppable, id, text } = node;
-  const indent = depth * 24 + 5;
+  const { id, text, data } = node;
+  const indent = depth * 10 + 5;
 
   const handleToggle = () => onToggle(id);
   const handleSelect = () => onSelect(node);
@@ -112,10 +111,10 @@ function MenuNode({
       onClick={handleSelect}
     >
       <div className="flex items-center">
-        {droppable && (
+        {data?.children?.length && (
           <i
             className={cn(
-              "diveicon di-arrow-forward px-2 text-label",
+              "diveicon di-arrow-forward mr-2 text-label",
               isOpen && "rotate-90",
             )}
             onClick={(e) => {

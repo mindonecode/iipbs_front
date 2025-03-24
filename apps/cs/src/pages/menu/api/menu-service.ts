@@ -1,6 +1,6 @@
 import { client } from "@/shared/api";
 import { ENDPOINT } from "@/shared/config";
-import type { Menu, MenuFormData, MenuService } from "../model/menu-interface";
+import type { Menu, MenuService, TreeMenu } from "../model/menu-interface";
 
 export class MenuApiService implements MenuService {
   public async getMenuList(siteId: string): Promise<Menu[]> {
@@ -10,9 +10,9 @@ export class MenuApiService implements MenuService {
     return response.data;
   }
 
-  public async modifyMenu(menuCd: number, data: MenuFormData): Promise<void> {
+  public async modifyMenu(siteId: string, data: TreeMenu[]): Promise<void> {
     const response = await client.put<void>(
-      `${ENDPOINT.CMS_SERVICE.MENUS}/${menuCd}`,
+      `${ENDPOINT.CMS_SERVICE.MENUS}/${siteId}/tree`,
       data,
     );
     return response.data;

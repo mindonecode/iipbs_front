@@ -11,15 +11,21 @@ export const MENU_TYPE = {
 
 export type MenuType = (typeof MENU_TYPE)[keyof typeof MENU_TYPE];
 
-export interface Menu {
-  menuCd: number;
+export interface TreeMenu {
+  menuCd?: number;
+  name?: string;
+  sortSeq?: number;
+  parentId?: number | null;
+  levelNo?: number;
+  icon?: string;
+  children?: TreeMenu[];
+}
+
+export interface Menu extends Omit<TreeMenu, "name" | "icon" | "children"> {
   menuKornNm: string;
   menuEngNm: string;
-  parentId: number;
-  sortSeq: number;
   iconNm: string;
   children: Menu[];
-  levelNo: number;
   urlPath: string;
   menuLnkgTypeCd: string;
   menuLnkgSn: number;
@@ -59,5 +65,5 @@ export type MenuFormData = z.infer<typeof menuFormSchema>;
 
 export interface MenuService {
   getMenuList: (siteId: string) => Promise<Menu[]>;
-  modifyMenu: (menuCd: number, data: MenuFormData) => Promise<void>;
+  modifyMenu: (siteId: string, data: TreeMenu[]) => Promise<void>;
 }
