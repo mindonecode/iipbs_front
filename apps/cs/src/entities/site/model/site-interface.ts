@@ -16,6 +16,7 @@ export interface ISite {
   useYn: string;
   regDt: string;
   rgTrNm: string;
+  dmnAddr: string;
 }
 
 export interface ISiteDetail extends SiteFormData {
@@ -44,6 +45,7 @@ export const siteFormSchema = z.object({
   bkmkIcon: z.string().max(100).nullable(),
   useYn: z.string(),
   siteSkn: z.string().max(10).nullable(),
+  dmnAddr: z.string().nullable(),
 });
 
 export type SiteFormData = z.infer<typeof siteFormSchema>;
