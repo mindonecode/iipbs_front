@@ -1,30 +1,7 @@
 import type { SelectDataType } from "@common/business_components/ui";
 import type { TableUpperProps } from "../dashboard";
+import { getFectch } from "../../components/api";
 export type {TableUpperProps};
-
-type sidoDataType = {
-    fid: number,
-    mctpvCd: number,
-    mctpvEngNm: string,
-    mctpvKornNm: string
-}
-
-// API 호출 함수 추가
-const fetchSidoData = async (): Promise<sidoDataType[]> => {
-    try {
-        const response = await fetch('http://192.168.1.129:8881/api/v1/addr/city');
-        const data = await response.json();
-        console.log(data);
-        // API 응답 데이터를 SelectDataType 형식으로 변환
-        return data.data.map((item: any) => ({
-            text: item.mctpvKornNm || '',
-            val: item.mctpvCd || ''
-        }));
-    } catch (error) {
-        console.error('시도 데이터를 가져오는데 실패했습니다:', error);
-        return [];
-    }
-};
 
 /**====================================
  * Store - 타입
@@ -158,35 +135,6 @@ const selectFacilityPartData:SelectDataType[] = [
     { text: "폐수처리장", val: '05'},
     { text: "침출수처리장", val: '06'},
     { text: "기타기초시설설", val: '07'},
-];
-
-// selectSidoData를 동적으로 설정하도록 수정
-let selectSidoData: SelectDataType[] = [];
-
-// 초기 데이터 로드
-fetchSidoData().then(data => {
-    selectSidoData = [
-        { text: "전체", val: '00'},  // 기본 "전체" 옵션 유지
-        ...data
-    ];
-}).catch(error => {
-    console.error('시도 데이터 초기화 실패:', error);
-    // 에러 발생 시 기본 데이터 사용
-    selectSidoData = [
-        { text: "전체", val: '00'}
-    ];
-});
-
-const selectSigunData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "동대문구", val: '01'},
-    { text: "여의도", val: '02'},
-    { text: "강남구", val: '03'},
-    { text: "노원구", val: '04'},
-    { text: "영등포구", val: '05'},
-    { text: "관악구", val: '06'},
-    { text: "광진구", val: '07'},
-    { text: "망원동", val: '08'},
 ];
 
 // 리스트 헤더
@@ -483,12 +431,79 @@ const gridListFcltyWaterQltyInfo:fcltyWaterQltyInfoProps[] = [
     }
 ];
 
+type sidoDataType = {
+    fid: number,
+    mctpvCd: number,
+    mctpvEngNm: string,
+    mctpvKornNm: string
+}
+
+type sigunDataType = {
+    fid: number,
+    sggCd: number,
+    sggEngNm: string,
+    sggKornNm: string
+}
+
+// selectSidoData를 동적으로 설정하도록 수정
+const selectSidoData: SelectDataType[] = [
+    { text: "전체", val: '00'}  // 기본값 설정
+];
+
+const selectSigunData:SelectDataType[] = [
+    { text: "전체", val: '00'}
+];
+
+/**====================================
+ * Store - api (데이터 호출출)
+ ====================================*/
+// 시도 API 호출 함수 추가
+const fetchSidoData = async (): Promise<SelectDataType[]> => {
+    try {
+        const data = await getFectch('/addr/city');
+        return [
+            { text: "전체", val: '00'},
+            ...data.map((item: sidoDataType) => ({
+                text: item.mctpvKornNm || '',
+                val: String(item.mctpvCd) || ''
+            }))
+        ];
+    } catch (error) {
+        console.error('시도 데이터를 가져오는데 실패했습니다:', error);
+        return selectSidoData;
+    }
+};  
+
+// 시군구 API 호출 함수 추가
+const fetchSigunData = async (sidoCd: string): Promise<SelectDataType[]> => {
+    try {
+        const data = await getFectch('/addr/sgg');
+        return [
+            { text: "전체", val: '00'},
+            ...data
+                .filter((item: sigunDataType) => 
+                    sidoCd === '00' || item.sggCd.toString().substring(0,2) === sidoCd
+                )
+                .map((item: sigunDataType) => ({
+                    text: item.sggKornNm || '',
+                    val: String(item.fid) || ''
+                }))
+        ];
+    } catch (error) {
+        console.error('시군구 데이터를 가져오는데 실패했습니다:', error);
+        return selectSigunData;
+    }
+};
+
 /**====================================
  * Store - expaort
  ====================================*/
 export type ProcessFacilityActions = {
     ProcessFacilityActions: {
         labelChange:()=>void;
+        updateSidoData: (data: SelectDataType[]) => void;
+        initializeSidoData: () => Promise<void>;
+        initializeSigunData: (sidoCd: string) => Promise<void>;
     }
 }
 
@@ -563,7 +578,6 @@ export const processFacilityInitState:ProcessFacilityType = {
 export type ProcessFacilityStore = ProcessFacilityType & ProcessFacilityActions;
 
 export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any) => {
-    console.log("tableActionsExport");
     return {
         ProcessFacilityActions: {
             labelChange:()=>set(
@@ -575,7 +589,34 @@ export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any)
                         ...state.ProcessFacility,
                         processFacilitylabelArray: state.ProcessFacility.processFacilityLabelArray
                 }})}
-            )
+            ),
+            updateSidoData: (data: SelectDataType[]) => set(
+                (state: ProcessFacilityType) => ({
+                    ProcessFacility: {
+                        ...state.ProcessFacility,
+                        selectSidoData: data
+                    }
+                })
+            ),
+            initializeSidoData: async () => {
+                const data = await fetchSidoData();
+                set((state: ProcessFacilityType) => ({
+                    ProcessFacility: {
+                        ...state.ProcessFacility,
+                        selectSidoData: data
+                    }
+                }));
+            },
+            initializeSigunData: async (sidoCd: string) => {
+                const data = await fetchSigunData(sidoCd);
+                console.log(data);
+                set((state: ProcessFacilityType) => ({
+                    ProcessFacility: {
+                        ...state.ProcessFacility,
+                        selectSigunData: data
+                    }
+                }));
+            }
         }
     }
 }

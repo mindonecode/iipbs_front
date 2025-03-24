@@ -3,11 +3,11 @@ import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, UiTable, Title } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
 
 export default function ProcessFacilitySearch() {
-  const {ProcessFacility, ProcessFacilityList} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
+  const {ProcessFacility, ProcessFacilityList, ProcessFacilityActions} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
   const {
     processFacilityLabelArray, 
     selectPartData,
@@ -30,7 +30,7 @@ export default function ProcessFacilitySearch() {
   const inputSelectRef=useRef<HTMLInputElement>(null);
 
   const [partValue, setPartValue] = useState<string>("");
-  const [sidoValue, setSidoValue] = useState<string>("");
+  const [sidoValue, setSidoValue] = useState<string>("00");
   const [sigunValue, setSigunValue] = useState<string>("");
   const [updownValue, setUpdownValue] = useState<string>("");
   const [capaValue, setCapaValue] = useState<string>("");
@@ -50,6 +50,7 @@ export default function ProcessFacilitySearch() {
         break;
       case 'sido':
         setSidoValue(val);
+        ProcessFacilityActions.initializeSigunData(val);
         break;
       case 'sigun':
         setSigunValue(val);
@@ -119,7 +120,13 @@ export default function ProcessFacilitySearch() {
   const closeModal = () => {
     setSelectedRow(null);
   };
-  
+
+  // 시도 데이터 초기화
+  useEffect(() => {
+    ProcessFacilityActions.initializeSidoData();
+    ProcessFacilityActions.initializeSigunData(sidoValue);
+  }, [ProcessFacilityActions, sidoValue]);
+
   return (
     <MainContentDiv>
       <Title title="처리시설 시설정보" />
