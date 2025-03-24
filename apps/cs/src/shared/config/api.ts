@@ -13,6 +13,7 @@ export const ENDPOINT = {
     CODE: "/cms-service/api/v1/code/cache",
     IPS: "/cms-service/api/v1/site-ips",
     DOMAINS: "/cms-service/api/v1/site-dmns",
+    MENUS: "/cms-service/api/v1/menus",
   },
 };
 

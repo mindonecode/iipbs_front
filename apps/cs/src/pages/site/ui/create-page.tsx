@@ -4,11 +4,10 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SiteApi } from "../api/site-service";
-import { siteFormSchema, type SiteFormData } from "../model/site-interface";
-import { SitePageLayout } from "./layout";
-import { SiteForm } from "./site-form";
+import { SiteApi, siteFormSchema, type SiteFormData } from "@/entities/site";
 import { useAlertStore } from "@/shared/lib/use-alert-store";
+import { PageLayout } from "@/shared/ui/page-layout";
+import { SiteForm } from "./site-form";
 
 function CreatePage() {
   const router = useRouter();
@@ -39,9 +38,9 @@ function CreatePage() {
   });
 
   return (
-    <SitePageLayout>
+    <PageLayout pageTitle="사이트 관리">
       <SiteForm form={form} handleSave={createSite} />
-    </SitePageLayout>
+    </PageLayout>
   );
 }
 
