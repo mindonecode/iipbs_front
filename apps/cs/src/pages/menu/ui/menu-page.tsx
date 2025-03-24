@@ -16,7 +16,11 @@ import { SiteApi } from "@/entities/site";
 import { ENDPOINT } from "@/shared/config";
 import { PageLayout } from "@/shared/ui/page-layout";
 import { MenuApi } from "../api/menu-service";
-import { menuFormSchema, type MenuFormData } from "../model/menu-interface";
+import {
+  MENU_TYPE,
+  menuFormSchema,
+  type MenuFormData,
+} from "../model/menu-interface";
 import { MenuTree } from "./menu-tree";
 import { MenuForm } from "./menu-form";
 
@@ -49,6 +53,9 @@ function MenuPage() {
 
   const form = useForm<MenuFormData>({
     resolver: zodResolver(menuFormSchema),
+    defaultValues: {
+      menuLnkgTypeCd: MENU_TYPE.EMPTY,
+    },
   });
 
   const handleSave = async (data: MenuFormData) => {

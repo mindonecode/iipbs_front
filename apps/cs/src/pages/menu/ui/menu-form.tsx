@@ -54,7 +54,7 @@ export function MenuForm({
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="card card-border !mt-6">
+          <div className="card card-border">
             <div className="card-header">
               <h3 className="text-2xl font-medium text-label">
                 메뉴 등록/수정
