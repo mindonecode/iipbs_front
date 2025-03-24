@@ -14,3 +14,4 @@ export * from "./title";
 export * from "./search_form_left";
 export * from "./search_form_right";
 export * from "./table_div";
+export * from "./tab";
