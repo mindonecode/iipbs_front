@@ -20,9 +20,10 @@ import { MENU_TYPE, type MenuFormData } from "../model/menu-interface";
 
 interface BaseMenuFormProps {
   form: UseFormReturn<MenuFormData>;
+  menuId?: number;
 }
 
-export function BaseMenuForm({ form }: BaseMenuFormProps) {
+export function BaseMenuForm({ form, menuId }: BaseMenuFormProps) {
   return (
     <Table variant="secondary">
       <colgroup>
@@ -30,6 +31,14 @@ export function BaseMenuForm({ form }: BaseMenuFormProps) {
         <col width="80%" />
       </colgroup>
       <TableBody>
+        <TableRow>
+          <TableHead>메뉴ID</TableHead>
+          <TableCell className="border">
+            <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
+              {menuId}
+            </div>
+          </TableCell>
+        </TableRow>
         <TableRow>
           <TableHead>메뉴명</TableHead>
           <TableCell className="border">

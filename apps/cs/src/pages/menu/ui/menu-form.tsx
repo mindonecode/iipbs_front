@@ -11,7 +11,7 @@ import { ContentMenuForm } from "./content-menu-form";
 
 interface MenuFormProps {
   form: UseFormReturn<MenuFormData>;
-  menuId?: string;
+  menuId?: number;
   handleSave: (data: MenuFormData) => Promise<void>;
   handleDelete?: () => Promise<void>;
 }
@@ -25,8 +25,6 @@ export function MenuForm({
   const isModifyMode = !!menuId;
   const { confirm } = useConfirm();
   const [onConfirm, setOnConfirm] = useState(false);
-
-  const menuType = form.watch("menuLnkgTypeCd");
 
   const onSubmit = async (data: MenuFormData) => {
     const confirmMessage = isModifyMode
@@ -50,6 +48,8 @@ export function MenuForm({
     setOnConfirm(false);
   };
 
+  const menuType = form.watch("menuLnkgTypeCd");
+
   return (
     <>
       <Form {...form}>
@@ -61,7 +61,7 @@ export function MenuForm({
               </h3>
             </div>
             <div className="card">
-              <BaseMenuForm form={form} />
+              <BaseMenuForm form={form} menuId={menuId} />
               <div className="-mt-[0.1rem]">
                 {renderMenuTypeComponent(menuType, form)}
               </div>
