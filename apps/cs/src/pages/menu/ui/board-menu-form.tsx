@@ -18,11 +18,7 @@ import {
 import type { MenuFormData } from "../model/menu-interface";
 import { BaseBottomMenuForm } from "./base-bottom-menu-form";
 
-export function ContentMenuForm({
-  form,
-}: {
-  form: UseFormReturn<MenuFormData>;
-}) {
+export function BoardMenuForm({ form }: { form: UseFormReturn<MenuFormData> }) {
   return (
     <Table variant="secondary">
       <colgroup>
@@ -31,7 +27,7 @@ export function ContentMenuForm({
       </colgroup>
       <TableBody>
         <TableRow>
-          <TableHead>콘텐츠</TableHead>
+          <TableHead>게시판</TableHead>
           <TableCell className="border">
             <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
               {form.watch("menuLnkgSn")}

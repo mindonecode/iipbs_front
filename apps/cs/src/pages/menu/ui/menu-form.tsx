@@ -8,6 +8,10 @@ import { MENU_TYPE, type MenuFormData } from "../model/menu-interface";
 import { BaseMenuForm } from "./base-menu-form";
 import { EmptyMenuForm } from "./empty-menu-form";
 import { ContentMenuForm } from "./content-menu-form";
+import { BoardMenuForm } from "./board-menu-form";
+import { InsideMenuForm } from "./inside-menu-form";
+import { OutsideMenuForm } from "./outside-menu-form";
+import { BottomMenuForm } from "./bottom-menu-form";
 
 interface MenuFormProps {
   form: UseFormReturn<MenuFormData>;
@@ -93,6 +97,14 @@ function renderMenuTypeComponent(
       return <EmptyMenuForm form={form} />;
     case MENU_TYPE.CONTENTS:
       return <ContentMenuForm form={form} />;
+    case MENU_TYPE.BOARD:
+      return <BoardMenuForm form={form} />;
+    case MENU_TYPE.INSIDE:
+      return <InsideMenuForm form={form} />;
+    case MENU_TYPE.OUTSIDE:
+      return <OutsideMenuForm form={form} />;
+    case MENU_TYPE.BOTTOM:
+      return <BottomMenuForm form={form} />;
     default:
       return null;
   }

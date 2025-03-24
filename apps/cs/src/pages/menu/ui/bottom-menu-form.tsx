@@ -3,7 +3,11 @@ import { Table, TableBody } from "@common/components";
 import type { MenuFormData } from "../model/menu-interface";
 import { BaseBottomMenuForm } from "./base-bottom-menu-form";
 
-export function EmptyMenuForm({ form }: { form: UseFormReturn<MenuFormData> }) {
+export function BottomMenuForm({
+  form,
+}: {
+  form: UseFormReturn<MenuFormData>;
+}) {
   return (
     <Table variant="secondary">
       <colgroup>
