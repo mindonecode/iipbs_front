@@ -1,9 +1,8 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/processFacility";
-import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SelectBox, TableDiv, UiTable } from "@common/business_components";
+import { TableDiv, UiTable } from "@common/business_components";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
-import { Button } from "@common/components/ui";
 import { useRef, useState } from "react";
 
 // 시설계획 table header 변경
@@ -44,78 +43,9 @@ const headMakeColSpanOperationStatus = (upHeadList: TableUpperProps[]) => {
 }
 
 export default function ProcessFacilitySearch() {
- // 입력값 상태 관리
-  const [partValue, setPartValue] = useState<string>("");
-  const [sidoValue, setSidoValue] = useState<string>("");
-  const [sigunValue, setSigunValue] = useState<string>("");
-  const [searchYear, setSearchYear] = useState<string>("");
-  const [fcltyName, setFcltyName] = useState<string>("");
-  const {DashboardMain, FcltyMain, PlanFclty, OperationStatus} = useFoStore((state) => state);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const searchInputRef = useRef<HTMLDivElement & HTMLInputElement>(null);
-
-  const onSelectValue = (val: string, type: string) => {
-    switch(type) {
-      case 'part':
-        setPartValue(val);
-        break;
-      case 'sido':
-        setSidoValue(val);
-        break;
-      case 'sigun':
-        setSigunValue(val);
-        break;
-      case 'searchYear':
-        setSearchYear(val);
-        break;
-    }
-  }
-
-  const chkVal = () => {
-    console.log('=== 검색 조건 ===');
-    console.log('Part:', partValue);
-    console.log('Sido:', sidoValue);
-    console.log('Sigun:', sigunValue);
-    console.log('Search Year:', searchYear);
-    console.log('Fclty Name:', fcltyName);
-  }
-
-  const initVal = () => {
-    console.log('=== 초기화 ===');
-    // SelectBox 초기화 - 각 selectArray의 첫 번째 옵션 값 사용
-    onSelectValue(selectPartData[0]?.val || "00", 'part');
-    onSelectValue(selectSidoData[0]?.val || "00", 'sido');
-    onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
-    onSelectValue(selectSearchYear[0]?.val || "00", 'searchYear');
-
-    // SearchInputSelect 초기화
-    setFcltyName("");
-    
-    // ref를 사용하여 input 값 초기화
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
-
-    if (searchInputRef.current) {
-      const input = searchInputRef.current.querySelector('input');
-      if (input) {
-        input.value = "";
-      }
-    }
-  }
-
-  /**
-   * 상단바 관련
-   */
-  const {
-    topLabelArray,
-    selectPartData,
-    selectSearchYear,
-    selectSidoData,
-    selectSigunData,
-  } = DashboardMain;
-
+  // 입력값 상태 관리
+  const { FcltyMain, PlanFclty, OperationStatus} = useFoStore((state) => state);
+  
   // Tab1
   // fclty 관련
   const {
@@ -138,24 +68,7 @@ export default function ProcessFacilitySearch() {
   const upChangeRePlanFclty = headMakeColSpanPlanFclty(upHeadListPlanFclty);
   const upChangeHeadListOperationStatus = headMakeColSpanOperationStatus(upHeadListOperationStatus);
   return (
-    <MainContentDiv>
-      <SearchDiv>
-        <SearchFormLeft>
-          <SelectBox className="col-span-2" label={topLabelArray[0] as string} selectArray={selectPartData} onSelectValue={(val) => onSelectValue(val, 'part')} value={partValue} selectClass={undefined}/>
-          <SelectBox className="col-span-2" label={topLabelArray[1] as string} selectArray={selectSidoData} onSelectValue={(val) => onSelectValue(val, 'sido')} value={sidoValue} selectClass={undefined}/>
-          <SelectBox className="col-span-2" label={topLabelArray[2] as string} selectArray={selectSigunData} onSelectValue={(val) => onSelectValue(val, 'sigun')} value={sigunValue} selectClass={undefined}/>
-          <SelectBox className="col-span-2" label={topLabelArray[3] as string} selectArray={selectSearchYear} onSelectValue={(val) => onSelectValue(val, 'searchYear')} value={searchYear} selectClass={undefined}/>
-          <SearchInput className="col-span-2 flex items-center" label={topLabelArray[4] as string} textValue={fcltyName} setText={setFcltyName} />
-        </SearchFormLeft>
-        <SearchFormRight>
-          <Button className="mr-2" size="sm" onClick={initVal}>
-            초기화
-          </Button>
-          <Button className="mr-2" size="sm" onClick={chkVal}>
-            조회
-          </Button>
-        </SearchFormRight>
-      </SearchDiv>
+    <>
       <TableDiv>
         <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} cellClick={()=>{} } children={undefined} />
       </TableDiv>
@@ -177,7 +90,7 @@ export default function ProcessFacilitySearch() {
               </TableBody>
             </Table>
           </div>
-          <div className="col-span-7">
+          <div className="col-span-7 h-[600px] overflow-auto">
             <Table>
               <TableHeader>
                 {upChangeHeadListOperationStatus}
@@ -200,6 +113,6 @@ export default function ProcessFacilitySearch() {
           </div>
         </div>
       </TableDiv>
-    </MainContentDiv>
+    </>
   );
 }
