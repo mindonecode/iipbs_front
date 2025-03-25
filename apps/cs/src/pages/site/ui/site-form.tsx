@@ -101,6 +101,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="w-[12rem] !text-[1.3rem]"
                                 disabled={isModifyMode}
                               />
@@ -175,6 +176,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트명을 입력하십시오."
                               />

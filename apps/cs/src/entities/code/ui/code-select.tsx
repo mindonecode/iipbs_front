@@ -11,10 +11,7 @@ import { CodeApi } from "../api/code-service";
 
 type CodeSelectProps = {
   upCd: string;
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
-};
+} & React.ComponentPropsWithoutRef<typeof Select>;
 
 function CodeSelect({ upCd, defaultValue, ...props }: CodeSelectProps) {
   const { data: code } = useQuery({
