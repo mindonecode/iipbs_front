@@ -9,6 +9,44 @@
   color: #666;
 }
 
+.card_width10 {width:calc(10% - 12px);}
+
+.card_width20 {width:calc(20% - 12px);}
+
+.card_width25 {width:calc(25% - 12px);}
+
+.card_width30 {width:calc(30% - 12px);}
+
+.card_width33 {width:calc(33.333% - 12px);}
+
+.card_width40 {width:calc(40% - 12px);}
+
+.card_width45 {width:calc(45% - 12px);}
+
+.card_width50 {width:calc(50% - 12px);}
+
+.card_width60 {width:calc(60% - 12px);}
+
+.card_width66 {width:calc(66.666% - 12px);}
+
+.card_width70 {width:calc(70% - 12px);}
+
+.card_width75 {width:calc(75% - 12px);}
+
+.card_width80 {width:calc(80% - 12px);}
+
+.card_width90 {width:calc(90% - 12px);}
+
+.card_width100 {width:calc(100% - 12px);}
+
+.card_nopadding {padding:0 !important;}
+
+.card_nomargin {width:100%;margin:0 !important;padding:0 !important;}
+
+.topline {border-top: 1px solid #ccc;}
+
+.bottomline {border-bottom: 1px solid #e6eef3;background: #fff;}
+
 .card-border {
   border: 1px solid #dbe2e6;
   background-color: rgba(255, 255, 255, 0.6);
