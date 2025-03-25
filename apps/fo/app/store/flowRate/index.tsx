@@ -2,52 +2,6 @@ import type { SelectDataType, TableUpperProps } from "../dashboard";
 
 const FlowRateSearchLabelArray:string[] = ['구분', '시도', '시군구', '용량별', '시설명', '조회기간', '시설상태'];
 
-const selectPartData:SelectDataType[] = [
-    { text: "행정별", val: '00'},
-    { text: "유역별", val: '01'},
-    { text: "환경청별", val: '02'},
-];
-const selectUpdownData:SelectDataType[] = [
-    { text: "이상", val: '00'},
-    { text: "이하", val: '01'},
-];
-const selectOperationData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "가동중", val: '01'},
-    { text: "가동중지", val: '02'},
-    { text: "시설폐쇄", val: '03'},
-];
-const selectSearchYear:SelectDataType[] = [
-    { text: "2025년", val: '2025'},
-    { text: "2024년", val: '2024'},
-    { text: "2023년", val: '2023'},
-];
-const selectSidoData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "서울특별시", val: '01'},
-    { text: "인천광역시", val: '02'},
-    { text: "경기도", val: '03'},
-    { text: "강원도", val: '04'},
-    { text: "충청남도", val: '05'},
-    { text: "충청북도", val: '06'},
-    { text: "경상남도", val: '07'},
-    { text: "경상북도", val: '08'},
-    { text: "전라남도", val: '09'},
-    { text: "전라북도", val: '10'},
-    { text: "제주도", val: '11'},
-];
-const selectSigunData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "동대문구", val: '01'},
-    { text: "여의도", val: '02'},
-    { text: "강남구", val: '03'},
-    { text: "노원구", val: '04'},
-    { text: "영등포구", val: '05'},
-    { text: "관악구", val: '06'},
-    { text: "광진구", val: '07'},
-    { text: "망원동", val: '08'},
-];
-
 // GRID관련
 export type flowRateListProps = {
     facilityCd : string,
@@ -143,12 +97,6 @@ export type FlowRateSearchType = {
     FlowRateSearch: {
         isInit: boolean;
         flowRateSearchLabelArray:string[];
-        selectPartData:SelectDataType[];
-        selectUpdownData:SelectDataType[];
-        selectOperationData:SelectDataType[];
-        selectSearchYear:SelectDataType[];
-        selectSidoData:SelectDataType[];
-        selectSigunData:SelectDataType[];
     },
     FlowRateList : {
         isInit : boolean;
@@ -163,12 +111,6 @@ export const flowRateSearchInitState:FlowRateSearchType = {
     FlowRateSearch: {
         isInit: false,
         flowRateSearchLabelArray: FlowRateSearchLabelArray,
-        selectPartData : selectPartData,
-        selectUpdownData : selectUpdownData,
-        selectOperationData : selectOperationData,
-        selectSearchYear : selectSearchYear,
-        selectSidoData : selectSidoData,
-        selectSigunData: selectSigunData,
     },
     FlowRateList : {
         isInit : false,

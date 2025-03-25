@@ -2,7 +2,7 @@
 import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SelectBox, UITab } from "@common/business_components";
 import { Button, TabsContent } from "@common/components/ui";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProcessFacilitySearch from "./facilityInfo/page";
 import DashBoardChart from "./maingraph/page";
 
@@ -15,12 +15,23 @@ const tabList = [
 
 export default function DashBoard() {
   // 입력값 상태 관리
+  const {Common, DashboardMain, CommonActions} = useFoStore((state) => state);
   const [partValue, setPartValue] = useState<string>("");
   const [sidoValue, setSidoValue] = useState<string>("");
   const [sigunValue, setSigunValue] = useState<string>("");
   const [searchYear, setSearchYear] = useState<string>("");
   const [fcltyName, setFcltyName] = useState<string>("");
-  const {DashboardMain} = useFoStore((state) => state);
+
+  const {
+    selectPartData,
+    selectSearchYear,
+    selectSidoData,
+    selectSigunData,
+  } = Common;
+
+  const {
+    topLabelArray
+  } = DashboardMain;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const searchInputRef = useRef<HTMLDivElement & HTMLInputElement>(null);
@@ -32,6 +43,8 @@ export default function DashBoard() {
         break;
       case 'sido':
         setSidoValue(val);
+        CommonActions.initializeSigunData(val);
+        onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
         break;
       case 'sigun':
         setSigunValue(val);
@@ -74,15 +87,13 @@ export default function DashBoard() {
       }
     }
   }
-  
-  const {
-    topLabelArray,
-    selectPartData,
-    selectSearchYear,
-    selectSidoData,
-    selectSigunData,
-  } = DashboardMain;
 
+  // 시도 데이터 초기화
+  useEffect(() => {
+    CommonActions.initializeSidoData();
+    CommonActions.initializeSigunData(sidoValue);
+  }, [CommonActions, sidoValue]);
+  
   return (
     <MainContentDiv>
       <SearchDiv>

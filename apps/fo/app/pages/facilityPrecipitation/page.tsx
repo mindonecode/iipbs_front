@@ -3,19 +3,23 @@ import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, Title, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PrecipitationModal from "./modal/page";
 
 export default function FacilityPrecipitation() {
-  const {FacilityPrecipitation, FacilityPrecipitationSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
+  const {Common, FacilityPrecipitation, FacilityPrecipitationSearch, CommonActions} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
+  
   const {
-    labelArray, 
     selectPartData,
     selectUpdownData,
     selectOperationData,
     selectFacilityPartData,
     selectSidoData,
     selectSigunData,
+  } = Common;
+
+  const {
+    labelArray, 
   } = FacilityPrecipitationSearch;
 
   const {
@@ -51,6 +55,8 @@ export default function FacilityPrecipitation() {
         break;
       case 'sido':
         setSidoValue(val);
+        CommonActions.initializeSigunData(val);
+        onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
         break;
       case 'sigun':
         setSigunValue(val);
@@ -124,6 +130,12 @@ export default function FacilityPrecipitation() {
   const closeModal = () => {
     setSelectedRow(null);
   };
+
+  // 시도 데이터 초기화
+  useEffect(() => {
+    CommonActions.initializeSidoData();
+    CommonActions.initializeSigunData(sidoValue);
+  }, [CommonActions, sidoValue]);
 
   return (
     <MainContentDiv>

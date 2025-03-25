@@ -108,35 +108,6 @@ export type fcltyWaterQltyInfoProps = {
 // 검색단
 const ProcessFacilityLabelArray:string[] = ['구분', '시도', '시군구','용량별', '시설명', '시설상태','시설구분'];
 
-const selectPartData:SelectDataType[] = [
-    { text: "행정별", val: '00'},
-    { text: "유역별", val: '01'},
-    { text: "환경청별", val: '02'},
-];
-
-const selectUpdownData:SelectDataType[] = [
-    { text: "이상", val: '00'},
-    { text: "이하", val: '01'},
-];
-
-const selectOperationData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "가동중", val: '01'},
-    { text: "가동중지", val: '02'},
-    { text: "시설폐쇄", val: '03'},
-];
-
-const selectFacilityPartData:SelectDataType[] = [
-    { text: "전체", val: '00'},
-    { text: "공공하수처리시설", val: '01'},
-    { text: "오수처리장", val: '02'},
-    { text: "개인하수처리시설", val: '03'},
-    { text: "분뇨처리장", val: '04'},
-    { text: "폐수처리장", val: '05'},
-    { text: "침출수처리장", val: '06'},
-    { text: "기타기초시설설", val: '07'},
-];
-
 // 리스트 헤더
 const upHeadList:TableUpperProps[] = [
     { id: "facilityCd", title: "시설코드"},
@@ -431,69 +402,10 @@ const gridListFcltyWaterQltyInfo:fcltyWaterQltyInfoProps[] = [
     }
 ];
 
-type sidoDataType = {
-    fid: number,
-    mctpvCd: number,
-    mctpvEngNm: string,
-    mctpvKornNm: string
-}
-
-type sigunDataType = {
-    fid: number,
-    sggCd: number,
-    sggEngNm: string,
-    sggKornNm: string
-}
-
-// selectSidoData를 동적으로 설정하도록 수정
-const selectSidoData: SelectDataType[] = [
-    { text: "전체", val: '00'}  // 기본값 설정
-];
-
-const selectSigunData:SelectDataType[] = [
-    { text: "전체", val: '00'}
-];
-
 /**====================================
  * Store - api (데이터 호출출)
  ====================================*/
-// 시도 API 호출 함수 추가
-const fetchSidoData = async (): Promise<SelectDataType[]> => {
-    try {
-        const data = await getFectch('/addr/city');
-        return [
-            { text: "전체", val: '00'},
-            ...data.map((item: sidoDataType) => ({
-                text: item.mctpvKornNm || '',
-                val: String(item.mctpvCd) || ''
-            }))
-        ];
-    } catch (error) {
-        console.error('시도 데이터를 가져오는데 실패했습니다:', error);
-        return selectSidoData;
-    }
-};  
 
-// 시군구 API 호출 함수 추가
-const fetchSigunData = async (sidoCd: string): Promise<SelectDataType[]> => {
-    try {
-        const data = await getFectch('/addr/sgg');
-        return [
-            { text: "전체", val: '00'},
-            ...data
-                .filter((item: sigunDataType) => 
-                    item.sggCd.toString().substring(0,2) === sidoCd
-                )
-                .map((item: sigunDataType) => ({
-                    text: item.sggKornNm || '',
-                    val: String(item.fid) || ''
-                }))
-        ];
-    } catch (error) {
-        console.error('시군구 데이터를 가져오는데 실패했습니다:', error);
-        return selectSigunData;
-    }
-};
 
 /**====================================
  * Store - expaort
@@ -501,9 +413,6 @@ const fetchSigunData = async (sidoCd: string): Promise<SelectDataType[]> => {
 export type ProcessFacilityActions = {
     ProcessFacilityActions: {
         labelChange:()=>void;
-        updateSidoData: (data: SelectDataType[]) => void;
-        initializeSidoData: () => Promise<void>;
-        initializeSigunData: (sidoCd: string) => Promise<void>;
     }
 }
 
@@ -511,12 +420,6 @@ export type ProcessFacilityType = {
     ProcessFacility: {
         isInit: boolean;
         processFacilityLabelArray:string[];
-        selectPartData:SelectDataType[];
-        selectUpdownData:SelectDataType[];
-        selectOperationData:SelectDataType[];
-        selectFacilityPartData:SelectDataType[];
-        selectSidoData:SelectDataType[];
-        selectSigunData:SelectDataType[];
     },
 
     ProcessFacilityList : {
@@ -545,12 +448,6 @@ export const processFacilityInitState:ProcessFacilityType = {
     ProcessFacility: {
         isInit: false,
         processFacilityLabelArray: ProcessFacilityLabelArray,
-        selectPartData : selectPartData,
-        selectUpdownData : selectUpdownData,
-        selectOperationData : selectOperationData,
-        selectFacilityPartData : selectFacilityPartData,
-        selectSidoData : selectSidoData,
-        selectSigunData: selectSigunData,
     },
 
     ProcessFacilityList : {
@@ -590,32 +487,6 @@ export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any)
                         processFacilitylabelArray: state.ProcessFacility.processFacilityLabelArray
                 }})}
             ),
-            updateSidoData: (data: SelectDataType[]) => set(
-                (state: ProcessFacilityType) => ({
-                    ProcessFacility: {
-                        ...state.ProcessFacility,
-                        selectSidoData: data
-                    }
-                })
-            ),
-            initializeSidoData: async () => {
-                const data = await fetchSidoData();
-                set((state: ProcessFacilityType) => ({
-                    ProcessFacility: {
-                        ...state.ProcessFacility,
-                        selectSidoData: data
-                    }
-                }));
-            },
-            initializeSigunData: async (sidoCd: string) => {
-                const data = await fetchSigunData(sidoCd);
-                set((state: ProcessFacilityType) => ({
-                    ProcessFacility: {
-                        ...state.ProcessFacility,
-                        selectSigunData: data
-                    }
-                }));
-            }
         }
     }
 }

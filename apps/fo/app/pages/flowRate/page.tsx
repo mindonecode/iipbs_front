@@ -3,22 +3,25 @@ import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, Title, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProcessFacilitySearch() {
-  const {FlowRateSearch, FlowRateList} = useFoStore((state) => state);
+  const {Common, FlowRateSearch, FlowRateList, CommonActions} = useFoStore((state) => state);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputSelectRef = useRef<HTMLInputElement>(null);
   const searchInputRef = useRef<HTMLDivElement & HTMLInputElement>(null);
-  // 상단바 관련
+
   const {
-    flowRateSearchLabelArray, 
     selectPartData,
     selectUpdownData,
     selectOperationData,
-    selectSearchYear,
     selectSidoData,
     selectSigunData,
+    selectSearchYear,
+  } = Common;
+
+  const {
+    flowRateSearchLabelArray
   } = FlowRateSearch;
 
   // 그리드 관련
@@ -44,6 +47,8 @@ export default function ProcessFacilitySearch() {
         break;
       case 'sido':
         setSidoValue(val);
+        CommonActions.initializeSigunData(val);
+        onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
         break;
       case 'sigun':
         setSigunValue(val);
@@ -103,6 +108,13 @@ export default function ProcessFacilitySearch() {
       }
     }
   }
+
+  // 시도 데이터 초기화
+  useEffect(() => {
+    CommonActions.initializeSidoData();
+    CommonActions.initializeSigunData(sidoValue);
+  }, [CommonActions, sidoValue]);
+  
   return (
     <MainContentDiv>
       <Title title="시설별 유량현황" />

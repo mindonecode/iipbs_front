@@ -3,19 +3,23 @@ import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable, Title, SearchFormLeft, SearchFormRight, TableDiv } from "@common/business_components";
 import { Button } from "@common/components/ui";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
 
 export default function ProcessArea() {
-  const {ProcessArea, ProcessAreaSearch} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
+  const {Common, ProcessArea, ProcessAreaSearch, CommonActions} = useFoStore((state) => state) || { processAreaList: { processAreaList: [] }};
+  
   const {
-    processFacilityLabelArray, 
     selectPartData,
     selectUpdownData,
     selectOperationData,
     selectFacilityPartData,
     selectSidoData,
     selectSigunData,
+  } = Common;
+  
+  const {
+    processFacilityLabelArray, 
   } = ProcessAreaSearch;
 
   const {
@@ -50,6 +54,8 @@ export default function ProcessArea() {
         break;
       case 'sido':
         setSidoValue(val);
+        CommonActions.initializeSigunData(val);
+        onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
         break;
       case 'sigun':
         setSigunValue(val);
@@ -118,6 +124,12 @@ export default function ProcessArea() {
   const closeModal = () => {
     setSelectedRow(null);
   };
+
+  // 시도 데이터 초기화
+  useEffect(() => {
+    CommonActions.initializeSidoData();
+    CommonActions.initializeSigunData(sidoValue);
+  }, [CommonActions, sidoValue]);
 
   return (
     <MainContentDiv>

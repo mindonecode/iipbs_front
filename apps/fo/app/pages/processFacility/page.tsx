@@ -7,15 +7,19 @@ import { useRef, useState, useEffect } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
 
 export default function ProcessFacilitySearch() {
-  const {ProcessFacility, ProcessFacilityList, ProcessFacilityActions} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
+  const {Common, ProcessFacility, ProcessFacilityList, CommonActions} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
+  
   const {
-    processFacilityLabelArray,
     selectPartData,
     selectUpdownData,
     selectOperationData,
     selectFacilityPartData,
     selectSidoData,
     selectSigunData,
+  } = Common;
+
+  const {
+    processFacilityLabelArray,
   } = ProcessFacility;
 
   const {
@@ -50,7 +54,7 @@ export default function ProcessFacilitySearch() {
         break;
       case 'sido':
         setSidoValue(val);
-        ProcessFacilityActions.initializeSigunData(val);
+        CommonActions.initializeSigunData(val);
         onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
         break;
       case 'sigun':
@@ -106,7 +110,7 @@ export default function ProcessFacilitySearch() {
       }
     }
   }
-  
+
   // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
     const facility = processFacilityList[index];
@@ -124,9 +128,9 @@ export default function ProcessFacilitySearch() {
 
   // 시도 데이터 초기화
   useEffect(() => {
-    ProcessFacilityActions.initializeSidoData();
-    ProcessFacilityActions.initializeSigunData(sidoValue);
-  }, [ProcessFacilityActions, sidoValue]);
+    CommonActions.initializeSidoData();
+    CommonActions.initializeSigunData(sidoValue);
+  }, [CommonActions, sidoValue]);
   
   return (
     <MainContentDiv>
