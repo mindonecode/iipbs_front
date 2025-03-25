@@ -163,11 +163,30 @@ export default function ProcessFacilitySearch() {
         </UiTable>
       </TableDiv>
       {selectedRow !== null && (
-        <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-[1200px] h-[800px]">
-            <Button onClick={closeModal} className="mt-1 mb-10 float-end w-5 h-10">
-              X
-            </Button>
+        <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white p-6 rounded-lg w-[1200px] h-[800px] shadow-2xl">
+            <button 
+              onClick={closeModal} 
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full
+                       bg-gray-100 text-gray-600 hover:bg-red-500 hover:text-white
+                       transform transition-all duration-200 ease-in-out hover:scale-110
+                       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+              aria-label="Close modal"
+            >
+              <svg 
+                className="w-4 h-4" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
             <ProcessFacilityInfoModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
           </div>
         </div>

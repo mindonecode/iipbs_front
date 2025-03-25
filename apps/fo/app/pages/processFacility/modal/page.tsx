@@ -1,12 +1,10 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/dashboard";
-import { UiTable } from "@common/business_components/ui";
+import { SearchDiv } from '@common/business_components';
+import { UITab, UiTable } from "@common/business_components/ui";
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  TabsContent
 } from "@common/components";
 import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
 
@@ -79,24 +77,27 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string; fac
     gridListFcltyWaterQltyInfo,
   } = ProcessFacilityDetail
 
+  const tabList = [
+    { value: 'common_info', label: '기본정보' },
+    { value: 'history_info', label: '이력정보' },
+  ];
+
   const upHeadListPlanInfoChange = headMakeList(upHeadListPlanInfo, 2);
   const upHeadListFcltyHistInfoChange = headMakeList(upHeadListFcltyHistInfo, 3);
   const upHeadListFcltyWaterQltyInfoChange = headMakeList(upHeadListFcltyWaterQltyInfo, 4);
   return (
-    <div className="m-8">
-      <Table>
-        <TableRow className="">
-          <TableHead className="w-1/6">{'시설명'}</TableHead>
-          <TableCell className="w-1/3">{props.fcltyName}</TableCell>
-          <TableHead className="w-1/6">{'시설코드'}</TableHead>
-          <TableCell className="w-1/3">{props.facilityCd}</TableCell>
-        </TableRow>
-      </Table>
-      <Tabs defaultValue="common_info" className="w-full mt-10">
-        <TabsList className="grid grid-cols-2">
-          <TabsTrigger value="common_info">기본정보</TabsTrigger>
-          <TabsTrigger value="history_info">이력정보</TabsTrigger>
-        </TabsList>
+    <div className=" bg-gray-50 p-8">
+      <SearchDiv>
+        <Table>
+          <TableRow className="">
+            <TableHead className="w-1/6">{'시설명'}</TableHead>
+            <TableCell className="w-1/3">{props.fcltyName}</TableCell>
+            <TableHead className="w-1/6">{'시설코드'}</TableHead>
+            <TableCell className="w-1/3">{props.facilityCd}</TableCell>
+          </TableRow>
+        </Table>
+      </SearchDiv>
+      <UITab tabList={tabList} defaultValue="common_info">
         <TabsContent value="common_info">
           <div className="font-bold m-3">시설 기본정보</div>
           <Table>
@@ -140,7 +141,7 @@ export default function ProcessFacilityInfoModal(props: { fcltyName: string; fac
             {upHeadListFcltyWaterQltyInfoChange}
           </UiTable>
         </TabsContent>
-      </Tabs>
+      </UITab>
     </div>
   );
 }
