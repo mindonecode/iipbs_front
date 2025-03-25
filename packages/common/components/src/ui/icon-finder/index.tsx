@@ -3,6 +3,7 @@ import { cn } from "../../lib";
 import { Button } from "../button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -40,26 +41,33 @@ const IconFinder = ({ handleClick }: IconFinderProps) => {
         </Button>
       </DialogTrigger>
       <DialogContent className="flex h-[65rem] max-w-[65rem] flex-col items-start overflow-y-auto">
-        <DialogHeader className="w-full">
-          <DialogTitle>아이콘 찾기</DialogTitle>
-        </DialogHeader>
-        <div className="flex w-full flex-col gap-4">
+        <div className="sticky top-0 z-10 w-full bg-background">
+          <DialogHeader className="w-full">
+            <DialogTitle className="-mt-6 flex items-center justify-between bg-background pt-6">
+              아이콘 찾기
+              <DialogClose asChild>
+                <button className="flex size-6 items-center justify-center rounded-full">
+                  <i className="diveicon di-x text-base text-muted-foreground" />
+                </button>
+              </DialogClose>
+            </DialogTitle>
+          </DialogHeader>
           <Input
             value={inputValue}
             onChange={handleInputChange}
-            className="!text-[1.3rem] text-foreground"
+            className="mt-6 !text-[1.3rem] text-foreground"
             placeholder="아이콘 이름 검색"
           />
-          <div className="grid grid-cols-5 gap-6 text-[2.4rem]">
-            {filteredIconNames.map((icon) => (
-              <IconItem
-                key={icon}
-                icon={icon}
-                selectedIcon={selectedIcon}
-                handleClick={handleIconClick}
-              />
-            ))}
-          </div>
+        </div>
+        <div className="grid grid-cols-5 gap-6 text-[2.4rem]">
+          {filteredIconNames.map((icon) => (
+            <IconItem
+              key={icon}
+              icon={icon}
+              selectedIcon={selectedIcon}
+              handleClick={handleIconClick}
+            />
+          ))}
         </div>
       </DialogContent>
     </Dialog>
