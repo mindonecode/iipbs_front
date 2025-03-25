@@ -26,7 +26,15 @@ export const generateNewTreeData = (
   options: DropOptions<Menu>,
 ): TreeMenu | null => {
   const { dragSourceId, dragSource, dropTargetId, dropTarget } = options;
+
   if (!dragSource?.data) return null;
+
+  const siblings = treeData.filter(
+    (node) => node.parent === dragSource?.parent,
+  );
+
+  const newSortSeq =
+    siblings.findIndex((sibling) => sibling.id === dragSourceId) + 1;
 
   const childNodes = treeData.filter(
     (node) => node.parent === dragSourceId && node.data,
@@ -44,7 +52,7 @@ export const generateNewTreeData = (
   const treeMenu: TreeMenu = {
     ...baseNode(dragSource),
     parentId: dropTargetId === 0 ? null : (dropTargetId as number),
-    sortSeq: (dropTarget?.data?.children?.length ?? 0) + 1,
+    sortSeq: newSortSeq,
     levelNo: (dropTarget?.data?.levelNo ?? 0) + 1,
   };
 

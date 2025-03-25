@@ -56,12 +56,25 @@ function MenuTree({ treeData, siteId }: MenuTreeProps) {
         classes={{
           root: "p-4",
           container: "flex flex-col",
-          listItem: "",
           dropTarget: "!bg-[rgba(32,148,250,0.5)] rounded-sm",
-          draggingSource: "",
-          placeholder: "",
+          placeholder: "relative",
         }}
         sort={false}
+        dropTargetOffset={10}
+        insertDroppableFirst={false}
+        canDrop={(_, { dragSource, dropTargetId }) => {
+          if (dragSource?.parent === dropTargetId) {
+            return true;
+          }
+        }}
+        placeholderRender={(_, { depth }) => {
+          return (
+            <div
+              className="absolute right-0 top-0 h-[0.2rem] bg-primary"
+              style={{ left: depth * 10 + 5 }}
+            />
+          );
+        }}
       />
     </DndProvider>
   );
