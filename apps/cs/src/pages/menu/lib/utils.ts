@@ -44,8 +44,8 @@ export const generateNewTreeData = (
   const treeMenu: TreeMenu = {
     ...baseNode(dragSource),
     parentId: dropTargetId === 0 ? null : (dropTargetId as number),
-    sortSeq: dropTarget?.data?.children?.length ?? 0 + 1,
-    levelNo: dropTarget?.data?.levelNo ?? 0 + 1,
+    sortSeq: (dropTarget?.data?.children?.length ?? 0) + 1,
+    levelNo: (dropTarget?.data?.levelNo ?? 0) + 1,
   };
 
   const result: TreeMenu = {
@@ -54,9 +54,39 @@ export const generateNewTreeData = (
       ...baseNode(child),
       parentId: child.data?.parentId === 0 ? null : (dropTargetId as number),
       sortSeq: child.data?.sortSeq,
-      levelNo: treeMenu?.levelNo ?? 0 + 1,
+      levelNo: (treeMenu?.levelNo ?? 0) + 1,
     })),
   };
 
   return result;
 };
+
+export const handleSelectNode =
+  (callback: (node: NodeModel<Menu>) => void) => (node: NodeModel<Menu>) => {
+    callback(node);
+  };
+
+export const handleDropNode =
+  (callback: (newTree: TreeMenu) => void) =>
+  (newTree: NodeModel<Menu>[], options: DropOptions<Menu>) => {
+    const newTreeData = generateNewTreeData(newTree, options);
+    if (!newTreeData) return;
+    callback(newTreeData);
+  };
+
+export const handleNodeTextChange =
+  (treeData: NodeModel<Menu>[]) =>
+  (callback: (newTree: NodeModel<Menu>[]) => void) =>
+  (id: NodeModel["id"], value: string) => {
+    const newTree = treeData.map((node) => {
+      if (node.id === id) {
+        return {
+          ...node,
+          text: value,
+        };
+      }
+
+      return node;
+    });
+    callback(newTree);
+  };
