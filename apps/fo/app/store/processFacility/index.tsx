@@ -482,7 +482,7 @@ const fetchSigunData = async (sidoCd: string): Promise<SelectDataType[]> => {
             { text: "전체", val: '00'},
             ...data
                 .filter((item: sigunDataType) => 
-                    sidoCd === '00' || item.sggCd.toString().substring(0,2) === sidoCd
+                    item.sggCd.toString().substring(0,2) === sidoCd
                 )
                 .map((item: sigunDataType) => ({
                     text: item.sggKornNm || '',
@@ -609,7 +609,6 @@ export const processFacilityReducer:(set:any)=>ProcessFacilityActions=(set: any)
             },
             initializeSigunData: async (sidoCd: string) => {
                 const data = await fetchSigunData(sidoCd);
-                console.log(data);
                 set((state: ProcessFacilityType) => ({
                     ProcessFacility: {
                         ...state.ProcessFacility,

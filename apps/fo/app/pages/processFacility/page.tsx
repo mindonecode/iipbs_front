@@ -9,7 +9,7 @@ import ProcessFacilityInfoModal from "./modal/page";
 export default function ProcessFacilitySearch() {
   const {ProcessFacility, ProcessFacilityList, ProcessFacilityActions} = useFoStore((state) => state) || { ProcessFacilityList: { processFacilityList: [] }};
   const {
-    processFacilityLabelArray, 
+    processFacilityLabelArray,
     selectPartData,
     selectUpdownData,
     selectOperationData,
@@ -51,6 +51,7 @@ export default function ProcessFacilitySearch() {
       case 'sido':
         setSidoValue(val);
         ProcessFacilityActions.initializeSigunData(val);
+        onSelectValue(selectSigunData[0]?.val || "00", 'sigun');
         break;
       case 'sigun':
         setSigunValue(val);
@@ -105,7 +106,7 @@ export default function ProcessFacilitySearch() {
       }
     }
   }
-
+  
   // 셀 클릭 시 모달 표시
   const cellClick = (index: number) => {
     const facility = processFacilityList[index];
@@ -114,19 +115,19 @@ export default function ProcessFacilitySearch() {
       setFcltyCd(facility.facilityCd);
       setSelectedRow(index); // 클릭한 행의 index 저장
     }
-  };
+  }
 
   // 모달 닫기
   const closeModal = () => {
     setSelectedRow(null);
-  };
+  }
 
   // 시도 데이터 초기화
   useEffect(() => {
     ProcessFacilityActions.initializeSidoData();
     ProcessFacilityActions.initializeSigunData(sidoValue);
   }, [ProcessFacilityActions, sidoValue]);
-
+  
   return (
     <MainContentDiv>
       <Title title="처리시설 시설정보" />
