@@ -37,7 +37,6 @@ export const generateNewTreeData = (
     return {
       menuCd: node.data?.menuCd,
       name: node.data?.menuKornNm,
-      sortSeq: node.data?.sortSeq,
       icon: node.data?.iconNm,
     };
   };
@@ -45,7 +44,8 @@ export const generateNewTreeData = (
   const treeMenu: TreeMenu = {
     ...baseNode(dragSource),
     parentId: dropTargetId === 0 ? null : (dropTargetId as number),
-    levelNo: (dropTarget?.data?.levelNo ?? 0) + 1,
+    sortSeq: dropTarget?.data?.children?.length ?? 0 + 1,
+    levelNo: dropTarget?.data?.levelNo ?? 0 + 1,
   };
 
   const result: TreeMenu = {
@@ -53,7 +53,8 @@ export const generateNewTreeData = (
     children: childNodes.map((child) => ({
       ...baseNode(child),
       parentId: child.data?.parentId === 0 ? null : (dropTargetId as number),
-      levelNo: (treeMenu?.levelNo ?? 0) + 1,
+      sortSeq: child.data?.sortSeq,
+      levelNo: treeMenu?.levelNo ?? 0 + 1,
     })),
   };
 

@@ -73,6 +73,7 @@ function MenuTree({ treeData, siteId }: MenuTreeProps) {
           draggingSource: "",
           placeholder: "",
         }}
+        sort={false}
       />
     </DndProvider>
   );
@@ -114,7 +115,7 @@ function MenuNode({
         {data?.children?.length && (
           <i
             className={cn(
-              "diveicon di-arrow-forward mr-2 text-label",
+              "diveicon di-arrow-forward mr-2 text-base text-label",
               isOpen && "rotate-90",
             )}
             onClick={(e) => {
