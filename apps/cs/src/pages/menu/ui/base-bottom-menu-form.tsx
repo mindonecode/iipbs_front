@@ -70,7 +70,11 @@ export function BaseBottomMenuForm({
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <RadioGroup {...field} onValueChange={field.onChange}>
+                  <RadioGroup
+                    {...field}
+                    value={field.value ?? ""}
+                    onValueChange={field.onChange}
+                  >
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="Y" id="otptY" />
@@ -98,7 +102,11 @@ export function BaseBottomMenuForm({
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <RadioGroup {...field} onValueChange={field.onChange}>
+                  <RadioGroup
+                    {...field}
+                    value={field.value ?? ""}
+                    onValueChange={field.onChange}
+                  >
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="Y" id="useY" />
