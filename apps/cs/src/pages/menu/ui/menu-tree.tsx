@@ -60,7 +60,7 @@ function MenuTree({ treeData, siteId }: MenuTreeProps) {
           placeholder: "relative",
         }}
         sort={false}
-        dropTargetOffset={10}
+        dropTargetOffset={5}
         insertDroppableFirst={false}
         canDrop={(_, { dragSource, dropTargetId }) => {
           if (dragSource?.parent === dropTargetId) {

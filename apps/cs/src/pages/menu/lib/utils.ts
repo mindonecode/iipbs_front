@@ -29,9 +29,7 @@ export const generateNewTreeData = (
 
   if (!dragSource?.data) return null;
 
-  const siblings = treeData.filter(
-    (node) => node.parent === dragSource?.parent,
-  );
+  const siblings = treeData.filter((node) => node.parent === dropTargetId);
 
   const newSortSeq =
     siblings.findIndex((sibling) => sibling.id === dragSourceId) + 1;
