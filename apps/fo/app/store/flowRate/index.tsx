@@ -1,8 +1,14 @@
-import type { SelectDataType, TableUpperProps } from "../dashboard";
+import type { TableUpperProps } from "../dashboard";
 
+/**====================================
+ * Store - 타입
+ ====================================*/
+
+/**
+ * (1) 메인페이지
+ */
 const FlowRateSearchLabelArray:string[] = ['구분', '시도', '시군구', '용량별', '시설명', '조회기간', '시설상태'];
 
-// GRID관련
 export type flowRateListProps = {
     facilityCd : string,
     sido : string,
@@ -16,6 +22,25 @@ export type flowRateListProps = {
     totReturnWater : string,
     discharge : string,
 }
+
+/**
+ * (2) 모달
+ */
+export type FlowRateModalProps = {
+    totalFlow : number,
+    sewageFlow : number,
+    linkedTreatedWater : number,
+    totReturnWater : number,
+    discharge : number,
+}
+
+/**====================================
+ * Store - data
+ ====================================*/
+
+ /**
+ * (1) 메인페이지
+ */
 const upHeadList:TableUpperProps[] = [
     { id: "facilityCd", title: "시설코드"},
     { id: "sido", title: "시도", upName:"upChangeRe", upSequnce:1 },
@@ -29,6 +54,7 @@ const upHeadList:TableUpperProps[] = [
     { id: "totReturnWater", title: '총인 반류수량\n(m³/일)'},
     { id: "discharge", title: '방류량\n(m³/일)'}
 ];
+
 const flowRateList:flowRateListProps[] = [
     {
         facilityCd : "11000SW001R",
@@ -84,6 +110,59 @@ const flowRateList:flowRateListProps[] = [
     },
 ]
 
+/**
+ * (2) 모달
+ */
+
+const flowRateModalList:FlowRateModalProps[] = [
+      {
+        totalFlow: 547385,
+        sewageFlow: 535948,
+        linkedTreatedWater: 3313,
+        totReturnWater: 8124,
+        discharge: 547385
+    },
+    {
+        totalFlow: 553361,
+        sewageFlow: 539660,
+        linkedTreatedWater: 4982,
+        totReturnWater: 8719,
+        discharge: 553361
+    },
+    {
+        totalFlow: 541157,
+        sewageFlow: 528666,
+        linkedTreatedWater: 699,
+        totReturnWater: 7419,
+        discharge: 541157
+    },
+    {
+        totalFlow: 547637,
+        sewageFlow: 539519.4,
+        linkedTreatedWater: 699,
+        totReturnWater: 7418.6,
+        discharge: 547637
+    },
+    {
+        totalFlow:   541157,
+        sewageFlow: 528665.9,   
+        linkedTreatedWater: 4257.7,
+        totReturnWater: 8233.4,
+        discharge: 541157
+    },
+    {
+        totalFlow: 553361,
+        sewageFlow: 539659.6,
+        linkedTreatedWater: 4982.3,
+        totReturnWater: 8719.1,
+        discharge: 553361
+    }
+]
+
+/**====================================
+ * Store - expaort
+ ====================================*/
+
 export type FlowRateSearchActions = {
     FlowRateSearchActions: {
         labelChange:()=>void;
@@ -98,10 +177,16 @@ export type FlowRateSearchType = {
         isInit: boolean;
         flowRateSearchLabelArray:string[];
     },
+
     FlowRateList : {
         isInit : boolean;
         upHeadList: TableUpperProps[];
         flowRateList:flowRateListProps[];
+    },
+
+    FlowRateModal : {
+        isInit : boolean;
+        flowRateModalList : FlowRateModalProps[];
     }
 }
 
@@ -116,6 +201,10 @@ export const flowRateSearchInitState:FlowRateSearchType = {
         isInit : false,
         upHeadList : upHeadList,
         flowRateList : flowRateList
+    },
+    FlowRateModal : {
+        isInit : false,
+        flowRateModalList : flowRateModalList
     }
 }
 
@@ -145,6 +234,6 @@ export const flowRateSearchReducer:(set:any)=>FlowRateSearchActions=(set: any) =
                         flowRateSearchlabelArray: state.FlowRateSearch.flowRateSearchLabelArray
                 }})}
             )
-        }
+        },
     }
 }

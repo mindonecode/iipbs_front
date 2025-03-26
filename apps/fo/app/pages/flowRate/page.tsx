@@ -4,6 +4,7 @@ import { useFoStore } from "@/app/store";
 import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, Title, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useEffect, useRef, useState } from "react";
+import FlowRateModal from "./modal/page";
 
 export default function ProcessFacilitySearch() {
   const {Common, FlowRateSearch, FlowRateList, CommonActions} = useFoStore((state) => state);
@@ -39,6 +40,11 @@ export default function ProcessFacilitySearch() {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [operationValue, setOperationValue] = useState<string>("");
   const [searchYear, setSearchYear] = useState<string>("");
+
+     // 모달 상태 추가
+  const [selectedRow, setSelectedRow] = useState<number | null>(null);
+  const [fcltyNm, setFcltyNm] = useState<string>("");
+  const [fcltyCd, setFcltyCd] = useState<string>("");
 
   const onSelectValue = (val: string, type: string) => {
     switch(type) {
@@ -108,6 +114,19 @@ export default function ProcessFacilitySearch() {
       }
     }
   }
+// 셀 클릭 시 모달 표시
+  const cellClick = (index: number) => {
+    if (flowRateList[index]) {
+      setFcltyNm(flowRateList[index].facilityName);
+      setFcltyCd(flowRateList[index].facilityCd);
+      setSelectedRow(index); // 클릭한 행의 index 저장
+    }
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setSelectedRow(null);
+  };
 
   // 시도 데이터 초기화
   useEffect(() => {
@@ -141,10 +160,39 @@ export default function ProcessFacilitySearch() {
         </SearchFormRight>
       </SearchDiv>
       <TableDiv>
-        <UiTable headName={""} tableData={flowRateList} headlist={upHeadList} pageSize={8} total={16} cellClick={() => {}}>
+        <UiTable headName={""} tableData={flowRateList} headlist={upHeadList} pageSize={8} total={16} cellClick={cellClick}>
           <HeadMakeColSpan upHeadList={upHeadList}/>
         </UiTable>
       </TableDiv>
+      {selectedRow !== null && (
+        <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white p-6 rounded-lg w-[1100px] h-[750px] shadow-2xl">
+            <button 
+              onClick={closeModal} 
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full
+                       bg-gray-100 text-gray-600 hover:bg-red-500 hover:text-white
+                       transform transition-all duration-200 ease-in-out hover:scale-110
+                       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+              aria-label="Close modal"
+            >
+              <svg 
+                className="w-4 h-4" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <FlowRateModal facilityCd={fcltyCd} fcltyName={fcltyNm}/>
+          </div>
+        </div>
+      )}
     </MainContentDiv>
   );
 }

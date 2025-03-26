@@ -7,7 +7,7 @@ export type { TableUpperProps };
 /**
  * (1) 메인페이지
  */
-// 시설별 강수현황황
+// 시설별 강수현황
 type FacilityPrecipitationProps = {
     facilityCd : string,
     sido : string,
@@ -94,7 +94,7 @@ const upHeadListPrecipitationDetail:TableUpperProps[] = [
     { id: "rainDay", title: "강우일"},
     { id: "rainEffectDay", title: "강수영향일"}
 ]
-// 강수현황 (리스트트)
+// 강수현황 (리스트)
 const gridListPrecipitationDetail:PrecipitationPropsDetailProps[] = [
     {
         searchDate : "2024-01-01",
