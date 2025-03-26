@@ -149,7 +149,9 @@ export default nextConfig;
 ### 6. globals.css(또는 전역 css) 수정
 
 ```css
-@import "@common/assets/index.css";
+@import "@common/assets/styles/base.css";
+@import "@common/assets/styles/diveicon.css";
+@import "@common/assets/styles/components.css";
 
 @tailwind base;
 @tailwind components;

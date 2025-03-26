@@ -1,19 +1,35 @@
 import { useState } from "react";
-import { Button } from "../button";
-import { Dialog, DialogContent, DialogTrigger } from "../dialog";
 import { cn } from "../../lib";
+import { Button } from "../button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../dialog";
+import { Input } from "../input";
 import iconNames from "./data";
 
 type IconFinderProps = {
-  handleClick: (icon: string) => void;
+  handleClick?: (icon: string) => void;
 };
 
 const IconFinder = ({ handleClick }: IconFinderProps) => {
   const [selectedIcon, setSelectedIcon] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [filteredIconNames, setFilteredIconNames] = useState(iconNames);
 
   const handleIconClick = (icon: string) => {
     setSelectedIcon(icon);
-    handleClick(icon);
+    handleClick?.(icon);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+    setFilteredIconNames(iconNames.filter((icon) => icon.includes(value)));
   };
 
   return (
@@ -24,18 +40,34 @@ const IconFinder = ({ handleClick }: IconFinderProps) => {
           아이콘 찾기
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[65rem] max-w-[65rem] overflow-y-auto p-12">
-        <div className="py-4">
-          <div className="grid grid-cols-5 gap-6 text-[2.4rem]">
-            {iconNames.map((icon) => (
-              <IconItem
-                key={icon}
-                icon={icon}
-                selectedIcon={selectedIcon}
-                handleClick={handleIconClick}
-              />
-            ))}
-          </div>
+      <DialogContent className="flex h-[65rem] max-w-[65rem] flex-col items-start overflow-y-auto">
+        <div className="sticky top-0 z-10 w-full bg-background">
+          <DialogHeader className="w-full">
+            <DialogTitle className="-mt-6 flex items-center justify-between bg-background pt-6">
+              아이콘 찾기
+              <DialogClose asChild>
+                <button className="flex size-6 items-center justify-center rounded-full">
+                  <i className="diveicon di-x text-base text-muted-foreground" />
+                </button>
+              </DialogClose>
+            </DialogTitle>
+          </DialogHeader>
+          <Input
+            value={inputValue}
+            onChange={handleInputChange}
+            className="mt-6 !text-[1.3rem] text-foreground"
+            placeholder="아이콘 이름 검색"
+          />
+        </div>
+        <div className="grid grid-cols-5 gap-6 text-[2.4rem]">
+          {filteredIconNames.map((icon) => (
+            <IconItem
+              key={icon}
+              icon={icon}
+              selectedIcon={selectedIcon}
+              handleClick={handleIconClick}
+            />
+          ))}
         </div>
       </DialogContent>
     </Dialog>
@@ -65,8 +97,8 @@ const IconItem = ({
           selectedIcon !== icon && "hidden",
         )}
       />
-      <i className={`diveicon di-${icon}`} />
-      <span className="text-center text-[1.2rem]">{icon}</span>
+      <i className={`diveicon di-${icon} text-foreground`} />
+      <span className="text-center text-[1.2rem] text-foreground">{icon}</span>
     </div>
   );
 };

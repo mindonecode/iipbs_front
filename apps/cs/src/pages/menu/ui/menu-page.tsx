@@ -30,7 +30,7 @@ function MenuPage() {
 
   const { data: treeData } = useQuery({
     queryKey: [ENDPOINT.CMS_SERVICE.MENUS, siteId],
-    queryFn: () => MenuApi.getMenuList(siteId),
+    queryFn: () => MenuApi.getTreeMenuList(siteId),
     select: (data) => generateTreeData(data),
     enabled: !!siteId,
   });
@@ -61,9 +61,9 @@ function MenuPage() {
   return (
     <PageLayout pageTitle="메뉴 관리">
       <div className="card flex gap-2">
-        <div className="card card-border">
+        <div className="card card-border w-[24rem]">
           <Select value={siteId} onValueChange={setSiteId}>
-            <SelectTrigger className="w-[18rem]">
+            <SelectTrigger>
               <SelectValue placeholder="선택하세요" />
             </SelectTrigger>
             <SelectContent>
