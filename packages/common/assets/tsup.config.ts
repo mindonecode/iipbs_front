@@ -6,6 +6,7 @@ export default defineConfig({
     "src/styles/base.css",
     "src/styles/diveicon.css",
     "src/styles/grid.css",
+    "src/styles/components.css",
   ],
   format: ["cjs", "esm"],
   dts: true,
