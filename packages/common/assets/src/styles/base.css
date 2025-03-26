@@ -45,7 +45,7 @@
     --container: #f1f6f9;
     --title: #4c5e6f;
   }
-  [data-mode="dark"] {
+  [data-theme="black"] {
     --background: #0a0a0a;
     --foreground: #fafafa;
     --card: #0a0a0a;

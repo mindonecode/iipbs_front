@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import type { ISite } from "./site-interface";
+import type { ISite } from "@/entities/site";
 
 const columnHelper = createColumnHelper<ISite>();
 

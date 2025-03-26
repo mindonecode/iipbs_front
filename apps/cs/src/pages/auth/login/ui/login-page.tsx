@@ -4,8 +4,10 @@ import Image from "next/image";
 import { images } from "@common/assets";
 import { LoginApi } from "@/entities/auth";
 import "./login.css";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -13,7 +15,8 @@ function LoginPage() {
     const userId = formData.get("id") as string;
     const password = formData.get("password") as string;
 
-    LoginApi.login({ userId, password });
+    await LoginApi.login({ userId, password });
+    router.push("/site");
   };
 
   return (

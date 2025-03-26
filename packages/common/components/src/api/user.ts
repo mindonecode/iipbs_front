@@ -1,5 +1,5 @@
-import { ENDPOINT } from "../config";
 import { client } from "./client";
+import { ENDPOINT } from "../config";
 
 export interface IUser {
   regDt: string;

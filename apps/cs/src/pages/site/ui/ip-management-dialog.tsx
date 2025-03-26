@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useConfirm } from "@frontend-opensource/use-react-hooks";
+import { useForm, useFieldArray } from "react-hook-form";
 import {
   Dialog,
   DialogTrigger,
@@ -15,162 +19,266 @@ import {
   Input,
   RadioGroup,
   RadioGroupItem,
-  Checkbox,
   DialogFooter,
   DialogClose,
+  Checkbox,
 } from "@common/components";
-
-type IP = {
-  id: number;
-  ipAddress: string;
-  allowed: boolean;
-};
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/shared/ui/form";
+import { ENDPOINT } from "@/shared/config";
+import { IpApi } from "../api/ip-service";
+import { ipFormSchema, type IP, type IPFormData } from "../model/ip-interface";
+import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { useAlertStore } from "@/shared/lib/use-alert-store";
 
 type IPManagementDialogProps = {
+  siteId: string;
   triggerDisabled?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
-function IPManagementDialog({ triggerDisabled }: IPManagementDialogProps) {
-  const [rows, setRows] = useState<IP[]>([]);
-  const [rowSelection, setRowSelection] = useState<IP["id"][]>([]);
+function IPManagementDialog({
+  siteId,
+  triggerDisabled,
+  ...props
+}: IPManagementDialogProps) {
+  const { confirm } = useConfirm();
+  const { setMessage: alert } = useAlertStore((state) => state);
 
-  const onSave = () => {};
+  const { data: ipList } = useQuery({
+    queryKey: [ENDPOINT.CMS_SERVICE.IPS, props.open],
+    queryFn: () => IpApi.getIpList({ siteId, sort: [] }),
+    select: (data) => {
+      const ips = data.content.map((item) => ({
+        ...item,
+        mode: "U",
+      }));
+
+      initialForm();
+      return ips;
+    },
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: (body: IP[]) => IpApi.saveIpList(body),
+  });
+
+  const form = useForm<IPFormData>({
+    resolver: zodResolver(ipFormSchema),
+    values: {
+      ips: ipList ?? [],
+    },
+  });
+  const { fields, append, remove, update } = useFieldArray({
+    control: form.control,
+    name: "ips",
+  });
+
+  const [onConfirm, setOnConfirm] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  const initialForm = () => {
+    form.reset();
+    setSelectedRows([]);
+  };
+
+  const onSubmit = async (data: IPFormData) => {
+    setOnConfirm(true);
+    if (await confirm("저장하시겠습니까?")) {
+      setOnConfirm(false);
+      await mutateAsync(data.ips);
+      alert("저장되었습니다.");
+    }
+  };
 
   const handleAddIP = () => {
-    const newIP: IP = {
-      id: Date.now(),
-      ipAddress: "",
-      allowed: true,
-    };
-    setRows([...rows, newIP]);
-  };
-
-  const handleDeleteIP = () => {
-    const filteredRows = rows.filter((row) => !rowSelection.includes(row.id));
-    setRows(filteredRows);
-    setRowSelection([]);
-  };
-
-  const handleIPAddressChange = (id: number, value: string) => {
-    setRows(
-      rows.map((row) => (row.id === id ? { ...row, ipAddress: value } : row)),
-    );
-  };
-
-  const handleAllowedChange = (id: number, value: boolean) => {
-    setRows(
-      rows.map((row) => (row.id === id ? { ...row, allowed: value } : row)),
-    );
-  };
-
-  const toggleRowSelection = (id: number) => {
-    setRowSelection((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      } else {
-        return [...prev, id];
-      }
+    append({
+      mngNo: null,
+      siteId,
+      ipAddr: "",
+      prmYn: "Y",
+      mode: "C",
     });
   };
 
+  const handleSelectAll = () => {
+    if (selectedRows.length === fields.length) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(fields.map((_, index) => index));
+    }
+  };
+
+  const handleSelectRow = (i: number) => {
+    setSelectedRows((prev) =>
+      prev.includes(i) ? prev.filter((j) => j !== i) : [...prev, i],
+    );
+  };
+
+  const handleDeleteIP = async () => {
+    if (selectedRows.length === 0) return;
+
+    const sortedIndices = [...selectedRows].sort((a, b) => b - a);
+    sortedIndices.forEach((i) => {
+      const field = fields[i];
+      if (field?.mngNo) {
+        update(i, {
+          ...field,
+          mode: "D",
+        });
+      } else {
+        remove(i);
+      }
+    });
+
+    setSelectedRows([]);
+  };
+
+  const isAllSelected =
+    fields.length > 0 && selectedRows.length === fields.length;
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button disabled={triggerDisabled}>IP 관리</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[60rem]">
-        <DialogHeader>
-          <DialogTitle>IP 관리</DialogTitle>
-        </DialogHeader>
-        <div className="mb-4 flex justify-end gap-2">
-          <Button size="sm" color="green">
-            엑셀 업로드
-          </Button>
-          <Button size="sm" color="white" onClick={handleAddIP}>
-            항목 추가
-          </Button>
-          <Button
-            size="sm"
-            color="red"
-            onClick={handleDeleteIP}
-            disabled={rowSelection.length === 0}
-          >
-            항목 삭제
-          </Button>
-        </div>
-        <div className="card card-border">
-          <Table variant="secondary">
-            <colgroup>
-              <col width="10%" />
-              <col width="10%" />
-              <col width="55%" />
-              <col width="25%" />
-            </colgroup>
-            <TableHeader>
-              <TableRow>
-                <TableHead>NO</TableHead>
-                <TableHead>선택</TableHead>
-                <TableHead>IP 주소</TableHead>
-                <TableHead>허용여부</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rows.map((row, idx) => (
-                <TableRow key={row.id}>
-                  <TableCell align="center">{idx + 1}</TableCell>
-                  <TableCell align="center">
-                    <Checkbox
-                      checked={rowSelection.includes(row.id)}
-                      onCheckedChange={() => toggleRowSelection(row.id)}
-                      className="cursor-pointer"
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Input
-                      value={row.ipAddress}
-                      onChange={(e) =>
-                        handleIPAddressChange(row.id, e.target.value)
-                      }
-                      className="!text-[1.3rem]"
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <RadioGroup
-                      value={row.allowed ? "true" : "false"}
-                      onValueChange={(value) =>
-                        handleAllowedChange(row.id, value === "true")
-                      }
-                      className="flex justify-center"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="true" id={`allow-${row.id}`} />
-                        <label htmlFor={`allow-${row.id}`}>예</label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="false" id={`deny-${row.id}`} />
-                        <label htmlFor={`deny-${row.id}`}>아니오</label>
-                      </div>
-                    </RadioGroup>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <DialogFooter className="!justify-center">
-          <DialogClose asChild>
-            <Button size="lg" onClick={onSave}>
-              저장
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
-            <Button size="lg" color="white">
-              취소
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog {...props}>
+        <DialogTrigger asChild>
+          <Button disabled={triggerDisabled}>IP 관리</Button>
+        </DialogTrigger>
+        <DialogContent className="max-w-[60rem]" aria-describedby={undefined}>
+          <DialogHeader>
+            <DialogTitle>IP 관리</DialogTitle>
+          </DialogHeader>
+          <Form {...form}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                form.handleSubmit(onSubmit)(e);
+              }}
+            >
+              <div className="mb-4 flex justify-end gap-2">
+                <Button type="button" size="sm" onClick={handleAddIP}>
+                  항목 추가
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  color="red"
+                  onClick={handleDeleteIP}
+                  disabled={selectedRows.length === 0}
+                >
+                  항목 삭제
+                </Button>
+              </div>
+              <div className="card card-border max-h-[28.5rem] overflow-auto">
+                <Table variant="secondary">
+                  <colgroup>
+                    <col width="10%" />
+                    <col width="65%" />
+                    <col width="25%" />
+                  </colgroup>
+                  <TableHeader className="sticky -top-[0.6rem]">
+                    <TableRow>
+                      <TableHead className="!px-0">
+                        <Checkbox
+                          checked={isAllSelected}
+                          onCheckedChange={handleSelectAll}
+                        />
+                      </TableHead>
+                      <TableHead>IP 주소</TableHead>
+                      <TableHead>허용여부</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {fields.map((field, i) => {
+                      if (field.mode === "D") return null;
+                      return (
+                        <TableRow key={field.id}>
+                          <TableCell align="center" className="!px-0">
+                            <Checkbox
+                              checked={selectedRows.includes(i)}
+                              onCheckedChange={() => handleSelectRow(i)}
+                            />
+                          </TableCell>
+                          <TableCell align="center">
+                            <FormField
+                              control={form.control}
+                              name={`ips.${i}.ipAddr`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      className="!text-[1.3rem]"
+                                    />
+                                  </FormControl>
+                                  <FormMessage className="text-left" />
+                                </FormItem>
+                              )}
+                            />
+                          </TableCell>
+                          <TableCell align="center">
+                            <FormField
+                              control={form.control}
+                              name={`ips.${i}.prmYn`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <RadioGroup
+                                      value={field.value}
+                                      onValueChange={field.onChange}
+                                      className="flex justify-center"
+                                    >
+                                      <div className="flex items-center space-x-2">
+                                        <RadioGroupItem
+                                          value="Y"
+                                          id={`prmY-${i}`}
+                                        />
+                                        <label htmlFor={`prmY-${i}`}>예</label>
+                                      </div>
+                                      <div className="flex items-center space-x-2">
+                                        <RadioGroupItem
+                                          value="N"
+                                          id={`prmN-${i}`}
+                                        />
+                                        <label htmlFor={`prmN-${i}`}>
+                                          아니오
+                                        </label>
+                                      </div>
+                                    </RadioGroup>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+              <DialogFooter className="!justify-center">
+                <Button type="submit" size="lg">
+                  저장
+                </Button>
+                <DialogClose asChild>
+                  <Button type="button" size="lg" color="white">
+                    취소
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+      <ConfirmDialog open={onConfirm} />
+    </>
   );
 }
 
