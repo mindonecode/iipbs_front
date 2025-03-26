@@ -26,7 +26,13 @@ export const generateNewTreeData = (
   options: DropOptions<Menu>,
 ): TreeMenu | null => {
   const { dragSourceId, dragSource, dropTargetId, dropTarget } = options;
+
   if (!dragSource?.data) return null;
+
+  const siblings = treeData.filter((node) => node.parent === dropTargetId);
+
+  const newSortSeq =
+    siblings.findIndex((sibling) => sibling.id === dragSourceId) + 1;
 
   const childNodes = treeData.filter(
     (node) => node.parent === dragSourceId && node.data,
@@ -37,7 +43,6 @@ export const generateNewTreeData = (
     return {
       menuCd: node.data?.menuCd,
       name: node.data?.menuKornNm,
-      sortSeq: node.data?.sortSeq,
       icon: node.data?.iconNm,
     };
   };
@@ -45,6 +50,7 @@ export const generateNewTreeData = (
   const treeMenu: TreeMenu = {
     ...baseNode(dragSource),
     parentId: dropTargetId === 0 ? null : (dropTargetId as number),
+    sortSeq: newSortSeq,
     levelNo: (dropTarget?.data?.levelNo ?? 0) + 1,
   };
 
@@ -53,9 +59,40 @@ export const generateNewTreeData = (
     children: childNodes.map((child) => ({
       ...baseNode(child),
       parentId: child.data?.parentId === 0 ? null : (dropTargetId as number),
+      sortSeq: child.data?.sortSeq,
       levelNo: (treeMenu?.levelNo ?? 0) + 1,
     })),
   };
 
   return result;
 };
+
+export const handleSelectNode =
+  (callback: (node: NodeModel<Menu>) => void) => (node: NodeModel<Menu>) => {
+    callback(node);
+  };
+
+export const handleDropNode =
+  (callback: (newTree: TreeMenu) => void) =>
+  (newTree: NodeModel<Menu>[], options: DropOptions<Menu>) => {
+    const newTreeData = generateNewTreeData(newTree, options);
+    if (!newTreeData) return;
+    callback(newTreeData);
+  };
+
+export const handleNodeTextChange =
+  (treeData: NodeModel<Menu>[]) =>
+  (callback: (newTree: NodeModel<Menu>[]) => void) =>
+  (id: NodeModel["id"], value: string) => {
+    const newTree = treeData.map((node) => {
+      if (node.id === id) {
+        return {
+          ...node,
+          text: value,
+        };
+      }
+
+      return node;
+    });
+    callback(newTree);
+  };

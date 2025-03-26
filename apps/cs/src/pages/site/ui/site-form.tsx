@@ -43,10 +43,12 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
   const [onConfirm, setOnConfirm] = useState(false);
   const [isIpManagementOpen, setIsIpManagementOpen] = useState(false);
   const [isDomainManagementOpen, setIsDomainManagementOpen] = useState(false);
-  const [domainUrl, setDomainUrl] = useState("");
 
   const handleSaveDomain = (rows: Domain[]) => {
-    setDomainUrl(rows.find((row) => row.rprsDmnYn === "Y")?.dmnAddr || "");
+    form.setValue(
+      "dmnAddr",
+      rows.find((row) => row.rprsDmnYn === "Y")?.dmnAddr || "",
+    );
   };
 
   const onSubmit = async (data: SiteFormData) => {
@@ -99,6 +101,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="w-[12rem] !text-[1.3rem]"
                                 disabled={isModifyMode}
                               />
@@ -173,6 +176,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                             <FormControl>
                               <Input
                                 {...field}
+                                value={field.value ?? ""}
                                 className="!text-[1.3rem]"
                                 placeholder="사이트명을 입력하십시오."
                               />
@@ -211,7 +215,7 @@ function SiteForm({ form, siteId, handleSave, handleDelete }: SiteFormProps) {
                       <TableCell className="border">
                         <div className="flex gap-2">
                           <div className="h-[3.2rem] w-[21.5rem] cursor-not-allowed rounded-md border border-input bg-form px-3 py-2 text-[1.3rem] opacity-50">
-                            {domainUrl}
+                            {form.watch("dmnAddr")}
                           </div>
                           <DomainManagementDialog
                             siteId={siteId}

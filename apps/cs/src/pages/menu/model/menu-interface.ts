@@ -53,17 +53,18 @@ export const menuFormSchema = z.object({
     MENU_TYPE.BOTTOM,
   ]),
   menuLnkgSn: z.number().nullish(),
-  otptYn: z.enum(["Y", "N"]).default("Y"),
+  otptYn: z.enum(["Y", "N"]).default("Y").nullish(),
   prntMenuCd: z.number().nullish(),
   sortSeq: z.number(),
   evlUseYn: z.enum(["Y", "N"]).nullish(),
   qrcd: z.string().nullish(),
-  useYn: z.enum(["Y", "N"]).default("Y"),
+  useYn: z.enum(["Y", "N"]).default("Y").nullish(),
 });
 
 export type MenuFormData = z.infer<typeof menuFormSchema>;
 
 export interface MenuService {
-  getMenuList: (siteId: string) => Promise<Menu[]>;
-  modifyMenu: (siteId: string, data: TreeMenu[]) => Promise<void>;
+  getTreeMenuList: (siteId: string) => Promise<Menu[]>;
+  modifyTreeMenu: (siteId: string, data: TreeMenu[]) => Promise<void>;
+  modifyMenuName: (menuCd: number, name: string) => Promise<void>;
 }

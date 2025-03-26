@@ -8,13 +8,12 @@ import {
   MultiBackend,
   getBackendOptions,
   type NodeModel,
-  type DropOptions,
 } from "@minoru/react-dnd-treeview";
-import { cn } from "@common/components/lib";
+import { ENDPOINT } from "@/shared/config";
 import { MenuApi } from "../api/menu-service";
 import type { Menu, TreeMenu } from "../model/menu-interface";
-import { generateNewTreeData } from "../lib/utils";
-import { ENDPOINT } from "@/shared/config";
+import { handleDropNode, handleSelectNode } from "../lib/utils";
+import { MenuNode } from "./menu-node";
 
 type MenuTreeProps = {
   treeData: NodeModel<Menu>[];
@@ -24,9 +23,9 @@ type MenuTreeProps = {
 function MenuTree({ treeData, siteId }: MenuTreeProps) {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
-    mutationFn: ({ data }: { data: TreeMenu[] }) =>
-      MenuApi.modifyMenu(siteId, data),
+  const { mutate: modifyTreeMenu } = useMutation({
+    mutationFn: (newTree: TreeMenu) =>
+      MenuApi.modifyTreeMenu(siteId, [newTree]),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [ENDPOINT.CMS_SERVICE.MENUS],
@@ -37,17 +36,6 @@ function MenuTree({ treeData, siteId }: MenuTreeProps) {
   const [selectedNode, setSelectedNode] = useState<NodeModel<Menu> | null>(
     null,
   );
-
-  const handleSelect = (node: NodeModel<Menu>) => setSelectedNode(node);
-
-  const handleDrop = (
-    newTree: NodeModel<Menu>[],
-    options: DropOptions<Menu>,
-  ) => {
-    const newTreeData = generateNewTreeData(newTree, options);
-    if (!newTreeData) return;
-    mutate({ data: [newTreeData] });
-  };
 
   return (
     <DndProvider backend={MultiBackend} options={getBackendOptions()}>
@@ -61,71 +49,34 @@ function MenuTree({ treeData, siteId }: MenuTreeProps) {
             isOpen={isOpen}
             isSelected={selectedNode?.id === node.id}
             onToggle={onToggle}
-            onSelect={handleSelect}
+            onSelect={handleSelectNode(setSelectedNode)}
           />
         )}
-        onDrop={handleDrop}
+        onDrop={handleDropNode(modifyTreeMenu)}
         classes={{
           root: "p-4",
           container: "flex flex-col",
-          listItem: "",
           dropTarget: "!bg-[rgba(32,148,250,0.5)] rounded-sm",
-          draggingSource: "",
-          placeholder: "",
+          placeholder: "relative",
+        }}
+        sort={false}
+        dropTargetOffset={5}
+        insertDroppableFirst={false}
+        canDrop={(_, { dragSource, dropTargetId }) => {
+          if (dragSource?.parent === dropTargetId) {
+            return true;
+          }
+        }}
+        placeholderRender={(_, { depth }) => {
+          return (
+            <div
+              className="absolute right-0 top-0 h-[0.2rem] bg-primary"
+              style={{ left: depth * 10 + 5 }}
+            />
+          );
         }}
       />
     </DndProvider>
-  );
-}
-
-type MenuNodeProps = {
-  node: NodeModel<Menu>;
-  depth: number;
-  isOpen: boolean;
-  isSelected: boolean;
-  onToggle: (id: NodeModel["id"]) => void;
-  onSelect: (node: NodeModel<Menu>) => void;
-};
-
-function MenuNode({
-  node,
-  depth,
-  isOpen,
-  isSelected,
-  onToggle,
-  onSelect,
-}: MenuNodeProps) {
-  const { id, text, data } = node;
-  const indent = depth * 10 + 5;
-
-  const handleToggle = () => onToggle(id);
-  const handleSelect = () => onSelect(node);
-
-  return (
-    <div
-      style={{ paddingInlineStart: indent }}
-      className={cn(
-        "flex cursor-pointer items-center gap-2 rounded-sm p-2 hover:bg-accent",
-        isSelected && "!bg-[rgba(32,148,250,0.2)]",
-      )}
-      onClick={handleSelect}
-    >
-      <div className="flex items-center">
-        {data?.children?.length && (
-          <i
-            className={cn(
-              "diveicon di-arrow-forward mr-2 text-label",
-              isOpen && "rotate-90",
-            )}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleToggle();
-            }}
-          />
-        )}
-        <span className="text-[1.4rem] font-medium text-label">{text}</span>
-      </div>
-    </div>
   );
 }
 
