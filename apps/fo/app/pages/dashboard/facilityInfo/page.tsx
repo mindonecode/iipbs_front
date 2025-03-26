@@ -1,7 +1,7 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import type { TableUpperProps } from "@/app/store/processFacility";
-import { TableDiv, UiTable } from "@common/business_components";
+import { ContentsDiv, TableDiv, UiTable } from "@common/business_components";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@common/components";
 import { useRef, useState } from "react";
 
@@ -69,10 +69,10 @@ export default function ProcessFacilitySearch() {
   const upChangeHeadListOperationStatus = headMakeColSpanOperationStatus(upHeadListOperationStatus);
   return (
     <>
-      <TableDiv>
+      <ContentsDiv>
         <UiTable headName={""} tableData={fcltyList} headlist={upHeadListFclty} pageSize={0} total={0} cellClick={()=>{} } children={undefined} />
-      </TableDiv>
-      <TableDiv>
+      </ContentsDiv>
+      <ContentsDiv>
         <div className="grid grid-cols-12 gap-1">
           <div className="col-span-5">
             <Table>
@@ -112,7 +112,7 @@ export default function ProcessFacilitySearch() {
             </Table>
           </div>
         </div>
-      </TableDiv>
+      </ContentsDiv>
     </>
   );
 }

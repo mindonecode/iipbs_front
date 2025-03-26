@@ -1,7 +1,7 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
 import { SelectBox } from "@common/business_components";
-import { SearchDiv, TableDiv, UITab, UiTable } from "@common/business_components/ui";
+import { ContentsDiv, SearchDiv, TableDiv, UITab, UiTable } from "@common/business_components/ui";
 import { DatePicker, Table, TableCell, TableHead, TableRow, TabsContent } from "@common/components/ui";
 import { useState, useRef, useEffect } from "react";
 
@@ -110,7 +110,7 @@ export default function FlowRateModal(props: { fcltyName: string; facilityCd: st
           </TableRow>
         </Table>
       </SearchDiv>
-      <TableDiv>
+      <ContentsDiv>
         <UITab tabList={tabList} defaultValue="tab_term_year">
           <TabsContent value="tab_term_year">
             <UiTable headName="강수현황" tableData={gridListPrecipitationDetail} headlist={upHeadListPrecipitationDetail} pageSize={0} total={0} cellClick={() => {}}>
@@ -126,7 +126,7 @@ export default function FlowRateModal(props: { fcltyName: string; facilityCd: st
           <TabsContent value="tab_term_rain">
           </TabsContent>
         </UITab>
-      </TableDiv>
+      </ContentsDiv>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 ﻿"use client"
 import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, Title, UiTable } from "@common/business_components";
+import { ContentsDiv, MainContentDiv, SearchDiv, SearchFormLeft, SearchFormRight, SearchInput, SearchInputSelect, SelectBox, TableDiv, Title, UiTable } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useEffect, useRef, useState } from "react";
 import FlowRateModal from "./modal/page";
@@ -159,11 +159,11 @@ export default function ProcessFacilitySearch() {
           </Button>
         </SearchFormRight>
       </SearchDiv>
-      <TableDiv>
+      <ContentsDiv>
         <UiTable headName={""} tableData={flowRateList} headlist={upHeadList} pageSize={8} total={16} cellClick={cellClick}>
           <HeadMakeColSpan upHeadList={upHeadList}/>
         </UiTable>
-      </TableDiv>
+      </ContentsDiv>
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="relative bg-white p-6 rounded-lg w-[1100px] h-[750px] shadow-2xl">

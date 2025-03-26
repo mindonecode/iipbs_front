@@ -1,6 +1,6 @@
 ﻿"use client"
 import { useFoStore } from "@/app/store";
-import { SearchDiv, TableDiv, UiTable } from "@common/business_components/ui";
+import { ContentsDiv, SearchDiv, UiTable } from "@common/business_components/ui";
 import { Table, TableCell, TableHead, TableRow } from "@common/components/ui";
 
 export default function PrecipitationModal(props: { fcltyName: string; facilityCd : string;}) {
@@ -24,9 +24,9 @@ export default function PrecipitationModal(props: { fcltyName: string; facilityC
           </TableRow>
         </Table>
       </SearchDiv>
-      <TableDiv>
+      <ContentsDiv>
         <UiTable headName={"강수현황"} tableData={gridListPrecipitationDetail} headlist={upHeadListPrecipitationDetail} pageSize={0} total={0} cellClick={undefined} children={undefined}/>
-      </TableDiv>
+      </ContentsDiv>
     </div>
   );
 }

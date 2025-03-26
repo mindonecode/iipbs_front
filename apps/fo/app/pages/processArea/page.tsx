@@ -1,7 +1,7 @@
 ﻿"use client"
 import { HeadMakeColSpan } from "@/app/components/HeadMakeColSpan";
 import { useFoStore } from "@/app/store";
-import { MainContentDiv, SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable, Title, SearchFormLeft, SearchFormRight, TableDiv } from "@common/business_components";
+import { MainContentDiv, SearchDiv, SearchInput, SearchInputSelect, SelectBox, UiTable, Title, SearchFormLeft, SearchFormRight, TableDiv, ContentsDiv } from "@common/business_components";
 import { Button } from "@common/components/ui";
 import { useEffect, useRef, useState } from "react";
 import ProcessFacilityInfoModal from "./modal/page";
@@ -156,11 +156,11 @@ export default function ProcessArea() {
           </Button>
         </SearchFormRight>
       </SearchDiv>
-      <TableDiv>
+      <ContentsDiv>
         <UiTable cellClick={(index: number | undefined) => cellClick(index!)} headName={""} tableData={processAreaList} headlist={upHeadList} pageSize={8} total={16}>
           <HeadMakeColSpan upHeadList={upHeadList}/>
         </UiTable>
-      </TableDiv>
+      </ContentsDiv>
       {selectedRow !== null && (
         <div className="flex fixed inset-0 items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[1000px] h-[600px]">
