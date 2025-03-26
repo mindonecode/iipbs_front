@@ -1,11 +1,19 @@
-import baseConfig from "../../packages/common/components/tailwind.config";
-
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
+import presetConfig from "../../tailwind.config.preset";
 
 export default {
-  presets: [baseConfig],
+  presets: [presetConfig],
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/common/components/src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  theme: {
+    extend: {
+      boxShadow: {
+        blur: "0 0 10px -1px rgba(0, 0, 0, 0.06)",
+      },
+    },
+  },
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

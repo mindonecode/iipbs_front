@@ -1,0 +1,19 @@
+name: iipbs_fo
+
+on:
+  push:
+    branches: [iipbs/fo/dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: appleboy/ssh-action@master
+        with:
+          port: ${{ secrets.PORT }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PW }}
+          script: |
+            cd ./iipbs/front
+            sh ./frontStartFo.sh

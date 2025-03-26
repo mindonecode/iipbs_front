@@ -3,26 +3,69 @@
 @font-face {
   font-family: "Noto Sans KR";
   font-style: normal;
-  src: url("../fonts/NotoSansKR-Light.otf") format("opentype");
+  src: url("../../../public/assets/fonts/NotoSansKR-Light.ttf")
+    format("truetype");
   font-weight: 300;
 }
 @font-face {
   font-family: "Noto Sans KR";
   font-style: normal;
-  src: url("../fonts/NotoSansKR-Regular.otf") format("opentype");
+  src: url("../../../public/assets/fonts/NotoSansKR-Regular.ttf")
+    format("truetype");
   font-weight: 400;
 }
 @font-face {
   font-family: "Noto Sans KR";
   font-style: normal;
-  src: url("../fonts/NotoSansKR-Medium.otf") format("opentype");
+  src: url("../../../public/assets/fonts/NotoSansKR-Medium.ttf")
+    format("truetype");
   font-weight: 500;
 }
 @font-face {
   font-family: "Noto Sans KR";
   font-style: normal;
-  src: url("../fonts/NotoSansKR-Bold.otf") format("opentype");
+  src: url("../../../public/assets/fonts/NotoSansKR-Bold.ttf")
+    format("truetype");
   font-weight: 600;
+}
+
+.card {
+  position: relative;
+  margin: 0.6rem;
+  box-sizing: border-box;
+  min-height: 2rem;
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  font-size: 1.3rem;
+  color: #666;
+}
+
+.card-border {
+  box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #dbe2e6;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.card-header {
+  margin-left: -0.6rem;
+  margin-right: -0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e1e7eb;
+  padding: 1rem;
+}
+
+.card-footer {
+  margin-left: -0.6rem;
+  margin-right: -0.6rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #e1e7eb;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 #lnb {
@@ -72,6 +115,7 @@
   width: 100%;
   padding: 14px 0;
   margin: 0 auto;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 500;
   background: #ffffff;

@@ -1,10 +1,10 @@
 import "../src/base.css";
-import "../src/diveicon.css";
 
 import React from "react";
 import type { Preview } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 
+// @ts-expect-error - Cannot find module '.mdx' or its corresponding type declarations.
 import DocsTemplate from "./markdown/docs-template.mdx";
 
 const preview: Preview = {
@@ -25,10 +25,10 @@ const preview: Preview = {
     withThemeByDataAttribute({
       themes: {
         light: "light",
-        dark: "dark",
+        black: "black",
       },
       defaultTheme: "light",
-      attributeName: "data-mode",
+      attributeName: "data-theme",
     }),
     (Story) => (
       <div className="rounded-lg bg-background px-28 py-16">

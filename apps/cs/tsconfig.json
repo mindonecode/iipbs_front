@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -23,10 +22,13 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
-      "@common/components/*": ["../../packages/common/components/src/*"],
-      "@common/components": ["../../packages/common/components/src/index"]
+      "@common/components/*": ["../../../packages/common/components/src/*"],
+      "@common/components": ["../../../packages/common/components/src"],
+      "@common/network/*": ["../../../packages/common/network/*"],
+      "@common/network": ["../../../packages/common/network/"]
     }
   },
   "include": [

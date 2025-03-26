@@ -21,7 +21,7 @@ type Story = StoryObj<typeof Tabs>;
 
 export const Default: Story = {
   render: () => (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="account" className="w-[40rem]">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -38,7 +38,7 @@ export const Default: Story = {
 
 export const Underline: Story = {
   render: () => (
-    <Tabs defaultValue="account" className="w-[400px]" variant="underline">
+    <Tabs defaultValue="account" className="w-[40rem]" variant="underline">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -55,7 +55,7 @@ export const Underline: Story = {
 
 export const Outline: Story = {
   render: () => (
-    <Tabs defaultValue="account" className="w-[400px]" variant="outline">
+    <Tabs defaultValue="account" className="w-[40rem]" variant="outline">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
