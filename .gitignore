@@ -6,3 +6,7 @@ node_modules
 
 # misc
 .DS_Store
+
+./apps/cs/*
+./apps/wr/*
+./apps/sn/*
