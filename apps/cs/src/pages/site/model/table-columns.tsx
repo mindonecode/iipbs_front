@@ -17,8 +17,8 @@ const columns = [
     id: "siteNm",
     header: "사이트명",
   }),
-  columnHelper.accessor("siteAddr", {
-    id: "siteAddr",
+  columnHelper.accessor("dmnAddr", {
+    id: "dmnAddr",
     header: "대표 URL",
   }),
   columnHelper.accessor("bscSiteYn", {
