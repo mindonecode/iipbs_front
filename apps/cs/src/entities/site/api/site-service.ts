@@ -2,16 +2,16 @@ import { client } from "@/shared/api";
 import { ENDPOINT } from "@/shared/config";
 import {
   siteFormSchema,
-  type ISiteInfo,
   type SiteService,
+  type SiteList,
   type ISiteDetail,
   type ISiteParams,
   type SiteFormData,
 } from "../model/site-interface";
 
 export class SiteApiService implements SiteService {
-  public async siteInfo(params: ISiteParams): Promise<ISiteInfo> {
-    const response = await client.get<ISiteInfo>(
+  public async getSiteList(params: ISiteParams): Promise<SiteList> {
+    const response = await client.get<SiteList>(
       `${ENDPOINT.CMS_SERVICE.SITES}`,
       { params },
     );

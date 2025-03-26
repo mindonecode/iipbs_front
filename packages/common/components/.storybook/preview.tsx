@@ -25,10 +25,10 @@ const preview: Preview = {
     withThemeByDataAttribute({
       themes: {
         light: "light",
-        dark: "dark",
+        black: "black",
       },
       defaultTheme: "light",
-      attributeName: "data-mode",
+      attributeName: "data-theme",
     }),
     (Story) => (
       <div className="rounded-lg bg-background px-28 py-16">

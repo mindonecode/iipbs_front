@@ -1,6 +1,6 @@
 import { useStore } from "zustand";
 import { useContext } from "react";
-import { type UserStore } from "@/shared/store/user-store";
+import type { UserStore } from "../store/user-store";
 import { StoreContext } from "../providers/store-provider";
 
 export const useUserStore = <T>(selector: (store: UserStore) => T): T => {
